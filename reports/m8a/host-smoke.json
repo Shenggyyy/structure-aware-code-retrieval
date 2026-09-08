@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "synthetic_fixture_only": true,
+  "fixture_commit": "32ca1ed87210e7c56759aa07ecca2059d49d6b27",
+  "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+  "source_files": 3,
+  "quality_fingerprint": "0788f1869f84c370926272f1e7e305a47e5f7e4743c98550de4b9168dbc5dda2",
+  "repeat_quality_matches": true,
+  "qa_status": "preview",
+  "empty_context_status": "insufficient_context",
+  "api_calls": 0,
+  "model_downloads": 0,
+  "review_status": "pending",
+  "command_count": 17
+}

@@ -32,3 +32,44 @@ jobs:
         run: uv run --locked pytest --cov --cov-report=term-missing --cov-report=xml
       - name: Build distributions
         run: uv build
+
+  containers:
+    name: CPU container / ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [base, dense]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Build locked runtime image
+        run: docker build --target "${{ matrix.target }}" --tag sacr:ci .
+      - name: Check installed runtime and optional CPU dependencies
+        env:
+          IMAGE_TARGET: ${{ matrix.target }}
+        run: |
+          docker run --rm --network none --read-only \
+            --tmpfs /tmp:rw,nosuid,size=64m \
+            --tmpfs /app/artifacts:rw,uid=10001,gid=10001,size=128m \
+            --entrypoint python -e IMAGE_TARGET sacr:ci -c '
+          import importlib.util, os
+          from pathlib import Path
+          import structure_aware_retrieval
+          assert os.getuid() == 10001
+          assert str(Path(structure_aware_retrieval.__file__).resolve()).startswith("/opt/venv/")
+          assert importlib.util.find_spec("pytest") is None
+          if os.environ["IMAGE_TARGET"] == "dense":
+              import torch, sentence_transformers
+              assert torch.version.cuda is None
+              assert not torch.cuda.is_available()
+          else:
+              assert importlib.util.find_spec("torch") is None
+              assert importlib.util.find_spec("sentence_transformers") is None
+          '
+      - name: Exercise the installed CLI with networking disabled
+        run: |
+          docker run --rm --network none --read-only \
+            --tmpfs /tmp:rw,nosuid,size=64m \
+            --tmpfs /app/artifacts:rw,uid=10001,gid=10001,size=128m \
+            --entrypoint python sacr:ci scripts/smoke.py --output artifacts/smoke

@@ -1,0 +1,69 @@
+{
+  "base": {
+    "image_id": "sha256:fb0ac009736de0b97227b56d6d9111c9529e47648bb8039682a15f587b3cb630",
+    "image_reported_bytes": 93458772,
+    "platform": "linux/amd64",
+    "runtime": {
+      "uid": 10001,
+      "package_path": "/opt/venv/lib/python3.12/site-packages/structure_aware_retrieval/__init__.py",
+      "smoke_sha256": "7bf99fead75e769ed9d9816774eea34d478c04fcaa5f4778f4cfdb905fe637e0",
+      "development_dependencies": false,
+      "target": "base",
+      "torch_version": null,
+      "cuda_available": null,
+      "sentence_transformers_version": null
+    },
+    "smoke": {
+      "schema_version": 1,
+      "status": "passed",
+      "synthetic_fixture_only": true,
+      "fixture_commit": "32ca1ed87210e7c56759aa07ecca2059d49d6b27",
+      "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+      "source_files": 3,
+      "quality_fingerprint": "0788f1869f84c370926272f1e7e305a47e5f7e4743c98550de4b9168dbc5dda2",
+      "repeat_quality_matches": true,
+      "qa_status": "preview",
+      "empty_context_status": "insufficient_context",
+      "api_calls": 0,
+      "model_downloads": 0,
+      "review_status": "pending",
+      "command_count": 17
+    },
+    "network": "none",
+    "root_filesystem": "read_only"
+  },
+  "dense": {
+    "image_id": "sha256:c8f4a7b8db026b9f89ff41e5e126e9c22fa0397ab262469c8f82f1803f51a2aa",
+    "image_reported_bytes": 362121222,
+    "platform": "linux/amd64",
+    "runtime": {
+      "uid": 10001,
+      "package_path": "/opt/venv/lib/python3.12/site-packages/structure_aware_retrieval/__init__.py",
+      "smoke_sha256": "7bf99fead75e769ed9d9816774eea34d478c04fcaa5f4778f4cfdb905fe637e0",
+      "development_dependencies": false,
+      "target": "dense",
+      "torch_version": "2.14.0+cpu",
+      "cuda_available": false,
+      "sentence_transformers_version": "5.7.0"
+    },
+    "smoke": {
+      "schema_version": 1,
+      "status": "passed",
+      "synthetic_fixture_only": true,
+      "fixture_commit": "32ca1ed87210e7c56759aa07ecca2059d49d6b27",
+      "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+      "source_files": 3,
+      "quality_fingerprint": "0788f1869f84c370926272f1e7e305a47e5f7e4743c98550de4b9168dbc5dda2",
+      "repeat_quality_matches": true,
+      "qa_status": "preview",
+      "empty_context_status": "insufficient_context",
+      "api_calls": 0,
+      "model_downloads": 0,
+      "review_status": "pending",
+      "command_count": 17
+    },
+    "network": "none",
+    "root_filesystem": "read_only"
+  },
+  "host_container_quality_matches": true
+}

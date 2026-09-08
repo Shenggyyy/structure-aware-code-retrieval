@@ -1,0 +1,28 @@
+# Send only application inputs to the builder; local artifacts and secrets stay out.
+**
+!Dockerfile
+!.dockerignore
+!pyproject.toml
+!uv.lock
+!README.md
+!src/
+!src/**
+!configs/
+!configs/**
+!benchmarks/
+!benchmarks/**
+!scripts/
+!scripts/**
+!tests/
+!tests/fixtures/
+!tests/fixtures/sample_repo/
+!tests/fixtures/sample_repo/**
+
+# Also exclude generated files or credentials accidentally placed inside allowed trees.
+**/__pycache__/
+**/*.py[cod]
+**/.env
+**/.env.*
+**/.git/
+**/.venv/
+**/.cache/

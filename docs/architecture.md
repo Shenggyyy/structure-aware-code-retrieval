@@ -42,7 +42,8 @@ flowchart TD
 | --- | --- |
 | `ingestion` | File selection, exclusions, snapshot identity, diagnostics |
 | `parsing` | AST extraction, source ranges, chunks, conservative relation resolution |
-| `indexing` | Persist metadata, searchable text, vectors, and relations |
+| `indexing` | Persist source metadata, symbols, chunks and lexical tokens in SQLite |
+| `embeddings` / `relations` | Snapshot-bound NPZ vectors and JSON relation graphs |
 | `retrieval` | Strategies returning a shared result schema |
 | `qa.context` | Deduplicate and pack evidence under an exact UTF-8 byte budget |
 | `qa` | Model adapter, evidence-grounded prompts, citations |
@@ -72,7 +73,7 @@ and caches. Separating symbols from chunks prevents duplicate relevance credit.
 2. **Dense:** a fixed embedding model over the same canonical content.
 3. **Hybrid:** reciprocal rank fusion of BM25 and dense rankings.
 4. **Symbol-aware:** hybrid plus name, qualified-name, signature, and path features.
-5. **Structure-aware:** symbol-aware seeds, bounded one-hop expansion, and reranking
+5. **Structure-aware:** Hybrid seeds by default (BM25/Symbol are configurable), bounded one-hop expansion, and reranking
    by relation type and seed support.
 
 Keep complete identifiers alongside snake_case/camelCase components. Preserve source
@@ -94,12 +95,12 @@ chunking separately from graph features.
 | Runtime/environment | Python 3.12, uv lockfile, `src/` layout, type annotations |
 | CLI | Typer |
 | Parsing | Standard-library `ast` plus original source text |
-| Metadata/relations | SQLite; no database service |
+| Source metadata / relations | SQLite source index / separate JSON graph; no database service |
 | Lexical retrieval | `rank-bm25` with project-controlled tokenization |
 | Embeddings | Optional Sentence Transformers; pinned all-MiniLM-L6-v2 on CPU |
 | Vector search | NumPy exact search; consider ANN only after measurement |
 | Quality | pytest, pytest-cov, Ruff, Windows/Linux GitHub Actions |
-| Delivery | CLI and static reports first; Docker in M8 |
+| Delivery | CLI, static reports, base/CPU-Dense Docker targets and offline smoke |
 
 M2 adds `pathspec` for nested ignore rules and `rank-bm25` (with NumPy) for lexical
 search. Model dependencies arrive with their features. No external database service,
@@ -217,6 +218,13 @@ it does not mutate benchmark labels or grant human-review status. This keeps ann
 changes separate from retrieval and prevents accidental rewriting of old experiments.
 
 ## Storage and references
+
+M8a's multi-stage Docker build uses the existing lockfile, an immutable package
+installation and a non-root runtime. The optional Dense target adds CPU dependencies;
+model weights and repository snapshots remain explicitly prepared runtime artifacts.
+`scripts/smoke.py` exercises installed CLI processes on an isolated source fixture,
+including repeated evaluation and pending review creation. CI runs both targets with
+networking disabled after building. See [container boundaries and reproduction](docker.md).
 
 M7a's `qa/context.py` packs canonical stored chunks, preserving complete source lines,
 one chunk per symbol, nonoverlapping ranges and a fingerprint. Its byte budget includes

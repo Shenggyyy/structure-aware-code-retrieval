@@ -1,0 +1,551 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "scope": "offline_fixture_container_acceptance_not_benchmark_quality",
+  "image_id": "sha256:c8f4a7b8db026b9f89ff41e5e126e9c22fa0397ab262469c8f82f1803f51a2aa",
+  "runtime": {
+    "uid": 10001,
+    "gid": 10001,
+    "python": "3.12.14",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.36",
+    "machine": "x86_64",
+    "torch": "2.14.0+cpu",
+    "cuda_build": null,
+    "cuda_available": false
+  },
+  "model_spec": {
+    "id": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimensions": 384,
+    "max_seq_length": 256,
+    "normalize": true,
+    "dtype": "float32",
+    "device": "cpu",
+    "threads": 4,
+    "batch_size": 32,
+    "query_prompt": "",
+    "document_prompt": "",
+    "text_policy": "path-qualified_name-signature-code-v1",
+    "packages": {
+      "sentence-transformers": "5.7.0",
+      "transformers": "5.16.1",
+      "torch": "2.14.0+cpu",
+      "tokenizers": "0.23.2"
+    }
+  },
+  "required_model_spec": {
+    "id": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimensions": 384,
+    "max_seq_length": 256,
+    "normalize": true,
+    "dtype": "float32",
+    "device": "cpu",
+    "threads": 4,
+    "batch_size": 32,
+    "query_prompt": "",
+    "document_prompt": "",
+    "text_policy": "path-qualified_name-signature-code-v1"
+  },
+  "index": {
+    "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+    "repository": "/app/tests/fixtures/sample_repo",
+    "git": {
+      "commit": null,
+      "dirty": null
+    },
+    "runtime": {
+      "python": "3.12.14",
+      "packages": {
+        "structure-aware-code-retrieval": "0.1.0",
+        "rank-bm25": "0.2.2",
+        "pathspec": "1.1.1"
+      }
+    },
+    "config": {
+      "schema_version": 1,
+      "parser_version": 1,
+      "scanner_version": 1,
+      "tokenizer_version": 1,
+      "max_chunk_lines": 80,
+      "max_file_bytes": 1048576,
+      "exclude": [],
+      "excluded_directories": [
+        ".cache",
+        ".git",
+        ".hg",
+        ".idea",
+        ".pytest_cache",
+        ".ruff_cache",
+        ".svn",
+        ".venv",
+        ".vscode",
+        "__pycache__",
+        "artifacts",
+        "build",
+        "dist",
+        "node_modules",
+        "venv"
+      ],
+      "gitignore_hashes": {},
+      "bm25": {
+        "variant": "BM25Plus",
+        "k1": 1.5,
+        "b": 0.75,
+        "delta": 0.0
+      }
+    },
+    "manifest": [
+      [
+        "client.py",
+        "84dc804587e32cbe92b174a5c4114b9404a0a15b4d30b0fb6372a84087875e6d"
+      ],
+      [
+        "errors.py",
+        "c8121634051007197de061f933c2ad3ff68eab20e34f435aa5d2e0800b1ab08b"
+      ],
+      [
+        "tests/test_client.py",
+        "b19792714ecee59fb9e4f1354c3a2de5604f3259a1ca1db6639df171d2ec9df2"
+      ]
+    ],
+    "files_scanned": 3,
+    "files_indexed": 3,
+    "symbol_count": 9,
+    "chunk_count": 9,
+    "import_count": 2,
+    "excluded_entries": 0,
+    "diagnostics": []
+  },
+  "input_fingerprint": "c03daf72b14e622dc18da53c13b3943989d9e56fe3d127956ace2702c2b83bef",
+  "vectors": {
+    "binding": {
+      "schema_version": 1,
+      "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+      "chunk_ids": [
+        "009cbe9e5553108d3a265d2d44ef19b6f7787df1b6c7b0cafaafbdec122be5a8",
+        "04f2d479818a9e72a18bb2c52b8e6d9e687daae94ff1f703af9358d9fe299f16",
+        "36eaac499ca2705fa9887ca24f20cf9f2429eb85d206007262f6ec84624307d7",
+        "3801d05d7b5490c98c30dbc8f9b9bf0f445f170a229046cf0b4617efe74bb11d",
+        "a7cb3fab526a7b0f3e194380b9c12b93355963478dad1e1f230704a11755599b",
+        "ae90870aac050d1275cb7b3e450de9809ec910510af03169788db258976b07db",
+        "d0219690ec3a1590e416397fec1942c096a7670049cd5abf4148f0c0f7344e26",
+        "e6db477b761da42ad24f9c37609fb83474817797fbdfac3342d4e772e18a0df9",
+        "efb11009889a67952e11ecc1973f8a2cedb2fa19a5c35f4568761bf4c197c873"
+      ],
+      "text_hash": "c03daf72b14e622dc18da53c13b3943989d9e56fe3d127956ace2702c2b83bef",
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      }
+    },
+    "vector_hash": "e91db31f9bcd5ce02b06615845ed0fdf8f054517f5a6ad8a9799b846cb127c84",
+    "build_seconds": 0.5219848890010326,
+    "vector_bytes": 13824,
+    "documents": 9,
+    "truncated_documents": 0,
+    "max_document_tokens": 115
+  },
+  "vector_shape": [
+    9,
+    384
+  ],
+  "vector_sha256": "e91db31f9bcd5ce02b06615845ed0fdf8f054517f5a6ad8a9799b846cb127c84",
+  "graph": {
+    "schema_version": 1,
+    "binding": {
+      "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+      "content_hash": "e31c5dc485ea5ee48246086d4f8e87afebdb5330d01536528c8e69eeab41d749",
+      "resolver": {
+        "version": 1,
+        "import_roots": [
+          ".",
+          "src"
+        ],
+        "max_alias_hops": 12
+      }
+    },
+    "graph_hash": "4fa2a6224db9ca234c6f9b56a261b3d84d0adc7cfdb6cd7e7571e6422ffe47b0",
+    "build_seconds": 0.0007843189996492583,
+    "edge_counts": {
+      "containment": 6,
+      "import": 1,
+      "test": 1
+    },
+    "confidence_counts": {
+      "heuristic": 1,
+      "static": 7
+    },
+    "unresolved_counts": {
+      "external_or_missing_module": 2,
+      "unknown_name": 2
+    }
+  },
+  "query": "calculate_checksum payload bytes",
+  "strategies": {
+    "bm25": {
+      "rankings": [
+        {
+          "rank": 1,
+          "score": 13.769492656136766,
+          "chunk_id": "e6db477b761da42ad24f9c37609fb83474817797fbdfac3342d4e772e18a0df9",
+          "symbol_id": "27e884c51dccb773424e53c8bbf7a55ca331ce4966db34d4130476c7a28d2dc3",
+          "path": "client.py",
+          "qualified_name": "client.calculate_checksum",
+          "kind": "function",
+          "start_line": 27,
+          "end_line": 29,
+          "text": "def calculate_checksum(payload: bytes) -> int:\n    \"\"\"Calculate a checksum for payload bytes.\"\"\"\n    return sum(payload)\n",
+          "components": {},
+          "provenance": []
+        },
+        {
+          "rank": 2,
+          "score": 4.414178840361674,
+          "chunk_id": "36eaac499ca2705fa9887ca24f20cf9f2429eb85d206007262f6ec84624307d7",
+          "symbol_id": "b0d10049f2d9383651167872a65b9bf6a7f6d93ec5d87bdf8666c6256e13c3c1",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client.test_checksum",
+          "kind": "function",
+          "start_line": 4,
+          "end_line": 5,
+          "text": "def test_checksum():\n    assert calculate_checksum(b\"abc\") == 294\n",
+          "components": {},
+          "provenance": []
+        },
+        {
+          "rank": 3,
+          "score": 4.345165008093604,
+          "chunk_id": "a7cb3fab526a7b0f3e194380b9c12b93355963478dad1e1f230704a11755599b",
+          "symbol_id": "d50fe30ab4f89019f940a6cec0ca5b08e08fbd14a2f049c949f81d2707c36acf",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client",
+          "kind": "module",
+          "start_line": 1,
+          "end_line": 3,
+          "text": "from client import calculate_checksum\n\n\n",
+          "components": {},
+          "provenance": []
+        }
+      ],
+      "checksum_in_top_three": true,
+      "ranking_fingerprint": "cb42067e871dced0d8fc2dd8ba97da5e04f8c83593a944cb2bbd020c0003d7d4",
+      "qa_status": "preview",
+      "qa_model_called": false,
+      "context_fingerprint": "38adba3d67995779e05c963e75c4bc5a845519bcc524b7a89df56887d87ec629",
+      "prompt_fingerprint": "0ce4677032dea17818c9bdbed89a0ea20170bbb49606e995232da6832ec38650",
+      "context_used_bytes": 608,
+      "context_evidence_count": 3
+    },
+    "dense": {
+      "rankings": [
+        {
+          "rank": 1,
+          "score": 0.8010038137435913,
+          "chunk_id": "e6db477b761da42ad24f9c37609fb83474817797fbdfac3342d4e772e18a0df9",
+          "symbol_id": "27e884c51dccb773424e53c8bbf7a55ca331ce4966db34d4130476c7a28d2dc3",
+          "path": "client.py",
+          "qualified_name": "client.calculate_checksum",
+          "kind": "function",
+          "start_line": 27,
+          "end_line": 29,
+          "text": "def calculate_checksum(payload: bytes) -> int:\n    \"\"\"Calculate a checksum for payload bytes.\"\"\"\n    return sum(payload)\n",
+          "components": {
+            "cosine": 0.8010038137435913
+          },
+          "provenance": []
+        },
+        {
+          "rank": 2,
+          "score": 0.48879924416542053,
+          "chunk_id": "36eaac499ca2705fa9887ca24f20cf9f2429eb85d206007262f6ec84624307d7",
+          "symbol_id": "b0d10049f2d9383651167872a65b9bf6a7f6d93ec5d87bdf8666c6256e13c3c1",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client.test_checksum",
+          "kind": "function",
+          "start_line": 4,
+          "end_line": 5,
+          "text": "def test_checksum():\n    assert calculate_checksum(b\"abc\") == 294\n",
+          "components": {
+            "cosine": 0.48879924416542053
+          },
+          "provenance": []
+        },
+        {
+          "rank": 3,
+          "score": 0.4690665602684021,
+          "chunk_id": "a7cb3fab526a7b0f3e194380b9c12b93355963478dad1e1f230704a11755599b",
+          "symbol_id": "d50fe30ab4f89019f940a6cec0ca5b08e08fbd14a2f049c949f81d2707c36acf",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client",
+          "kind": "module",
+          "start_line": 1,
+          "end_line": 3,
+          "text": "from client import calculate_checksum\n\n\n",
+          "components": {
+            "cosine": 0.4690665602684021
+          },
+          "provenance": []
+        }
+      ],
+      "checksum_in_top_three": true,
+      "ranking_fingerprint": "9ec26b449f75b4f6b1e7c932b129925acc20dc29113747d766b2b4433fc7cf55",
+      "qa_status": "preview",
+      "qa_model_called": false,
+      "context_fingerprint": "38adba3d67995779e05c963e75c4bc5a845519bcc524b7a89df56887d87ec629",
+      "prompt_fingerprint": "0ce4677032dea17818c9bdbed89a0ea20170bbb49606e995232da6832ec38650",
+      "context_used_bytes": 608,
+      "context_evidence_count": 3
+    },
+    "hybrid": {
+      "rankings": [
+        {
+          "rank": 1,
+          "score": 0.03278688524590164,
+          "chunk_id": "e6db477b761da42ad24f9c37609fb83474817797fbdfac3342d4e772e18a0df9",
+          "symbol_id": "27e884c51dccb773424e53c8bbf7a55ca331ce4966db34d4130476c7a28d2dc3",
+          "path": "client.py",
+          "qualified_name": "client.calculate_checksum",
+          "kind": "function",
+          "start_line": 27,
+          "end_line": 29,
+          "text": "def calculate_checksum(payload: bytes) -> int:\n    \"\"\"Calculate a checksum for payload bytes.\"\"\"\n    return sum(payload)\n",
+          "components": {
+            "bm25_rank": 1.0,
+            "bm25_score": 13.769492656136766,
+            "bm25_rrf": 0.01639344262295082,
+            "dense_rank": 1.0,
+            "dense_score": 0.8010038137435913,
+            "dense_rrf": 0.01639344262295082
+          },
+          "provenance": []
+        },
+        {
+          "rank": 2,
+          "score": 0.03225806451612903,
+          "chunk_id": "36eaac499ca2705fa9887ca24f20cf9f2429eb85d206007262f6ec84624307d7",
+          "symbol_id": "b0d10049f2d9383651167872a65b9bf6a7f6d93ec5d87bdf8666c6256e13c3c1",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client.test_checksum",
+          "kind": "function",
+          "start_line": 4,
+          "end_line": 5,
+          "text": "def test_checksum():\n    assert calculate_checksum(b\"abc\") == 294\n",
+          "components": {
+            "bm25_rank": 2.0,
+            "bm25_score": 4.414178840361674,
+            "bm25_rrf": 0.016129032258064516,
+            "dense_rank": 2.0,
+            "dense_score": 0.48879924416542053,
+            "dense_rrf": 0.016129032258064516
+          },
+          "provenance": []
+        },
+        {
+          "rank": 3,
+          "score": 0.031746031746031744,
+          "chunk_id": "a7cb3fab526a7b0f3e194380b9c12b93355963478dad1e1f230704a11755599b",
+          "symbol_id": "d50fe30ab4f89019f940a6cec0ca5b08e08fbd14a2f049c949f81d2707c36acf",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client",
+          "kind": "module",
+          "start_line": 1,
+          "end_line": 3,
+          "text": "from client import calculate_checksum\n\n\n",
+          "components": {
+            "bm25_rank": 3.0,
+            "bm25_score": 4.345165008093604,
+            "bm25_rrf": 0.015873015873015872,
+            "dense_rank": 3.0,
+            "dense_score": 0.4690665602684021,
+            "dense_rrf": 0.015873015873015872
+          },
+          "provenance": []
+        }
+      ],
+      "checksum_in_top_three": true,
+      "ranking_fingerprint": "201ad2076ad93a761b644ed91ac6251c3f9c81fa0663af983548d92ece9ae26f",
+      "qa_status": "preview",
+      "qa_model_called": false,
+      "context_fingerprint": "38adba3d67995779e05c963e75c4bc5a845519bcc524b7a89df56887d87ec629",
+      "prompt_fingerprint": "0ce4677032dea17818c9bdbed89a0ea20170bbb49606e995232da6832ec38650",
+      "context_used_bytes": 608,
+      "context_evidence_count": 3
+    },
+    "symbol": {
+      "rankings": [
+        {
+          "rank": 1,
+          "score": 0.04918032786885246,
+          "chunk_id": "e6db477b761da42ad24f9c37609fb83474817797fbdfac3342d4e772e18a0df9",
+          "symbol_id": "27e884c51dccb773424e53c8bbf7a55ca331ce4966db34d4130476c7a28d2dc3",
+          "path": "client.py",
+          "qualified_name": "client.calculate_checksum",
+          "kind": "function",
+          "start_line": 27,
+          "end_line": 29,
+          "text": "def calculate_checksum(payload: bytes) -> int:\n    \"\"\"Calculate a checksum for payload bytes.\"\"\"\n    return sum(payload)\n",
+          "components": {
+            "bm25_rank": 1.0,
+            "bm25_score": 13.769492656136766,
+            "bm25_rrf": 0.01639344262295082,
+            "dense_rank": 1.0,
+            "dense_score": 0.8010038137435913,
+            "dense_rrf": 0.01639344262295082,
+            "symbol_rank": 1.0,
+            "symbol_score": 3.357142857142857,
+            "symbol_rrf": 0.01639344262295082
+          },
+          "provenance": []
+        },
+        {
+          "rank": 2,
+          "score": 0.04838709677419355,
+          "chunk_id": "36eaac499ca2705fa9887ca24f20cf9f2429eb85d206007262f6ec84624307d7",
+          "symbol_id": "b0d10049f2d9383651167872a65b9bf6a7f6d93ec5d87bdf8666c6256e13c3c1",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client.test_checksum",
+          "kind": "function",
+          "start_line": 4,
+          "end_line": 5,
+          "text": "def test_checksum():\n    assert calculate_checksum(b\"abc\") == 294\n",
+          "components": {
+            "bm25_rank": 2.0,
+            "bm25_score": 4.414178840361674,
+            "bm25_rrf": 0.016129032258064516,
+            "dense_rank": 2.0,
+            "dense_score": 0.48879924416542053,
+            "dense_rrf": 0.016129032258064516,
+            "symbol_rank": 2.0,
+            "symbol_score": 0.4583333333333333,
+            "symbol_rrf": 0.016129032258064516
+          },
+          "provenance": []
+        },
+        {
+          "rank": 3,
+          "score": 0.031746031746031744,
+          "chunk_id": "a7cb3fab526a7b0f3e194380b9c12b93355963478dad1e1f230704a11755599b",
+          "symbol_id": "d50fe30ab4f89019f940a6cec0ca5b08e08fbd14a2f049c949f81d2707c36acf",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client",
+          "kind": "module",
+          "start_line": 1,
+          "end_line": 3,
+          "text": "from client import calculate_checksum\n\n\n",
+          "components": {
+            "bm25_rank": 3.0,
+            "bm25_score": 4.345165008093604,
+            "bm25_rrf": 0.015873015873015872,
+            "dense_rank": 3.0,
+            "dense_score": 0.4690665602684021,
+            "dense_rrf": 0.015873015873015872
+          },
+          "provenance": []
+        }
+      ],
+      "checksum_in_top_three": true,
+      "ranking_fingerprint": "3c4b98c6c3b9baa990b8de74e78c1f370e2f7b0552b80bca6874567c6d89435c",
+      "qa_status": "preview",
+      "qa_model_called": false,
+      "context_fingerprint": "38adba3d67995779e05c963e75c4bc5a845519bcc524b7a89df56887d87ec629",
+      "prompt_fingerprint": "0ce4677032dea17818c9bdbed89a0ea20170bbb49606e995232da6832ec38650",
+      "context_used_bytes": 608,
+      "context_evidence_count": 3
+    },
+    "structure": {
+      "rankings": [
+        {
+          "rank": 1,
+          "score": 0.03278688524590164,
+          "chunk_id": "e6db477b761da42ad24f9c37609fb83474817797fbdfac3342d4e772e18a0df9",
+          "symbol_id": "27e884c51dccb773424e53c8bbf7a55ca331ce4966db34d4130476c7a28d2dc3",
+          "path": "client.py",
+          "qualified_name": "client.calculate_checksum",
+          "kind": "function",
+          "start_line": 27,
+          "end_line": 29,
+          "text": "def calculate_checksum(payload: bytes) -> int:\n    \"\"\"Calculate a checksum for payload bytes.\"\"\"\n    return sum(payload)\n",
+          "components": {
+            "bm25_rank": 1.0,
+            "bm25_score": 13.769492656136766,
+            "bm25_rrf": 0.01639344262295082,
+            "dense_rank": 1.0,
+            "dense_score": 0.8010038137435913,
+            "dense_rrf": 0.01639344262295082
+          },
+          "provenance": []
+        },
+        {
+          "rank": 2,
+          "score": 0.03225806451612903,
+          "chunk_id": "36eaac499ca2705fa9887ca24f20cf9f2429eb85d206007262f6ec84624307d7",
+          "symbol_id": "b0d10049f2d9383651167872a65b9bf6a7f6d93ec5d87bdf8666c6256e13c3c1",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client.test_checksum",
+          "kind": "function",
+          "start_line": 4,
+          "end_line": 5,
+          "text": "def test_checksum():\n    assert calculate_checksum(b\"abc\") == 294\n",
+          "components": {
+            "bm25_rank": 2.0,
+            "bm25_score": 4.414178840361674,
+            "bm25_rrf": 0.016129032258064516,
+            "dense_rank": 2.0,
+            "dense_score": 0.48879924416542053,
+            "dense_rrf": 0.016129032258064516
+          },
+          "provenance": []
+        },
+        {
+          "rank": 3,
+          "score": 0.031746031746031744,
+          "chunk_id": "a7cb3fab526a7b0f3e194380b9c12b93355963478dad1e1f230704a11755599b",
+          "symbol_id": "d50fe30ab4f89019f940a6cec0ca5b08e08fbd14a2f049c949f81d2707c36acf",
+          "path": "tests/test_client.py",
+          "qualified_name": "tests.test_client",
+          "kind": "module",
+          "start_line": 1,
+          "end_line": 3,
+          "text": "from client import calculate_checksum\n\n\n",
+          "components": {
+            "bm25_rank": 3.0,
+            "bm25_score": 4.345165008093604,
+            "bm25_rrf": 0.015873015873015872,
+            "dense_rank": 3.0,
+            "dense_score": 0.4690665602684021,
+            "dense_rrf": 0.015873015873015872
+          },
+          "provenance": []
+        }
+      ],
+      "checksum_in_top_three": true,
+      "ranking_fingerprint": "201ad2076ad93a761b644ed91ac6251c3f9c81fa0663af983548d92ece9ae26f",
+      "qa_status": "preview",
+      "qa_model_called": false,
+      "context_fingerprint": "38adba3d67995779e05c963e75c4bc5a845519bcc524b7a89df56887d87ec629",
+      "prompt_fingerprint": "0ce4677032dea17818c9bdbed89a0ea20170bbb49606e995232da6832ec38650",
+      "context_used_bytes": 608,
+      "context_evidence_count": 3
+    }
+  },
+  "quality_fingerprint": "4e84723bef405191fd9da5840997ae37edb0e815820bf5782d58a059624eb4c7",
+  "api_calls": 0,
+  "model_downloads": 0
+}

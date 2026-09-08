@@ -1,20 +1,22 @@
 # Structure-Aware Code Retrieval and Evaluation for Repository-Level LLM Applications
 
 A Python project investigating whether repository structure improves code retrieval
-for LLM applications. The planned system compares lexical, dense, hybrid,
+for LLM applications. The system compares lexical, dense, hybrid,
 symbol-aware, and structure-aware retrieval, then supplies evidence to repository QA.
 
-**Status: M7a — Repository QA and offline experiment preparation.** All five retrieval strategies
+**Status: M8a — CPU containers and offline delivery checks.** All five retrieval strategies
 are implemented, with snapshot-bound relation graphs, bounded expansion, source traces,
 evaluation and cost reports. The frozen draft suite now contains 40 development
 questions, 120 new test candidates on five repositories and a separate ten-question
 RepoQA adaptation. **All labels remain provisional, pending independent human review**.
 M6c runs the inherited 15 strategy/ablation configurations separately on each dataset
 and records build, storage and process peak-memory costs. Results remain provisional;
-reviewed-label acceptance and Docker delivery remain outstanding. M7a adds bounded
+reviewed-label acceptance remains outstanding. M7a adds bounded
 source context, OpenAI Responses integration, cited answers and a frozen development
 QA experiment. **Real API results and independent answer review are still pending**;
-offline tests and prepared requests are not evidence of answer quality.
+offline tests and prepared requests are not evidence of answer quality. M8a adds
+base/Dense CPU containers and a reproducible CLI smoke check. This delivery checkpoint
+does not complete M7b's live experiment or independent label/answer review.
 
 ## Quickstart
 
@@ -42,6 +44,28 @@ uv run --locked python -m structure_aware_retrieval --help
 
 The BM25 quickstart requires no API key, model download, GPU, or Docker. The
 sample fixture is only parsed: it intentionally raises an error if executed.
+
+## Docker quickstart
+
+With Docker running in Linux-container mode, build the base image and run an offline
+delivery check. These commands work in PowerShell and POSIX shells:
+
+```text
+docker build --target base -t sacr:base .
+docker run --rm --network none sacr:base --help
+docker volume create sacr-artifacts
+docker run --rm --network none --mount type=volume,src=sacr-artifacts,dst=/app/artifacts --entrypoint python sacr:base scripts/smoke.py --output artifacts/smoke-001
+```
+
+The smoke creates a tiny, isolated Git fixture inside the output directory, then
+checks indexing, BM25, relations, structure retrieval, QA preview and repeated
+evaluation. It only parses the fixture's code. Each run requires a new output path.
+After the image is built, the smoke needs no network, API key or model weights.
+
+Use `--target dense -t sacr:dense` for the optional CPU embedding dependencies;
+model weights are prepared explicitly at runtime. The images run as UID/GID 10001
+and persist data through `/app/artifacts`. See [container setup and full reproduction](docs/docker.md)
+and [M8a validation evidence](reports/m8a/README.md).
 
 ## Index and search a repository
 
@@ -120,12 +144,14 @@ snake_case/camelCase components, case-folds text, and uses no stemming or stopwo
 The baseline uses `rank-bm25`'s **BM25Plus with k1=1.5, b=0.75, delta=0**. This explicitly
 chosen variant has positive IDF even for tiny corpora; unmatched chunks score zero.
 Query terms are deduplicated, and score ties use stable chunk IDs. There is no field
-boosting, semantic embedding, symbol-specific reranking, or graph expansion yet.
+boosting, semantic embedding, symbol-specific reranking, or graph expansion in BM25.
+The other strategies below implement these additional retrieval stages.
 
 An index stores tokens and code, not Python pickles. Loading reconstructs BM25 term
 statistics in memory once per retriever; each CLI search includes this startup cost.
 M2 is an in-memory lexical baseline, not a demonstrated large-scale search engine.
-Imports are recorded but not resolved; call/test relationship analysis comes later.
+Its index records imports; the separate relation graph resolves supported imports
+and call/test relationships for structure retrieval.
 
 See the [Requests smoke validation](docs/validation/m2.md) for real-source results,
 including queries where lexical ranking chooses the wrong implementation first.
@@ -287,7 +313,7 @@ run offline after setup; real-source preparation is never part of the test suite
 GitHub Actions runs checks and builds on Windows
 and Linux. Coverage is reported without a percentage gate. A real symlink-creation
 test skips on Windows hosts without that privilege; link filtering also has a unit test.
-CI's base installation does not download torch or model weights. Synthetic encoders
+CI's base test installation does not download torch or model weights. Synthetic encoders
 test cosine ranking, cache invalidation, RRF, symbol features, CLI integration and
 cross-strategy reports offline. Real-model validation is recorded separately in M4.
 M5 adds tests for scope/import ambiguity, shadowing, graph corruption, bounded
@@ -297,7 +323,10 @@ pooling, source bindings, pending reviews, changed evidence and adjudication con
 M6b adds draft generation, explicit overload selection, UTF-8/line/decorator mapping
 for public needles, split overlap checks and label-only review before retrieval.
 M6c adds fresh-process measurement, failure evidence, frozen-config checks and
-cross-role experiment routing. CI remains offline and does not run the real model matrix.
+cross-role experiment routing. Test and smoke execution remain offline; dependency/image
+installation needs network access. Separate Linux jobs build both container targets,
+check base/CPU-Dense dependency isolation and run the smoke with networking disabled.
+They do not download model weights or run the real model matrix.
 Use `uv run --locked --extra dense ...` to retain optional dependencies while developing
 with the model; `uv sync --locked --dev` restores the smaller base environment.
 
@@ -333,6 +362,10 @@ reports/m6a/                  Paired audit and frozen pending pool metadata
 reports/m6b/                  Split/source validation and pending-review evidence
 reports/m6c/                  Fixed expanded runs, paired tradeoffs and measured costs
 reports/m7a/                  Offline QA preparation and validation; no generated answers
+reports/m8a/                  Host/container delivery checks and reproduction evidence
+Dockerfile                    Locked base and optional CPU Dense image targets
+.dockerignore                 Allowlist for container build inputs
+scripts/smoke.py              Offline end-to-end installed CLI delivery check
 scripts/run_m5.py             Fixed 13-configuration experiment suite
 scripts/run_m6a.py            Offline analysis and pending review bundle
 scripts/run_m6b.py            Data regeneration and review, with opt-in preparation
