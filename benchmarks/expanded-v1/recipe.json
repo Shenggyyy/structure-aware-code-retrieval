@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "repository-expanded",
+  "version": "0.1.0",
+  "split": "test",
+  "repositories": [
+    {
+      "id": "flask",
+      "url": "https://github.com/pallets/flask.git",
+      "ref": "3.0.3",
+      "commit": "c12a5d874c5a014495eb2db8a73f40037bc813ac",
+      "license": "BSD-3-Clause",
+      "corpus_hash": "8439f705b95221f12752bff90bd745743a0c5c4fc0369da908734de3e56f00ad"
+    },
+    {
+      "id": "rich",
+      "url": "https://github.com/Textualize/rich.git",
+      "ref": "v13.7.1",
+      "commit": "7f580bdcf07a3b269a0e786b6a3aa9c804f393cf",
+      "license": "MIT",
+      "corpus_hash": "f6e0fa3e7174327425eb0b4da41b79d783239b171a742d9968a7744b9b1541ca"
+    },
+    {
+      "id": "networkx",
+      "url": "https://github.com/networkx/networkx.git",
+      "ref": "networkx-3.3",
+      "commit": "7fdddfa2caa8275f7862c46524b803db99ff2cde",
+      "license": "BSD-3-Clause",
+      "corpus_hash": "0f209fe86fc73478da03ac6239a8b8bb5016d58b13716858b6616f8557cae5a1"
+    },
+    {
+      "id": "packaging",
+      "url": "https://github.com/pypa/packaging.git",
+      "ref": "24.1",
+      "commit": "85442b8032cb7bae72866dfd7782234a98dd2fb7",
+      "license": "Apache-2.0 OR BSD-2-Clause",
+      "corpus_hash": "20d1f8eedf10cb8deefc8120d8927ae532f8d04f882958ff47ea6376de654023"
+    },
+    {
+      "id": "tomlkit",
+      "url": "https://github.com/python-poetry/tomlkit.git",
+      "ref": "0.12.5",
+      "commit": "a96883b15f545169dd33f16160bd609d624471e3",
+      "license": "MIT",
+      "corpus_hash": "196cd6983390a593eb3ee29af71b0bea5cda70da36cac0786c8358ee417845d3"
+    }
+  ],
+  "annotation_files": [
+    "annotations/flask.json",
+    "annotations/rich.json",
+    "annotations/networkx.json",
+    "annotations/packaging.json",
+    "annotations/tomlkit.json"
+  ]
+}

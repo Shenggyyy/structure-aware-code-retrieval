@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "repository-suite-v1",
+  "primary_k": 10,
+  "primary_metrics": [
+    "recall",
+    "ndcg"
+  ],
+  "members": [
+    {
+      "role": "dev",
+      "config": "../configs/bm25-seed.toml",
+      "benchmark_digest": "5baaa721437a927b9e4509262b2d5d21db47c07aa46f6fc5cd69f6a03abf0155",
+      "provenance_digest": null
+    },
+    {
+      "role": "test",
+      "config": "../configs/bm25-expanded-test.toml",
+      "benchmark_digest": "6425370dcf651f80f649d4189059feba289cc4ad2d7722a22a2aac4b3b5000f6",
+      "provenance_digest": "f7eb1ba1f3c9d63ddbd9917f7473398b354cfa8f2686f2824b39c5e729fb23b1"
+    },
+    {
+      "role": "public",
+      "config": "../configs/bm25-repoqa-public.toml",
+      "benchmark_digest": "7123b8cc45afe82275cfbd5e3d7109dc09c47996098e883b6a9705d45ec6c3e4",
+      "provenance_digest": "c58887e96efd8bad7fbf4d60418d1402641a3233ce4135487d4042f6899d8587"
+    }
+  ]
+}

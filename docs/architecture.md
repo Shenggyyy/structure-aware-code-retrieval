@@ -218,6 +218,15 @@ changes separate from retrieval and prevents accidental rewriting of old experim
 
 ## Storage and references
 
+M6b's `evaluation/curation.py` resolves explicit draft targets and imports a pinned
+RepoQA subset into the existing benchmark schema. It records source/provenance hashes
+and always publishes provisional labels. Public mapping checks UTF-8 byte offsets,
+zero-based upstream lines and decorator-inclusive local targets against AST nodes.
+`evaluation/suite.py` validates frozen members and source isolation without loading a
+retriever. Label-only review reuses M6a's source bundle format with an empty run list
+and a distinct policy. Exact-commit source preparation shallow-fetches only new
+checkouts. Existing retrieval/index/model formats remain compatible.
+
 Commit small fixtures, reviewed labels, manifests, configs, and selected reports.
 Store downloaded snapshots/models and indexes under ignored `artifacts/`; record
 checksums and effective configurations alongside runs. Do not commit credentials.

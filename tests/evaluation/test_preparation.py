@@ -1,3 +1,5 @@
+import json
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -53,3 +55,48 @@ def test_git_failures_are_readable(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(subprocess, "run", fail)
     with pytest.raises(ValueError, match="repository unavailable"):
         _git("clone", "https://example.invalid/repo")
+
+
+def test_exact_commit_ref_uses_shallow_fetch_and_only_checks_out_new_source(
+    experiment, sample_repository, monkeypatch
+):
+    manifest_path = experiment.parent / "benchmark/benchmark.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["repositories"][0]["ref"] = "a" * 40
+    manifest_path.write_text(json.dumps(manifest))
+    destination = experiment.parent / "prepared-commit"
+    checkout = (destination / "repos/fixture").resolve()
+    calls = []
+
+    def git(*args):
+        calls.append(args)
+        if args[0] == "init":
+            checkout.mkdir(parents=True)
+        elif "checkout" in args:
+            shutil.copytree(sample_repository, checkout, dirs_exist_ok=True)
+        elif args[-1] == "--show-toplevel":
+            return str(checkout)
+        elif args[-1] == "HEAD":
+            return "a" * 40
+        return ""
+
+    monkeypatch.setattr("structure_aware_retrieval.evaluation.preparation._git", git)
+    prepare_benchmark(manifest_path, destination)
+    assert any("fetch" in call and call[-1] == "a" * 40 for call in calls)
+    assert any("checkout" in call and "core.autocrlf=false" in call for call in calls)
+    calls.clear()
+    prepare_benchmark(manifest_path, destination)
+    assert all("fetch" not in call and "checkout" not in call for call in calls)
+
+
+def test_conflicting_commit_ref_rejected_before_fetch(experiment, monkeypatch):
+    path = experiment.parent / "benchmark/benchmark.json"
+    manifest = json.loads(path.read_text())
+    manifest["repositories"][0]["ref"] = "b" * 40
+    path.write_text(json.dumps(manifest))
+    monkeypatch.setattr(
+        "structure_aware_retrieval.evaluation.preparation._git",
+        lambda *a: pytest.fail("Git must not run"),
+    )
+    with pytest.raises(ValueError, match="commit ref"):
+        prepare_benchmark(path, experiment.parent / "bad-commit")

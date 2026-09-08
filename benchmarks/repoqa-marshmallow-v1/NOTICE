@@ -1,0 +1,14 @@
+This directory contains an adaptation of question data from RepoQA by the EvalPlus
+project: https://github.com/evalplus/repoqa
+Data release: https://github.com/evalplus/repoqa_release/releases/tag/2024-06-23
+Original data license: Apache License 2.0 (included in LICENSE).
+
+Changes made by Structure-Aware Code Retrieval and Evaluation:
+- Select all ten Python needles belonging to marshmallow-code/marshmallow.
+- Retain their descriptions verbatim, while assigning project-specific query IDs.
+- Map designated functions into graded symbol qrels with verified source bounds.
+- Add provenance hashes, repository metadata and a distinct retrieval protocol.
+
+This adaptation is not the upstream RepoQA evaluation or leaderboard protocol.
+Marshmallow source remains subject to its own MIT license; source code is not
+included in these committed data files.

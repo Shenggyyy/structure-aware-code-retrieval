@@ -1,0 +1,8 @@
+{
+  "benchmark_digest": "7123b8cc45afe82275cfbd5e3d7109dc09c47996098e883b6a9705d45ec6c3e4",
+  "provenance_digest": "c58887e96efd8bad7fbf4d60418d1402641a3233ce4135487d4042f6899d8587",
+  "query_count": 10,
+  "judgment_count": 10,
+  "annotation_status": "provisional",
+  "retrieval_executed": false
+}

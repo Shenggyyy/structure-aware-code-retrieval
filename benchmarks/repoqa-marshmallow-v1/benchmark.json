@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "repoqa-marshmallow-retrieval",
+  "version": "0.1.0",
+  "split": "test",
+  "repositories": [
+    {
+      "id": "marshmallow",
+      "url": "https://github.com/marshmallow-code/marshmallow.git",
+      "ref": "b8149cec77d16357d11b08f86de3b13e6fe02fa0",
+      "commit": "b8149cec77d16357d11b08f86de3b13e6fe02fa0",
+      "license": "MIT",
+      "corpus_hash": "87660c5e7113a0a71c0cb3bc392989f8d6888ac0448b8e3207ceff6984e269f1"
+    }
+  ],
+  "annotation_status": "provisional",
+  "queries_file": "queries.jsonl",
+  "qrels_file": "qrels.jsonl"
+}

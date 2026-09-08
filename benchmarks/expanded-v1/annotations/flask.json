@@ -1,0 +1,396 @@
+{
+  "schema_version": 1,
+  "repository_id": "flask",
+  "questions": [
+    {
+      "id": "flask-01",
+      "category": "symbol",
+      "family": "async-view",
+      "text": "Locate Flask.ensure_sync, which adapts coroutine view functions.",
+      "targets": [
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.ensure_sync",
+          "grade": 2,
+          "rationale": "Checks iscoroutinefunction and delegates coroutine functions to async_to_sync."
+        }
+      ]
+    },
+    {
+      "id": "flask-02",
+      "category": "symbol",
+      "family": "context-copy",
+      "text": "Where is copy_current_request_context implemented?",
+      "targets": [
+        {
+          "path": "src/flask/ctx.py",
+          "name": "copy_current_request_context",
+          "grade": 2,
+          "rationale": "Copies the active request context and returns a wrapper that runs the callable inside it."
+        }
+      ]
+    },
+    {
+      "id": "flask-03",
+      "category": "symbol",
+      "family": "cookie-refresh",
+      "text": "Find the SessionInterface policy that decides whether to set a session cookie.",
+      "targets": [
+        {
+          "path": "src/flask/sessions.py",
+          "name": "SessionInterface.should_set_cookie",
+          "grade": 2,
+          "rationale": "Returns true for modified sessions or permanent sessions requiring refresh."
+        }
+      ]
+    },
+    {
+      "id": "flask-04",
+      "category": "symbol",
+      "family": "options",
+      "text": "Locate Flask.make_default_options_response.",
+      "targets": [
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.make_default_options_response",
+          "grade": 2,
+          "rationale": "Gets allowed methods from the URL adapter and populates the response Allow header."
+        }
+      ]
+    },
+    {
+      "id": "flask-05",
+      "category": "behavior",
+      "family": "preprocessing",
+      "text": "Which implementation stops processing before-request hooks when one returns a response?",
+      "targets": [
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.preprocess_request",
+          "grade": 2,
+          "rationale": "Iterates preprocessors and before-request functions, returning the first non-None value."
+        }
+      ]
+    },
+    {
+      "id": "flask-06",
+      "category": "behavior",
+      "family": "dispatch",
+      "text": "Where does routing choose between an automatic OPTIONS response and invoking the endpoint view?",
+      "targets": [
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.dispatch_request",
+          "grade": 2,
+          "rationale": "Checks the rule and request method before selecting the endpoint and passing view arguments."
+        }
+      ]
+    },
+    {
+      "id": "flask-07",
+      "category": "behavior",
+      "family": "response-conversion",
+      "text": "Where does a view that returns None get rejected as an invalid response?",
+      "targets": [
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.make_response",
+          "grade": 2,
+          "rationale": "Raises TypeError when the unpacked return value is None."
+        }
+      ]
+    },
+    {
+      "id": "flask-08",
+      "category": "behavior",
+      "family": "template-context",
+      "text": "How are explicitly supplied template variables kept from being overwritten by context processors?",
+      "targets": [
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.update_template_context",
+          "grade": 2,
+          "rationale": "Copies the original context, applies processors, then restores the original values."
+        }
+      ]
+    },
+    {
+      "id": "flask-09",
+      "category": "behavior",
+      "family": "session-signature",
+      "text": "Where does an invalid signed session cookie fall back to an empty session?",
+      "targets": [
+        {
+          "path": "src/flask/sessions.py",
+          "name": "SecureCookieSessionInterface.open_session",
+          "grade": 2,
+          "rationale": "Catches BadSignature from serializer loading and returns a new session_class instance."
+        }
+      ]
+    },
+    {
+      "id": "flask-10",
+      "category": "behavior",
+      "family": "cookie-save",
+      "text": "Which code deletes the session cookie when an emptied session was modified?",
+      "targets": [
+        {
+          "path": "src/flask/sessions.py",
+          "name": "SecureCookieSessionInterface.save_session",
+          "grade": 2,
+          "rationale": "In the empty-session branch, deletes the cookie only if modified and updates Vary."
+        }
+      ]
+    },
+    {
+      "id": "flask-11",
+      "category": "behavior",
+      "family": "json-response",
+      "text": "Where is the decision made to indent JSON responses in debug mode or use compact separators?",
+      "targets": [
+        {
+          "path": "src/flask/json/provider.py",
+          "name": "DefaultJSONProvider.response",
+          "grade": 2,
+          "rationale": "Selects indent=2 or compact separators using the provider compact option and app.debug."
+        }
+      ]
+    },
+    {
+      "id": "flask-12",
+      "category": "behavior",
+      "family": "flashes",
+      "text": "Which code retrieves flashed messages once per request and filters them by category?",
+      "targets": [
+        {
+          "path": "src/flask/helpers.py",
+          "name": "get_flashed_messages",
+          "grade": 2,
+          "rationale": "Caches popped session flashes on request_ctx and applies category_filter before formatting."
+        }
+      ]
+    },
+    {
+      "id": "flask-13",
+      "category": "cross_file",
+      "family": "template-context",
+      "text": "Trace template rendering across modules from render_template to applying context processors.",
+      "targets": [
+        {
+          "path": "src/flask/templating.py",
+          "name": "render_template",
+          "grade": 2,
+          "rationale": "Obtains the template and passes it to _render."
+        },
+        {
+          "path": "src/flask/templating.py",
+          "name": "_render",
+          "grade": 2,
+          "rationale": "Calls app.update_template_context before rendering."
+        },
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.update_template_context",
+          "grade": 2,
+          "rationale": "Runs the registered processors and preserves caller-provided variables."
+        }
+      ]
+    },
+    {
+      "id": "flask-14",
+      "category": "cross_file",
+      "family": "response-conversion",
+      "text": "Which helper and application method turn arguments to flask.make_response into a response object?",
+      "targets": [
+        {
+          "path": "src/flask/helpers.py",
+          "name": "make_response",
+          "grade": 2,
+          "rationale": "Normalizes positional arguments and delegates to current_app.make_response."
+        },
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.make_response",
+          "grade": 2,
+          "rationale": "Unpacks response tuples and converts supported return types into the response class."
+        }
+      ]
+    },
+    {
+      "id": "flask-15",
+      "category": "cross_file",
+      "family": "url-building",
+      "text": "Trace the public URL-building helper to the application code that expands a blueprint-relative endpoint.",
+      "targets": [
+        {
+          "path": "src/flask/helpers.py",
+          "name": "url_for",
+          "grade": 2,
+          "rationale": "Forwards the endpoint and special keyword arguments to current_app.url_for."
+        },
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.url_for",
+          "grade": 2,
+          "rationale": "Expands endpoints starting with a dot using the current blueprint before adapter.build."
+        }
+      ]
+    },
+    {
+      "id": "flask-16",
+      "category": "cross_file",
+      "family": "context-start",
+      "text": "Which WSGI entry code pushes a request context, and where does that push open the session?",
+      "targets": [
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.wsgi_app",
+          "grade": 2,
+          "rationale": "Creates and pushes the request context before dispatch."
+        },
+        {
+          "path": "src/flask/ctx.py",
+          "name": "RequestContext.push",
+          "grade": 2,
+          "rationale": "Invokes session_interface.open_session and installs a null session if necessary."
+        }
+      ]
+    },
+    {
+      "id": "flask-17",
+      "category": "cross_file",
+      "family": "cookie-save",
+      "text": "Trace saving the default cookie session from response processing into the session backend.",
+      "targets": [
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.process_response",
+          "grade": 2,
+          "rationale": "Calls the configured session interface after response hooks for non-null sessions."
+        },
+        {
+          "path": "src/flask/sessions.py",
+          "name": "SecureCookieSessionInterface.save_session",
+          "grade": 2,
+          "rationale": "Serializes the session and writes or deletes the response cookie."
+        }
+      ]
+    },
+    {
+      "id": "flask-18",
+      "category": "cross_file",
+      "family": "json-response",
+      "text": "Which public jsonify function and default provider implementation produce the JSON HTTP response?",
+      "targets": [
+        {
+          "path": "src/flask/json/__init__.py",
+          "name": "jsonify",
+          "grade": 2,
+          "rationale": "Delegates positional and keyword arguments to current_app.json.response."
+        },
+        {
+          "path": "src/flask/json/provider.py",
+          "name": "DefaultJSONProvider.response",
+          "grade": 2,
+          "rationale": "Serializes the prepared object and constructs the application response with JSON MIME type."
+        }
+      ]
+    },
+    {
+      "id": "flask-19",
+      "category": "cross_file",
+      "family": "template-stream",
+      "text": "How does template streaming keep an active request context while yielding output across module boundaries?",
+      "targets": [
+        {
+          "path": "src/flask/templating.py",
+          "name": "_stream",
+          "grade": 2,
+          "rationale": "Wraps the generated template iterator with stream_with_context when a request exists."
+        },
+        {
+          "path": "src/flask/helpers.py",
+          "name": "stream_with_context",
+          "grade": 2,
+          "rationale": "Starts a wrapper iterator that retains the current request context while yielding source items."
+        }
+      ]
+    },
+    {
+      "id": "flask-20",
+      "category": "cross_file",
+      "family": "context-end",
+      "text": "Trace request-context removal to execution of registered teardown handlers.",
+      "targets": [
+        {
+          "path": "src/flask/ctx.py",
+          "name": "RequestContext.pop",
+          "grade": 2,
+          "rationale": "On the outermost pop, calls app.do_teardown_request before resetting context tokens."
+        },
+        {
+          "path": "src/flask/app.py",
+          "name": "Flask.do_teardown_request",
+          "grade": 2,
+          "rationale": "Runs teardown functions in reverse registration order and emits the teardown signal."
+        }
+      ]
+    },
+    {
+      "id": "flask-21",
+      "category": "test",
+      "family": "options",
+      "text": "Which test checks the default OPTIONS Allow header and empty response body?",
+      "targets": [
+        {
+          "path": "tests/test_basic.py",
+          "name": "test_options_work",
+          "grade": 2,
+          "rationale": "Asserts GET, HEAD, OPTIONS and POST are allowed and the response data is empty."
+        }
+      ]
+    },
+    {
+      "id": "flask-22",
+      "category": "test",
+      "family": "preprocessing",
+      "text": "Which test verifies that an early before-request response prevents later hooks and the view from running?",
+      "targets": [
+        {
+          "path": "tests/test_basic.py",
+          "name": "test_request_preprocessing_early_return",
+          "grade": 2,
+          "rationale": "Records events and asserts only the first two hooks ran and the early response was returned."
+        }
+      ]
+    },
+    {
+      "id": "flask-23",
+      "category": "test",
+      "family": "template-context",
+      "text": "Find the test showing that an explicitly supplied template variable named config takes precedence.",
+      "targets": [
+        {
+          "path": "tests/test_templating.py",
+          "name": "test_original_win",
+          "grade": 2,
+          "rationale": "Renders config=42 and asserts the output is 42 rather than the standard config object."
+        }
+      ]
+    },
+    {
+      "id": "flask-24",
+      "category": "test",
+      "family": "missing-secret",
+      "text": "Which test checks that a session without a secret key can be read but rejects mutation?",
+      "targets": [
+        {
+          "path": "tests/test_basic.py",
+          "name": "test_missing_session",
+          "grade": 2,
+          "rationale": "Sets secret_key=None, reads a missing item and asserts mutating operations raise RuntimeError."
+        }
+      ]
+    }
+  ]
+}

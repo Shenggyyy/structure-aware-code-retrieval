@@ -1,0 +1,22 @@
+{
+  "pool_digest": "be647b5597fd3ac46a2a3dda281cfd0cec4c9457ca72edb3dfbef2f2f935893e",
+  "benchmark": {
+    "id": "repository-expanded",
+    "version": "0.1.0",
+    "split": "test",
+    "annotation_status": "provisional",
+    "digest": "6425370dcf651f80f649d4189059feba289cc4ad2d7722a22a2aac4b3b5000f6"
+  },
+  "decision_digest": "fe935aa1b9b8e2112bf3836a48dfccdf18726e1ca2cd0d4dd62b626a9d27e86f",
+  "judgments": {
+    "pending": 164
+  },
+  "queries": {
+    "pending": 120
+  },
+  "conflicts": [],
+  "changes": [],
+  "ready_for_versioning": false,
+  "reviewer_identity_verified": false,
+  "note": "Structural validation only. Reviewer identity and independence are self-declared. Publish an explicitly versioned benchmark after adjudication; no labels or human-review status were changed."
+}

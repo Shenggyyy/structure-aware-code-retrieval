@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "repository_id": "packaging",
+  "questions": [
+    {
+      "id": "packaging-01",
+      "category": "symbol",
+      "family": "version-parse",
+      "text": "Locate the public packaging.version.parse entry point.",
+      "targets": [
+        {
+          "path": "src/packaging/version.py",
+          "name": "parse",
+          "grade": 2,
+          "rationale": "Constructs and returns a Version instance from the input string."
+        }
+      ]
+    },
+    {
+      "id": "packaging-02",
+      "category": "symbol",
+      "family": "environment",
+      "text": "Find the function that builds the default environment used by dependency markers.",
+      "targets": [
+        {
+          "path": "src/packaging/markers.py",
+          "name": "default_environment",
+          "grade": 2,
+          "rationale": "Collects interpreter, operating-system and platform values into the marker environment mapping."
+        }
+      ]
+    },
+    {
+      "id": "packaging-03",
+      "category": "symbol",
+      "family": "wheel",
+      "text": "Where is packaging.utils.parse_wheel_filename defined?",
+      "targets": [
+        {
+          "path": "src/packaging/utils.py",
+          "name": "parse_wheel_filename",
+          "grade": 2,
+          "rationale": "Parses the distribution name, version, optional build number and compatibility tags."
+        }
+      ]
+    },
+    {
+      "id": "packaging-04",
+      "category": "symbol",
+      "family": "requirement-format",
+      "text": "Locate Requirement._iter_parts, used to render dependency requirement strings.",
+      "targets": [
+        {
+          "path": "src/packaging/requirements.py",
+          "name": "Requirement._iter_parts",
+          "grade": 2,
+          "rationale": "Yields the name, sorted extras, specifier, URL and marker text."
+        }
+      ]
+    },
+    {
+      "id": "packaging-05",
+      "category": "behavior",
+      "family": "name-normalization",
+      "text": "Which implementation optionally validates a project name and normalizes its separators and case?",
+      "targets": [
+        {
+          "path": "src/packaging/utils.py",
+          "name": "canonicalize_name",
+          "grade": 2,
+          "rationale": "Checks _validate_regex when requested, substitutes separators with hyphens and lowercases the name."
+        }
+      ]
+    },
+    {
+      "id": "packaging-06",
+      "category": "behavior",
+      "family": "version-normalization",
+      "text": "Where can trailing release zeros be preserved while canonicalizing a version string?",
+      "targets": [
+        {
+          "path": "src/packaging/utils.py",
+          "name": "canonicalize_version",
+          "grade": 2,
+          "rationale": "Only strips trailing .0 segments when strip_trailing_zero is true."
+        }
+      ]
+    },
+    {
+      "id": "packaging-07",
+      "category": "behavior",
+      "family": "version-normalization",
+      "text": "Where does canonicalizing an unparseable legacy version return the original string instead of failing?",
+      "targets": [
+        {
+          "path": "src/packaging/utils.py",
+          "name": "canonicalize_version",
+          "grade": 2,
+          "rationale": "Catches InvalidVersion for string inputs and returns the original value."
+        }
+      ]
+    },
+    {
+      "id": "packaging-08",
+      "category": "behavior",
+      "family": "tag-expansion",
+      "text": "Which code expands compressed wheel interpreter, ABI and platform components into every tag combination?",
+      "targets": [
+        {
+          "path": "src/packaging/tags.py",
+          "name": "parse_tag",
+          "grade": 2,
+          "rationale": "Uses nested loops over dot-separated fields to build a frozenset of Tag objects."
+        }
+      ]
+    },
+    {
+      "id": "packaging-09",
+      "category": "behavior",
+      "family": "specifier-set",
+      "text": "Where is a comma-separated constraint expression stripped of empty entries and stored as a deduplicated set?",
+      "targets": [
+        {
+          "path": "src/packaging/specifiers.py",
+          "name": "SpecifierSet.__init__",
+          "grade": 2,
+          "rationale": "Splits and strips nonempty expressions, maps Specifier over them and stores a frozenset."
+        }
+      ]
+    },
+    {
+      "id": "packaging-10",
+      "category": "behavior",
+      "family": "prereleases",
+      "text": "Which set-membership implementation treats an installed prerelease as its base version when requested?",
+      "targets": [
+        {
+          "path": "src/packaging/specifiers.py",
+          "name": "SpecifierSet.contains",
+          "grade": 2,
+          "rationale": "After the prerelease gate, installed prereleases are replaced by Version(item.base_version)."
+        }
+      ]
+    },
+    {
+      "id": "packaging-11",
+      "category": "behavior",
+      "family": "marker-environment",
+      "text": "Where is a missing or explicitly None extra environment value converted to an empty string for marker evaluation?",
+      "targets": [
+        {
+          "path": "src/packaging/markers.py",
+          "name": "Marker.evaluate",
+          "grade": 2,
+          "rationale": "Sets the default extra to an empty string and normalizes a None override."
+        }
+      ]
+    },
+    {
+      "id": "packaging-12",
+      "category": "behavior",
+      "family": "source-archive",
+      "text": "Which filename parser rejects source archives whose suffix is neither .tar.gz nor .zip?",
+      "targets": [
+        {
+          "path": "src/packaging/utils.py",
+          "name": "parse_sdist_filename",
+          "grade": 2,
+          "rationale": "Checks the two accepted suffixes and otherwise raises InvalidSdistFilename."
+        }
+      ]
+    },
+    {
+      "id": "packaging-13",
+      "category": "cross_file",
+      "family": "requirement-parse",
+      "text": "Trace requirement construction to the grammar entry point that parses the dependency string.",
+      "targets": [
+        {
+          "path": "src/packaging/requirements.py",
+          "name": "Requirement.__init__",
+          "grade": 2,
+          "rationale": "Calls the imported requirement parser and translates ParserSyntaxError into InvalidRequirement."
+        },
+        {
+          "path": "src/packaging/_parser.py",
+          "name": "parse_requirement",
+          "grade": 2,
+          "rationale": "Builds a Tokenizer and delegates to the requirement grammar."
+        },
+        {
+          "path": "src/packaging/_parser.py",
+          "name": "_parse_requirement",
+          "grade": 1,
+          "rationale": "Parses the name, extras and details and requires the end of input."
+        }
+      ]
+    },
+    {
+      "id": "packaging-14",
+      "category": "cross_file",
+      "family": "requirement-equality",
+      "text": "Which requirement comparison calls project-name normalization in another module before comparing the remaining fields?",
+      "targets": [
+        {
+          "path": "src/packaging/requirements.py",
+          "name": "Requirement.__eq__",
+          "grade": 2,
+          "rationale": "Normalizes both names before checking extras, specifiers, URLs and markers."
+        },
+        {
+          "path": "src/packaging/utils.py",
+          "name": "canonicalize_name",
+          "grade": 2,
+          "rationale": "Provides the canonical project-name transformation used in equality."
+        }
+      ]
+    },
+    {
+      "id": "packaging-15",
+      "category": "cross_file",
+      "family": "wheel",
+      "text": "Trace compatibility-tag extraction from a wheel filename into the function that expands compressed tags.",
+      "targets": [
+        {
+          "path": "src/packaging/utils.py",
+          "name": "parse_wheel_filename",
+          "grade": 2,
+          "rationale": "Passes the final wheel filename segment to parse_tag."
+        },
+        {
+          "path": "src/packaging/tags.py",
+          "name": "parse_tag",
+          "grade": 2,
+          "rationale": "Expands interpreter, ABI and platform combinations into Tag objects."
+        }
+      ]
+    },
+    {
+      "id": "packaging-16",
+      "category": "cross_file",
+      "family": "source-archive",
+      "text": "Which source-archive parser constructs a Version object, and where is that version validated?",
+      "targets": [
+        {
+          "path": "src/packaging/utils.py",
+          "name": "parse_sdist_filename",
+          "grade": 2,
+          "rationale": "Splits the archive stem and constructs Version(version_part), translating invalid versions."
+        },
+        {
+          "path": "src/packaging/version.py",
+          "name": "Version.__init__",
+          "grade": 2,
+          "rationale": "Validates the version with a regex and creates normalized version components."
+        }
+      ]
+    },
+    {
+      "id": "packaging-17",
+      "category": "cross_file",
+      "family": "marker-comparison",
+      "text": "Trace marker comparison to version-specifier membership when the right side forms a valid version constraint.",
+      "targets": [
+        {
+          "path": "src/packaging/markers.py",
+          "name": "_eval_op",
+          "grade": 2,
+          "rationale": "Constructs Specifier from the operator and right-hand value and calls contains with prereleases enabled."
+        },
+        {
+          "path": "src/packaging/specifiers.py",
+          "name": "Specifier.contains",
+          "grade": 2,
+          "rationale": "Coerces the tested version and dispatches the selected comparison operation."
+        }
+      ]
+    },
+    {
+      "id": "packaging-18",
+      "category": "cross_file",
+      "family": "marker-parse",
+      "text": "Which constructor and parser entry point turn a marker string into its parsed expression tree?",
+      "targets": [
+        {
+          "path": "src/packaging/markers.py",
+          "name": "Marker.__init__",
+          "grade": 2,
+          "rationale": "Calls the imported marker parser, normalizes extras and translates syntax errors."
+        },
+        {
+          "path": "src/packaging/_parser.py",
+          "name": "parse_marker",
+          "grade": 2,
+          "rationale": "Creates the tokenizer and parses a complete marker expression."
+        }
+      ]
+    },
+    {
+      "id": "packaging-19",
+      "category": "cross_file",
+      "family": "version-coercion",
+      "text": "Where does single-specifier membership convert a string version using the implementation in the version module?",
+      "targets": [
+        {
+          "path": "src/packaging/specifiers.py",
+          "name": "Specifier.contains",
+          "grade": 2,
+          "rationale": "Calls _coerce_version before prerelease and comparison checks."
+        },
+        {
+          "path": "src/packaging/specifiers.py",
+          "name": "_coerce_version",
+          "grade": 2,
+          "rationale": "Constructs Version only if the input is not already a Version."
+        },
+        {
+          "path": "src/packaging/version.py",
+          "name": "Version.__init__",
+          "grade": 1,
+          "rationale": "Parses and validates the string version used by the coercion helper."
+        }
+      ]
+    },
+    {
+      "id": "packaging-20",
+      "category": "cross_file",
+      "family": "specifier-canonical",
+      "text": "How does specifier canonicalization preserve release zeros for the compatible-release operator across modules?",
+      "targets": [
+        {
+          "path": "src/packaging/specifiers.py",
+          "name": "Specifier._canonical_spec",
+          "grade": 2,
+          "rationale": "Sets strip_trailing_zero to false for the ~= operator."
+        },
+        {
+          "path": "src/packaging/utils.py",
+          "name": "canonicalize_version",
+          "grade": 2,
+          "rationale": "Honors the flag while rendering the parsed release components."
+        }
+      ]
+    },
+    {
+      "id": "packaging-21",
+      "category": "test",
+      "family": "version-normalization",
+      "text": "Which test verifies that disabling trailing-zero stripping preserves versions such as 1.4.0?",
+      "targets": [
+        {
+          "path": "tests/test_utils.py",
+          "name": "test_canonicalize_version_no_strip_trailing_zero",
+          "grade": 2,
+          "rationale": "Parametrizes 1.4.0 and 1.0 and asserts the canonicalized output equals the input."
+        }
+      ]
+    },
+    {
+      "id": "packaging-22",
+      "category": "test",
+      "family": "requirement-parse",
+      "text": "Find the test that rejects extras separated by whitespace rather than a comma.",
+      "targets": [
+        {
+          "path": "tests/test_requirements.py",
+          "name": "TestRequirementParsing.test_error_when_missing_comma_in_extras",
+          "grade": 2,
+          "rationale": "Parses name[bar baz] and checks the InvalidRequirement message and location."
+        }
+      ]
+    },
+    {
+      "id": "packaging-23",
+      "category": "test",
+      "family": "marker-environment",
+      "text": "Which test verifies marker evaluation assumes an empty extra when no environment override is supplied?",
+      "targets": [
+        {
+          "path": "tests/test_markers.py",
+          "name": "TestMarker.test_environment_assumes_empty_extra",
+          "grade": 2,
+          "rationale": "Checks that extra == im_valid evaluates to false in the default environment."
+        }
+      ]
+    },
+    {
+      "id": "packaging-24",
+      "category": "test",
+      "family": "marker-comparison",
+      "text": "Which test distinguishes PEP 440 version ordering from ordinary string ordering for marker operands?",
+      "targets": [
+        {
+          "path": "tests/test_markers.py",
+          "name": "TestOperatorEvaluation.test_prefers_pep440",
+          "grade": 2,
+          "rationale": "Checks that version 2.7.9 compares below 2.7.10 through marker evaluation."
+        }
+      ]
+    }
+  ]
+}

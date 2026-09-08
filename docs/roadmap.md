@@ -24,7 +24,7 @@ writing the push command; the owner executes these commands.
 | M7 — QA | Context budget, model adapter, cited answers, reviewed answer-evaluation cases. Compare strategies using a fixed LLM/prompt; assess citation validity separately from support. | `Add repository QA with source citations` |
 | M8 — Delivery | CPU Docker path, final docs, reports or dashboard, clean-environment reproduction. A reader can run indexing, search, QA with configured credentials, and evaluation. | `Package reproducible experiments and project documentation` |
 
-M1 and M2 are complete, with M1–M5 CI reported passing by the owner. M3's evaluation
+M1 and M2 are complete, with M1–M6a CI reported passing by the owner. M3's evaluation
 pipeline and 40-query source-checked seed are implemented; **independent human label
 review remains pending**. The seed and its reports remain provisional until that
 acceptance item is completed. M4 adds three retrieval baselines, persistent vectors,
@@ -32,8 +32,12 @@ offline tests and real-model comparisons. M5 adds relation extraction, bounded s
 reranking, 13 fixed comparison configurations and source/cost traces. M6a adds paired
 repository-cluster analysis, verification of saved results and a frozen relevance pool
 with manual-review templates. Its 845 candidate pairs are not 845 labeled questions:
-the benchmark still has 40 provisional queries. M6 remains in progress; broader data,
-a public subset, completed review and scale profiling are still outstanding. M7–M8
+that seed still has 40 provisional queries. M6b adds 120 source-checked draft questions
+on five disjoint test-candidate repositories, plus ten adapted RepoQA Marshmallow
+questions on a separate eighth repository. Generation, provenance, split audits and
+source review bundles are implemented without scoring the new datasets. **Independent
+review/adjudication remains outstanding**, so M6b's reviewed-label acceptance is not
+complete. M6 also still needs formal experiment runs and scale profiling. M7–M8
 remain planned, and human label review still gates claims of a reviewed retrieval MVP.
 New remote CI runs after the owner
 pushes; local checks cannot establish remote CI status.
@@ -47,6 +51,9 @@ pushes; local checks cannot establish remote CI status.
   a public subset; create source-grounded questions and repository-disjoint splits;
   complete independent review/adjudication and publish versioned labels. Do not
   substitute automatically generated labels for completed human review.
+  The data/tooling checkpoint uses commit message
+  `Expand repository benchmarks and add a pinned RepoQA subset`; review acceptance
+  is tracked separately and must not be inferred from passing CI.
 - **M6c — Formal experiment suite:** rerun all strategies and fixed ablations on the
   frozen expanded benchmark, measure scale/build/storage/peak-memory costs, and report
   paired tradeoffs and limitations. Preserve previous development results.
@@ -75,6 +82,6 @@ defensible evidence is.
 
 M4 uses pinned MiniLM on CPU and records vector size, construction time and quality;
 larger code-specialized encoders and peak-memory profiling remain future experiments.
-Select formal repositories after license, snapshot, and annotation-feasibility
-checks. Introduce ANN only if M6 measurements justify it. Choose the QA provider in
+The expanded snapshot/annotation choices are recorded in [the benchmark protocol](benchmarks.md).
+Introduce ANN only if M6 measurements justify it. Choose the QA provider in
 M7 based on availability, cost, and reproducibility.

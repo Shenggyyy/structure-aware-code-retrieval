@@ -313,3 +313,39 @@ def check_manual_review(
         raise typer.Exit(1) from error
     typer.echo(f"Ready for versioning: {result['ready_for_versioning']}")
     typer.echo(f"Review status: {output.resolve() / 'review-status.json'}")
+
+
+@app.command("pool-labels")
+def pool_labels(
+    config: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option(help="New source review directory")],
+) -> None:
+    """Review existing labels before any test-set retrieval is executed."""
+    from structure_aware_retrieval.evaluation.review import create_pool
+
+    try:
+        manifest = create_pool(config, [], output, depth=0)
+    except (OSError, ValueError, KeyError, TypeError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"Prepared {manifest['item_count']} labeled targets; all reviews pending.")
+    typer.echo(f"Review: {output.resolve() / 'review.md'}")
+
+
+@app.command("audit-suite")
+def audit_benchmarks(
+    suite: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option(help="New benchmark audit directory")],
+) -> None:
+    """Check frozen benchmark digests, source snapshots and repository-disjoint splits."""
+    from structure_aware_retrieval.evaluation.suite import audit_suite
+
+    try:
+        result = audit_suite(suite, output)
+    except (OSError, ValueError, KeyError, TypeError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(
+        f"Audited {result['query_count']} queries in {result['repository_count']} repositories."
+    )
+    typer.echo(f"Report: {output.resolve() / 'report.md'}")

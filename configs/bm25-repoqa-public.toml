@@ -1,0 +1,11 @@
+schema_version = 1
+benchmark = "../benchmarks/repoqa-marshmallow-v1/benchmark.json"
+strategy = "bm25"
+unit = "symbol"
+ks = [1, 5, 10, 20]
+warmup_queries = 2
+repeats = 3
+seed = 0
+
+[indexes]
+marshmallow = "../artifacts/public/indexes/marshmallow.sqlite"

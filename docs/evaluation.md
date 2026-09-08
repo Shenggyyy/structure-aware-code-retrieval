@@ -259,3 +259,24 @@ query clarity, and agreement between answerability and positive reviewed targets
 These are structural checks, not proof of independent human review. New labels need
 adjudication, a new benchmark version and reruns of every strategy. M6b/M6c retain
 the planned wider/public datasets, held-out protocol and scale measurements.
+
+## M6b source-checked draft suite
+
+The explicit suite manifest now separates the existing 40-query development seed,
+120 test-candidate questions on Flask/Rich/NetworkX/Packaging/TOMLKit and ten public
+RepoQA Marshmallow descriptions adapted to symbol retrieval. All three manifests
+remain provisional. Primary planned measures are Recall@10 and NDCG@10; review and
+formal test execution remain outstanding. Exact suite membership is frozen by data
+and provenance digests, not by a mutable directory name.
+
+`audit-suite` validates repository URL disjointness, normalized exact question-text
+uniqueness, source snapshots, qrel targets, intended split roles and primary-K support.
+It does not score any question. `pool-labels` provides a source review bundle from
+existing qrels without loading predictions. This keeps initial test-label review
+separate from retrieval outcome inspection. Neither operation establishes completeness
+of relevance labels; later pooled judgments need independent review and new versions.
+
+The public adapter retains descriptions, checks archive/file hashes and exact AST
+byte/line bounds, and includes decorators in target ranges. Full source including
+tests/docstrings is indexed, so its retrieval metrics are not upstream RepoQA scores.
+See [benchmark selection, attribution and reproduction](benchmarks.md).

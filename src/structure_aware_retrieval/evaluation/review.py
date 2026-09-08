@@ -38,11 +38,13 @@ def _new_output(output: Path) -> None:
 def create_pool(config_path: Path, runs: list[Path], output: Path, *, depth: int = 10) -> dict:
     """Union top-depth unique symbols and every existing qrel, with no automatic labels."""
     _new_output(output)
-    if type(depth) is not int or depth < 1:
-        raise ValueError("Pool depth must be a positive integer")
+    if type(depth) is not int or (depth < 1 if runs else depth != 0):
+        raise ValueError("Pool depth must be positive with runs, or zero for label-only review")
     config = load_config(config_path)
     benchmark = load_benchmark(config.benchmark)
-    recorded = load_runs(runs)
+    recorded = load_runs(runs) if runs else []
+    if not runs and config.unit != "symbol":
+        raise ValueError("Label-only review requires a symbol-level config")
     if any(run.summary["config"]["unit"] != "symbol" for run in recorded):
         raise ValueError("Review pools require symbol-level runs")
     if any(depth > max(run.summary["config"]["ks"]) for run in recorded):
@@ -50,7 +52,7 @@ def create_pool(config_path: Path, runs: list[Path], output: Path, *, depth: int
     if any(run.summary["benchmark"]["digest"] != benchmark.digest for run in recorded):
         raise ValueError("Run benchmark digest does not match the pool benchmark")
     queries = {query.id: query for query in benchmark.queries}
-    if set(recorded[0].queries) != set(queries):
+    if recorded and set(recorded[0].queries) != set(queries):
         raise ValueError("Pool benchmark and recorded query IDs differ")
     repo_ids = {repo.id for repo in benchmark.repositories}
     if set(config.indexes) != repo_ids:
@@ -138,7 +140,13 @@ def create_pool(config_path: Path, runs: list[Path], output: Path, *, depth: int
         evidence.append({"item_id": row["item_id"], "source_url": source_url, "text": text})
     manifest = {
         "schema_version": 1,
-        "benchmark": recorded[0].summary["benchmark"],
+        "benchmark": {
+            "id": benchmark.id,
+            "version": benchmark.version,
+            "split": benchmark.split,
+            "annotation_status": benchmark.annotation_status,
+            "digest": benchmark.digest,
+        },
         "repositories": [asdict(repo) for repo in benchmark.repositories],
         "queries": [asdict(query) for query in sorted(queries.values(), key=lambda q: q.id)],
         "snapshots": {
@@ -152,7 +160,9 @@ def create_pool(config_path: Path, runs: list[Path], output: Path, *, depth: int
             key=lambda run: run["name"],
         ),
         "depth": depth,
-        "policy": "union_top_depth_symbols_plus_all_existing_judgments",
+        "policy": "union_top_depth_symbols_plus_all_existing_judgments"
+        if runs
+        else "existing_judgments_only_no_retrieval",
         "item_count": len(pool),
         "unjudged_count": sum(row["original_judgment"] is None for row in pool),
         "by_repository": dict(sorted(Counter(row["repository"] for row in pool).items())),

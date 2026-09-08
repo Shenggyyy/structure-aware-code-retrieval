@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "repoqa-marshmallow-retrieval",
+  "version": "0.1.0",
+  "split": "test",
+  "repositories": [
+    {
+      "id": "marshmallow",
+      "url": "https://github.com/marshmallow-code/marshmallow.git",
+      "ref": "b8149cec77d16357d11b08f86de3b13e6fe02fa0",
+      "commit": "b8149cec77d16357d11b08f86de3b13e6fe02fa0",
+      "license": "MIT",
+      "corpus_hash": "87660c5e7113a0a71c0cb3bc392989f8d6888ac0448b8e3207ceff6984e269f1"
+    }
+  ],
+  "source": {
+    "url": "https://github.com/evalplus/repoqa_release/releases/download/2024-06-23/repoqa-2024-06-23.json.gz",
+    "sha256": "c050a2ad90a7df89d9dc1f1c3b3b20683edd20a56293b35fcaae43dec115d681",
+    "release": "2024-06-23",
+    "license": "Apache-2.0",
+    "language": "python",
+    "repository": "marshmallow-code/marshmallow",
+    "expected_needles": 10
+  }
+}

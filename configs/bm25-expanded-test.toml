@@ -1,0 +1,15 @@
+schema_version = 1
+benchmark = "../benchmarks/expanded-v1/benchmark.json"
+strategy = "bm25"
+unit = "symbol"
+ks = [1, 5, 10, 20]
+warmup_queries = 2
+repeats = 3
+seed = 0
+
+[indexes]
+flask = "../artifacts/expanded/indexes/flask.sqlite"
+rich = "../artifacts/expanded/indexes/rich.sqlite"
+networkx = "../artifacts/expanded/indexes/networkx.sqlite"
+packaging = "../artifacts/expanded/indexes/packaging.sqlite"
+tomlkit = "../artifacts/expanded/indexes/tomlkit.sqlite"

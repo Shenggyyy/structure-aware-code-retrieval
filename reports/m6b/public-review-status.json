@@ -1,0 +1,22 @@
+{
+  "pool_digest": "da493721d763c077e3dbe8e269aacfeb6841368f68b2bbb51b34d44e27e1c87e",
+  "benchmark": {
+    "id": "repoqa-marshmallow-retrieval",
+    "version": "0.1.0",
+    "split": "test",
+    "annotation_status": "provisional",
+    "digest": "7123b8cc45afe82275cfbd5e3d7109dc09c47996098e883b6a9705d45ec6c3e4"
+  },
+  "decision_digest": "ce2ec1416a3ca81d0f5d5cbcfdd86603e8f43173b010f68342941783570b1578",
+  "judgments": {
+    "pending": 10
+  },
+  "queries": {
+    "pending": 10
+  },
+  "conflicts": [],
+  "changes": [],
+  "ready_for_versioning": false,
+  "reviewer_identity_verified": false,
+  "note": "Structural validation only. Reviewer identity and independence are self-declared. Publish an explicitly versioned benchmark after adjudication; no labels or human-review status were changed."
+}

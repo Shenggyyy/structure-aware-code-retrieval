@@ -185,3 +185,29 @@ def test_pool_cli(experiment: Path, bundle: Path):
     )
     assert cli.exit_code == 0, cli.output
     assert "all reviews pending" in cli.output
+
+
+def test_label_only_pool_never_loads_runs_or_retrieves(experiment: Path, monkeypatch):
+    monkeypatch.setattr(
+        "structure_aware_retrieval.evaluation.review.load_runs",
+        lambda *a: pytest.fail("recorded runs must not be loaded"),
+    )
+    output = experiment.parent / "labels-only"
+    manifest = create_pool(experiment, [], output, depth=0)
+    assert manifest["item_count"] == 3
+    assert manifest["runs"] == []
+    assert manifest["policy"] == "existing_judgments_only_no_retrieval"
+    assert all(row["grade"] is None for row in read_jsonl(output / "judgments.jsonl"))
+    cli = CliRunner().invoke(
+        app,
+        [
+            "pool-labels",
+            "--config",
+            str(experiment),
+            "--output",
+            str(experiment.parent / "cli-labels"),
+        ],
+    )
+    assert cli.exit_code == 0, cli.output
+    with pytest.raises(ValueError, match="depth"):
+        create_pool(experiment, [], experiment.parent / "invalid-depth", depth=10)

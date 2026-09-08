@@ -4,12 +4,13 @@ A Python project investigating whether repository structure improves code retrie
 for LLM applications. The planned system compares lexical, dense, hybrid,
 symbol-aware, and structure-aware retrieval, then supplies evidence to repository QA.
 
-**Status: M6a — experiment auditing and benchmark review workflow.** All five retrieval strategies
+**Status: M6b — broader draft benchmarks and public-subset adaptation.** All five retrieval strategies
 are implemented, with snapshot-bound relation graphs, bounded expansion, source traces,
-evaluation and cost reports. The 40-query Requests/Click development set remains
-**provisional, pending human review**. Broader formal experiments, LLM QA and Docker
-delivery remain planned. Paired repository-level analysis and source-bound review
-templates now support the next benchmark expansion; M6 as a whole remains in progress.
+evaluation and cost reports. The frozen draft suite now contains 40 development
+questions, 120 new test candidates on five repositories and a separate ten-question
+RepoQA adaptation. **All labels remain provisional, pending independent human review**.
+The broader test/public data have not been scored during M6b. Formal experiments,
+LLM QA and Docker delivery remain outstanding; M6 is still in progress.
 
 ## Quickstart
 
@@ -190,6 +191,18 @@ See [the exact policy](docs/structure.md) and [M5 results](reports/m5/README.md)
 
 ## Audit experiments and review labels
 
+Prepare and reproduce the expanded data and source review bundles:
+
+```text
+uv run --locked python scripts/run_m6b.py --prepare --output artifacts/m6b-reproduce
+```
+
+This covers eight repository snapshots and 170 questions, with separate development,
+test-candidate and public roles. `--prepare` permits downloads; omit it for an offline
+rebuild after preparation. No retrieval or LLM is executed. See
+[the benchmark workflow](docs/benchmarks.md), [expanded questions](benchmarks/expanded-v1/README.md),
+[RepoQA adaptation](benchmarks/repoqa-marshmallow-v1/README.md) and [M6b audit](reports/m6b/README.md).
+
 With the seed indexes prepared, regenerate the five-strategy audit without loading
 an embedding model:
 
@@ -232,6 +245,8 @@ M5 adds tests for scope/import ambiguity, shadowing, graph corruption, bounded
 expansion, seed provenance, no-edge equivalence and named ablation comparisons.
 M6a tests weighted cluster resampling, legacy fingerprint verification, candidate
 pooling, source bindings, pending reviews, changed evidence and adjudication conflicts.
+M6b adds draft generation, explicit overload selection, UTF-8/line/decorator mapping
+for public needles, split overlap checks and label-only review before retrieval.
 Use `uv run --locked --extra dense ...` to retain optional dependencies while developing
 with the model; `uv sync --locked --dev` restores the smaller base environment.
 
@@ -254,13 +269,18 @@ src/structure_aware_retrieval/
 tests/                        Unit/integration tests and source fixtures
 docs/                         Design, evaluation plans, smoke validation
 benchmarks/seed-v1/            Pinned corpus manifest, 40 queries, source judgments
+benchmarks/expanded-v1/        Five new repositories, 120 source-checked draft queries
+benchmarks/repoqa-marshmallow-v1/  Ten public needles adapted to symbol retrieval
+benchmarks/suite-v1.json       Frozen split membership and primary quality metrics
 configs/                      Reproducible symbol/file experiment settings
 reports/m3/                   Selected real BM25 runs and their limitations
 reports/m4/                   Four-strategy runs, paired comparison and analysis
 reports/m5/                   Structure ablations, source traces and context costs
 reports/m6a/                  Paired audit and frozen pending pool metadata
+reports/m6b/                  Split/source validation and pending-review evidence
 scripts/run_m5.py             Fixed 13-configuration experiment suite
 scripts/run_m6a.py            Offline analysis and pending review bundle
+scripts/run_m6b.py            Data regeneration and review, with opt-in preparation
 .github/workflows/             Windows/Linux CI
 pyproject.toml                Package metadata and tool configuration
 uv.lock                       Locked application/development dependencies

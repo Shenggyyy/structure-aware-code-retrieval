@@ -1,0 +1,915 @@
+{
+  "schema_version": 1,
+  "benchmark": {
+    "id": "repository-expanded",
+    "version": "0.1.0",
+    "split": "test",
+    "annotation_status": "provisional",
+    "digest": "6425370dcf651f80f649d4189059feba289cc4ad2d7722a22a2aac4b3b5000f6"
+  },
+  "repositories": [
+    {
+      "id": "flask",
+      "url": "https://github.com/pallets/flask.git",
+      "ref": "3.0.3",
+      "commit": "c12a5d874c5a014495eb2db8a73f40037bc813ac",
+      "license": "BSD-3-Clause",
+      "corpus_hash": "8439f705b95221f12752bff90bd745743a0c5c4fc0369da908734de3e56f00ad"
+    },
+    {
+      "id": "rich",
+      "url": "https://github.com/Textualize/rich.git",
+      "ref": "v13.7.1",
+      "commit": "7f580bdcf07a3b269a0e786b6a3aa9c804f393cf",
+      "license": "MIT",
+      "corpus_hash": "f6e0fa3e7174327425eb0b4da41b79d783239b171a742d9968a7744b9b1541ca"
+    },
+    {
+      "id": "networkx",
+      "url": "https://github.com/networkx/networkx.git",
+      "ref": "networkx-3.3",
+      "commit": "7fdddfa2caa8275f7862c46524b803db99ff2cde",
+      "license": "BSD-3-Clause",
+      "corpus_hash": "0f209fe86fc73478da03ac6239a8b8bb5016d58b13716858b6616f8557cae5a1"
+    },
+    {
+      "id": "packaging",
+      "url": "https://github.com/pypa/packaging.git",
+      "ref": "24.1",
+      "commit": "85442b8032cb7bae72866dfd7782234a98dd2fb7",
+      "license": "Apache-2.0 OR BSD-2-Clause",
+      "corpus_hash": "20d1f8eedf10cb8deefc8120d8927ae532f8d04f882958ff47ea6376de654023"
+    },
+    {
+      "id": "tomlkit",
+      "url": "https://github.com/python-poetry/tomlkit.git",
+      "ref": "0.12.5",
+      "commit": "a96883b15f545169dd33f16160bd609d624471e3",
+      "license": "MIT",
+      "corpus_hash": "196cd6983390a593eb3ee29af71b0bea5cda70da36cac0786c8358ee417845d3"
+    }
+  ],
+  "queries": [
+    {
+      "id": "flask-01",
+      "repository": "flask",
+      "category": "symbol",
+      "text": "Locate Flask.ensure_sync, which adapts coroutine view functions.",
+      "answerable": true
+    },
+    {
+      "id": "flask-02",
+      "repository": "flask",
+      "category": "symbol",
+      "text": "Where is copy_current_request_context implemented?",
+      "answerable": true
+    },
+    {
+      "id": "flask-03",
+      "repository": "flask",
+      "category": "symbol",
+      "text": "Find the SessionInterface policy that decides whether to set a session cookie.",
+      "answerable": true
+    },
+    {
+      "id": "flask-04",
+      "repository": "flask",
+      "category": "symbol",
+      "text": "Locate Flask.make_default_options_response.",
+      "answerable": true
+    },
+    {
+      "id": "flask-05",
+      "repository": "flask",
+      "category": "behavior",
+      "text": "Which implementation stops processing before-request hooks when one returns a response?",
+      "answerable": true
+    },
+    {
+      "id": "flask-06",
+      "repository": "flask",
+      "category": "behavior",
+      "text": "Where does routing choose between an automatic OPTIONS response and invoking the endpoint view?",
+      "answerable": true
+    },
+    {
+      "id": "flask-07",
+      "repository": "flask",
+      "category": "behavior",
+      "text": "Where does a view that returns None get rejected as an invalid response?",
+      "answerable": true
+    },
+    {
+      "id": "flask-08",
+      "repository": "flask",
+      "category": "behavior",
+      "text": "How are explicitly supplied template variables kept from being overwritten by context processors?",
+      "answerable": true
+    },
+    {
+      "id": "flask-09",
+      "repository": "flask",
+      "category": "behavior",
+      "text": "Where does an invalid signed session cookie fall back to an empty session?",
+      "answerable": true
+    },
+    {
+      "id": "flask-10",
+      "repository": "flask",
+      "category": "behavior",
+      "text": "Which code deletes the session cookie when an emptied session was modified?",
+      "answerable": true
+    },
+    {
+      "id": "flask-11",
+      "repository": "flask",
+      "category": "behavior",
+      "text": "Where is the decision made to indent JSON responses in debug mode or use compact separators?",
+      "answerable": true
+    },
+    {
+      "id": "flask-12",
+      "repository": "flask",
+      "category": "behavior",
+      "text": "Which code retrieves flashed messages once per request and filters them by category?",
+      "answerable": true
+    },
+    {
+      "id": "flask-13",
+      "repository": "flask",
+      "category": "cross_file",
+      "text": "Trace template rendering across modules from render_template to applying context processors.",
+      "answerable": true
+    },
+    {
+      "id": "flask-14",
+      "repository": "flask",
+      "category": "cross_file",
+      "text": "Which helper and application method turn arguments to flask.make_response into a response object?",
+      "answerable": true
+    },
+    {
+      "id": "flask-15",
+      "repository": "flask",
+      "category": "cross_file",
+      "text": "Trace the public URL-building helper to the application code that expands a blueprint-relative endpoint.",
+      "answerable": true
+    },
+    {
+      "id": "flask-16",
+      "repository": "flask",
+      "category": "cross_file",
+      "text": "Which WSGI entry code pushes a request context, and where does that push open the session?",
+      "answerable": true
+    },
+    {
+      "id": "flask-17",
+      "repository": "flask",
+      "category": "cross_file",
+      "text": "Trace saving the default cookie session from response processing into the session backend.",
+      "answerable": true
+    },
+    {
+      "id": "flask-18",
+      "repository": "flask",
+      "category": "cross_file",
+      "text": "Which public jsonify function and default provider implementation produce the JSON HTTP response?",
+      "answerable": true
+    },
+    {
+      "id": "flask-19",
+      "repository": "flask",
+      "category": "cross_file",
+      "text": "How does template streaming keep an active request context while yielding output across module boundaries?",
+      "answerable": true
+    },
+    {
+      "id": "flask-20",
+      "repository": "flask",
+      "category": "cross_file",
+      "text": "Trace request-context removal to execution of registered teardown handlers.",
+      "answerable": true
+    },
+    {
+      "id": "flask-21",
+      "repository": "flask",
+      "category": "test",
+      "text": "Which test checks the default OPTIONS Allow header and empty response body?",
+      "answerable": true
+    },
+    {
+      "id": "flask-22",
+      "repository": "flask",
+      "category": "test",
+      "text": "Which test verifies that an early before-request response prevents later hooks and the view from running?",
+      "answerable": true
+    },
+    {
+      "id": "flask-23",
+      "repository": "flask",
+      "category": "test",
+      "text": "Find the test showing that an explicitly supplied template variable named config takes precedence.",
+      "answerable": true
+    },
+    {
+      "id": "flask-24",
+      "repository": "flask",
+      "category": "test",
+      "text": "Which test checks that a session without a secret key can be read but rejects mutation?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-01",
+      "repository": "networkx",
+      "category": "symbol",
+      "text": "Locate the generic shortest_path dispatcher.",
+      "answerable": true
+    },
+    {
+      "id": "networkx-02",
+      "repository": "networkx",
+      "category": "symbol",
+      "text": "Find the connected_components generator for undirected graphs.",
+      "answerable": true
+    },
+    {
+      "id": "networkx-03",
+      "repository": "networkx",
+      "category": "symbol",
+      "text": "Where is topological_sort implemented?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-04",
+      "repository": "networkx",
+      "category": "symbol",
+      "text": "Locate bfs_edges, including its reverse traversal option.",
+      "answerable": true
+    },
+    {
+      "id": "networkx-05",
+      "repository": "networkx",
+      "category": "behavior",
+      "text": "Which undirected graph method automatically creates missing endpoint nodes and rejects None as a node?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-06",
+      "repository": "networkx",
+      "category": "behavior",
+      "text": "Where does removing an undirected self-loop avoid deleting the same adjacency entry twice?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-07",
+      "repository": "networkx",
+      "category": "behavior",
+      "text": "Which unweighted pairwise path function rejects an absent source or target before searching?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-08",
+      "repository": "networkx",
+      "category": "behavior",
+      "text": "Which generation iterator detects leftover positive indegrees and raises an error for a cycle or graph mutation?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-09",
+      "repository": "networkx",
+      "category": "behavior",
+      "text": "Where does breadth-first traversal enforce a depth limit and stop after every node has been discovered?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-10",
+      "repository": "networkx",
+      "category": "behavior",
+      "text": "Which implementation counts connected components without first materializing them into a list?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-11",
+      "repository": "networkx",
+      "category": "behavior",
+      "text": "Which predicate requires a graph to be directed as well as cycle-free?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-12",
+      "repository": "networkx",
+      "category": "behavior",
+      "text": "Where are graph, node and edge attributes deep-copied when reversing a directed graph with copy=True?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-13",
+      "repository": "networkx",
+      "category": "cross_file",
+      "text": "Trace the generic pairwise shortest-path API to the unweighted bidirectional implementation when weight is None.",
+      "answerable": true
+    },
+    {
+      "id": "networkx-14",
+      "repository": "networkx",
+      "category": "cross_file",
+      "text": "Which ancestor query delegates to breadth-first traversal with edges reversed, and where is that direction selected?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-15",
+      "repository": "networkx",
+      "category": "cross_file",
+      "text": "Trace descendant lookup into the traversal function that walks outward from a source.",
+      "answerable": true
+    },
+    {
+      "id": "networkx-16",
+      "repository": "networkx",
+      "category": "cross_file",
+      "text": "Which Graph method creates a node-induced view, and which separate implementation installs the filtering wrappers?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-17",
+      "repository": "networkx",
+      "category": "cross_file",
+      "text": "Trace reverse(copy=False) to the view implementation that swaps predecessor and successor mappings.",
+      "answerable": true
+    },
+    {
+      "id": "networkx-18",
+      "repository": "networkx",
+      "category": "cross_file",
+      "text": "Which path-graph generator uses a utility from another module to connect consecutive nodes?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-19",
+      "repository": "networkx",
+      "category": "cross_file",
+      "text": "Trace composing two graphs into the multi-graph composition helper that preserves their attributes.",
+      "answerable": true
+    },
+    {
+      "id": "networkx-20",
+      "repository": "networkx",
+      "category": "cross_file",
+      "text": "Which JSON adjacency serializer consumes the graph method exposing each node's adjacency mapping?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-21",
+      "repository": "networkx",
+      "category": "test",
+      "text": "Which Graph test verifies adding an edge creates both adjacency directions and rejects a None endpoint?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-22",
+      "repository": "networkx",
+      "category": "test",
+      "text": "Which parameterized path test requires NodeNotFound when either endpoint is absent?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-23",
+      "repository": "networkx",
+      "category": "test",
+      "text": "Which test checks the same topological generations for a directed graph and its multigraph variant with an extra parallel edge?",
+      "answerable": true
+    },
+    {
+      "id": "networkx-24",
+      "repository": "networkx",
+      "category": "test",
+      "text": "Find the test checking that multigraph composition preserves distinct edge keys, including an additional overlapping-node edge.",
+      "answerable": true
+    },
+    {
+      "id": "packaging-01",
+      "repository": "packaging",
+      "category": "symbol",
+      "text": "Locate the public packaging.version.parse entry point.",
+      "answerable": true
+    },
+    {
+      "id": "packaging-02",
+      "repository": "packaging",
+      "category": "symbol",
+      "text": "Find the function that builds the default environment used by dependency markers.",
+      "answerable": true
+    },
+    {
+      "id": "packaging-03",
+      "repository": "packaging",
+      "category": "symbol",
+      "text": "Where is packaging.utils.parse_wheel_filename defined?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-04",
+      "repository": "packaging",
+      "category": "symbol",
+      "text": "Locate Requirement._iter_parts, used to render dependency requirement strings.",
+      "answerable": true
+    },
+    {
+      "id": "packaging-05",
+      "repository": "packaging",
+      "category": "behavior",
+      "text": "Which implementation optionally validates a project name and normalizes its separators and case?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-06",
+      "repository": "packaging",
+      "category": "behavior",
+      "text": "Where can trailing release zeros be preserved while canonicalizing a version string?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-07",
+      "repository": "packaging",
+      "category": "behavior",
+      "text": "Where does canonicalizing an unparseable legacy version return the original string instead of failing?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-08",
+      "repository": "packaging",
+      "category": "behavior",
+      "text": "Which code expands compressed wheel interpreter, ABI and platform components into every tag combination?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-09",
+      "repository": "packaging",
+      "category": "behavior",
+      "text": "Where is a comma-separated constraint expression stripped of empty entries and stored as a deduplicated set?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-10",
+      "repository": "packaging",
+      "category": "behavior",
+      "text": "Which set-membership implementation treats an installed prerelease as its base version when requested?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-11",
+      "repository": "packaging",
+      "category": "behavior",
+      "text": "Where is a missing or explicitly None extra environment value converted to an empty string for marker evaluation?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-12",
+      "repository": "packaging",
+      "category": "behavior",
+      "text": "Which filename parser rejects source archives whose suffix is neither .tar.gz nor .zip?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-13",
+      "repository": "packaging",
+      "category": "cross_file",
+      "text": "Trace requirement construction to the grammar entry point that parses the dependency string.",
+      "answerable": true
+    },
+    {
+      "id": "packaging-14",
+      "repository": "packaging",
+      "category": "cross_file",
+      "text": "Which requirement comparison calls project-name normalization in another module before comparing the remaining fields?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-15",
+      "repository": "packaging",
+      "category": "cross_file",
+      "text": "Trace compatibility-tag extraction from a wheel filename into the function that expands compressed tags.",
+      "answerable": true
+    },
+    {
+      "id": "packaging-16",
+      "repository": "packaging",
+      "category": "cross_file",
+      "text": "Which source-archive parser constructs a Version object, and where is that version validated?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-17",
+      "repository": "packaging",
+      "category": "cross_file",
+      "text": "Trace marker comparison to version-specifier membership when the right side forms a valid version constraint.",
+      "answerable": true
+    },
+    {
+      "id": "packaging-18",
+      "repository": "packaging",
+      "category": "cross_file",
+      "text": "Which constructor and parser entry point turn a marker string into its parsed expression tree?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-19",
+      "repository": "packaging",
+      "category": "cross_file",
+      "text": "Where does single-specifier membership convert a string version using the implementation in the version module?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-20",
+      "repository": "packaging",
+      "category": "cross_file",
+      "text": "How does specifier canonicalization preserve release zeros for the compatible-release operator across modules?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-21",
+      "repository": "packaging",
+      "category": "test",
+      "text": "Which test verifies that disabling trailing-zero stripping preserves versions such as 1.4.0?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-22",
+      "repository": "packaging",
+      "category": "test",
+      "text": "Find the test that rejects extras separated by whitespace rather than a comma.",
+      "answerable": true
+    },
+    {
+      "id": "packaging-23",
+      "repository": "packaging",
+      "category": "test",
+      "text": "Which test verifies marker evaluation assumes an empty extra when no environment override is supplied?",
+      "answerable": true
+    },
+    {
+      "id": "packaging-24",
+      "repository": "packaging",
+      "category": "test",
+      "text": "Which test distinguishes PEP 440 version ordering from ordinary string ordering for marker operands?",
+      "answerable": true
+    },
+    {
+      "id": "rich-01",
+      "repository": "rich",
+      "category": "symbol",
+      "text": "Locate rich.markup.escape.",
+      "answerable": true
+    },
+    {
+      "id": "rich-02",
+      "repository": "rich",
+      "category": "symbol",
+      "text": "Find AnsiDecoder.decode, the iterator that decodes terminal text line by line.",
+      "answerable": true
+    },
+    {
+      "id": "rich-03",
+      "repository": "rich",
+      "category": "symbol",
+      "text": "Where is Measurement.get implemented?",
+      "answerable": true
+    },
+    {
+      "id": "rich-04",
+      "repository": "rich",
+      "category": "symbol",
+      "text": "Locate Console.export_text for reading recorded console output.",
+      "answerable": true
+    },
+    {
+      "id": "rich-05",
+      "repository": "rich",
+      "category": "behavior",
+      "text": "Which method disables automatic color detection for nonterminal or dumb-terminal output?",
+      "answerable": true
+    },
+    {
+      "id": "rich-06",
+      "repository": "rich",
+      "category": "behavior",
+      "text": "Where does a markup closing tag with no matching open style raise an error?",
+      "answerable": true
+    },
+    {
+      "id": "rich-07",
+      "repository": "rich",
+      "category": "behavior",
+      "text": "Which ANSI decoder keeps only the text following the final carriage return on a line?",
+      "answerable": true
+    },
+    {
+      "id": "rich-08",
+      "repository": "rich",
+      "category": "behavior",
+      "text": "Which implementation splits non-control segments at newline characters while carrying their styles to each line?",
+      "answerable": true
+    },
+    {
+      "id": "rich-09",
+      "repository": "rich",
+      "category": "behavior",
+      "text": "Where is a rendered segment line padded with spaces or cropped to a requested cell width?",
+      "answerable": true
+    },
+    {
+      "id": "rich-10",
+      "repository": "rich",
+      "category": "behavior",
+      "text": "Which class method combines an iterable of styles by accumulating them in order?",
+      "answerable": true
+    },
+    {
+      "id": "rich-11",
+      "repository": "rich",
+      "category": "behavior",
+      "text": "Where does text truncation reserve one display cell for an ellipsis?",
+      "answerable": true
+    },
+    {
+      "id": "rich-12",
+      "repository": "rich",
+      "category": "behavior",
+      "text": "Which code omits control segments from plain recorded text and clears the recording buffer by default?",
+      "answerable": true
+    },
+    {
+      "id": "rich-13",
+      "repository": "rich",
+      "category": "cross_file",
+      "text": "Trace console rendering into the helper that repeatedly applies __rich__ conversions.",
+      "answerable": true
+    },
+    {
+      "id": "rich-14",
+      "repository": "rich",
+      "category": "cross_file",
+      "text": "Which console string-rendering method delegates enabled markup to the parser in the markup module?",
+      "answerable": true
+    },
+    {
+      "id": "rich-15",
+      "repository": "rich",
+      "category": "cross_file",
+      "text": "Trace Text.from_markup into the function that creates its styled text representation.",
+      "answerable": true
+    },
+    {
+      "id": "rich-16",
+      "repository": "rich",
+      "category": "cross_file",
+      "text": "Which Text constructor delegates ANSI decoding to a separate module and joins the decoded lines?",
+      "answerable": true
+    },
+    {
+      "id": "rich-17",
+      "repository": "rich",
+      "category": "cross_file",
+      "text": "Trace Console.measure to the implementation that invokes a renderable's __rich_measure__ hook.",
+      "answerable": true
+    },
+    {
+      "id": "rich-18",
+      "repository": "rich",
+      "category": "cross_file",
+      "text": "Which Text property and cell utility compute display width rather than Python string length?",
+      "answerable": true
+    },
+    {
+      "id": "rich-19",
+      "repository": "rich",
+      "category": "cross_file",
+      "text": "Trace truncating text to a terminal width into the helper that avoids splitting a double-width character.",
+      "answerable": true
+    },
+    {
+      "id": "rich-20",
+      "repository": "rich",
+      "category": "cross_file",
+      "text": "Which padding measurement implementation delegates to another module before adding horizontal padding?",
+      "answerable": true
+    },
+    {
+      "id": "rich-21",
+      "repository": "rich",
+      "category": "test",
+      "text": "Which test checks escaping markup tags while leaving a numeric bracket expression untouched?",
+      "answerable": true
+    },
+    {
+      "id": "rich-22",
+      "repository": "rich",
+      "category": "test",
+      "text": "Find the test covering both padding and cropping a list of rendered segments.",
+      "answerable": true
+    },
+    {
+      "id": "rich-23",
+      "repository": "rich",
+      "category": "test",
+      "text": "Which parameterized test checks ellipsis truncation down to a one-character output?",
+      "answerable": true
+    },
+    {
+      "id": "rich-24",
+      "repository": "rich",
+      "category": "test",
+      "text": "Which test verifies that recording bold console text can be exported as plain text?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-01",
+      "repository": "tomlkit",
+      "category": "symbol",
+      "text": "Find the public document factory that constructs an empty TOMLDocument.",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-02",
+      "repository": "tomlkit",
+      "category": "symbol",
+      "text": "Locate the key_value helper for parsing a single TOML key/value pair.",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-03",
+      "repository": "tomlkit",
+      "category": "symbol",
+      "text": "Where is Parser._parse_array implemented?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-04",
+      "repository": "tomlkit",
+      "category": "symbol",
+      "text": "Locate TOMLFile.read.",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-05",
+      "repository": "tomlkit",
+      "category": "behavior",
+      "text": "Which number parser rejects leading-zero decimal forms and signed nondecimal base prefixes?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-06",
+      "repository": "tomlkit",
+      "category": "behavior",
+      "text": "Where does the parser read four or eight hexadecimal digits for a Unicode escape and validate the resulting character?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-07",
+      "repository": "tomlkit",
+      "category": "behavior",
+      "text": "Which string-escape parser removes multiline continuation whitespace only when it contains a newline?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-08",
+      "repository": "tomlkit",
+      "category": "behavior",
+      "text": "Which file writer preserves the detected LF or CRLF convention when serializing an edited document?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-09",
+      "repository": "tomlkit",
+      "category": "behavior",
+      "text": "Where does parsing a standalone TOML value reject additional trailing input?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-10",
+      "repository": "tomlkit",
+      "category": "behavior",
+      "text": "Which public function silently tolerates unregistering a custom encoder that is not registered?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-11",
+      "repository": "tomlkit",
+      "category": "behavior",
+      "text": "Where does conversion choose an array of tables for a sequence of dictionaries and an ordinary array for other sequences?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-12",
+      "repository": "tomlkit",
+      "category": "behavior",
+      "text": "Which raw-string factory checks invalid sequences for the selected TOML string type before escaping?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-13",
+      "repository": "tomlkit",
+      "category": "cross_file",
+      "text": "Trace the public TOML parse function into the parser that builds the document body.",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-14",
+      "repository": "tomlkit",
+      "category": "cross_file",
+      "text": "Which public standalone-value helper uses the parser's type-dispatch implementation?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-15",
+      "repository": "tomlkit",
+      "category": "cross_file",
+      "text": "Trace date construction from its public API to the RFC 3339 parsing utility.",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-16",
+      "repository": "tomlkit",
+      "category": "cross_file",
+      "text": "Which public string factory selects a string kind and delegates raw-value validation to the item implementation?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-17",
+      "repository": "tomlkit",
+      "category": "cross_file",
+      "text": "Trace reading a TOML file through the API wrapper to the parser entry point.",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-18",
+      "repository": "tomlkit",
+      "category": "cross_file",
+      "text": "Which API serializer calls the container code that renders tables, arrays of tables and simple items in body order?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-19",
+      "repository": "tomlkit",
+      "category": "cross_file",
+      "text": "Where is a custom encoder registered, and where are those encoders tried when built-in item conversion cannot handle a value?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-20",
+      "repository": "tomlkit",
+      "category": "cross_file",
+      "text": "Trace raw string creation into the utility that replaces requested escape sequences.",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-21",
+      "repository": "tomlkit",
+      "category": "test",
+      "text": "Which parameterized test checks that parsing and dumping valid example files preserves their original text?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-22",
+      "repository": "tomlkit",
+      "category": "test",
+      "text": "Which test verifies that editing a CRLF file retains CRLF line endings when it is written back?",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-23",
+      "repository": "tomlkit",
+      "category": "test",
+      "text": "Find the parameterized test rejecting adjacent or appended standalone values such as truefalse or adjacent arrays.",
+      "answerable": true
+    },
+    {
+      "id": "tomlkit-24",
+      "repository": "tomlkit",
+      "category": "test",
+      "text": "Which test verifies that the initial LF or CRLF in a multiline basic string is omitted from the parsed value?",
+      "answerable": true
+    }
+  ],
+  "snapshots": {
+    "flask": "2fcd7cefa43a269e6719a26996bdc52928b4b27adce72c8369e5209c37ace306",
+    "networkx": "ee5359ca7dd22ac05c484c3e20d318960faeb7210aed4425558ec446c78adfe8",
+    "packaging": "9bc4908803672a50fb0c2f08878a2c54dab8697683071ebaaf7b42424a125562",
+    "rich": "f3ab061547301f3fbff7463a1d6a913752a1af662a4c7effa1f8d5bece6355dd",
+    "tomlkit": "eae5895dc476935a9d94000d1dbfed7e4a200fcde4ab220263b936c72c04b782"
+  },
+  "runs": [],
+  "depth": 0,
+  "policy": "existing_judgments_only_no_retrieval",
+  "item_count": 164,
+  "unjudged_count": 0,
+  "by_repository": {
+    "flask": 33,
+    "networkx": 32,
+    "packaging": 34,
+    "rich": 32,
+    "tomlkit": 33
+  },
+  "review_status": "pending",
+  "pool_digest": "be647b5597fd3ac46a2a3dda281cfd0cec4c9457ca72edb3dfbef2f2f935893e"
+}

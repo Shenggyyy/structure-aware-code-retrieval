@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "repository_id": "rich",
+  "questions": [
+    {
+      "id": "rich-01",
+      "category": "symbol",
+      "family": "markup-escape",
+      "text": "Locate rich.markup.escape.",
+      "targets": [
+        {
+          "path": "rich/markup.py",
+          "name": "escape",
+          "grade": 2,
+          "rationale": "Escapes bracket markup and handles backslashes including a trailing single backslash."
+        }
+      ]
+    },
+    {
+      "id": "rich-02",
+      "category": "symbol",
+      "family": "ansi-lines",
+      "text": "Find AnsiDecoder.decode, the iterator that decodes terminal text line by line.",
+      "targets": [
+        {
+          "path": "rich/ansi.py",
+          "name": "AnsiDecoder.decode",
+          "grade": 2,
+          "rationale": "Splits the input into lines and yields each decode_line result."
+        }
+      ]
+    },
+    {
+      "id": "rich-03",
+      "category": "symbol",
+      "family": "measurement",
+      "text": "Where is Measurement.get implemented?",
+      "targets": [
+        {
+          "path": "rich/measure.py",
+          "name": "Measurement.get",
+          "grade": 2,
+          "rationale": "Normalizes renderables and invokes their measurement hook within the available width."
+        }
+      ]
+    },
+    {
+      "id": "rich-04",
+      "category": "symbol",
+      "family": "recording",
+      "text": "Locate Console.export_text for reading recorded console output.",
+      "targets": [
+        {
+          "path": "rich/console.py",
+          "name": "Console.export_text",
+          "grade": 2,
+          "rationale": "Collects recorded segments into plain or styled text and optionally clears the buffer."
+        }
+      ]
+    },
+    {
+      "id": "rich-05",
+      "category": "behavior",
+      "family": "color-detection",
+      "text": "Which method disables automatic color detection for nonterminal or dumb-terminal output?",
+      "targets": [
+        {
+          "path": "rich/console.py",
+          "name": "Console._detect_color_system",
+          "grade": 2,
+          "rationale": "Returns None for nonterminals or dumb terminals after checking the Jupyter case."
+        }
+      ]
+    },
+    {
+      "id": "rich-06",
+      "category": "behavior",
+      "family": "markup-errors",
+      "text": "Where does a markup closing tag with no matching open style raise an error?",
+      "targets": [
+        {
+          "path": "rich/markup.py",
+          "name": "render",
+          "grade": 2,
+          "rationale": "Raises MarkupError when a named closing style cannot be found or the anonymous stack is empty."
+        }
+      ]
+    },
+    {
+      "id": "rich-07",
+      "category": "behavior",
+      "family": "ansi-carriage",
+      "text": "Which ANSI decoder keeps only the text following the final carriage return on a line?",
+      "targets": [
+        {
+          "path": "rich/ansi.py",
+          "name": "AnsiDecoder.decode_line",
+          "grade": 2,
+          "rationale": "Uses line.rsplit with a carriage-return separator before tokenizing ANSI content."
+        }
+      ]
+    },
+    {
+      "id": "rich-08",
+      "category": "behavior",
+      "family": "segment-lines",
+      "text": "Which implementation splits non-control segments at newline characters while carrying their styles to each line?",
+      "targets": [
+        {
+          "path": "rich/segment.py",
+          "name": "Segment.split_lines",
+          "grade": 2,
+          "rationale": "Partitions ordinary segment text around newlines and yields lists of styled segments."
+        }
+      ]
+    },
+    {
+      "id": "rich-09",
+      "category": "behavior",
+      "family": "segment-width",
+      "text": "Where is a rendered segment line padded with spaces or cropped to a requested cell width?",
+      "targets": [
+        {
+          "path": "rich/segment.py",
+          "name": "Segment.adjust_line_length",
+          "grade": 2,
+          "rationale": "Computes cell length, appends padding when short and truncates segments when too long."
+        }
+      ]
+    },
+    {
+      "id": "rich-10",
+      "category": "behavior",
+      "family": "style-combination",
+      "text": "Which class method combines an iterable of styles by accumulating them in order?",
+      "targets": [
+        {
+          "path": "rich/style.py",
+          "name": "Style.combine",
+          "grade": 2,
+          "rationale": "Starts with the first style and sums the remaining styles from the iterator."
+        }
+      ]
+    },
+    {
+      "id": "rich-11",
+      "category": "behavior",
+      "family": "text-truncation",
+      "text": "Where does text truncation reserve one display cell for an ellipsis?",
+      "targets": [
+        {
+          "path": "rich/text.py",
+          "name": "Text.truncate",
+          "grade": 2,
+          "rationale": "For ellipsis overflow, resizes the plain text to max_width minus one and appends the ellipsis."
+        }
+      ]
+    },
+    {
+      "id": "rich-12",
+      "category": "behavior",
+      "family": "recording",
+      "text": "Which code omits control segments from plain recorded text and clears the recording buffer by default?",
+      "targets": [
+        {
+          "path": "rich/console.py",
+          "name": "Console.export_text",
+          "grade": 2,
+          "rationale": "The unstyled branch ignores control segments; clear defaults true and deletes the buffer contents."
+        }
+      ]
+    },
+    {
+      "id": "rich-13",
+      "category": "cross_file",
+      "family": "render-protocol",
+      "text": "Trace console rendering into the helper that repeatedly applies __rich__ conversions.",
+      "targets": [
+        {
+          "path": "rich/console.py",
+          "name": "Console.render",
+          "grade": 2,
+          "rationale": "Normalizes the renderable with rich_cast before selecting the rendering protocol."
+        },
+        {
+          "path": "rich/protocol.py",
+          "name": "rich_cast",
+          "grade": 2,
+          "rationale": "Calls __rich__ while tracking visited result types to avoid an endless conversion chain."
+        }
+      ]
+    },
+    {
+      "id": "rich-14",
+      "category": "cross_file",
+      "family": "console-markup",
+      "text": "Which console string-rendering method delegates enabled markup to the parser in the markup module?",
+      "targets": [
+        {
+          "path": "rich/console.py",
+          "name": "Console.render_str",
+          "grade": 2,
+          "rationale": "Calls render_markup when markup_enabled is true."
+        },
+        {
+          "path": "rich/markup.py",
+          "name": "render",
+          "grade": 2,
+          "rationale": "Parses markup into text and style spans."
+        }
+      ]
+    },
+    {
+      "id": "rich-15",
+      "category": "cross_file",
+      "family": "text-markup",
+      "text": "Trace Text.from_markup into the function that creates its styled text representation.",
+      "targets": [
+        {
+          "path": "rich/text.py",
+          "name": "Text.from_markup",
+          "grade": 2,
+          "rationale": "Imports markup.render, calls it and applies text layout settings."
+        },
+        {
+          "path": "rich/markup.py",
+          "name": "render",
+          "grade": 2,
+          "rationale": "Builds text and style spans from markup tags."
+        }
+      ]
+    },
+    {
+      "id": "rich-16",
+      "category": "cross_file",
+      "family": "ansi-lines",
+      "text": "Which Text constructor delegates ANSI decoding to a separate module and joins the decoded lines?",
+      "targets": [
+        {
+          "path": "rich/text.py",
+          "name": "Text.from_ansi",
+          "grade": 2,
+          "rationale": "Creates AnsiDecoder and joins the results of decoder.decode with newline text."
+        },
+        {
+          "path": "rich/ansi.py",
+          "name": "AnsiDecoder.decode",
+          "grade": 2,
+          "rationale": "Yields decoded Text objects one input line at a time."
+        }
+      ]
+    },
+    {
+      "id": "rich-17",
+      "category": "cross_file",
+      "family": "measurement",
+      "text": "Trace Console.measure to the implementation that invokes a renderable's __rich_measure__ hook.",
+      "targets": [
+        {
+          "path": "rich/console.py",
+          "name": "Console.measure",
+          "grade": 2,
+          "rationale": "Forwards the renderable and effective console options to Measurement.get."
+        },
+        {
+          "path": "rich/measure.py",
+          "name": "Measurement.get",
+          "grade": 2,
+          "rationale": "Calls the measurement hook and constrains its result to the maximum width."
+        }
+      ]
+    },
+    {
+      "id": "rich-18",
+      "category": "cross_file",
+      "family": "cell-count",
+      "text": "Which Text property and cell utility compute display width rather than Python string length?",
+      "targets": [
+        {
+          "path": "rich/text.py",
+          "name": "Text.cell_len",
+          "grade": 2,
+          "rationale": "Delegates the plain string to the imported cell_len utility."
+        },
+        {
+          "path": "rich/cells.py",
+          "name": "cell_len",
+          "grade": 2,
+          "rationale": "Uses cached cell widths for shorter strings and sums per-character widths for long strings."
+        }
+      ]
+    },
+    {
+      "id": "rich-19",
+      "category": "cross_file",
+      "family": "text-truncation",
+      "text": "Trace truncating text to a terminal width into the helper that avoids splitting a double-width character.",
+      "targets": [
+        {
+          "path": "rich/text.py",
+          "name": "Text.truncate",
+          "grade": 2,
+          "rationale": "Calls set_cell_size to resize text before assigning the truncated plain value."
+        },
+        {
+          "path": "rich/cells.py",
+          "name": "set_cell_size",
+          "grade": 2,
+          "rationale": "Finds a fitting prefix and substitutes a space when a double-width character straddles the boundary."
+        }
+      ]
+    },
+    {
+      "id": "rich-20",
+      "category": "cross_file",
+      "family": "padding-measurement",
+      "text": "Which padding measurement implementation delegates to another module before adding horizontal padding?",
+      "targets": [
+        {
+          "path": "rich/padding.py",
+          "name": "Padding.__rich_measure__",
+          "grade": 2,
+          "rationale": "Measures the wrapped renderable and adds left and right padding within max_width."
+        },
+        {
+          "path": "rich/measure.py",
+          "name": "Measurement.get",
+          "grade": 2,
+          "rationale": "Obtains and normalizes the underlying renderable's measurement."
+        }
+      ]
+    },
+    {
+      "id": "rich-21",
+      "category": "test",
+      "family": "markup-escape",
+      "text": "Which test checks escaping markup tags while leaving a numeric bracket expression untouched?",
+      "targets": [
+        {
+          "path": "tests/test_markup.py",
+          "name": "test_escape",
+          "grade": 2,
+          "rationale": "Checks escaped bar and metadata tags, existing backslashes and unchanged [5] expressions."
+        }
+      ]
+    },
+    {
+      "id": "rich-22",
+      "category": "test",
+      "family": "segment-width",
+      "text": "Find the test covering both padding and cropping a list of rendered segments.",
+      "targets": [
+        {
+          "path": "tests/test_segment.py",
+          "name": "test_adjust_line_length",
+          "grade": 2,
+          "rationale": "Asserts padding with a specified style, cropping multiple segments and unchanged equal-width lines."
+        }
+      ]
+    },
+    {
+      "id": "rich-23",
+      "category": "test",
+      "family": "text-truncation",
+      "text": "Which parameterized test checks ellipsis truncation down to a one-character output?",
+      "targets": [
+        {
+          "path": "tests/test_text.py",
+          "name": "test_truncate_ellipsis",
+          "grade": 2,
+          "rationale": "Checks the output for several requested widths including an ellipsis alone at width one."
+        }
+      ]
+    },
+    {
+      "id": "rich-24",
+      "category": "test",
+      "family": "recording",
+      "text": "Which test verifies that recording bold console text can be exported as plain text?",
+      "targets": [
+        {
+          "path": "tests/test_console.py",
+          "name": "test_export_text",
+          "grade": 2,
+          "rationale": "Prints bold markup to a recording console and asserts the export contains plain foo and a newline."
+        }
+      ]
+    }
+  ]
+}

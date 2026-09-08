@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "repository_id": "tomlkit",
+  "questions": [
+    {
+      "id": "tomlkit-01",
+      "category": "symbol",
+      "family": "document",
+      "text": "Find the public document factory that constructs an empty TOMLDocument.",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "document",
+          "grade": 2,
+          "rationale": "Returns a new TOMLDocument instance."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-02",
+      "category": "symbol",
+      "family": "key-value",
+      "text": "Locate the key_value helper for parsing a single TOML key/value pair.",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "key_value",
+          "grade": 2,
+          "rationale": "Constructs Parser and invokes its _parse_key_value method."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-03",
+      "category": "symbol",
+      "family": "array",
+      "text": "Where is Parser._parse_array implemented?",
+      "targets": [
+        {
+          "path": "tomlkit/parser.py",
+          "name": "Parser._parse_array",
+          "grade": 2,
+          "rationale": "Collects values, whitespace and comments until the closing array bracket."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-04",
+      "category": "symbol",
+      "family": "file-read",
+      "text": "Locate TOMLFile.read.",
+      "targets": [
+        {
+          "path": "tomlkit/toml_file.py",
+          "name": "TOMLFile.read",
+          "grade": 2,
+          "rationale": "Reads UTF-8 without newline translation, records line-ending style and parses the content."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-05",
+      "category": "behavior",
+      "family": "numbers",
+      "text": "Which number parser rejects leading-zero decimal forms and signed nondecimal base prefixes?",
+      "targets": [
+        {
+          "path": "tomlkit/parser.py",
+          "name": "Parser._parse_number",
+          "grade": 2,
+          "rationale": "Returns None for disallowed leading zeros and signed hexadecimal, octal or binary prefixes."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-06",
+      "category": "behavior",
+      "family": "unicode",
+      "text": "Where does the parser read four or eight hexadecimal digits for a Unicode escape and validate the resulting character?",
+      "targets": [
+        {
+          "path": "tomlkit/parser.py",
+          "name": "Parser._peek_unicode",
+          "grade": 2,
+          "rationale": "Selects the digit count, inspects the extracted code and attempts chr(int(...,16)) with invalid values handled."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-07",
+      "category": "behavior",
+      "family": "continuations",
+      "text": "Which string-escape parser removes multiline continuation whitespace only when it contains a newline?",
+      "targets": [
+        {
+          "path": "tomlkit/parser.py",
+          "name": "Parser._parse_escaped_char",
+          "grade": 2,
+          "rationale": "Collects multiline whitespace, rejects it without a newline and otherwise returns an empty string."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-08",
+      "category": "behavior",
+      "family": "line-endings",
+      "text": "Which file writer preserves the detected LF or CRLF convention when serializing an edited document?",
+      "targets": [
+        {
+          "path": "tomlkit/toml_file.py",
+          "name": "TOMLFile.write",
+          "grade": 2,
+          "rationale": "Normalizes serialized newlines according to _linesep and writes with newline translation disabled."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-09",
+      "category": "behavior",
+      "family": "value-end",
+      "text": "Where does parsing a standalone TOML value reject additional trailing input?",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "value",
+          "grade": 2,
+          "rationale": "Parses one value and raises UnexpectedCharError if the parser has not reached the end."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-10",
+      "category": "behavior",
+      "family": "custom-encoder",
+      "text": "Which public function silently tolerates unregistering a custom encoder that is not registered?",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "unregister_encoder",
+          "grade": 2,
+          "rationale": "Suppresses ValueError around removal from CUSTOM_ENCODERS."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-11",
+      "category": "behavior",
+      "family": "sequence-conversion",
+      "text": "Where does conversion choose an array of tables for a sequence of dictionaries and an ordinary array for other sequences?",
+      "targets": [
+        {
+          "path": "tomlkit/items.py",
+          "name": "item",
+          "grade": 2,
+          "rationale": "The list/tuple branch selects AoT for all-dictionary values in an eligible parent, otherwise Array.",
+          "start_line": 110
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-12",
+      "category": "behavior",
+      "family": "string-validation",
+      "text": "Which raw-string factory checks invalid sequences for the selected TOML string type before escaping?",
+      "targets": [
+        {
+          "path": "tomlkit/items.py",
+          "name": "String.from_raw",
+          "grade": 2,
+          "rationale": "Checks type_.invalid_sequences and raises InvalidStringError before creating the String."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-13",
+      "category": "cross_file",
+      "family": "document-parse",
+      "text": "Trace the public TOML parse function into the parser that builds the document body.",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "parse",
+          "grade": 2,
+          "rationale": "Constructs Parser from the input and calls parse."
+        },
+        {
+          "path": "tomlkit/parser.py",
+          "name": "Parser.parse",
+          "grade": 2,
+          "rationale": "Parses body items and tables into a TOMLDocument and finishes parsing mode."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-14",
+      "category": "cross_file",
+      "family": "value-end",
+      "text": "Which public standalone-value helper uses the parser's type-dispatch implementation?",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "value",
+          "grade": 2,
+          "rationale": "Calls Parser._parse_value and requires the end of input."
+        },
+        {
+          "path": "tomlkit/parser.py",
+          "name": "Parser._parse_value",
+          "grade": 2,
+          "rationale": "Dispatches strings, booleans, arrays, inline tables, dates and numbers based on the next character."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-15",
+      "category": "cross_file",
+      "family": "date-conversion",
+      "text": "Trace date construction from its public API to the RFC 3339 parsing utility.",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "date",
+          "grade": 2,
+          "rationale": "Calls parse_rfc3339, verifies a date-compatible result and converts it to an item."
+        },
+        {
+          "path": "tomlkit/_utils.py",
+          "name": "parse_rfc3339",
+          "grade": 2,
+          "rationale": "Recognizes date, datetime and time strings and constructs the corresponding Python values."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-16",
+      "category": "cross_file",
+      "family": "string-validation",
+      "text": "Which public string factory selects a string kind and delegates raw-value validation to the item implementation?",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "string",
+          "grade": 2,
+          "rationale": "Selects the literal/multiline string type and calls String.from_raw."
+        },
+        {
+          "path": "tomlkit/items.py",
+          "name": "String.from_raw",
+          "grade": 2,
+          "rationale": "Validates forbidden sequences and creates the string with optional escaping."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-17",
+      "category": "cross_file",
+      "family": "file-read",
+      "text": "Trace reading a TOML file through the API wrapper to the parser entry point.",
+      "targets": [
+        {
+          "path": "tomlkit/toml_file.py",
+          "name": "TOMLFile.read",
+          "grade": 2,
+          "rationale": "Reads the file, detects line endings and passes its content to loads."
+        },
+        {
+          "path": "tomlkit/api.py",
+          "name": "loads",
+          "grade": 2,
+          "rationale": "Delegates to parse."
+        },
+        {
+          "path": "tomlkit/api.py",
+          "name": "parse",
+          "grade": 2,
+          "rationale": "Creates the Parser and parses the document."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-18",
+      "category": "cross_file",
+      "family": "document-render",
+      "text": "Which API serializer calls the container code that renders tables, arrays of tables and simple items in body order?",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "dumps",
+          "grade": 2,
+          "rationale": "Calls as_string after converting ordinary mappings when necessary."
+        },
+        {
+          "path": "tomlkit/container.py",
+          "name": "Container.as_string",
+          "grade": 2,
+          "rationale": "Walks the ordered body and dispatches table, AoT and simple-item rendering."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-19",
+      "category": "cross_file",
+      "family": "custom-encoder",
+      "text": "Where is a custom encoder registered, and where are those encoders tried when built-in item conversion cannot handle a value?",
+      "targets": [
+        {
+          "path": "tomlkit/api.py",
+          "name": "register_encoder",
+          "grade": 2,
+          "rationale": "Appends the callable to the shared CUSTOM_ENCODERS list."
+        },
+        {
+          "path": "tomlkit/items.py",
+          "name": "item",
+          "grade": 2,
+          "rationale": "Tries custom encoders for unsupported values and requires them to return an Item.",
+          "start_line": 110
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-20",
+      "category": "cross_file",
+      "family": "string-escaping",
+      "text": "Trace raw string creation into the utility that replaces requested escape sequences.",
+      "targets": [
+        {
+          "path": "tomlkit/items.py",
+          "name": "String.from_raw",
+          "grade": 2,
+          "rationale": "Calls escape_string when escaping is enabled for the selected string type."
+        },
+        {
+          "path": "tomlkit/_utils.py",
+          "name": "escape_string",
+          "grade": 2,
+          "rationale": "Finds configured sequences and replaces them with compact or Unicode escapes."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-21",
+      "category": "test",
+      "family": "roundtrip",
+      "text": "Which parameterized test checks that parsing and dumping valid example files preserves their original text?",
+      "targets": [
+        {
+          "path": "tests/test_api.py",
+          "name": "test_original_string_and_dumped_string_are_equal",
+          "grade": 2,
+          "rationale": "Asserts each fixture's original content equals dumps(parse(content))."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-22",
+      "category": "test",
+      "family": "line-endings",
+      "text": "Which test verifies that editing a CRLF file retains CRLF line endings when it is written back?",
+      "targets": [
+        {
+          "path": "tests/test_toml_file.py",
+          "name": "test_keep_old_eol",
+          "grade": 2,
+          "rationale": "Writes a CRLF file, edits one value through TOMLFile and checks the exact output bytes."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-23",
+      "category": "test",
+      "family": "value-end",
+      "text": "Find the parameterized test rejecting adjacent or appended standalone values such as truefalse or adjacent arrays.",
+      "targets": [
+        {
+          "path": "tests/test_api.py",
+          "name": "test_value_rejects_values_with_appendage",
+          "grade": 2,
+          "rationale": "Passes appended-value examples to tomlkit.value and requires ParseError."
+        }
+      ]
+    },
+    {
+      "id": "tomlkit-24",
+      "category": "test",
+      "family": "multiline",
+      "text": "Which test verifies that the initial LF or CRLF in a multiline basic string is omitted from the parsed value?",
+      "targets": [
+        {
+          "path": "tests/test_parser.py",
+          "name": "test_parse_multiline_string_ignore_the_first_newline",
+          "grade": 2,
+          "rationale": "Checks both leading newline forms and expects only foo followed by a newline."
+        }
+      ]
+    }
+  ]
+}

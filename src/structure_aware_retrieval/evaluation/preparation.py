@@ -1,6 +1,7 @@
 """Explicit, opt-in fetching of pinned benchmark sources; never run by evaluation."""
 
 import os
+import re
 import subprocess
 from pathlib import Path
 
@@ -34,17 +35,33 @@ def prepare_benchmark(manifest: Path, destination: Path, *, rebuild: bool = Fals
         checkout = (destination / "repos" / repository.id).resolve()
         if not checkout.exists():
             checkout.parent.mkdir(parents=True, exist_ok=True)
-            _git(
-                "-c",
-                "core.autocrlf=false",
-                "clone",
-                "--depth",
-                "1",
-                "--branch",
-                repository.ref,
-                repository.url,
-                str(checkout),
-            )
+            if re.fullmatch(r"[0-9a-f]{40}", repository.ref):
+                if repository.ref != repository.commit:
+                    raise ValueError("A commit ref must equal the pinned repository commit")
+                _git("init", str(checkout))
+                _git("-C", str(checkout), "remote", "add", "origin", repository.url)
+                _git("-C", str(checkout), "fetch", "--depth", "1", "origin", repository.commit)
+                _git(
+                    "-C",
+                    str(checkout),
+                    "-c",
+                    "core.autocrlf=false",
+                    "checkout",
+                    "--detach",
+                    "FETCH_HEAD",
+                )
+            else:
+                _git(
+                    "-c",
+                    "core.autocrlf=false",
+                    "clone",
+                    "--depth",
+                    "1",
+                    "--branch",
+                    repository.ref,
+                    repository.url,
+                    str(checkout),
+                )
         # Never checkout/reset an existing directory or silently use a containing repo.
         if Path(_git("-C", str(checkout), "rev-parse", "--show-toplevel")).resolve() != checkout:
             raise ValueError(f"Expected a standalone checkout at {checkout}")

@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "repository_id": "networkx",
+  "questions": [
+    {
+      "id": "networkx-01",
+      "category": "symbol",
+      "family": "shortest-path",
+      "text": "Locate the generic shortest_path dispatcher.",
+      "targets": [
+        {
+          "path": "networkx/algorithms/shortest_paths/generic.py",
+          "name": "shortest_path",
+          "grade": 2,
+          "rationale": "Selects all-pairs, single-source, single-target or pairwise algorithms based on arguments and weighting."
+        }
+      ]
+    },
+    {
+      "id": "networkx-02",
+      "category": "symbol",
+      "family": "components",
+      "text": "Find the connected_components generator for undirected graphs.",
+      "targets": [
+        {
+          "path": "networkx/algorithms/components/connected.py",
+          "name": "connected_components",
+          "grade": 2,
+          "rationale": "Runs BFS from unseen nodes and yields each connected component."
+        }
+      ]
+    },
+    {
+      "id": "networkx-03",
+      "category": "symbol",
+      "family": "topological",
+      "text": "Where is topological_sort implemented?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/dag.py",
+          "name": "topological_sort",
+          "grade": 2,
+          "rationale": "Yields nodes from successive topological generations."
+        }
+      ]
+    },
+    {
+      "id": "networkx-04",
+      "category": "symbol",
+      "family": "bfs",
+      "text": "Locate bfs_edges, including its reverse traversal option.",
+      "targets": [
+        {
+          "path": "networkx/algorithms/traversal/breadth_first_search.py",
+          "name": "bfs_edges",
+          "grade": 2,
+          "rationale": "Selects predecessors or neighbors and delegates edge generation to generic_bfs_edges."
+        }
+      ]
+    },
+    {
+      "id": "networkx-05",
+      "category": "behavior",
+      "family": "edge-add",
+      "text": "Which undirected graph method automatically creates missing endpoint nodes and rejects None as a node?",
+      "targets": [
+        {
+          "path": "networkx/classes/graph.py",
+          "name": "Graph.add_edge",
+          "grade": 2,
+          "rationale": "Initializes missing node and adjacency dictionaries, rejects None and stores the edge in both directions."
+        }
+      ]
+    },
+    {
+      "id": "networkx-06",
+      "category": "behavior",
+      "family": "edge-remove",
+      "text": "Where does removing an undirected self-loop avoid deleting the same adjacency entry twice?",
+      "targets": [
+        {
+          "path": "networkx/classes/graph.py",
+          "name": "Graph.remove_edge",
+          "grade": 2,
+          "rationale": "Deletes the reverse entry only when u differs from v and translates missing edges to NetworkXError."
+        }
+      ]
+    },
+    {
+      "id": "networkx-07",
+      "category": "behavior",
+      "family": "path-missing-node",
+      "text": "Which unweighted pairwise path function rejects an absent source or target before searching?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/shortest_paths/unweighted.py",
+          "name": "bidirectional_shortest_path",
+          "grade": 2,
+          "rationale": "Checks membership of both endpoints and raises NodeNotFound with an explicit message."
+        }
+      ]
+    },
+    {
+      "id": "networkx-08",
+      "category": "behavior",
+      "family": "topological",
+      "text": "Which generation iterator detects leftover positive indegrees and raises an error for a cycle or graph mutation?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/dag.py",
+          "name": "topological_generations",
+          "grade": 2,
+          "rationale": "Raises NetworkXUnfeasible if indegree_map remains after the zero-indegree frontier is exhausted."
+        }
+      ]
+    },
+    {
+      "id": "networkx-09",
+      "category": "behavior",
+      "family": "bfs-depth",
+      "text": "Where does breadth-first traversal enforce a depth limit and stop after every node has been discovered?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/traversal/breadth_first_search.py",
+          "name": "generic_bfs_edges",
+          "grade": 2,
+          "rationale": "Bounds its frontier loop by depth_limit and returns when the seen count equals the graph size."
+        }
+      ]
+    },
+    {
+      "id": "networkx-10",
+      "category": "behavior",
+      "family": "components",
+      "text": "Which implementation counts connected components without first materializing them into a list?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/components/connected.py",
+          "name": "number_connected_components",
+          "grade": 2,
+          "rationale": "Sums one per yielded connected component."
+        }
+      ]
+    },
+    {
+      "id": "networkx-11",
+      "category": "behavior",
+      "family": "dag-check",
+      "text": "Which predicate requires a graph to be directed as well as cycle-free?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/dag.py",
+          "name": "is_directed_acyclic_graph",
+          "grade": 2,
+          "rationale": "Returns G.is_directed() and not has_cycle(G)."
+        }
+      ]
+    },
+    {
+      "id": "networkx-12",
+      "category": "behavior",
+      "family": "reverse-copy",
+      "text": "Where are graph, node and edge attributes deep-copied when reversing a directed graph with copy=True?",
+      "targets": [
+        {
+          "path": "networkx/classes/digraph.py",
+          "name": "DiGraph.reverse",
+          "grade": 2,
+          "rationale": "Creates a new graph and deep-copies graph, node and reversed-edge attributes in the copy branch."
+        }
+      ]
+    },
+    {
+      "id": "networkx-13",
+      "category": "cross_file",
+      "family": "shortest-path",
+      "text": "Trace the generic pairwise shortest-path API to the unweighted bidirectional implementation when weight is None.",
+      "targets": [
+        {
+          "path": "networkx/algorithms/shortest_paths/generic.py",
+          "name": "shortest_path",
+          "grade": 2,
+          "rationale": "Chooses unweighted mode and delegates a source/target pair to nx.bidirectional_shortest_path."
+        },
+        {
+          "path": "networkx/algorithms/shortest_paths/unweighted.py",
+          "name": "bidirectional_shortest_path",
+          "grade": 2,
+          "rationale": "Runs the bidirectional predecessor/successor search and reconstructs the resulting path."
+        }
+      ]
+    },
+    {
+      "id": "networkx-14",
+      "category": "cross_file",
+      "family": "ancestors",
+      "text": "Which ancestor query delegates to breadth-first traversal with edges reversed, and where is that direction selected?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/dag.py",
+          "name": "ancestors",
+          "grade": 2,
+          "rationale": "Collects child nodes from nx.bfs_edges with reverse=True."
+        },
+        {
+          "path": "networkx/algorithms/traversal/breadth_first_search.py",
+          "name": "bfs_edges",
+          "grade": 2,
+          "rationale": "Uses G.predecessors for reverse traversal on directed graphs."
+        }
+      ]
+    },
+    {
+      "id": "networkx-15",
+      "category": "cross_file",
+      "family": "descendants",
+      "text": "Trace descendant lookup into the traversal function that walks outward from a source.",
+      "targets": [
+        {
+          "path": "networkx/algorithms/dag.py",
+          "name": "descendants",
+          "grade": 2,
+          "rationale": "Collects child nodes from the default-direction BFS edge iterator."
+        },
+        {
+          "path": "networkx/algorithms/traversal/breadth_first_search.py",
+          "name": "bfs_edges",
+          "grade": 2,
+          "rationale": "Selects neighbors in ordinary traversal and invokes the generic BFS implementation."
+        }
+      ]
+    },
+    {
+      "id": "networkx-16",
+      "category": "cross_file",
+      "family": "subgraph-view",
+      "text": "Which Graph method creates a node-induced view, and which separate implementation installs the filtering wrappers?",
+      "targets": [
+        {
+          "path": "networkx/classes/graph.py",
+          "name": "Graph.subgraph",
+          "grade": 2,
+          "rationale": "Creates the node filter and calls nx.subgraph_view, reusing an original graph when appropriate."
+        },
+        {
+          "path": "networkx/classes/graphviews.py",
+          "name": "subgraph_view",
+          "grade": 2,
+          "rationale": "Builds a frozen graph view and installs filtered node and adjacency structures."
+        }
+      ]
+    },
+    {
+      "id": "networkx-17",
+      "category": "cross_file",
+      "family": "reverse-view",
+      "text": "Trace reverse(copy=False) to the view implementation that swaps predecessor and successor mappings.",
+      "targets": [
+        {
+          "path": "networkx/classes/digraph.py",
+          "name": "DiGraph.reverse",
+          "grade": 2,
+          "rationale": "Delegates to nx.reverse_view when copying is disabled."
+        },
+        {
+          "path": "networkx/classes/graphviews.py",
+          "name": "reverse_view",
+          "grade": 2,
+          "rationale": "Creates a generic view and swaps the original predecessor and successor mappings."
+        }
+      ]
+    },
+    {
+      "id": "networkx-18",
+      "category": "cross_file",
+      "family": "path-generator",
+      "text": "Which path-graph generator uses a utility from another module to connect consecutive nodes?",
+      "targets": [
+        {
+          "path": "networkx/generators/classic.py",
+          "name": "path_graph",
+          "grade": 2,
+          "rationale": "Creates an empty graph and adds edges generated by pairwise(nodes)."
+        },
+        {
+          "path": "networkx/utils/misc.py",
+          "name": "pairwise",
+          "grade": 2,
+          "rationale": "Uses offset iterators to return successive node pairs."
+        }
+      ]
+    },
+    {
+      "id": "networkx-19",
+      "category": "cross_file",
+      "family": "composition",
+      "text": "Trace composing two graphs into the multi-graph composition helper that preserves their attributes.",
+      "targets": [
+        {
+          "path": "networkx/algorithms/operators/binary.py",
+          "name": "compose",
+          "grade": 2,
+          "rationale": "Delegates the pair to nx.compose_all."
+        },
+        {
+          "path": "networkx/algorithms/operators/all.py",
+          "name": "compose_all",
+          "grade": 2,
+          "rationale": "Checks graph types and updates graph, node and edge attributes for each input."
+        }
+      ]
+    },
+    {
+      "id": "networkx-20",
+      "category": "cross_file",
+      "family": "adjacency-json",
+      "text": "Which JSON adjacency serializer consumes the graph method exposing each node's adjacency mapping?",
+      "targets": [
+        {
+          "path": "networkx/readwrite/json_graph/adjacency.py",
+          "name": "adjacency_data",
+          "grade": 2,
+          "rationale": "Iterates G.adjacency to populate node and neighbor records."
+        },
+        {
+          "path": "networkx/classes/graph.py",
+          "name": "Graph.adjacency",
+          "grade": 2,
+          "rationale": "Returns an iterator over the internal adjacency dictionary items."
+        }
+      ]
+    },
+    {
+      "id": "networkx-21",
+      "category": "test",
+      "family": "edge-add",
+      "text": "Which Graph test verifies adding an edge creates both adjacency directions and rejects a None endpoint?",
+      "targets": [
+        {
+          "path": "networkx/classes/tests/test_graph.py",
+          "name": "TestGraph.test_add_edge",
+          "grade": 2,
+          "rationale": "Asserts symmetric adjacency after insertion and checks ValueError for a None node."
+        }
+      ]
+    },
+    {
+      "id": "networkx-22",
+      "category": "test",
+      "family": "path-missing-node",
+      "text": "Which parameterized path test requires NodeNotFound when either endpoint is absent?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/shortest_paths/tests/test_unweighted.py",
+          "name": "TestUnweightedPath.test_bidirectional_shortest_path_src_tgt_not_in_graph",
+          "grade": 2,
+          "rationale": "Tries missing source/target combinations and checks the exact NodeNotFound message."
+        }
+      ]
+    },
+    {
+      "id": "networkx-23",
+      "category": "test",
+      "family": "topological",
+      "text": "Which test checks the same topological generations for a directed graph and its multigraph variant with an extra parallel edge?",
+      "targets": [
+        {
+          "path": "networkx/algorithms/tests/test_dag.py",
+          "name": "test_topological_generations",
+          "grade": 2,
+          "rationale": "Builds both graphs and verifies their sorted generations equal the same expected layers."
+        }
+      ]
+    },
+    {
+      "id": "networkx-24",
+      "category": "test",
+      "family": "composition",
+      "text": "Find the test checking that multigraph composition preserves distinct edge keys, including an additional overlapping-node edge.",
+      "targets": [
+        {
+          "path": "networkx/algorithms/operators/tests/test_binary.py",
+          "name": "test_compose_multigraph",
+          "grade": 2,
+          "rationale": "Compares node and keyed-edge unions before and after adding another keyed edge to the second graph."
+        }
+      ]
+    }
+  ]
+}
