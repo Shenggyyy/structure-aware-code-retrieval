@@ -255,6 +255,11 @@ uv run --locked pytest --cov --cov-report=term-missing
 uv build
 ```
 
+Use the `uv run --locked pytest` entry point above to match CI. `python -m pytest`
+also adds the working directory to Python's import path and can conceal accidental
+imports from uninstalled directories such as `scripts/`. Tests of standalone
+scripts should load them by file path or invoke their CLI from an isolated process.
+
 Add `--extra dense` to `uv run` if retaining optional dependencies in this environment.
 Tests run offline after installation; synthetic encoders/provider responses test
 software behavior rather than real retrieval or answer quality. Coverage is reported

@@ -1,12 +1,15 @@
 """Saved-run verification uses deterministic test doubles and no external services."""
 
 import json
+import subprocess
+import sys
 from copy import deepcopy
 from dataclasses import replace
+from pathlib import Path
+from runpy import run_path
 
 import pytest
 
-from scripts.verify_qa_assessment import verify_run
 from structure_aware_retrieval.models import stable_id
 from structure_aware_retrieval.qa.assessment_reporting import summarize_assessment
 from structure_aware_retrieval.qa.provider import ModelProviderError, _parse_response
@@ -24,6 +27,10 @@ from tests.qa.test_assessment import (
     study as study,  # noqa: F401
 )
 from tests.qa.test_preparation import qa_experiment as qa_experiment  # noqa: F401
+
+SCRIPT = Path(__file__).resolve().parents[2] / "scripts" / "verify_qa_assessment.py"
+# This standalone script is not an installed package; load it without changing sys.path.
+verify_run = run_path(str(SCRIPT))["verify_run"]
 
 
 def _run(study, tmp_path, *, generation_behavior=None, judge_behavior=None, raw_envelope=False):
@@ -108,6 +115,21 @@ def test_saved_run_verifies_all_cases_without_calls_or_mutation(study, tmp_path)
     assert result["attempts"] == result["recorded_results"] == 12
     assert result["execution_mode"] == "injected_models"
     assert before == {path: path.read_bytes() for path in before}
+
+
+def test_verifier_cli_runs_outside_checkout_with_isolated_python(study, tmp_path):
+    run = _run(study, tmp_path)
+    result = subprocess.run(
+        [sys.executable, "-I", str(SCRIPT), "--run", str(run)],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        check=False,
+        timeout=30,
+    )
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout) == verify_run(run)
 
 
 def test_raw_provider_envelopes_are_replayed_offline(study, tmp_path):
