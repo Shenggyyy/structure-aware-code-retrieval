@@ -1,9 +1,9 @@
 # Evaluation Protocol
 
-This is the planned protocol. M2 has a BM25 implementation and real-repository smoke
-checks, but no labeled benchmark or quality metrics. Finalize executable schemas and
-metric edge cases in M3 before comparing strategies. Smoke queries verify functionality
-and expose examples; they do not establish Recall, Precision, MRR, or NDCG.
+M3 implements this protocol for BM25 with symbol/file evaluation. The first seed
+contains 40 questions and 55 source-checked judgments across Requests and Click.
+Labels are agent-authored, sparse, and marked `provisional`; independent human review
+is still required. The resulting development scores are not final benchmark claims.
 
 The M2 baseline uses BM25Plus with `k1=1.5`, `b=0.75`, and `delta=0`, as recorded in
 index metadata. Freeze this explicit variant before comparing later strategies.
@@ -52,7 +52,7 @@ The primary ranking unit is a source symbol, deduplicated by first occurrence af
 mapping chunks to symbols. Report file-level retrieval separately. Fix source-range
 mapping rules before chunking ablations.
 
-Use K in {1, 5, 10, 20}. Proposed grades are 0 (irrelevant), 1 (supporting), and 2
+Use K in {1, 5, 10, 20}. Grades are 0 (irrelevant), 1 (supporting), and 2
 (direct evidence); grades above zero count as relevant for binary metrics.
 
 - **Precision@K:** relevant unique results in the first K positions divided by K;
@@ -94,3 +94,87 @@ In M7, keep the LLM revision where available, prompt, decoding settings, and con
 budget fixed. Save answers because hosted inference may not reproduce exactly.
 Assess correctness, citation location validity, citation support, token use, and
 end-to-end latency separately from retrieval quality.
+
+## Executable schema (version 1)
+
+`benchmark.json` contains exactly `schema_version`, `id`, `version`, `split`,
+`annotation_status`, `repositories`, `queries_file`, and `qrels_file`. Resource paths
+must stay inside the benchmark directory. Each repository records `id`, HTTPS `url`,
+`ref`, immutable `commit`, source `license`, and `corpus_hash`.
+
+Each query in `queries.jsonl` has `id`, `repository`, `category` (symbol, behavior,
+cross_file, or test), `text`, and boolean `answerable`. Each `qrels.jsonl` judgment
+contains `query_id`, `target`, integer `grade` (0–2), and a source-based `rationale`.
+
+Example judgment shape:
+
+```json
+{
+  "query_id": "requests-01",
+  "target": {
+    "path": "src/requests/cookies.py",
+    "qualified_name": "src.requests.cookies.cookiejar_from_dict",
+    "start_line": 521,
+    "end_line": 539
+  },
+  "grade": 2,
+  "rationale": "Builds a cookie jar from the supplied mapping."
+}
+```
+
+Targets refer to entire lexical symbols including decorators, not retrieval chunk
+IDs. All four locator fields must match a searchable indexed symbol. This also
+distinguishes overloaded declarations and nested definitions. A hit maps through its
+owning symbol; parent symbols do not automatically receive credit for child evidence.
+File-level relevance is the maximum grade among judgments in that file.
+
+The loader rejects duplicate IDs/judgments, unknown references, invalid paths/grades,
+and answerability inconsistent with positive labels. No-answer questions have no
+positive labels; they are excluded from quality macro-averages and counted separately
+with their result-presence and timing information. The seed has no no-answer questions;
+that behavior is covered by automated fixtures.
+
+## Run configuration and artifacts
+
+TOML config fields are `schema_version=1`, `benchmark`, `strategy="bm25"`,
+`unit="symbol"` or `"file"`, `ks`, `warmup_queries`, `repeats`, `seed`, and an `indexes`
+mapping from every repository ID to its database. Paths resolve beside the config.
+
+The runner requires clean pinned-commit provenance and exact selected-source/ignore
+hashes. This corpus check is independent of chunk sizes; the complete index settings
+and snapshot ID are recorded so chunking experiments remain traceable. Skipped-source
+diagnostics and missing target locators fail validation before any output is created.
+
+For M3, every matching chunk is considered before deduplication and truncation to the
+largest K. There is no hidden fixed candidate cap. First occurrence wins for each
+symbol/file and ties inherit the baseline's stable chunk-ID ordering.
+
+Queries are shuffled reproducibly per repository using the seed. The first configured
+number are warmed up once, then each query is timed `repeats` times. Measurement
+includes preprocessing, BM25 scoring, result materialization and unit deduplication;
+metrics and serialization are excluded. Index/model loading is measured separately
+and must not be described as a guaranteed cold-disk measurement. Percentiles use linear
+interpolation at `(sample_count - 1) * fraction`.
+
+Artifacts are published together into a new directory only after a successful run:
+
+| File | Content |
+| --- | --- |
+| `summary.json` | Aggregate/group metrics, runtime/code/config/data provenance, quality fingerprint |
+| `per_query.jsonl` | Each query's metrics, judgment counts, and raw timing samples |
+| `rankings.jsonl` | Top units, source locators, scores, evidence chunk ranges, nullable judgments |
+| `metrics.csv` | One query/K pair per row; undefined no-answer quality cells are blank |
+| `report.md` | Human-readable tables and interpretation limits |
+
+`judged_fraction` is judged returned units divided by actually returned units at K
+(zero for empty output), averaged over queries. Explicit grade 0 is judged; absence
+from qrels is unjudged and scored as zero. Precision still divides by K, including
+missing result slots. Small positive-only pools can cap observable precision far
+below 1, so avoid interpreting it as exhaustively adjudicated precision.
+
+The quality fingerprint excludes timings, timestamps, and machine paths, but includes
+the benchmark digest, unit/K choices, per-query quality results, and ranked evidence.
+Source-code and lockfile hashes, Git dirty state, package versions, hardware and
+relevant thread settings are recorded separately. Byte-identical quality fingerprints
+are expected for repeated runs in the same locked environment, not bit-identical
+timing or whole-report files.

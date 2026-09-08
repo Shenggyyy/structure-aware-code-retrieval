@@ -124,3 +124,47 @@ def search(
             if len(preview) > 12:
                 typer.echo("... (use --json for the full chunk)")
             typer.echo()
+
+
+@app.command("evaluate")
+def evaluate(
+    config: Annotated[Path, typer.Option("--config", exists=True, dir_okay=False)],
+    output: Annotated[
+        Path, typer.Option("--output", help="New directory for experiment artifacts.")
+    ],
+) -> None:
+    """Validate a benchmark and run reproducible retrieval evaluation."""
+    from structure_aware_retrieval.evaluation.runner import run_experiment
+
+    try:
+        summary = run_experiment(config, output)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(
+        f"Evaluated {summary['overall']['query_count']} queries "
+        f"({summary['config']['unit']} level)."
+    )
+    typer.echo(f"Annotation status: {summary['benchmark']['annotation_status']}")
+    typer.echo(f"Quality fingerprint: {summary['quality_fingerprint']}")
+    typer.echo(f"Report: {output.resolve() / 'report.md'}")
+
+
+@app.command("prepare-benchmark")
+def prepare(
+    benchmark: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+    destination: Annotated[Path, typer.Option("--destination")] = Path("artifacts/benchmark"),
+    rebuild: Annotated[
+        bool, typer.Option(help="Rebuild existing indexes after source checks.")
+    ] = False,
+) -> None:
+    """Download pinned source checkouts and build benchmark indexes (requires Git/network)."""
+    from structure_aware_retrieval.evaluation.preparation import prepare_benchmark
+
+    try:
+        records = prepare_benchmark(benchmark, destination, rebuild=rebuild)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    for record in records:
+        typer.echo(f"Ready: {record['repository']} -> {record['index']}")

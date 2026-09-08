@@ -1,0 +1,40 @@
+{"id": "requests-01", "repository": "requests", "category": "symbol", "text": "Where is cookiejar_from_dict implemented in the production source?", "answerable": true}
+{"id": "requests-02", "repository": "requests", "category": "symbol", "text": "Locate the PreparedRequest.prepare_url implementation, rather than a similarly named test helper.", "answerable": true}
+{"id": "requests-03", "repository": "requests", "category": "symbol", "text": "Which HTTPBasicAuth call hook puts the Authorization header onto a request?", "answerable": true}
+{"id": "requests-04", "repository": "requests", "category": "symbol", "text": "Where does Session.get_adapter choose an adapter for a URL?", "answerable": true}
+{"id": "requests-05", "repository": "requests", "category": "behavior", "text": "Which production routine strips leading whitespace from a URL before parsing its scheme and host?", "answerable": true}
+{"id": "requests-06", "repository": "requests", "category": "cross_file", "text": "How does JSON response decoding choose a Unicode encoding when none is set, and which helper inspects the bytes?", "answerable": true}
+{"id": "requests-07", "repository": "requests", "category": "behavior", "text": "Where are HTTP error responses turned into exceptions with the status, reason, and URL?", "answerable": true}
+{"id": "requests-08", "repository": "requests", "category": "behavior", "text": "Which streaming generator translates protocol and decoding failures into Requests exceptions while reading response chunks?", "answerable": true}
+{"id": "requests-09", "repository": "requests", "category": "behavior", "text": "Where is the initial set of User-Agent, Accept-Encoding, Accept, and keep-alive headers assembled?", "answerable": true}
+{"id": "requests-10", "repository": "requests", "category": "behavior", "text": "Which routine decides whether a hostname or IPv4 address should bypass configured proxies?", "answerable": true}
+{"id": "requests-11", "repository": "requests", "category": "cross_file", "text": "During redirects, where is a replayable request body detected and which helper seeks it back to its saved position?", "answerable": true}
+{"id": "requests-12", "repository": "requests", "category": "behavior", "text": "How does redirect handling remove Authorization when the destination hostname changes?", "answerable": true}
+{"id": "requests-13", "repository": "requests", "category": "cross_file", "text": "Where does a session merge environment proxy settings, and which utility suppresses them for bypassed URLs?", "answerable": true}
+{"id": "requests-14", "repository": "requests", "category": "behavior", "text": "Where are dictionary-valued session settings merged with request settings and keys assigned None removed?", "answerable": true}
+{"id": "requests-15", "repository": "requests", "category": "behavior", "text": "Which implementation reads uploaded file objects and builds multipart fields with filenames, content types, and optional headers?", "answerable": true}
+{"id": "requests-16", "repository": "requests", "category": "cross_file", "text": "Which redirect implementation and regression test establish that a POST becomes a GET after a 301 response?", "answerable": true}
+{"id": "requests-17", "repository": "requests", "category": "test", "text": "Find the test proving that spaces before an input URL are removed when preparing a request.", "answerable": true}
+{"id": "requests-18", "repository": "requests", "category": "test", "text": "Find the regression test for changing a POST to GET on a 301 redirect.", "answerable": true}
+{"id": "requests-19", "repository": "requests", "category": "test", "text": "Which test checks that cookies passed for one request are not persisted in the session cookie jar?", "answerable": true}
+{"id": "requests-20", "repository": "requests", "category": "test", "text": "Find the test showing that a session header assigned None is absent from a prepared request.", "answerable": true}
+{"id": "click-01", "repository": "click", "category": "symbol", "text": "Locate the CliRunner.invoke method used to execute a command in tests.", "answerable": true}
+{"id": "click-02", "repository": "click", "category": "symbol", "text": "Where is the Path parameter type's convert method implemented?", "answerable": true}
+{"id": "click-03", "repository": "click", "category": "symbol", "text": "Find the implementation of click.style that constructs styled terminal text.", "answerable": true}
+{"id": "click-04", "repository": "click", "category": "symbol", "text": "Where is Context.ensure_object implemented?", "answerable": true}
+{"id": "click-05", "repository": "click", "category": "behavior", "text": "Which output helper optionally appends a newline and flushes the destination after writing text or bytes?", "answerable": true}
+{"id": "click-06", "repository": "click", "category": "behavior", "text": "Where does an interactive yes/no question retry invalid input and optionally abort when the answer is no?", "answerable": true}
+{"id": "click-07", "repository": "click", "category": "behavior", "text": "Which prompt implementation retries after value conversion fails and checks that a confirmation value matches?", "answerable": true}
+{"id": "click-08", "repository": "click", "category": "behavior", "text": "Where are case-insensitive choices normalized while still returning the original declared spelling?", "answerable": true}
+{"id": "click-09", "repository": "click", "category": "behavior", "text": "Where are out-of-range numeric values clamped, including the adjustment for open integer bounds?", "answerable": true}
+{"id": "click-10", "repository": "click", "category": "behavior", "text": "Which file parameter conversion routine registers cleanup on the context for lazy and immediately opened files?", "answerable": true}
+{"id": "click-11", "repository": "click", "category": "behavior", "text": "Where does filesystem isolation restore the original working directory and only remove a temporary directory when no custom parent was supplied?", "answerable": true}
+{"id": "click-12", "repository": "click", "category": "behavior", "text": "Where does subcommand resolution retry lookup after token normalization before reporting an unknown command?", "answerable": true}
+{"id": "click-13", "repository": "click", "category": "cross_file", "text": "How does a multi-valued option turn an environment variable into separate values across the option and parameter-type layers?", "answerable": true}
+{"id": "click-14", "repository": "click", "category": "cross_file", "text": "Trace an option with a missing required value from the decision to prompt through the interactive prompt implementation.", "answerable": true}
+{"id": "click-15", "repository": "click", "category": "cross_file", "text": "Which command entry point catches ClickException in standalone mode, and where is its error message printed?", "answerable": true}
+{"id": "click-16", "repository": "click", "category": "cross_file", "text": "How does secho apply style information and then send the result to an output stream?", "answerable": true}
+{"id": "click-17", "repository": "click", "category": "test", "text": "Find the test proving that a custom-parent isolated filesystem directory survives after the context manager exits.", "answerable": true}
+{"id": "click-18", "repository": "click", "category": "test", "text": "Which test verifies that case-insensitive choice input returns the original capitalization of the declared choice?", "answerable": true}
+{"id": "click-19", "repository": "click", "category": "test", "text": "Find the parameterized numeric-range test covering clamped integer values and open bounds.", "answerable": true}
+{"id": "click-20", "repository": "click", "category": "test", "text": "Which test checks both captured callback exceptions and propagation when catch_exceptions is disabled?", "answerable": true}

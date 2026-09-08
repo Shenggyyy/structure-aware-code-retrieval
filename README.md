@@ -4,10 +4,11 @@ A Python project investigating whether repository structure improves code retrie
 for LLM applications. The planned system compares lexical, dense, hybrid,
 symbol-aware, and structure-aware retrieval, then supplies evidence to repository QA.
 
-**Status: M2 — Python indexing and BM25 retrieval.** Scan local Python source,
-extract symbols and imports, persist code chunks in SQLite, and search them with
-source paths and line ranges. Dense/hybrid/structure-aware retrieval, formal
-evaluation, and LLM QA are planned. No retrieval-quality improvement is claimed yet.
+**Status: M3 — reproducible retrieval evaluation.** Python indexing and BM25 search
+are available alongside versioned benchmark validation, symbol/file-level metrics,
+timing, and experiment reports. The initial 40-query development set covers Requests
+and Click; its source-checked labels remain **provisional, pending human review**.
+Dense/hybrid/structure-aware retrieval and LLM QA remain planned.
 
 ## Quickstart
 
@@ -33,7 +34,7 @@ The equivalent module entry point is:
 uv run --locked python -m structure_aware_retrieval --help
 ```
 
-No API key, model download, GPU, or Docker installation is required for M2. The
+No API key, model download, GPU, or Docker installation is required for M3. The
 sample fixture is only parsed: it intentionally raises an error if executed.
 
 ## Index and search a repository
@@ -91,6 +92,37 @@ Imports are recorded but not resolved; call/test relationship analysis comes lat
 See the [Requests smoke validation](docs/validation/m2.md) for real-source results,
 including queries where lexical ranking chooses the wrong implementation first.
 
+## Run the evaluation
+
+From the project root, prepare the pinned sources and run the two evaluation units:
+
+```text
+uv run --locked sacr prepare-benchmark benchmarks/seed-v1/benchmark.json
+uv run --locked sacr evaluate --config configs/bm25-seed.toml --output artifacts/runs/bm25-symbol-001
+uv run --locked sacr evaluate --config configs/bm25-seed-file.toml --output artifacts/runs/bm25-file-001
+```
+
+Preparation requires Git/network access on first use, clones with fixed LF checkout
+settings, verifies commits, and builds indexes under `artifacts/benchmark/`. It reuses
+valid existing indexes. Use `--rebuild` to rebuild them explicitly. Existing source
+checkouts are never reset. Evaluation itself works offline and never fetches code.
+
+Config paths resolve relative to the TOML file. Each run requires a **new output
+directory** and produces `summary.json`, `per_query.jsonl`, `rankings.jsonl`,
+`metrics.csv`, and `report.md`. A repeat with the same data/config should reproduce
+the quality fingerprint; timing is hardware- and load-dependent.
+
+The runner validates corpus hashes and source targets before retrieval, then computes
+Precision@K, Recall@K, MRR@K, NDCG@K and warm p50/p95 latency for K=1,5,10,20. It reports
+overall, per-repository and per-category results. Duplicate chunks are merged before
+the symbol/file cutoff; file judgments use the maximum grade of labeled symbols.
+
+Unjudged results count as nonrelevant for scoring and judgment coverage is reported.
+The seed labels are sparse, agent-authored and not yet human-reviewed: scores measure
+agreement with known labels, not exhaustive real-world relevance. See the
+[dataset card](benchmarks/seed-v1/README.md), [evaluation protocol](docs/evaluation.md),
+and [recorded M3 results](reports/m3/README.md).
+
 ## Development checks
 
 ```text
@@ -107,7 +139,10 @@ and development packages.
 
 Tests cover ignore rules, AST ranges/encodings, nested scopes, chunk bounds, SQLite
 round trips and failed replacements, hand-calculated BM25 scores, and separate-process
-search. They run offline after setup. GitHub Actions runs checks and builds on Windows
+search. Evaluation tests cover hand-calculated metrics, data rejection, no-answer
+separation, deduplication, reproducible reports and atomic output failure. All tests
+run offline after setup; real-source preparation is never part of the test suite.
+GitHub Actions runs checks and builds on Windows
 and Linux. Coverage is reported without a percentage gate. A real symlink-creation
 test skips on Windows hosts without that privilege; link filtering also has a unit test.
 
@@ -115,15 +150,19 @@ test skips on Windows hosts without that privilege; link filtering also has a un
 
 ```text
 src/structure_aware_retrieval/
-  cli.py                      Index/search commands
+  cli.py                      Index, search, benchmark preparation, evaluation
   models.py                   Snapshot-scoped source objects
   ingestion.py                Filesystem scan and ignore rules
   parsing.py                  AST symbols, imports, source chunks
   indexing.py                 Atomic SQLite persistence
   tokenization.py             Identifier-aware lexical preprocessing
   retrieval.py                BM25 ranking over saved chunks
+  evaluation/                 Dataset/config validation, metrics, runner, reports
 tests/                        Unit/integration tests and source fixtures
 docs/                         Design, evaluation plans, smoke validation
+benchmarks/seed-v1/            Pinned corpus manifest, 40 queries, source judgments
+configs/                      Reproducible symbol/file experiment settings
+reports/m3/                   Selected real BM25 runs and their limitations
 .github/workflows/             Windows/Linux CI
 pyproject.toml                Package metadata and tool configuration
 uv.lock                       Locked application/development dependencies

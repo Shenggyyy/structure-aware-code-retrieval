@@ -1,0 +1,12 @@
+schema_version = 1
+benchmark = "../benchmarks/seed-v1/benchmark.json"
+strategy = "bm25"
+unit = "symbol"
+ks = [1, 5, 10, 20]
+warmup_queries = 2
+repeats = 3
+seed = 0
+
+[indexes]
+requests = "../artifacts/benchmark/indexes/requests.sqlite"
+click = "../artifacts/benchmark/indexes/click.sqlite"

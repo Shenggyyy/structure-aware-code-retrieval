@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "repository-seed",
+  "version": "0.1.0",
+  "split": "dev",
+  "annotation_status": "provisional",
+  "repositories": [
+    {
+      "id": "requests",
+      "url": "https://github.com/psf/requests.git",
+      "ref": "v2.32.3",
+      "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+      "license": "Apache-2.0",
+      "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05"
+    },
+    {
+      "id": "click",
+      "url": "https://github.com/pallets/click.git",
+      "ref": "8.1.8",
+      "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+      "license": "BSD-3-Clause",
+      "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5"
+    }
+  ],
+  "queries_file": "queries.jsonl",
+  "qrels_file": "qrels.jsonl"
+}

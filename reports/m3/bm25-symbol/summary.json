@@ -1,0 +1,475 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-08T01:36:13.081460+00:00",
+  "benchmark": {
+    "id": "repository-seed",
+    "version": "0.1.0",
+    "split": "dev",
+    "annotation_status": "provisional",
+    "digest": "5baaa721437a927b9e4509262b2d5d21db47c07aa46f6fc5cd69f6a03abf0155"
+  },
+  "config": {
+    "strategy": "bm25",
+    "unit": "symbol",
+    "ks": [
+      1,
+      5,
+      10,
+      20
+    ],
+    "warmup_queries": 2,
+    "repeats": 3,
+    "seed": 0,
+    "candidate_policy": "all_matching_chunks_then_unique_units",
+    "query_order": [
+      "requests-11",
+      "requests-19",
+      "requests-17",
+      "requests-15",
+      "requests-01",
+      "requests-18",
+      "requests-12",
+      "requests-03",
+      "requests-04",
+      "requests-10",
+      "requests-06",
+      "requests-08",
+      "requests-05",
+      "requests-20",
+      "requests-07",
+      "requests-16",
+      "requests-09",
+      "requests-02",
+      "requests-14",
+      "requests-13",
+      "click-11",
+      "click-19",
+      "click-17",
+      "click-15",
+      "click-01",
+      "click-18",
+      "click-12",
+      "click-03",
+      "click-04",
+      "click-10",
+      "click-06",
+      "click-08",
+      "click-05",
+      "click-20",
+      "click-07",
+      "click-16",
+      "click-09",
+      "click-02",
+      "click-14",
+      "click-13"
+    ]
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "system": "Windows",
+    "release": "11",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 20,
+    "thread_environment": {
+      "OMP_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null
+    },
+    "packages": {
+      "structure-aware-code-retrieval": "0.1.0",
+      "rank-bm25": "0.2.2",
+      "numpy": "2.5.3",
+      "pathspec": "1.1.1"
+    },
+    "implementation_git": {
+      "commit": "f1cbf3ea1a234451850a8098188f5b7ebbf8b5fd",
+      "dirty": true
+    },
+    "implementation_hash": "4877d8ac10cbf2437ffb7d9d31f065647b3e675438984f48304f02fb2613b616",
+    "lockfile_hash": "dc376386f6086576a5e67dd555f217d9562709b0d266d0f953feb0eb76b3e770"
+  },
+  "indexes": {
+    "requests": {
+      "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+      "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05",
+      "git": {
+        "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+        "dirty": false
+      },
+      "config": {
+        "schema_version": 1,
+        "parser_version": 1,
+        "scanner_version": 1,
+        "tokenizer_version": 1,
+        "max_chunk_lines": 80,
+        "max_file_bytes": 1048576,
+        "exclude": [],
+        "excluded_directories": [
+          ".cache",
+          ".git",
+          ".hg",
+          ".idea",
+          ".pytest_cache",
+          ".ruff_cache",
+          ".svn",
+          ".venv",
+          ".vscode",
+          "__pycache__",
+          "artifacts",
+          "build",
+          "dist",
+          "node_modules",
+          "venv"
+        ],
+        "gitignore_hashes": {
+          ".gitignore": "0d87c78c285d5f3a9f83c7b9a09c42aa566c771a7e35d0da1ed0dabcd5831b6c",
+          "docs/_themes/.gitignore": "f27660c4ec6efa86aac4d61036c5f495e9438805a6f63be44f17db003979a06f"
+        },
+        "bm25": {
+          "variant": "BM25Plus",
+          "k1": 1.5,
+          "b": 0.75,
+          "delta": 0.0
+        }
+      },
+      "symbol_count": 789,
+      "chunk_count": 867,
+      "load_ms": 33.0268,
+      "index_file_hash": "3e15f6ce222dc9f7bf033cedff57e5b8135ce6921ffab18b071b426db94edd53"
+    },
+    "click": {
+      "snapshot_id": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+      "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5",
+      "git": {
+        "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+        "dirty": false
+      },
+      "config": {
+        "schema_version": 1,
+        "parser_version": 1,
+        "scanner_version": 1,
+        "tokenizer_version": 1,
+        "max_chunk_lines": 80,
+        "max_file_bytes": 1048576,
+        "exclude": [],
+        "excluded_directories": [
+          ".cache",
+          ".git",
+          ".hg",
+          ".idea",
+          ".pytest_cache",
+          ".ruff_cache",
+          ".svn",
+          ".venv",
+          ".vscode",
+          "__pycache__",
+          "artifacts",
+          "build",
+          "dist",
+          "node_modules",
+          "venv"
+        ],
+        "gitignore_hashes": {
+          ".gitignore": "7c29846deb0881728ede7eec4b26bd3350b3757e3029670aa375e61d7cca2007",
+          "examples/imagepipe/.gitignore": "2259ebafe9b7fccd958fc09608b02d2d630fa69be9348454a88076583464c439"
+        },
+        "bm25": {
+          "variant": "BM25Plus",
+          "k1": 1.5,
+          "b": 0.75,
+          "delta": 0.0
+        }
+      },
+      "symbol_count": 1452,
+      "chunk_count": 1771,
+      "load_ms": 59.6027,
+      "index_file_hash": "3a237782f39263efc75fbd42fce989871f2031dc265a1932fbef233e2dac79ab"
+    }
+  },
+  "quality_fingerprint": "490a2b5d836d280ab8cb657f41d6705fd4b45ebcafff201200b28c8f6f2b4d50",
+  "overall": {
+    "query_count": 40,
+    "answerable_count": 40,
+    "no_answer_count": 0,
+    "no_answer_with_results": 0,
+    "metrics": {
+      "1": {
+        "precision": 0.5,
+        "recall": 0.42083333333333334,
+        "mrr": 0.5,
+        "ndcg": 0.48333333333333334,
+        "judged_fraction": 0.5
+      },
+      "5": {
+        "precision": 0.17,
+        "recall": 0.6875,
+        "mrr": 0.60625,
+        "ndcg": 0.593130840676993,
+        "judged_fraction": 0.17500000000000002
+      },
+      "10": {
+        "precision": 0.0975,
+        "recall": 0.7541666666666667,
+        "mrr": 0.6181547619047619,
+        "ndcg": 0.6202583475816025,
+        "judged_fraction": 0.1
+      },
+      "20": {
+        "precision": 0.058750000000000004,
+        "recall": 0.8916666666666667,
+        "mrr": 0.6251645923520923,
+        "ndcg": 0.6552674699627951,
+        "judged_fraction": 0.060000000000000005
+      }
+    },
+    "latency_ms": {
+      "p50": 8.0436,
+      "p95": 15.866064999999999
+    }
+  },
+  "by_repository": {
+    "click": {
+      "query_count": 20,
+      "answerable_count": 20,
+      "no_answer_count": 0,
+      "no_answer_with_results": 0,
+      "metrics": {
+        "1": {
+          "precision": 0.35,
+          "recall": 0.325,
+          "mrr": 0.35,
+          "ndcg": 0.35,
+          "judged_fraction": 0.35
+        },
+        "5": {
+          "precision": 0.13,
+          "recall": 0.5583333333333333,
+          "mrr": 0.4666666666666667,
+          "ndcg": 0.4817535429043769,
+          "judged_fraction": 0.13
+        },
+        "10": {
+          "precision": 0.09000000000000001,
+          "recall": 0.6916666666666667,
+          "mrr": 0.49047619047619045,
+          "ndcg": 0.536008556713596,
+          "judged_fraction": 0.09000000000000001
+        },
+        "20": {
+          "precision": 0.0575,
+          "recall": 0.875,
+          "mrr": 0.5017180735930736,
+          "ndcg": 0.5833315509726001,
+          "judged_fraction": 0.0575
+        }
+      },
+      "latency_ms": {
+        "p50": 10.1667,
+        "p95": 16.554339999999996
+      }
+    },
+    "requests": {
+      "query_count": 20,
+      "answerable_count": 20,
+      "no_answer_count": 0,
+      "no_answer_with_results": 0,
+      "metrics": {
+        "1": {
+          "precision": 0.65,
+          "recall": 0.5166666666666667,
+          "mrr": 0.65,
+          "ndcg": 0.6166666666666667,
+          "judged_fraction": 0.65
+        },
+        "5": {
+          "precision": 0.21000000000000002,
+          "recall": 0.8166666666666667,
+          "mrr": 0.7458333333333333,
+          "ndcg": 0.7045081384496089,
+          "judged_fraction": 0.22
+        },
+        "10": {
+          "precision": 0.10500000000000001,
+          "recall": 0.8166666666666667,
+          "mrr": 0.7458333333333333,
+          "ndcg": 0.7045081384496089,
+          "judged_fraction": 0.11
+        },
+        "20": {
+          "precision": 0.060000000000000005,
+          "recall": 0.9083333333333333,
+          "mrr": 0.7486111111111111,
+          "ndcg": 0.72720338895299,
+          "judged_fraction": 0.0625
+        }
+      },
+      "latency_ms": {
+        "p50": 6.71655,
+        "p95": 11.515334999999999
+      }
+    }
+  },
+  "by_category": {
+    "behavior": {
+      "query_count": 16,
+      "answerable_count": 16,
+      "no_answer_count": 0,
+      "no_answer_with_results": 0,
+      "metrics": {
+        "1": {
+          "precision": 0.5,
+          "recall": 0.46875,
+          "mrr": 0.5,
+          "ndcg": 0.4583333333333333,
+          "judged_fraction": 0.5
+        },
+        "5": {
+          "precision": 0.17500000000000002,
+          "recall": 0.78125,
+          "mrr": 0.6302083333333334,
+          "ndcg": 0.6359019763357305,
+          "judged_fraction": 0.17500000000000002
+        },
+        "10": {
+          "precision": 0.09375,
+          "recall": 0.84375,
+          "mrr": 0.640625,
+          "ndcg": 0.658164925529982,
+          "judged_fraction": 0.09375
+        },
+        "20": {
+          "precision": 0.053125000000000006,
+          "recall": 0.9375,
+          "mrr": 0.64453125,
+          "ndcg": 0.6841451521666034,
+          "judged_fraction": 0.053125000000000006
+        }
+      },
+      "latency_ms": {
+        "p50": 6.94805,
+        "p95": 11.09343
+      }
+    },
+    "cross_file": {
+      "query_count": 8,
+      "answerable_count": 8,
+      "no_answer_count": 0,
+      "no_answer_with_results": 0,
+      "metrics": {
+        "1": {
+          "precision": 0.625,
+          "recall": 0.2916666666666667,
+          "mrr": 0.625,
+          "ndcg": 0.625,
+          "judged_fraction": 0.625
+        },
+        "5": {
+          "precision": 0.225,
+          "recall": 0.5,
+          "mrr": 0.6875,
+          "ndcg": 0.536117812320639,
+          "judged_fraction": 0.225
+        },
+        "10": {
+          "precision": 0.1625,
+          "recall": 0.7083333333333334,
+          "mrr": 0.7261904761904762,
+          "ndcg": 0.6272294484551842,
+          "judged_fraction": 0.1625
+        },
+        "20": {
+          "precision": 0.1,
+          "recall": 0.8333333333333334,
+          "mrr": 0.7261904761904762,
+          "ndcg": 0.6540258716094559,
+          "judged_fraction": 0.1
+        }
+      },
+      "latency_ms": {
+        "p50": 9.124600000000001,
+        "p95": 15.91456
+      }
+    },
+    "symbol": {
+      "query_count": 8,
+      "answerable_count": 8,
+      "no_answer_count": 0,
+      "no_answer_with_results": 0,
+      "metrics": {
+        "1": {
+          "precision": 0.5,
+          "recall": 0.5,
+          "mrr": 0.5,
+          "ndcg": 0.5,
+          "judged_fraction": 0.5
+        },
+        "5": {
+          "precision": 0.125,
+          "recall": 0.625,
+          "mrr": 0.5625,
+          "ndcg": 0.5788662191964322,
+          "judged_fraction": 0.15000000000000002
+        },
+        "10": {
+          "precision": 0.0625,
+          "recall": 0.625,
+          "mrr": 0.5625,
+          "ndcg": 0.5788662191964322,
+          "judged_fraction": 0.07500000000000001
+        },
+        "20": {
+          "precision": 0.043750000000000004,
+          "recall": 0.875,
+          "mrr": 0.5783730158730158,
+          "ndcg": 0.6402870864684889,
+          "judged_fraction": 0.05
+        }
+      },
+      "latency_ms": {
+        "p50": 7.67975,
+        "p95": 16.262205
+      }
+    },
+    "test": {
+      "query_count": 8,
+      "answerable_count": 8,
+      "no_answer_count": 0,
+      "no_answer_with_results": 0,
+      "metrics": {
+        "1": {
+          "precision": 0.375,
+          "recall": 0.375,
+          "mrr": 0.375,
+          "ndcg": 0.375,
+          "judged_fraction": 0.375
+        },
+        "5": {
+          "precision": 0.15000000000000002,
+          "recall": 0.75,
+          "mrr": 0.5208333333333334,
+          "ndcg": 0.5788662191964322,
+          "judged_fraction": 0.15000000000000002
+        },
+        "10": {
+          "precision": 0.07500000000000001,
+          "recall": 0.75,
+          "mrr": 0.5208333333333334,
+          "ndcg": 0.5788662191964322,
+          "judged_fraction": 0.07500000000000001
+        },
+        "20": {
+          "precision": 0.043750000000000004,
+          "recall": 0.875,
+          "mrr": 0.5321969696969697,
+          "ndcg": 0.6137340874028234,
+          "judged_fraction": 0.043750000000000004
+        }
+      },
+      "latency_ms": {
+        "p50": 10.9098,
+        "p95": 14.305299999999999
+      }
+    }
+  }
+}

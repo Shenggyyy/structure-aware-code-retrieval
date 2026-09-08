@@ -11,9 +11,9 @@ repository per query. Read source statically without importing or running it.
 Report syntax errors and unsupported files. Code editing, agent execution loops,
 distributed services, and model training are outside the initial scope.
 
-The flow below is the target design. M2 implements scanning, AST extraction, chunks,
-SQLite persistence, and BM25 search. Graph retrieval, dense embeddings, QA, and the
-experiment runner remain planned.
+The flow below is the target design. M3 includes scanning, AST extraction, chunks,
+SQLite persistence, BM25 search, and the evaluation runner. Graph retrieval, dense
+embeddings and QA remain planned.
 
 ## Data flow
 
@@ -139,6 +139,24 @@ IDF `log((N+1)/df)`. Delta zero ensures nonmatches score zero even when some que
 terms occur elsewhere. Code/path/name/signature share one text field; this is not
 the later symbol-aware reranking strategy. Keep this baseline and parameters fixed
 when introducing subsequent methods.
+
+## M3 evaluation boundary
+
+The `evaluation/` package separates strict dataset/config loaders, pure ranking
+metrics, opt-in source preparation, the runner, and report serialization. Preparation
+may download Git sources; evaluation only reads already-built indexes. CLI commands
+delegate to these library functions.
+
+Source locators and corpus fingerprints decouple labels from chunking. The runner
+considers all matching chunks, aggregates unique symbols or files, and computes the
+same metrics for every configured cutoff. Only BM25 is dispatched in M3; later
+retrievers must preserve this comparison contract.
+
+Run metadata binds quality results to labels, source bytes, parser/index settings,
+code/dependency versions, and machine context. Rankings and per-query metrics are
+retained rather than publishing only aggregate scores. Reports identify provisional
+labels and unjudged candidates. The human-review acceptance item is deliberately
+distinct from successful schema/source-location validation.
 
 ## Storage and references
 
