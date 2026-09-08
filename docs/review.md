@@ -5,10 +5,10 @@
 M6a adds an audit workflow before broader formal experiments. It uses the existing
 40-query development set, not a new held-out benchmark. None of its commands change
 qrels, tune retrieval parameters, verify a person's identity, or declare labels human
-reviewed. The next M6 work covers additional repositories, a public subset, reviewed
-versioned labels and scale measurements. M6b now supplies the wider **provisional**
-data and a [source-review workflow before retrieval](benchmarks.md); independent
-review and formal runs remain outstanding.
+reviewed. M6b supplies wider **provisional** data and a
+[source-review workflow before retrieval](benchmarks.md). M6c records the fixed
+expanded experiment matrix and scale measurements; independent review, adjudication,
+versioned reviewed labels and experiments using those labels remain outstanding.
 
 ## Reproduce the audit
 

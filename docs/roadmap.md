@@ -24,7 +24,7 @@ writing the push command; the owner executes these commands.
 | M7 — QA | Context budget, model adapter, cited answers, reviewed answer-evaluation cases. Compare strategies using a fixed LLM/prompt; assess citation validity separately from support. | `Add repository QA with source citations` |
 | M8 — Delivery | CPU Docker path, final docs, reports or dashboard, clean-environment reproduction. A reader can run indexing, search, QA with configured credentials, and evaluation. | `Package reproducible experiments and project documentation` |
 
-M1 and M2 are complete, with M1–M7a CI reported passing by the owner. M3's evaluation
+M1 and M2 are complete, with M1–M8a CI reported passing by the owner. M3's evaluation
 pipeline and 40-query source-checked seed are implemented; **independent human label
 review remains pending**. The seed and its reports remain provisional until that
 acceptance item is completed. M4 adds three retrieval baselines, persistent vectors,
@@ -44,10 +44,12 @@ context, OpenAI Responses integration, cited answers, frozen QA request preparat
 durable execution records and manual-review validation. M7b's real API comparison
 and independent answer review remain pending; the prepared cases are provisional.
 M8a adds CPU container packaging, an offline installed-CLI smoke and container CI.
-M8b's final results/documentation acceptance follows the remaining experiments and
-independent reviews. Human label review still gates claims of a reviewed MVP.
-New remote CI runs after the owner
-pushes; local checks cannot establish remote CI status.
+M8b consolidates the project entry point, saved-result overview, reproduction guide
+and explicit acceptance status. The owner continues to defer live QA calls. This
+engineering/documentation checkpoint proceeds independently; final research acceptance
+still requires the remaining experiments and independent reviews. Human label review
+still gates claims of a reviewed MVP. New remote CI runs after the owner pushes;
+local checks cannot establish remote CI status. See [current acceptance](status.md).
 
 ### M6 delivery sequence
 
@@ -80,15 +82,21 @@ answer/citation review. No simulated provider output counts as a real experiment
 
 The owner deferred live API calls after M7a. **M8a** proceeds independently with base
 and CPU Dense containers, reproducible delivery checks and usage documentation.
-**M8b** consolidates final evidence and project presentation after remaining M7b and
-review acceptance items. Container delivery must not be presented as completed research
-evaluation or as proof that structure-aware retrieval improves answer quality.
+**M8b** consolidates currently recorded evidence and project presentation, including
+an automatically checked overview and a dedicated reproduction guide. It does not
+wait for paid calls, and does not close M7b or independent review. Once those research
+acceptance items are completed, update the findings and acceptance matrix in a
+separate checkpoint. Engineering delivery must not be presented as proof that
+structure-aware retrieval improves answer quality.
 
-M1–M5 deliver the retrieval MVP: Python parsing/indexing, five strategies, a small
-reviewed benchmark, reproducible evaluation, CLI, tests, CI, and result tables.
-QA, broader experiments, and Docker remain required for the full project.
+M1–M5 define the retrieval MVP acceptance: Python parsing/indexing, five strategies,
+a small reviewed benchmark, reproducible evaluation, CLI, tests, CI, and result
+tables. The engineering components are implemented; independent benchmark review
+remains pending. QA, broader experiments, and Docker are also required for the full
+project; their current implementation and acceptance are tracked separately above.
 
-The MVP excludes web dashboards, embedding training, rerankers, graph neural networks,
+The MVP excludes web dashboards, embedding training, learned/cross-encoder rerankers,
+graph neural networks,
 multiple languages, exact whole-program analysis, incremental indexing, and
 distributed services. Add complexity only for a demonstrated need.
 

@@ -11,9 +11,10 @@ repository per query. Read source statically without importing or running it.
 Report syntax errors and unsupported files. Code editing, agent execution loops,
 distributed services, and model training are outside the initial scope.
 
-The flow below is the target design. M5 includes scanning, AST extraction, chunks,
-SQLite persistence, five retrieval strategies, vector/graph artifacts and evaluation.
-M7a adds bounded context, OpenAI Responses integration and separate QA experiment/review tooling.
+The flow below describes the implemented pipeline: scanning, AST extraction, chunks,
+SQLite persistence, five retrieval strategies, vector/graph artifacts, evaluation
+and bounded QA. Live QA experiments and independent relevance/answer review remain
+pending; see [acceptance status](status.md).
 
 ## Data flow
 
@@ -22,11 +23,13 @@ flowchart TD
     R[Repository snapshot] --> S[Scan and filter]
     S --> P[Python AST parser]
     P --> C[Symbols and chunks]
-    P --> E[Relations]
-    C --> I[Text and vector indexes]
+    I --> E[Static AST pass over stored chunks]
+    C --> I[SQLite source index]
+    I --> V[Optional vector index]
     E --> G[Relation store]
     Q[Query] --> T[Retriever]
     I --> T
+    V --> T
     G --> T
     T --> H[Ranked hits with source locations]
     H --> B[Context builder]
@@ -41,16 +44,16 @@ flowchart TD
 | Module | Responsibility |
 | --- | --- |
 | `ingestion` | File selection, exclusions, snapshot identity, diagnostics |
-| `parsing` | AST extraction, source ranges, chunks, conservative relation resolution |
+| `parsing` | AST extraction, source ranges and structural chunks |
 | `indexing` | Persist source metadata, symbols, chunks and lexical tokens in SQLite |
 | `embeddings` / `relations` | Snapshot-bound NPZ vectors and JSON relation graphs |
-| `retrieval` | Strategies returning a shared result schema |
+| `retrieval` / `strategies` / `structure` | BM25, shared interface, baseline fusion and bounded graph reranking |
 | `qa.context` | Deduplicate and pack evidence under an exact UTF-8 byte budget |
 | `qa` | Model adapter, evidence-grounded prompts, citations |
 | `evaluation` | Dataset validation, experiments, metrics, reports |
 
-Introduce modules as working features arrive. Keep the CLI thin and library logic
-independent of the user interface. Proposed data objects:
+Keep the CLI thin and library logic independent of the user interface. Shared data
+contracts carry these identities and provenance:
 
 - **Snapshot:** repository identity, commit when available, content manifest/hash,
   selection rules, parser/schema versions. A commit alone cannot identify dirty code.
@@ -79,7 +82,7 @@ and caches. Separating symbols from chunks prevents duplicate relevance credit.
 Keep complete identifiers alongside snake_case/camelCase components. Preserve source
 text separately from preprocessing. Record embedding prompts and truncation rules.
 
-Start relations with containment and internal imports, then statically resolvable
+Relations cover containment, supported internal imports, statically resolvable
 calls and test/source associations. AST nodes do not provide a complete call graph:
 dynamic dispatch and runtime imports require conservative handling. Preserve
 unresolved targets explicitly instead of inventing edges.
@@ -90,7 +93,7 @@ chunking separately from graph features.
 
 ## Technology choices
 
-| Concern | Initial choice |
+| Concern | Current implementation |
 | --- | --- |
 | Runtime/environment | Python 3.12, uv lockfile, `src/` layout, type annotations |
 | CLI | Typer |
@@ -102,9 +105,9 @@ chunking separately from graph features.
 | Quality | pytest, pytest-cov, Ruff, Windows/Linux GitHub Actions |
 | Delivery | CLI, static reports, base/CPU-Dense Docker targets and offline smoke |
 
-M2 adds `pathspec` for nested ignore rules and `rank-bm25` (with NumPy) for lexical
-search. Model dependencies arrive with their features. No external database service,
-web service, or orchestration framework is currently justified.
+`pathspec` handles nested ignore rules; `rank-bm25` (with NumPy) handles lexical
+search. Model dependencies are optional. No external database service, web service,
+or orchestration framework is required.
 
 ## M2 implementation details
 
@@ -150,8 +153,8 @@ delegate to these library functions.
 
 Source locators and corpus fingerprints decouple labels from chunking. The runner
 considers all matching chunks, aggregates unique symbols or files, and computes the
-same metrics for every configured cutoff. Only BM25 is dispatched in M3; later
-retrievers must preserve this comparison contract.
+same metrics for every configured cutoff. All five retrievers preserve this
+comparison contract through the shared factory.
 
 Run metadata binds quality results to labels, source bytes, parser/index settings,
 code/dependency versions, and machine context. Rankings and per-query metrics are
@@ -179,8 +182,8 @@ not cached. `compare` checks recorded-run compatibility and emits paired per-que
 quality changes. It does not infer statistical significance or relabel candidates.
 
 See [baseline definitions](baselines.md) for constants, truncation and limitations.
-M4's symbol heuristic regresses on several questions; M5 must compare seed choices
-and relation ablations rather than assume this heuristic is the strongest foundation.
+The symbol heuristic regresses on several questions. Frozen experiments compare
+seed choices and relation ablations; see [measured findings](../RESULTS.md).
 
 ## M5 graph boundary
 
@@ -218,6 +221,13 @@ it does not mutate benchmark labels or grant human-review status. This keeps ann
 changes separate from retrieval and prevents accidental rewriting of old experiments.
 
 ## Storage and references
+
+`evaluation/overview.py` consolidates saved experiment evidence after checking the
+frozen plan, complete strategy matrix, dataset/snapshot bindings and quality
+fingerprints. `scripts/summarize_results.py --check` detects stale generated JSON
+and Markdown in CI without source checkouts, model weights or API access. Recorded
+timings remain separate from quality validation. This adds presentation and audit
+coverage, without changing retrieval algorithms or old experiment artifacts.
 
 M8a's multi-stage Docker build uses the existing lockfile, an immutable package
 installation and a non-root runtime. The optional Dense target adds CPU dependencies;

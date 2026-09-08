@@ -60,8 +60,9 @@ the same context/prompt policy for all five strategies, and twelve provisional c
 ten source-backed questions from Requests/Click plus two private-deployment scope
 controls. No expanded/test/public question is used to tune QA behavior.
 
-Prepare M4/M5 source indexes, embedding cache, vectors and graphs first, following
-the README. Then prepare offline:
+Prepare the development source indexes, embedding cache, vectors and graphs using
+the [QA preparation prerequisites](reproduction.md#prepare-the-qa-experiment-offline).
+Then prepare offline:
 
 ```text
 uv run --locked --extra dense sacr prepare-qa --config configs/qa-m7.toml --output artifacts/qa/m7-prepared
