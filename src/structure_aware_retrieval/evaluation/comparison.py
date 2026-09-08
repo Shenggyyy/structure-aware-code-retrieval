@@ -1,54 +1,48 @@
 """Compare compatible recorded runs without executing retrieval or changing labels."""
 
-import json
 import os
 import tempfile
 from pathlib import Path
 
 from structure_aware_retrieval.evaluation.metrics import QUALITY_METRICS
+from structure_aware_retrieval.evaluation.recorded import analysis_provenance, load_runs
 from structure_aware_retrieval.evaluation.reporting import _dump
+from structure_aware_retrieval.evaluation.uncertainty import (
+    MIN_REPOSITORIES,
+    paired_statistics,
+    validate_bootstrap,
+)
 
 
-def compare_runs(runs: list[Path], output: Path) -> dict:
+def compare_runs(
+    runs: list[Path], output: Path, *, bootstrap_samples: int = 2000, bootstrap_seed: int = 0
+) -> dict:
     if output.exists() or output.is_symlink():
         raise FileExistsError(f"Comparison output already exists: {output}")
     if len(runs) < 2:
         raise ValueError("Comparison requires at least two runs; the first is the baseline")
-    summaries = [json.loads((run / "summary.json").read_text(encoding="utf-8")) for run in runs]
-    queries = [
-        {
-            row["query_id"]: row
-            for row in (
-                json.loads(line)
-                for line in (run / "per_query.jsonl").read_text(encoding="utf-8").splitlines()
-            )
-        }
-        for run in runs
-    ]
-
-    def contract(summary: dict) -> tuple:
-        return (
-            summary["benchmark"],
-            summary["config"]["unit"],
-            summary["config"]["ks"],
-            {repo: item["snapshot_id"] for repo, item in summary["indexes"].items()},
-        )
-
-    strategies = [
-        summary["config"].get("name", summary["config"]["strategy"]) for summary in summaries
-    ]
-    if len(set(strategies)) != len(strategies):
-        raise ValueError("Each compared run must have a distinct strategy")
-    if any(contract(summary) != contract(summaries[0]) for summary in summaries[1:]):
-        raise ValueError("Runs must share benchmark, unit, K values and indexed snapshots")
-    if any(set(rows) != set(queries[0]) for rows in queries[1:]):
-        raise ValueError("Runs must contain the same query IDs")
+    validate_bootstrap(bootstrap_samples, bootstrap_seed)
+    recorded = load_runs(runs)
+    summaries = [run.summary for run in recorded]
+    queries = [run.queries for run in recorded]
+    strategies = [run.name for run in recorded]
+    repositories = {qid: row["repository"] for qid, row in queries[0].items()}
     result = {
         "baseline": strategies[0],
         "benchmark": summaries[0]["benchmark"],
         "unit": summaries[0]["config"]["unit"],
+        "analysis_runtime": analysis_provenance(),
         "runs": [],
         "paired": {},
+        "uncertainty": {
+            "method": "paired_repository_cluster_percentile_bootstrap",
+            "estimand": "query_macro_mean_difference",
+            "confidence_level": 0.95,
+            "samples": bootstrap_samples,
+            "seed": bootstrap_seed,
+            "minimum_repositories": MIN_REPOSITORIES,
+            "multiplicity_adjusted": False,
+        },
     }
     for strategy, summary, rows in zip(strategies, summaries, queries, strict=True):
         result["runs"].append(
@@ -57,7 +51,10 @@ def compare_runs(runs: list[Path], output: Path) -> dict:
                 "retrieval_strategy": summary["config"]["strategy"],
                 "structure": summary["config"].get("structure"),
                 "quality_fingerprint": summary["quality_fingerprint"],
+                "recorded_runtime": summary["runtime"],
                 "overall": summary["overall"],
+                "by_repository": summary["by_repository"],
+                "by_category": summary["by_category"],
             }
         )
         paired = {}
@@ -77,6 +74,22 @@ def compare_runs(runs: list[Path], output: Path) -> dict:
                     "ties": sum(abs(value) <= 1e-12 for value in differences.values()),
                     "losses": sum(value < -1e-12 for value in differences.values()),
                     "query_deltas": differences,
+                    **paired_statistics(
+                        differences, repositories, samples=bootstrap_samples, seed=bootstrap_seed
+                    ),
+                    "by_category": {
+                        category: paired_statistics(
+                            {
+                                qid: value
+                                for qid, value in differences.items()
+                                if rows[qid]["category"] == category
+                            },
+                            repositories,
+                            samples=bootstrap_samples,
+                            seed=bootstrap_seed,
+                        )
+                        for category in sorted({row["category"] for row in rows.values()})
+                    },
                 }
         result["paired"][strategy] = paired
     lines = [
@@ -85,7 +98,7 @@ def compare_runs(runs: list[Path], output: Path) -> dict:
         f"Baseline: `{strategies[0]}`; unit: `{result['unit']}`; "
         f"annotation status: **{result['benchmark']['annotation_status']}**.",
         "",
-        "Known-label development scores; unjudged candidates score zero. "
+        "Known-label scores; unjudged candidates score zero. "
         "Paired wins/losses are descriptive, not significance tests.",
         "",
         "| Strategy | K | Precision | Recall | MRR | NDCG | p50 ms | p95 ms |",
@@ -102,6 +115,42 @@ def compare_runs(runs: list[Path], output: Path) -> dict:
                 + " | ".join(cells)
                 + f" | {latency['p50']:.3f} | {latency['p95']:.3f} |"
             )
+    lines.extend(
+        [
+            "",
+            "## Paired differences and uncertainty",
+            "",
+            "Differences are candidate minus baseline over answerable queries. Resampling "
+            "keeps all queries in a selected repository together and preserves pairing. "
+            "Query-macro and equal-repository means are different estimands.",
+            f"95% percentile intervals use {bootstrap_samples} draws, seed {bootstrap_seed}. "
+            f"Intervals are withheld below {MIN_REPOSITORIES} contributing repositories "
+            "(a reporting policy, not a sufficiency guarantee). Few or correlated repositories "
+            "and incomplete labels limit inference; intervals do not correct label bias. "
+            "No multiple-comparison correction or significance claim is made.",
+            "",
+            "| Strategy | K | Metric | Query mean delta | Repo mean delta | 95% interval | "
+            "Repos | W/T/L |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for strategy in strategies[1:]:
+        for k, metrics in result["paired"][strategy].items():
+            for metric, values in metrics.items():
+                interval = values["interval"]
+                interval_text = (
+                    f"[{interval['low']:.4f}, {interval['high']:.4f}]"
+                    if interval is not None
+                    else "withheld: insufficient repositories"
+                )
+                delta = values["mean_delta"]
+                repo_delta = values["repository_macro_delta"]
+                lines.append(
+                    f"| {strategy} | {k} | {metric} | "
+                    + (f"{delta:+.4f} | {repo_delta:+.4f}" if delta is not None else "N/A | N/A")
+                    + f" | {interval_text} | {values['repository_count']} | "
+                    + f"{values['wins']}/{values['ties']}/{values['losses']} |"
+                )
     lines.extend(
         [
             "",

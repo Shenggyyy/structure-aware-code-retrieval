@@ -1,0 +1,22 @@
+{
+  "pool_digest": "0a160ed1812e4dbc9c0c3fafa6bc92508d1a30290ca6941e82660d104b2900b2",
+  "benchmark": {
+    "id": "repository-seed",
+    "version": "0.1.0",
+    "split": "dev",
+    "annotation_status": "provisional",
+    "digest": "5baaa721437a927b9e4509262b2d5d21db47c07aa46f6fc5cd69f6a03abf0155"
+  },
+  "decision_digest": "f0656ca183ff158360559b698bc9bfdd0efe7ccd861e39a4cf7c82d573aec094",
+  "judgments": {
+    "pending": 845
+  },
+  "queries": {
+    "pending": 40
+  },
+  "conflicts": [],
+  "changes": [],
+  "ready_for_versioning": false,
+  "reviewer_identity_verified": false,
+  "note": "Structural validation only. Reviewer identity and independence are self-declared. Publish an explicitly versioned benchmark after adjudication; no labels or human-review status were changed."
+}

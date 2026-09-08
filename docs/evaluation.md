@@ -205,6 +205,10 @@ agreement across different hardware, platforms or library versions.
 benchmark digest/status, unit, K values, repository snapshots and query IDs. It writes
 `report.md` and `comparison.json`, including each query's quality delta and win/tie/loss
 counts (absolute tolerance 1e-12). It does not compare unlike evaluation units.
+M6a additionally verifies saved quality fingerprints, query text/metadata and summary
+quality; it reports paired cluster-bootstrap intervals where repository counts permit.
+The two-repository seed receives descriptive differences with intervals withheld.
+See [review and uncertainty protocol](review.md) for weighting, limitations and commands.
 Latency values are observations from separate runs, not controlled paired timing
 estimates. Read per-run hardware/startup provenance when comparing costs.
 
@@ -240,3 +244,18 @@ materializes whole functions/files nor applies an LLM context budget. Lexical to
 use the existing identifier tokenizer and are explicitly a proxy. Cost fields are
 excluded from the existing quality fingerprint; graph-derived scores/provenance are
 included with ranked evidence. Reporting and context accounting are outside timing.
+
+## M6a audit and label review
+
+`scripts/run_m6a.py` reuses committed BM25/Dense M4 runs and Hybrid/Symbol/Structure M5
+runs, retaining their recorded timing/provenance. It unions their top-10 symbols with
+all original qrels into a snapshot-bound review pool. New candidates remain unjudged;
+the original 40 questions and labels are unchanged. Candidate-pair counts must not be
+reported as query counts. Full local review bundles contain source evidence and blank
+decision templates; committed M6a artifacts retain metadata and the pending status.
+
+Review checks enforce complete identities and rationales, frozen pool evidence,
+query clarity, and agreement between answerability and positive reviewed targets.
+These are structural checks, not proof of independent human review. New labels need
+adjudication, a new benchmark version and reruns of every strategy. M6b/M6c retain
+the planned wider/public datasets, held-out protocol and scale measurements.

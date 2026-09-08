@@ -244,12 +244,16 @@ def embed(
 def compare(
     runs: Annotated[list[Path], typer.Option("--run", exists=True, file_okay=False)],
     output: Annotated[Path, typer.Option(help="New comparison directory")],
+    bootstrap_samples: Annotated[int, typer.Option(min=100, max=20_000)] = 2000,
+    bootstrap_seed: Annotated[int, typer.Option(min=0, max=2**32 - 1)] = 0,
 ) -> None:
     """Compare compatible evaluation runs; the first --run is the baseline."""
     from structure_aware_retrieval.evaluation.comparison import compare_runs
 
     try:
-        compare_runs(runs, output)
+        compare_runs(
+            runs, output, bootstrap_samples=bootstrap_samples, bootstrap_seed=bootstrap_seed
+        )
     except (OSError, ValueError, KeyError, TypeError) as error:
         typer.echo(f"Error: {error}", err=True)
         raise typer.Exit(1) from error
@@ -271,3 +275,41 @@ def graph_index(
         typer.echo(f"Error: {error}", err=True)
         raise typer.Exit(1) from error
     typer.echo(json.dumps(metadata, indent=2))
+
+
+@app.command("pool")
+def pool_review(
+    config: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    runs: Annotated[list[Path], typer.Option("--run", exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option(help="New review bundle directory")],
+    depth: Annotated[int, typer.Option(min=1)] = 10,
+) -> None:
+    """Pool recorded symbols and existing labels into source-bound review templates."""
+    from structure_aware_retrieval.evaluation.review import create_pool
+
+    try:
+        manifest = create_pool(config, runs, output, depth=depth)
+    except (OSError, ValueError, KeyError, TypeError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"Pooled {manifest['item_count']} candidates; all reviews pending.")
+    typer.echo(f"Review: {output.resolve() / 'review.md'}")
+
+
+@app.command("check-review")
+def check_manual_review(
+    bundle: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    judgments: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    queries: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option(help="New directory for the validated submission")],
+) -> None:
+    """Check review completeness and conflicts; preserve submitted decisions without relabeling."""
+    from structure_aware_retrieval.evaluation.review import check_review
+
+    try:
+        result = check_review(bundle, judgments, queries, output)
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"Ready for versioning: {result['ready_for_versioning']}")
+    typer.echo(f"Review status: {output.resolve() / 'review-status.json'}")

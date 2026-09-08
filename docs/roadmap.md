@@ -24,15 +24,35 @@ writing the push command; the owner executes these commands.
 | M7 — QA | Context budget, model adapter, cited answers, reviewed answer-evaluation cases. Compare strategies using a fixed LLM/prompt; assess citation validity separately from support. | `Add repository QA with source citations` |
 | M8 — Delivery | CPU Docker path, final docs, reports or dashboard, clean-environment reproduction. A reader can run indexing, search, QA with configured credentials, and evaluation. | `Package reproducible experiments and project documentation` |
 
-M1 and M2 are complete, with M1–M4 CI reported passing by the owner. M3's evaluation
+M1 and M2 are complete, with M1–M5 CI reported passing by the owner. M3's evaluation
 pipeline and 40-query source-checked seed are implemented; **independent human label
 review remains pending**. The seed and its reports remain provisional until that
 acceptance item is completed. M4 adds three retrieval baselines, persistent vectors,
 offline tests and real-model comparisons. M5 adds relation extraction, bounded structure
-reranking, 13 fixed comparison configurations and source/cost traces. M6–M8 remain
-planned, and human label review still gates claims of a reviewed retrieval MVP.
+reranking, 13 fixed comparison configurations and source/cost traces. M6a adds paired
+repository-cluster analysis, verification of saved results and a frozen relevance pool
+with manual-review templates. Its 845 candidate pairs are not 845 labeled questions:
+the benchmark still has 40 provisional queries. M6 remains in progress; broader data,
+a public subset, completed review and scale profiling are still outstanding. M7–M8
+remain planned, and human label review still gates claims of a reviewed retrieval MVP.
 New remote CI runs after the owner
 pushes; local checks cannot establish remote CI status.
+
+### M6 delivery sequence
+
+- **M6a — Audit and review tooling:** validate recorded evidence, report paired
+  differences and uncertainty with explicit limits, generate and check review bundles.
+  Suggested commit: `Add paired experiment analysis and benchmark review workflow`.
+- **M6b — Broader frozen data:** select additional licensed pinned repositories and
+  a public subset; create source-grounded questions and repository-disjoint splits;
+  complete independent review/adjudication and publish versioned labels. Do not
+  substitute automatically generated labels for completed human review.
+- **M6c — Formal experiment suite:** rerun all strategies and fixed ablations on the
+  frozen expanded benchmark, measure scale/build/storage/peak-memory costs, and report
+  paired tradeoffs and limitations. Preserve previous development results.
+
+Each is a coherent subgoal ending with checks and an owner commit/push checkpoint.
+The original M6 breadth and quality targets remain unchanged.
 
 ## MVP and final acceptance
 

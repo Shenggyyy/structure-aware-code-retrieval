@@ -4,11 +4,12 @@ A Python project investigating whether repository structure improves code retrie
 for LLM applications. The planned system compares lexical, dense, hybrid,
 symbol-aware, and structure-aware retrieval, then supplies evidence to repository QA.
 
-**Status: M5 — structure-aware retrieval and ablations.** All five retrieval strategies
+**Status: M6a — experiment auditing and benchmark review workflow.** All five retrieval strategies
 are implemented, with snapshot-bound relation graphs, bounded expansion, source traces,
 evaluation and cost reports. The 40-query Requests/Click development set remains
 **provisional, pending human review**. Broader formal experiments, LLM QA and Docker
-delivery remain planned; this is the retrieval MVP's engineering stage.
+delivery remain planned. Paired repository-level analysis and source-bound review
+templates now support the next benchmark expansion; M6 as a whole remains in progress.
 
 ## Quickstart
 
@@ -187,6 +188,21 @@ than repeated votes, and source/seed traces in JSON results. It reweights a boun
 set of symbols within the baseline's full ranking; it does not reduce full-scan cost.
 See [the exact policy](docs/structure.md) and [M5 results](reports/m5/README.md).
 
+## Audit experiments and review labels
+
+With the seed indexes prepared, regenerate the five-strategy audit without loading
+an embedding model:
+
+```text
+uv run --locked python scripts/run_m6a.py --output artifacts/m6a-audit
+```
+
+The script checks recorded quality fingerprints, compares paired differences and
+creates a review bundle for 845 question/symbol pairs. All review decisions start
+pending. The current two-repository seed is too small for this project's bootstrap
+interval reporting policy. See [review instructions](docs/review.md) for preparation,
+grading and `sacr check-review`, and [M6a findings](reports/m6a/README.md).
+
 ## Development checks
 
 ```text
@@ -214,6 +230,8 @@ test cosine ranking, cache invalidation, RRF, symbol features, CLI integration a
 cross-strategy reports offline. Real-model validation is recorded separately in M4.
 M5 adds tests for scope/import ambiguity, shadowing, graph corruption, bounded
 expansion, seed provenance, no-edge equivalence and named ablation comparisons.
+M6a tests weighted cluster resampling, legacy fingerprint verification, candidate
+pooling, source bindings, pending reviews, changed evidence and adjudication conflicts.
 Use `uv run --locked --extra dense ...` to retain optional dependencies while developing
 with the model; `uv sync --locked --dev` restores the smaller base environment.
 
@@ -240,7 +258,9 @@ configs/                      Reproducible symbol/file experiment settings
 reports/m3/                   Selected real BM25 runs and their limitations
 reports/m4/                   Four-strategy runs, paired comparison and analysis
 reports/m5/                   Structure ablations, source traces and context costs
+reports/m6a/                  Paired audit and frozen pending pool metadata
 scripts/run_m5.py             Fixed 13-configuration experiment suite
+scripts/run_m6a.py            Offline analysis and pending review bundle
 .github/workflows/             Windows/Linux CI
 pyproject.toml                Package metadata and tool configuration
 uv.lock                       Locked application/development dependencies

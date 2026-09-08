@@ -203,6 +203,19 @@ chunk per returned unit; lexical token counts are not model billing tokens. Opti
 experiment names allow `compare` to distinguish multiple structure configurations.
 See [the resolver, scoring policy and limits](structure.md).
 
+## M6a analysis and review boundary
+
+`evaluation/recorded.py` checks saved run identities, quality fingerprints and summary
+quality before reuse. `uncertainty.py` computes paired means and seeded repository
+cluster intervals without executing retrieval. `comparison.py` records both analysis
+and original retrieval provenance. Uncertainty does not imply label completeness.
+
+`evaluation/review.py` builds symbol pools from recorded rankings, every existing qrel
+and validated indexes. It creates frozen provenance/source artifacts and separate
+editable decision templates. Review checking archives decisions and flags conflicts;
+it does not mutate benchmark labels or grant human-review status. This keeps annotation
+changes separate from retrieval and prevents accidental rewriting of old experiments.
+
 ## Storage and references
 
 Commit small fixtures, reviewed labels, manifests, configs, and selected reports.

@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "benchmark": {
+    "id": "repository-seed",
+    "version": "0.1.0",
+    "split": "dev",
+    "annotation_status": "provisional",
+    "digest": "5baaa721437a927b9e4509262b2d5d21db47c07aa46f6fc5cd69f6a03abf0155"
+  },
+  "repositories": [
+    {
+      "id": "requests",
+      "url": "https://github.com/psf/requests.git",
+      "ref": "v2.32.3",
+      "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+      "license": "Apache-2.0",
+      "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05"
+    },
+    {
+      "id": "click",
+      "url": "https://github.com/pallets/click.git",
+      "ref": "8.1.8",
+      "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+      "license": "BSD-3-Clause",
+      "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5"
+    }
+  ],
+  "queries": [
+    {
+      "id": "click-01",
+      "repository": "click",
+      "category": "symbol",
+      "text": "Locate the CliRunner.invoke method used to execute a command in tests.",
+      "answerable": true
+    },
+    {
+      "id": "click-02",
+      "repository": "click",
+      "category": "symbol",
+      "text": "Where is the Path parameter type's convert method implemented?",
+      "answerable": true
+    },
+    {
+      "id": "click-03",
+      "repository": "click",
+      "category": "symbol",
+      "text": "Find the implementation of click.style that constructs styled terminal text.",
+      "answerable": true
+    },
+    {
+      "id": "click-04",
+      "repository": "click",
+      "category": "symbol",
+      "text": "Where is Context.ensure_object implemented?",
+      "answerable": true
+    },
+    {
+      "id": "click-05",
+      "repository": "click",
+      "category": "behavior",
+      "text": "Which output helper optionally appends a newline and flushes the destination after writing text or bytes?",
+      "answerable": true
+    },
+    {
+      "id": "click-06",
+      "repository": "click",
+      "category": "behavior",
+      "text": "Where does an interactive yes/no question retry invalid input and optionally abort when the answer is no?",
+      "answerable": true
+    },
+    {
+      "id": "click-07",
+      "repository": "click",
+      "category": "behavior",
+      "text": "Which prompt implementation retries after value conversion fails and checks that a confirmation value matches?",
+      "answerable": true
+    },
+    {
+      "id": "click-08",
+      "repository": "click",
+      "category": "behavior",
+      "text": "Where are case-insensitive choices normalized while still returning the original declared spelling?",
+      "answerable": true
+    },
+    {
+      "id": "click-09",
+      "repository": "click",
+      "category": "behavior",
+      "text": "Where are out-of-range numeric values clamped, including the adjustment for open integer bounds?",
+      "answerable": true
+    },
+    {
+      "id": "click-10",
+      "repository": "click",
+      "category": "behavior",
+      "text": "Which file parameter conversion routine registers cleanup on the context for lazy and immediately opened files?",
+      "answerable": true
+    },
+    {
+      "id": "click-11",
+      "repository": "click",
+      "category": "behavior",
+      "text": "Where does filesystem isolation restore the original working directory and only remove a temporary directory when no custom parent was supplied?",
+      "answerable": true
+    },
+    {
+      "id": "click-12",
+      "repository": "click",
+      "category": "behavior",
+      "text": "Where does subcommand resolution retry lookup after token normalization before reporting an unknown command?",
+      "answerable": true
+    },
+    {
+      "id": "click-13",
+      "repository": "click",
+      "category": "cross_file",
+      "text": "How does a multi-valued option turn an environment variable into separate values across the option and parameter-type layers?",
+      "answerable": true
+    },
+    {
+      "id": "click-14",
+      "repository": "click",
+      "category": "cross_file",
+      "text": "Trace an option with a missing required value from the decision to prompt through the interactive prompt implementation.",
+      "answerable": true
+    },
+    {
+      "id": "click-15",
+      "repository": "click",
+      "category": "cross_file",
+      "text": "Which command entry point catches ClickException in standalone mode, and where is its error message printed?",
+      "answerable": true
+    },
+    {
+      "id": "click-16",
+      "repository": "click",
+      "category": "cross_file",
+      "text": "How does secho apply style information and then send the result to an output stream?",
+      "answerable": true
+    },
+    {
+      "id": "click-17",
+      "repository": "click",
+      "category": "test",
+      "text": "Find the test proving that a custom-parent isolated filesystem directory survives after the context manager exits.",
+      "answerable": true
+    },
+    {
+      "id": "click-18",
+      "repository": "click",
+      "category": "test",
+      "text": "Which test verifies that case-insensitive choice input returns the original capitalization of the declared choice?",
+      "answerable": true
+    },
+    {
+      "id": "click-19",
+      "repository": "click",
+      "category": "test",
+      "text": "Find the parameterized numeric-range test covering clamped integer values and open bounds.",
+      "answerable": true
+    },
+    {
+      "id": "click-20",
+      "repository": "click",
+      "category": "test",
+      "text": "Which test checks both captured callback exceptions and propagation when catch_exceptions is disabled?",
+      "answerable": true
+    },
+    {
+      "id": "requests-01",
+      "repository": "requests",
+      "category": "symbol",
+      "text": "Where is cookiejar_from_dict implemented in the production source?",
+      "answerable": true
+    },
+    {
+      "id": "requests-02",
+      "repository": "requests",
+      "category": "symbol",
+      "text": "Locate the PreparedRequest.prepare_url implementation, rather than a similarly named test helper.",
+      "answerable": true
+    },
+    {
+      "id": "requests-03",
+      "repository": "requests",
+      "category": "symbol",
+      "text": "Which HTTPBasicAuth call hook puts the Authorization header onto a request?",
+      "answerable": true
+    },
+    {
+      "id": "requests-04",
+      "repository": "requests",
+      "category": "symbol",
+      "text": "Where does Session.get_adapter choose an adapter for a URL?",
+      "answerable": true
+    },
+    {
+      "id": "requests-05",
+      "repository": "requests",
+      "category": "behavior",
+      "text": "Which production routine strips leading whitespace from a URL before parsing its scheme and host?",
+      "answerable": true
+    },
+    {
+      "id": "requests-06",
+      "repository": "requests",
+      "category": "cross_file",
+      "text": "How does JSON response decoding choose a Unicode encoding when none is set, and which helper inspects the bytes?",
+      "answerable": true
+    },
+    {
+      "id": "requests-07",
+      "repository": "requests",
+      "category": "behavior",
+      "text": "Where are HTTP error responses turned into exceptions with the status, reason, and URL?",
+      "answerable": true
+    },
+    {
+      "id": "requests-08",
+      "repository": "requests",
+      "category": "behavior",
+      "text": "Which streaming generator translates protocol and decoding failures into Requests exceptions while reading response chunks?",
+      "answerable": true
+    },
+    {
+      "id": "requests-09",
+      "repository": "requests",
+      "category": "behavior",
+      "text": "Where is the initial set of User-Agent, Accept-Encoding, Accept, and keep-alive headers assembled?",
+      "answerable": true
+    },
+    {
+      "id": "requests-10",
+      "repository": "requests",
+      "category": "behavior",
+      "text": "Which routine decides whether a hostname or IPv4 address should bypass configured proxies?",
+      "answerable": true
+    },
+    {
+      "id": "requests-11",
+      "repository": "requests",
+      "category": "cross_file",
+      "text": "During redirects, where is a replayable request body detected and which helper seeks it back to its saved position?",
+      "answerable": true
+    },
+    {
+      "id": "requests-12",
+      "repository": "requests",
+      "category": "behavior",
+      "text": "How does redirect handling remove Authorization when the destination hostname changes?",
+      "answerable": true
+    },
+    {
+      "id": "requests-13",
+      "repository": "requests",
+      "category": "cross_file",
+      "text": "Where does a session merge environment proxy settings, and which utility suppresses them for bypassed URLs?",
+      "answerable": true
+    },
+    {
+      "id": "requests-14",
+      "repository": "requests",
+      "category": "behavior",
+      "text": "Where are dictionary-valued session settings merged with request settings and keys assigned None removed?",
+      "answerable": true
+    },
+    {
+      "id": "requests-15",
+      "repository": "requests",
+      "category": "behavior",
+      "text": "Which implementation reads uploaded file objects and builds multipart fields with filenames, content types, and optional headers?",
+      "answerable": true
+    },
+    {
+      "id": "requests-16",
+      "repository": "requests",
+      "category": "cross_file",
+      "text": "Which redirect implementation and regression test establish that a POST becomes a GET after a 301 response?",
+      "answerable": true
+    },
+    {
+      "id": "requests-17",
+      "repository": "requests",
+      "category": "test",
+      "text": "Find the test proving that spaces before an input URL are removed when preparing a request.",
+      "answerable": true
+    },
+    {
+      "id": "requests-18",
+      "repository": "requests",
+      "category": "test",
+      "text": "Find the regression test for changing a POST to GET on a 301 redirect.",
+      "answerable": true
+    },
+    {
+      "id": "requests-19",
+      "repository": "requests",
+      "category": "test",
+      "text": "Which test checks that cookies passed for one request are not persisted in the session cookie jar?",
+      "answerable": true
+    },
+    {
+      "id": "requests-20",
+      "repository": "requests",
+      "category": "test",
+      "text": "Find the test showing that a session header assigned None is absent from a prepared request.",
+      "answerable": true
+    }
+  ],
+  "snapshots": {
+    "click": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+    "requests": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca"
+  },
+  "runs": [
+    {
+      "name": "bm25",
+      "quality_fingerprint": "490a2b5d836d280ab8cb657f41d6705fd4b45ebcafff201200b28c8f6f2b4d50"
+    },
+    {
+      "name": "dense",
+      "quality_fingerprint": "cc5d920f0a1b22e313021fa04910a77bb3a2a706838d3283ddd32c3b8bc47869"
+    },
+    {
+      "name": "hybrid",
+      "quality_fingerprint": "c7335a38926235df83754b0c34d7409f83bfb8ddd8d6f0c88b1771ec95ef4e53"
+    },
+    {
+      "name": "structure-full",
+      "quality_fingerprint": "7e9c330e43ddce1429d3edc8e0ef1f1b3f156e6c86c2ce653983c6a2d87281a5"
+    },
+    {
+      "name": "symbol",
+      "quality_fingerprint": "d816554dd625fa6fec7d78b8b345173092da4a8d389cb52dc6343e3dcf940158"
+    }
+  ],
+  "depth": 10,
+  "policy": "union_top_depth_symbols_plus_all_existing_judgments",
+  "item_count": 845,
+  "unjudged_count": 790,
+  "by_repository": {
+    "click": 422,
+    "requests": 423
+  },
+  "review_status": "pending",
+  "pool_digest": "0a160ed1812e4dbc9c0c3fafa6bc92508d1a30290ca6941e82660d104b2900b2"
+}
