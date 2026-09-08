@@ -17,6 +17,144 @@ app = typer.Typer(
 )
 
 
+@app.command("ask")
+def ask(
+    question: Annotated[
+        str, typer.Argument(help="Repository question to answer from stored source")
+    ],
+    output: Annotated[Path, typer.Option(help="New directory for context, answer and citations")],
+    index: Annotated[Path, typer.Option()] = Path("artifacts/index.sqlite"),
+    strategy: Annotated[
+        str, typer.Option(help="bm25, dense, hybrid, symbol, or structure")
+    ] = "bm25",
+    graph: Annotated[Path | None, typer.Option()] = None,
+    vectors: Annotated[Path | None, typer.Option()] = None,
+    seed_strategy: Annotated[str, typer.Option()] = "hybrid",
+    model_cache: Annotated[Path, typer.Option()] = Path("artifacts/models"),
+    top_k: Annotated[int, typer.Option(min=1, max=1000)] = 10,
+    max_context_bytes: Annotated[int, typer.Option(min=2, max=1_000_000)] = 16000,
+    model: Annotated[
+        str, typer.Option(help="Explicit OpenAI model; used only with --execute")
+    ] = "gpt-5.4-mini-2026-03-17",
+    max_output_tokens: Annotated[int, typer.Option(min=1, max=16384)] = 1024,
+    api_key_env: Annotated[
+        str, typer.Option(help="Name of the local environment variable")
+    ] = "OPENAI_API_KEY",
+    execute: Annotated[
+        bool, typer.Option(help="Send one request to OpenAI; may incur API charges")
+    ] = False,
+) -> None:
+    """Preview bounded source context by default; generate only with --execute."""
+    from structure_aware_retrieval.embeddings import SentenceEncoder
+    from structure_aware_retrieval.indexing import load_index
+    from structure_aware_retrieval.qa.answering import (
+        complete_question,
+        prepare_question,
+        save_answer,
+    )
+    from structure_aware_retrieval.qa.provider import OpenAIModel
+    from structure_aware_retrieval.strategies import STRATEGIES, create_retriever
+
+    try:
+        if output.exists() or output.is_symlink():
+            raise FileExistsError("QA output already exists; choose a new directory")
+        if strategy not in STRATEGIES:
+            raise ValueError(f"Unknown strategy: {strategy}")
+        if (strategy == "structure") != (graph is not None):
+            raise ValueError("--graph is required only for structure retrieval")
+        base = seed_strategy if strategy == "structure" else strategy
+        if (base != "bm25") != (vectors is not None):
+            raise ValueError("--vectors is required only for dense-based retrieval")
+        retriever = create_retriever(
+            strategy,
+            load_index(index),
+            encoder=SentenceEncoder(model_cache) if base != "bm25" else None,
+            vectors=vectors,
+            graph=graph,
+            structure={"seed_strategy": seed_strategy},
+        )
+        prepared = prepare_question(
+            retriever, question, max_context_bytes=max_context_bytes, top_k=top_k
+        )
+        answer_model = OpenAIModel(model, api_key_env, max_output_tokens) if execute else None
+        result = complete_question(prepared, answer_model)
+        result["retrieval"] = {"strategy": strategy, "seed_strategy": base}
+        save_answer(result, output)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"QA status: {result['status']}; model called: {result['model_called']}")
+    typer.echo(f"Answer and source evidence: {output.resolve() / 'answer.md'}")
+    if result["status"] in ("provider_error", "invalid_answer"):
+        raise typer.Exit(1)
+
+
+@app.command("prepare-qa")
+def prepare_qa(
+    config: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[
+        Path, typer.Option(help="New directory for frozen prompts and cost projection")
+    ],
+) -> None:
+    """Prepare a QA experiment offline, excluding all reference answers from prompts."""
+    from structure_aware_retrieval.qa.preparation import prepare_experiment
+
+    try:
+        plan = prepare_experiment(config, output)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"Prepared {plan['request_count']} requests; no API calls made.")
+    typer.echo(f"Cost projection: ${plan['estimated_cost_usd']:.4f} USD (not a billing guarantee)")
+    typer.echo(f"Review: {output.resolve() / 'README.md'}")
+
+
+@app.command("run-qa")
+def run_qa(
+    bundle: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option(help="New directory; failed runs cannot be resumed")],
+    budget_usd: Annotated[
+        float, typer.Option(min=0.000001, help="Approved estimated spend in USD")
+    ],
+    execute: Annotated[
+        bool, typer.Option(help="Authorize OpenAI requests for this frozen bundle")
+    ] = False,
+) -> None:
+    """Execute a frozen QA experiment only with --execute and an explicit budget."""
+    from structure_aware_retrieval.qa.execution import execute_bundle
+
+    if not execute:
+        typer.echo(
+            "No calls made. Inspect the prepared bundle, then use --execute to authorize it."
+        )
+        raise typer.Exit(1)
+    try:
+        summary = execute_bundle(bundle, output, budget_usd=budget_usd)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(json.dumps(summary, ensure_ascii=True, indent=2))
+    if summary.get("status") != "complete":
+        raise typer.Exit(1)
+
+
+@app.command("check-qa-review")
+def check_qa_review(
+    run: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    judgments: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option(help="New directory for validated manual review")],
+) -> None:
+    """Validate source-bound manual QA judgments without inventing correctness labels."""
+    from structure_aware_retrieval.qa.review import check_qa_review as check
+
+    try:
+        summary = check(run, judgments, output)
+    except (OSError, ValueError) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(json.dumps(summary, ensure_ascii=True, indent=2))
+
+
 @app.callback()
 def main(
     ctx: typer.Context,

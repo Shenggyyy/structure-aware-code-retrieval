@@ -1,0 +1,747 @@
+{
+  "schema_version": 1,
+  "status": "prepared",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "max_output_tokens": 1024,
+  "api_key_env": "OPENAI_API_KEY",
+  "max_context_bytes": 16000,
+  "top_k": 10,
+  "request_count": 60,
+  "maximum_api_calls": 60,
+  "request_digest": "3c111fb48c1d0ee9a2a6f92d1d116cd69c1750781bba476ed44a8b36dd130cd7",
+  "cases_digest": "1eb96f5aed6e30026af1142d96ca0be0fef6e2f5417fc3ed93a384257a7a6b96",
+  "content_fingerprint": "e39035f3d7bb4837cb26c9a4decdb1038c7b03e97535464e89391edad35689ce",
+  "retrieval_benchmark_digest": "5baaa721437a927b9e4509262b2d5d21db47c07aa46f6fc5cd69f6a03abf0155",
+  "annotation_status": "provisional",
+  "strategies": {
+    "bm25": {
+      "config_sha256": "0722a5f0c210e258c1417d2842e6b842db2684e9a8520f82bfd37eecdc669789",
+      "strategy": "bm25",
+      "structure": {},
+      "indexes": {
+        "requests": {
+          "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+          "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05",
+          "git": {
+            "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "0d87c78c285d5f3a9f83c7b9a09c42aa566c771a7e35d0da1ed0dabcd5831b6c",
+              "docs/_themes/.gitignore": "f27660c4ec6efa86aac4d61036c5f495e9438805a6f63be44f17db003979a06f"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3e15f6ce222dc9f7bf033cedff57e5b8135ce6921ffab18b071b426db94edd53"
+          },
+          "embedding_model": null
+        },
+        "click": {
+          "snapshot_id": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+          "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5",
+          "git": {
+            "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "7c29846deb0881728ede7eec4b26bd3350b3757e3029670aa375e61d7cca2007",
+              "examples/imagepipe/.gitignore": "2259ebafe9b7fccd958fc09608b02d2d630fa69be9348454a88076583464c439"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3a237782f39263efc75fbd42fce989871f2031dc265a1932fbef233e2dac79ab"
+          },
+          "embedding_model": null
+        }
+      }
+    },
+    "dense": {
+      "config_sha256": "fe0d14919fd8be98b2fd6081b4e1ec8d4026055566b305939e721cf8d9caad7f",
+      "strategy": "dense",
+      "structure": {},
+      "indexes": {
+        "requests": {
+          "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+          "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05",
+          "git": {
+            "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "0d87c78c285d5f3a9f83c7b9a09c42aa566c771a7e35d0da1ed0dabcd5831b6c",
+              "docs/_themes/.gitignore": "f27660c4ec6efa86aac4d61036c5f495e9438805a6f63be44f17db003979a06f"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3e15f6ce222dc9f7bf033cedff57e5b8135ce6921ffab18b071b426db94edd53",
+            "vectors": "872180066384c8beba2fb7ebab2c26775a04a1724b777bfc10f89895caff052f"
+          },
+          "embedding_model": {
+            "id": "sentence-transformers/all-MiniLM-L6-v2",
+            "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+            "dimensions": 384,
+            "max_seq_length": 256,
+            "normalize": true,
+            "dtype": "float32",
+            "device": "cpu",
+            "threads": 4,
+            "batch_size": 32,
+            "query_prompt": "",
+            "document_prompt": "",
+            "text_policy": "path-qualified_name-signature-code-v1",
+            "packages": {
+              "sentence-transformers": "5.7.0",
+              "transformers": "5.16.1",
+              "torch": "2.14.0+cpu",
+              "tokenizers": "0.23.2"
+            }
+          }
+        },
+        "click": {
+          "snapshot_id": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+          "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5",
+          "git": {
+            "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "7c29846deb0881728ede7eec4b26bd3350b3757e3029670aa375e61d7cca2007",
+              "examples/imagepipe/.gitignore": "2259ebafe9b7fccd958fc09608b02d2d630fa69be9348454a88076583464c439"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3a237782f39263efc75fbd42fce989871f2031dc265a1932fbef233e2dac79ab",
+            "vectors": "52eda2696fad9e7742fee40d5576ab08a69c59fb67e80f006e467fbdbfca585e"
+          },
+          "embedding_model": {
+            "id": "sentence-transformers/all-MiniLM-L6-v2",
+            "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+            "dimensions": 384,
+            "max_seq_length": 256,
+            "normalize": true,
+            "dtype": "float32",
+            "device": "cpu",
+            "threads": 4,
+            "batch_size": 32,
+            "query_prompt": "",
+            "document_prompt": "",
+            "text_policy": "path-qualified_name-signature-code-v1",
+            "packages": {
+              "sentence-transformers": "5.7.0",
+              "transformers": "5.16.1",
+              "torch": "2.14.0+cpu",
+              "tokenizers": "0.23.2"
+            }
+          }
+        }
+      }
+    },
+    "hybrid": {
+      "config_sha256": "f2cb4ab55d8a1cf086098f4a55c05c09416774fb2aea2fc247ef8ce308671ff9",
+      "strategy": "hybrid",
+      "structure": {},
+      "indexes": {
+        "requests": {
+          "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+          "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05",
+          "git": {
+            "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "0d87c78c285d5f3a9f83c7b9a09c42aa566c771a7e35d0da1ed0dabcd5831b6c",
+              "docs/_themes/.gitignore": "f27660c4ec6efa86aac4d61036c5f495e9438805a6f63be44f17db003979a06f"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3e15f6ce222dc9f7bf033cedff57e5b8135ce6921ffab18b071b426db94edd53",
+            "vectors": "872180066384c8beba2fb7ebab2c26775a04a1724b777bfc10f89895caff052f"
+          },
+          "embedding_model": {
+            "id": "sentence-transformers/all-MiniLM-L6-v2",
+            "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+            "dimensions": 384,
+            "max_seq_length": 256,
+            "normalize": true,
+            "dtype": "float32",
+            "device": "cpu",
+            "threads": 4,
+            "batch_size": 32,
+            "query_prompt": "",
+            "document_prompt": "",
+            "text_policy": "path-qualified_name-signature-code-v1",
+            "packages": {
+              "sentence-transformers": "5.7.0",
+              "transformers": "5.16.1",
+              "torch": "2.14.0+cpu",
+              "tokenizers": "0.23.2"
+            }
+          }
+        },
+        "click": {
+          "snapshot_id": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+          "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5",
+          "git": {
+            "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "7c29846deb0881728ede7eec4b26bd3350b3757e3029670aa375e61d7cca2007",
+              "examples/imagepipe/.gitignore": "2259ebafe9b7fccd958fc09608b02d2d630fa69be9348454a88076583464c439"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3a237782f39263efc75fbd42fce989871f2031dc265a1932fbef233e2dac79ab",
+            "vectors": "52eda2696fad9e7742fee40d5576ab08a69c59fb67e80f006e467fbdbfca585e"
+          },
+          "embedding_model": {
+            "id": "sentence-transformers/all-MiniLM-L6-v2",
+            "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+            "dimensions": 384,
+            "max_seq_length": 256,
+            "normalize": true,
+            "dtype": "float32",
+            "device": "cpu",
+            "threads": 4,
+            "batch_size": 32,
+            "query_prompt": "",
+            "document_prompt": "",
+            "text_policy": "path-qualified_name-signature-code-v1",
+            "packages": {
+              "sentence-transformers": "5.7.0",
+              "transformers": "5.16.1",
+              "torch": "2.14.0+cpu",
+              "tokenizers": "0.23.2"
+            }
+          }
+        }
+      }
+    },
+    "symbol": {
+      "config_sha256": "b1d5739b64932a839ce030a49cb502600fb9496e8b735ba60423ad556076b27c",
+      "strategy": "symbol",
+      "structure": {},
+      "indexes": {
+        "requests": {
+          "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+          "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05",
+          "git": {
+            "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "0d87c78c285d5f3a9f83c7b9a09c42aa566c771a7e35d0da1ed0dabcd5831b6c",
+              "docs/_themes/.gitignore": "f27660c4ec6efa86aac4d61036c5f495e9438805a6f63be44f17db003979a06f"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3e15f6ce222dc9f7bf033cedff57e5b8135ce6921ffab18b071b426db94edd53",
+            "vectors": "872180066384c8beba2fb7ebab2c26775a04a1724b777bfc10f89895caff052f"
+          },
+          "embedding_model": {
+            "id": "sentence-transformers/all-MiniLM-L6-v2",
+            "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+            "dimensions": 384,
+            "max_seq_length": 256,
+            "normalize": true,
+            "dtype": "float32",
+            "device": "cpu",
+            "threads": 4,
+            "batch_size": 32,
+            "query_prompt": "",
+            "document_prompt": "",
+            "text_policy": "path-qualified_name-signature-code-v1",
+            "packages": {
+              "sentence-transformers": "5.7.0",
+              "transformers": "5.16.1",
+              "torch": "2.14.0+cpu",
+              "tokenizers": "0.23.2"
+            }
+          }
+        },
+        "click": {
+          "snapshot_id": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+          "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5",
+          "git": {
+            "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "7c29846deb0881728ede7eec4b26bd3350b3757e3029670aa375e61d7cca2007",
+              "examples/imagepipe/.gitignore": "2259ebafe9b7fccd958fc09608b02d2d630fa69be9348454a88076583464c439"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3a237782f39263efc75fbd42fce989871f2031dc265a1932fbef233e2dac79ab",
+            "vectors": "52eda2696fad9e7742fee40d5576ab08a69c59fb67e80f006e467fbdbfca585e"
+          },
+          "embedding_model": {
+            "id": "sentence-transformers/all-MiniLM-L6-v2",
+            "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+            "dimensions": 384,
+            "max_seq_length": 256,
+            "normalize": true,
+            "dtype": "float32",
+            "device": "cpu",
+            "threads": 4,
+            "batch_size": 32,
+            "query_prompt": "",
+            "document_prompt": "",
+            "text_policy": "path-qualified_name-signature-code-v1",
+            "packages": {
+              "sentence-transformers": "5.7.0",
+              "transformers": "5.16.1",
+              "torch": "2.14.0+cpu",
+              "tokenizers": "0.23.2"
+            }
+          }
+        }
+      }
+    },
+    "structure": {
+      "config_sha256": "959f14d0554ad2b9f0482cccbfb1f264b9783c540db927acc1a8363ad1291e5a",
+      "strategy": "structure",
+      "structure": {
+        "seed_strategy": "hybrid",
+        "relations": [
+          "containment",
+          "import",
+          "call",
+          "test"
+        ],
+        "seed_k": 5,
+        "max_neighbors": 8,
+        "max_expanded": 20,
+        "max_edges": 64,
+        "alpha": 0.5
+      },
+      "indexes": {
+        "requests": {
+          "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+          "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05",
+          "git": {
+            "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "0d87c78c285d5f3a9f83c7b9a09c42aa566c771a7e35d0da1ed0dabcd5831b6c",
+              "docs/_themes/.gitignore": "f27660c4ec6efa86aac4d61036c5f495e9438805a6f63be44f17db003979a06f"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3e15f6ce222dc9f7bf033cedff57e5b8135ce6921ffab18b071b426db94edd53",
+            "vectors": "872180066384c8beba2fb7ebab2c26775a04a1724b777bfc10f89895caff052f",
+            "graph": "d432028e562f8c509bc75685fd8d29b0e261dc6b652c89d9ae780f16971335a3"
+          },
+          "embedding_model": {
+            "id": "sentence-transformers/all-MiniLM-L6-v2",
+            "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+            "dimensions": 384,
+            "max_seq_length": 256,
+            "normalize": true,
+            "dtype": "float32",
+            "device": "cpu",
+            "threads": 4,
+            "batch_size": 32,
+            "query_prompt": "",
+            "document_prompt": "",
+            "text_policy": "path-qualified_name-signature-code-v1",
+            "packages": {
+              "sentence-transformers": "5.7.0",
+              "transformers": "5.16.1",
+              "torch": "2.14.0+cpu",
+              "tokenizers": "0.23.2"
+            }
+          }
+        },
+        "click": {
+          "snapshot_id": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+          "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5",
+          "git": {
+            "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+            "dirty": false
+          },
+          "config": {
+            "schema_version": 1,
+            "parser_version": 1,
+            "scanner_version": 1,
+            "tokenizer_version": 1,
+            "max_chunk_lines": 80,
+            "max_file_bytes": 1048576,
+            "exclude": [],
+            "excluded_directories": [
+              ".cache",
+              ".git",
+              ".hg",
+              ".idea",
+              ".pytest_cache",
+              ".ruff_cache",
+              ".svn",
+              ".venv",
+              ".vscode",
+              "__pycache__",
+              "artifacts",
+              "build",
+              "dist",
+              "node_modules",
+              "venv"
+            ],
+            "gitignore_hashes": {
+              ".gitignore": "7c29846deb0881728ede7eec4b26bd3350b3757e3029670aa375e61d7cca2007",
+              "examples/imagepipe/.gitignore": "2259ebafe9b7fccd958fc09608b02d2d630fa69be9348454a88076583464c439"
+            },
+            "bm25": {
+              "variant": "BM25Plus",
+              "k1": 1.5,
+              "b": 0.75,
+              "delta": 0.0
+            }
+          },
+          "input_hashes": {
+            "index": "3a237782f39263efc75fbd42fce989871f2031dc265a1932fbef233e2dac79ab",
+            "vectors": "52eda2696fad9e7742fee40d5576ab08a69c59fb67e80f006e467fbdbfca585e",
+            "graph": "99d75d4f3e9f3d2a1f0a23ad9d41fef5ef5f290c4e72d7f06ab8a293e38d68d0"
+          },
+          "embedding_model": {
+            "id": "sentence-transformers/all-MiniLM-L6-v2",
+            "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+            "dimensions": 384,
+            "max_seq_length": 256,
+            "normalize": true,
+            "dtype": "float32",
+            "device": "cpu",
+            "threads": 4,
+            "batch_size": 32,
+            "query_prompt": "",
+            "document_prompt": "",
+            "text_policy": "path-qualified_name-signature-code-v1",
+            "packages": {
+              "sentence-transformers": "5.7.0",
+              "transformers": "5.16.1",
+              "torch": "2.14.0+cpu",
+              "tokenizers": "0.23.2"
+            }
+          }
+        }
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "system": "Windows",
+    "release": "11",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 20,
+    "thread_environment": {
+      "OMP_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null
+    },
+    "packages": {
+      "structure-aware-code-retrieval": "0.1.0",
+      "rank-bm25": "0.2.2",
+      "numpy": "2.5.3",
+      "pathspec": "1.1.1"
+    },
+    "implementation_git": {
+      "commit": "59030fe276b14ec1607bbee350f2ce045fd40d88",
+      "dirty": true
+    },
+    "implementation_hash": "e4351b4b9314c95b3169f5730fb18b06273a211775d2464af93479fef855d996",
+    "lockfile_hash": "3a9d84cb03820e68e9c0a59f57ff7ba8d55bcedf0350e700786e5d429c0d96e6"
+  },
+  "pricing": {
+    "input_per_million": 0.75,
+    "output_per_million": 4.5,
+    "as_of": "2026-09-08"
+  },
+  "cost_estimation": {
+    "method": "one token per UTF-8 content/schema byte plus framing allowance",
+    "framing_allowance_tokens_per_request": 4096,
+    "estimated_input_tokens": 849637,
+    "maximum_output_tokens": 61440,
+    "billing_guarantee": false
+  },
+  "estimated_cost_usd": 0.91370775,
+  "plan_fingerprint": "e1c7507d34815cba0e038a6cf05b01b33e0706bbc3efd71d4341bd460aed7a33"
+}

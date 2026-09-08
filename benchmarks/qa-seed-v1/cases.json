@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "id": "qa-seed",
+  "version": "0.1.0",
+  "annotation_status": "provisional",
+  "retrieval_benchmark": "../seed-v1/benchmark.json",
+  "retrieval_benchmark_digest": "5baaa721437a927b9e4509262b2d5d21db47c07aa46f6fc5cd69f6a03abf0155",
+  "cases": [
+    {
+      "id": "qa-requests-01",
+      "repository": "requests",
+      "question": "Where is cookiejar_from_dict implemented in the production source?",
+      "source_query_id": "requests-01",
+      "expected_status": "answered",
+      "reference_points": [
+        "The production implementation is cookiejar_from_dict in src/requests/cookies.py, lines 521-539."
+      ],
+      "source_targets": [
+        {
+          "path": "src/requests/cookies.py",
+          "qualified_name": "src.requests.cookies.cookiejar_from_dict",
+          "start_line": 521,
+          "end_line": 539
+        }
+      ],
+      "rationale": "Development-only symbol case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-requests-06",
+      "repository": "requests",
+      "question": "How does JSON response decoding choose a Unicode encoding when none is set, and which helper inspects the bytes?",
+      "source_query_id": "requests-06",
+      "expected_status": "answered",
+      "reference_points": [
+        "Response.json in src/requests/models.py calls guess_json_utf when no encoding is set and nonempty content is longer than three bytes.",
+        "guess_json_utf in src/requests/utils.py inspects the first four bytes for byte-order marks and null-byte patterns to identify UTF-8, UTF-16, or UTF-32 variants.",
+        "Response.json decodes with a detected encoding before JSON parsing; if no encoding is detected or Unicode decoding fails, it falls back to JSON parsing of self.text."
+      ],
+      "source_targets": [
+        {
+          "path": "src/requests/models.py",
+          "qualified_name": "src.requests.models.Response.json",
+          "start_line": 947,
+          "end_line": 978
+        },
+        {
+          "path": "src/requests/utils.py",
+          "qualified_name": "src.requests.utils.guess_json_utf",
+          "start_line": 957,
+          "end_line": 986
+        }
+      ],
+      "rationale": "Development-only cross_file case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-requests-07",
+      "repository": "requests",
+      "question": "Where are HTTP error responses turned into exceptions with the status, reason, and URL?",
+      "source_query_id": "requests-07",
+      "expected_status": "answered",
+      "reference_points": [
+        "Response.raise_for_status in src/requests/models.py constructs Client Error messages for 400-499 and Server Error messages for 500-599.",
+        "The message includes the status code, reason, and URL; HTTPError is raised with response=self."
+      ],
+      "source_targets": [
+        {
+          "path": "src/requests/models.py",
+          "qualified_name": "src.requests.models.Response.raise_for_status",
+          "start_line": 997,
+          "end_line": 1024
+        }
+      ],
+      "rationale": "Development-only behavior case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-requests-13",
+      "repository": "requests",
+      "question": "Where does a session merge environment proxy settings, and which utility suppresses them for bypassed URLs?",
+      "source_query_id": "requests-13",
+      "expected_status": "answered",
+      "reference_points": [
+        "Session.merge_environment_settings in src/requests/sessions.py obtains environment proxies through get_environ_proxies when trust_env is enabled, adds them with setdefault, and merges proxy settings with self.proxies.",
+        "get_environ_proxies in src/requests/utils.py returns an empty mapping when should_bypass_proxies accepts the URL; otherwise it returns getproxies().",
+        "should_bypass_proxies considers no_proxy entries, including IPv4/CIDR and hostname matches, then consults the platform proxy_bypass helper."
+      ],
+      "source_targets": [
+        {
+          "path": "src/requests/sessions.py",
+          "qualified_name": "src.requests.sessions.Session.merge_environment_settings",
+          "start_line": 750,
+          "end_line": 779
+        },
+        {
+          "path": "src/requests/utils.py",
+          "qualified_name": "src.requests.utils.get_environ_proxies",
+          "start_line": 826,
+          "end_line": 835
+        },
+        {
+          "path": "src/requests/utils.py",
+          "qualified_name": "src.requests.utils.should_bypass_proxies",
+          "start_line": 765,
+          "end_line": 823
+        }
+      ],
+      "rationale": "Development-only cross_file case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-requests-19",
+      "repository": "requests",
+      "question": "Which test checks that cookies passed for one request are not persisted in the session cookie jar?",
+      "source_query_id": "requests-19",
+      "expected_status": "answered",
+      "reference_points": [
+        "TestRequests.test_request_cookies_not_persisted in tests/test_requests.py sends a session GET to the cookies endpoint with cookies={\"foo\": \"baz\"}.",
+        "The test then asserts not s.cookies, checking that these per-request cookies did not populate the session cookie jar."
+      ],
+      "source_targets": [
+        {
+          "path": "tests/test_requests.py",
+          "qualified_name": "tests.test_requests.TestRequests.test_request_cookies_not_persisted",
+          "start_line": 413,
+          "end_line": 417
+        }
+      ],
+      "rationale": "Development-only test case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-requests-scope-01",
+      "repository": "requests",
+      "question": "What exact connect and read timeout values does our private production checkout service pass to Requests today?",
+      "source_query_id": null,
+      "expected_status": "insufficient_context",
+      "reference_points": [
+        "The supplied evidence is a pinned Requests library repository, not the private checkout service configuration or current runtime call arguments.",
+        "Expected model output is status=insufficient_context with claims=[]. The reviewer should record the missing application configuration or request call site as the reason the exact deployment-specific values cannot be determined."
+      ],
+      "source_targets": [],
+      "rationale": "Draft scope-abstention control about unavailable private deployment state. It does not assert that a feature or symbol is absent from the entire library. Independent human review is pending."
+    },
+    {
+      "id": "qa-click-04",
+      "repository": "click",
+      "question": "Where is Context.ensure_object implemented?",
+      "source_query_id": "click-04",
+      "expected_status": "answered",
+      "reference_points": [
+        "Context.ensure_object is implemented in src/click/core.py, lines 646-653; it calls find_object and constructs and stores object_type() when no matching object is returned."
+      ],
+      "source_targets": [
+        {
+          "path": "src/click/core.py",
+          "qualified_name": "src.click.core.Context.ensure_object",
+          "start_line": 646,
+          "end_line": 653
+        }
+      ],
+      "rationale": "Development-only symbol case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-click-08",
+      "repository": "click",
+      "question": "Where are case-insensitive choices normalized while still returning the original declared spelling?",
+      "source_query_id": "click-08",
+      "expected_status": "answered",
+      "reference_points": [
+        "Choice.convert in src/click/types.py maps normalized choices to their original declared values.",
+        "It applies ctx.token_normalize_func when available, then casefolds the input and choice keys when case_sensitive is false; a match returns the original declared value."
+      ],
+      "source_targets": [
+        {
+          "path": "src/click/types.py",
+          "qualified_name": "src.click.types.Choice.convert",
+          "start_line": 269,
+          "end_line": 305
+        }
+      ],
+      "rationale": "Development-only behavior case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-click-13",
+      "repository": "click",
+      "question": "How does a multi-valued option turn an environment variable into separate values across the option and parameter-type layers?",
+      "source_query_id": "click-13",
+      "expected_status": "answered",
+      "reference_points": [
+        "Option.value_from_envvar in src/click/core.py resolves the environment value, returns None when absent, and calls self.type.split_envvar_value when nargs is not one or multiple is enabled.",
+        "ParamType.split_envvar_value in src/click/types.py splits the string using envvar_list_splitter; None uses whitespace splitting.",
+        "When both multiple is enabled and nargs is not one, Option.value_from_envvar batches the split values in groups of nargs."
+      ],
+      "source_targets": [
+        {
+          "path": "src/click/core.py",
+          "qualified_name": "src.click.core.Option.value_from_envvar",
+          "start_line": 2920,
+          "end_line": 2934
+        },
+        {
+          "path": "src/click/types.py",
+          "qualified_name": "src.click.types.ParamType.split_envvar_value",
+          "start_line": 120,
+          "end_line": 128
+        }
+      ],
+      "rationale": "Development-only cross_file case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-click-16",
+      "repository": "click",
+      "question": "How does secho apply style information and then send the result to an output stream?",
+      "source_query_id": "click-16",
+      "expected_status": "answered",
+      "reference_points": [
+        "secho in src/click/termui.py applies style(message, **styles) to non-None messages except bytes and bytearray, then delegates output arguments to echo.",
+        "style in src/click/termui.py builds ANSI style sequences around the text and appends a reset sequence by default.",
+        "echo in src/click/utils.py writes to the selected output stream, optionally appends a newline, handles color filtering, and flushes the stream."
+      ],
+      "source_targets": [
+        {
+          "path": "src/click/termui.py",
+          "qualified_name": "src.click.termui.secho",
+          "start_line": 603,
+          "end_line": 634
+        },
+        {
+          "path": "src/click/termui.py",
+          "qualified_name": "src.click.termui.style",
+          "start_line": 462,
+          "end_line": 588
+        },
+        {
+          "path": "src/click/utils.py",
+          "qualified_name": "src.click.utils.echo",
+          "start_line": 219,
+          "end_line": 319
+        }
+      ],
+      "rationale": "Development-only cross_file case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-click-20",
+      "repository": "click",
+      "question": "Which test checks both captured callback exceptions and propagation when catch_exceptions is disabled?",
+      "source_query_id": "click-20",
+      "expected_status": "answered",
+      "reference_points": [
+        "test_catch_exceptions in tests/test_testing.py defines a command that raises CustomError and checks runner.invoke captures it as result.exception with a three-item exc_info tuple.",
+        "The same test uses pytest.raises(CustomError) around runner.invoke with catch_exceptions=False to check propagation; its final SystemExit case checks exit_code equals one."
+      ],
+      "source_targets": [
+        {
+          "path": "tests/test_testing.py",
+          "qualified_name": "tests.test_testing.test_catch_exceptions",
+          "start_line": 163,
+          "end_line": 184
+        }
+      ],
+      "rationale": "Development-only test case reused verbatim from seed-v1. All positive retrieval targets are retained. Reference points were drafted after reading the pinned source bodies; independent human review is pending."
+    },
+    {
+      "id": "qa-click-scope-01",
+      "repository": "click",
+      "question": "Which exact Click command and option values does our private production release job invoke today?",
+      "source_query_id": null,
+      "expected_status": "insufficient_context",
+      "reference_points": [
+        "The supplied evidence is a pinned Click library repository, not the private release application or its current job configuration.",
+        "Expected model output is status=insufficient_context with claims=[]. The reviewer should record the missing application command definitions and job configuration as the reason the deployment-specific values cannot be determined."
+      ],
+      "source_targets": [],
+      "rationale": "Draft scope-abstention control about unavailable private deployment state. It does not assert that a feature or symbol is absent from the entire library. Independent human review is pending."
+    }
+  ]
+}

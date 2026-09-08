@@ -4,14 +4,17 @@ A Python project investigating whether repository structure improves code retrie
 for LLM applications. The planned system compares lexical, dense, hybrid,
 symbol-aware, and structure-aware retrieval, then supplies evidence to repository QA.
 
-**Status: M6c — fixed experiments and construction/memory profiling.** All five retrieval strategies
+**Status: M7a — Repository QA and offline experiment preparation.** All five retrieval strategies
 are implemented, with snapshot-bound relation graphs, bounded expansion, source traces,
 evaluation and cost reports. The frozen draft suite now contains 40 development
 questions, 120 new test candidates on five repositories and a separate ten-question
 RepoQA adaptation. **All labels remain provisional, pending independent human review**.
 M6c runs the inherited 15 strategy/ablation configurations separately on each dataset
 and records build, storage and process peak-memory costs. Results remain provisional;
-reviewed-label acceptance, LLM QA and Docker delivery remain outstanding.
+reviewed-label acceptance and Docker delivery remain outstanding. M7a adds bounded
+source context, OpenAI Responses integration, cited answers and a frozen development
+QA experiment. **Real API results and independent answer review are still pending**;
+offline tests and prepared requests are not evidence of answer quality.
 
 ## Quickstart
 
@@ -75,6 +78,38 @@ Search returns **chunks**, which may represent only part of a long function. Pat
 are relative to the indexed root and line ranges are one-based and inclusive.
 `--json` includes full chunk text, IDs, scores, and snapshot ID; text output previews
 12 lines. Empty matches are successful searches with no results.
+
+## Repository questions with source citations
+
+Preview source context without an API key or model call:
+
+```text
+uv run --locked sacr ask "How is calculate_checksum implemented?" --index artifacts/sample.sqlite --output artifacts/qa/sample-preview
+```
+
+The output contains `qa.json` and `answer.md`, with snapshot-bound paths and source
+lines. To generate an answer, configure `OPENAI_API_KEY` locally and repeat with a
+**new output directory**, `--execute`, and an explicit `--model`. The proposed model
+is `gpt-5.4-mini-2026-03-17`. Only `--execute` sends source/question text to OpenAI and
+may incur charges; the program does not read `.env` automatically.
+
+`--strategy`, `--vectors`, `--graph`, and `--model-cache` select the same five retrieval
+methods as search. Context defaults to ten unique symbols and **16,000 UTF-8 bytes**;
+this is not a model-token budget. Every answer claim must cite a supplied source ID.
+Empty evidence abstains locally; invalid or failed answers remain recorded.
+Correct source IDs do not establish factual correctness or semantic support.
+
+After preparing the existing M4/M5 indexes, vectors and graphs, freeze the 12-case,
+five-strategy development experiment offline:
+
+```text
+uv run --locked --extra dense sacr prepare-qa --config configs/qa-m7.toml --output artifacts/qa/m7-prepared
+```
+
+This writes exact requests, source previews, provenance and a cost projection, with
+reviewer references stored separately. Execution requires an explicit budget and
+`run-qa --execute`. See [QA setup, execution and manual review](docs/qa.md), the
+[provisional QA dataset](benchmarks/qa-seed-v1/README.md), and [M7a validation](reports/m7a/README.md).
 
 ## BM25 baseline and limitations
 
@@ -282,12 +317,14 @@ src/structure_aware_retrieval/
   relations.py                Syntactic relation extraction and graph persistence
   structure.py                Bounded one-hop support and reranking
   evaluation/                 Dataset/config validation, metrics, runner, reports
+  qa/                         Bounded context, model adapter, QA experiments and review
 tests/                        Unit/integration tests and source fixtures
 docs/                         Design, evaluation plans, smoke validation
 benchmarks/seed-v1/            Pinned corpus manifest, 40 queries, source judgments
 benchmarks/expanded-v1/        Five new repositories, 120 source-checked draft queries
 benchmarks/repoqa-marshmallow-v1/  Ten public needles adapted to symbol retrieval
 benchmarks/suite-v1.json       Frozen split membership and primary quality metrics
+benchmarks/qa-seed-v1/         Twelve provisional QA development cases and reference points
 configs/                      Reproducible symbol/file experiment settings
 reports/m3/                   Selected real BM25 runs and their limitations
 reports/m4/                   Four-strategy runs, paired comparison and analysis
@@ -295,6 +332,7 @@ reports/m5/                   Structure ablations, source traces and context cos
 reports/m6a/                  Paired audit and frozen pending pool metadata
 reports/m6b/                  Split/source validation and pending-review evidence
 reports/m6c/                  Fixed expanded runs, paired tradeoffs and measured costs
+reports/m7a/                  Offline QA preparation and validation; no generated answers
 scripts/run_m5.py             Fixed 13-configuration experiment suite
 scripts/run_m6a.py            Offline analysis and pending review bundle
 scripts/run_m6b.py            Data regeneration and review, with opt-in preparation

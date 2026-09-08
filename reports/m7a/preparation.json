@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "stage": "M7a",
+  "date": "2026-09-08",
+  "status": "prepared_only",
+  "actual_api_calls": 0,
+  "generated_answers": 0,
+  "qa_quality_metrics": null,
+  "independent_review_status": "pending",
+  "cases": 12,
+  "requests": 60,
+  "repositories": [
+    "click",
+    "requests"
+  ],
+  "annotation_status": "provisional",
+  "proposed_model": "gpt-5.4-mini-2026-03-17",
+  "estimated_cost_usd": 0.91370775,
+  "billing_guarantee": false,
+  "content_fingerprint": "e39035f3d7bb4837cb26c9a4decdb1038c7b03e97535464e89391edad35689ce",
+  "repeat_content_fingerprint_matches": true,
+  "plan_fingerprint": "e1c7507d34815cba0e038a6cf05b01b33e0706bbc3efd71d4341bd460aed7a33",
+  "context_bytes": {
+    "minimum": 2589,
+    "maximum": 15966
+  },
+  "per_strategy": {
+    "bm25": {
+      "requests": 12,
+      "empty_contexts": 0,
+      "selected_sources": 120,
+      "truncated_sources": 0
+    },
+    "dense": {
+      "requests": 12,
+      "empty_contexts": 0,
+      "selected_sources": 120,
+      "truncated_sources": 0
+    },
+    "hybrid": {
+      "requests": 12,
+      "empty_contexts": 0,
+      "selected_sources": 120,
+      "truncated_sources": 1
+    },
+    "structure": {
+      "requests": 12,
+      "empty_contexts": 0,
+      "selected_sources": 120,
+      "truncated_sources": 1
+    },
+    "symbol": {
+      "requests": 12,
+      "empty_contexts": 0,
+      "selected_sources": 120,
+      "truncated_sources": 1
+    }
+  }
+}

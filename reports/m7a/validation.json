@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-08",
+  "environment": "Windows / Python 3.12.14",
+  "pytest": {
+    "passed": 490,
+    "skipped": 1,
+    "skip_reason": "Creating symlinks is unavailable on this host",
+    "combined_statement_branch_coverage_percent_rounded": 92
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "git_diff_check": "passed",
+  "distribution_build": "passed",
+  "packaged_python_files_matching_source": 35,
+  "isolated_base_only_wheel_smoke": "passed",
+  "optional_dense_dependencies_in_wheel_environment": false,
+  "archive_excludes_local_caches_artifacts_credentials": true,
+  "real_prepared_requests": 60,
+  "repeated_prompt_content_fingerprint_matches": true,
+  "real_api_calls": 0,
+  "remote_ci": "not_run_for_these_uncommitted_changes"
+}

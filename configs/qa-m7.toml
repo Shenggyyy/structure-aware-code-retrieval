@@ -1,0 +1,20 @@
+schema_version = 1
+cases = "../benchmarks/qa-seed-v1/cases.json"
+model = "gpt-5.4-mini-2026-03-17"
+max_output_tokens = 1024
+max_context_bytes = 16000
+top_k = 10
+api_key_env = "OPENAI_API_KEY"
+
+# Standard, uncached rates; projection only, checked against official model docs.
+[pricing]
+input_per_million = 0.75
+output_per_million = 4.50
+as_of = "2026-09-08"
+
+[retrieval_configs]
+bm25 = "bm25-seed.toml"
+dense = "dense-seed.toml"
+hybrid = "hybrid-seed.toml"
+symbol = "symbol-seed.toml"
+structure = "structure-full.toml"

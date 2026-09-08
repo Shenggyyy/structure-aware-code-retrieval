@@ -294,3 +294,17 @@ Construction/load costs and warm query latency have distinct timing boundaries;
 builds have one sample and uncontrolled OS caches. Comparisons against Hybrid and
 full structure retain per-query/repository/category evidence and the existing small
 sample uncertainty limits. See [the matrix, reproduction and measurement protocol](experiments.md).
+
+## M7 QA evaluation boundary
+
+QA uses a separate twelve-case provisional development dataset and the same frozen
+model/prompt/context policy across five strategies. Retrieval labels and draft
+reference points are reviewer material, never model input. Frozen request plans are
+offline preparation artifacts, not generated-answer results.
+
+Source citation identity is automatically checked against packed snapshot evidence.
+Factual answer correctness and semantic citation support require separate manual
+judgments; both remain unknown before review. Report generation errors, abstentions,
+not-run cases and missing token usage explicitly. An abstention control probes missing
+deployment information; it does not measure all forms of answerability or hallucination.
+See [QA reproduction and review](qa.md) for cost, timing and review denominators.

@@ -13,7 +13,7 @@ distributed services, and model training are outside the initial scope.
 
 The flow below is the target design. M5 includes scanning, AST extraction, chunks,
 SQLite persistence, five retrieval strategies, vector/graph artifacts and evaluation.
-The QA and context-budget pipeline remains planned.
+M7a adds bounded context, OpenAI Responses integration and separate QA experiment/review tooling.
 
 ## Data flow
 
@@ -44,7 +44,7 @@ flowchart TD
 | `parsing` | AST extraction, source ranges, chunks, conservative relation resolution |
 | `indexing` | Persist metadata, searchable text, vectors, and relations |
 | `retrieval` | Strategies returning a shared result schema |
-| `context` | Deduplicate and pack evidence under a token budget |
+| `qa.context` | Deduplicate and pack evidence under an exact UTF-8 byte budget |
 | `qa` | Model adapter, evidence-grounded prompts, citations |
 | `evaluation` | Dataset validation, experiments, metrics, reports |
 
@@ -217,6 +217,19 @@ it does not mutate benchmark labels or grant human-review status. This keeps ann
 changes separate from retrieval and prevents accidental rewriting of old experiments.
 
 ## Storage and references
+
+M7a's `qa/context.py` packs canonical stored chunks, preserving complete source lines,
+one chunk per symbol, nonoverlapping ranges and a fingerprint. Its byte budget includes
+serialized evidence metadata, but excludes the system prompt and provider framing.
+`qa/answering.py` keeps evidence as data, validates structured claims and citation IDs,
+and renders source excerpts. No tool execution or agent loop is involved.
+
+`qa/provider.py` sends one strict-schema OpenAI Responses request, only when explicitly
+invoked. It stores reported usage and identifiers without credentials and never retries.
+`qa/preparation.py` freezes requests from existing retrieval configs, excluding reference
+answers; `qa/execution.py` verifies the bundle and records each attempted/completed request.
+`qa/review.py` validates separate human judgments; semantic scores stay unknown until
+review is complete. See [the QA protocol](qa.md) for failure and measurement boundaries.
 
 M6c's `evaluation/experiments.py` freezes the inherited configuration matrix and
 coordinates separate dev/test/public runs. `evaluation/profiling.py` launches one
