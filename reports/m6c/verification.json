@@ -1,0 +1,37 @@
+{
+  "all_45_saved_runs_validated": true,
+  "no_relation_equals_hybrid_all_roles": true,
+  "repeated_primary_runs": [
+    {
+      "role": "test",
+      "name": "hybrid-seed",
+      "quality_fingerprint": "8f83ba5fe9f588fdaf62e51c67484843a3243bbc9718ed76b8efa8fbb52a67b4",
+      "matched": true
+    },
+    {
+      "role": "test",
+      "name": "bm25-seed",
+      "quality_fingerprint": "247fab21bba792626a4b28882cb1b5783e598818f3badca0963d89d2e23cdc02",
+      "matched": true
+    },
+    {
+      "role": "test",
+      "name": "dense-seed",
+      "quality_fingerprint": "c6de0cdd062f952bdc67152a8593c60d027254635ec4735b98ef42d96ba96ac8",
+      "matched": true
+    },
+    {
+      "role": "test",
+      "name": "symbol-seed",
+      "quality_fingerprint": "8ca033d58577cce17de1fd5574ecd1742129bd06d1ba470b638285bbbaa08ec7",
+      "matched": true
+    },
+    {
+      "role": "test",
+      "name": "structure-full",
+      "quality_fingerprint": "783bfd46f3650ad3d84ecec1904560b6e168936c6f5434577851ab0537c115d3",
+      "matched": true
+    }
+  ],
+  "scope": "Five primary strategies on the 120-query expanded test role in fresh workers, same rebuilt indexes, graphs and vectors; timing excluded. All roles checked for saved-run integrity and disabled-relation equivalence."
+}

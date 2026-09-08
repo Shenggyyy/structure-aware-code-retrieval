@@ -1,0 +1,485 @@
+{
+  "selection": "Post-hoc three largest gains and losses in test NDCG@10; illustrative, not a random sample. Unjudged does not mean irrelevant.",
+  "cases": [
+    {
+      "query_id": "rich-17",
+      "query": "Trace Console.measure to the implementation that invokes a renderable's __rich_measure__ hook.",
+      "ndcg_at_10_delta": -0.621997899603161,
+      "hybrid_known_positive_ranks": [
+        {
+          "rank": 1,
+          "name": "rich.measure.Measurement.get"
+        },
+        {
+          "rank": 2,
+          "name": "rich.console.Console.measure"
+        }
+      ],
+      "structure_known_positive_ranks": [
+        {
+          "rank": 8,
+          "name": "rich.measure.Measurement.get"
+        },
+        {
+          "rank": 9,
+          "name": "rich.console.Console.measure"
+        }
+      ],
+      "structure_first_hit": {
+        "rank": 1,
+        "key": "2499d505ab5fc47de88a0055178fa57e47b8f4349e2b0341322b013cd8edfb53",
+        "score": 0.04511533242876527,
+        "components": {
+          "bm25_rank": 7.0,
+          "bm25_score": 20.68117379547035,
+          "bm25_rrf": 0.014925373134328358,
+          "dense_rank": 6.0,
+          "dense_score": 0.6647272706031799,
+          "dense_rrf": 0.015151515151515152,
+          "base_score": 0.03007688828584351,
+          "structure_bonus": 0.015038444142921756
+        },
+        "provenance": [
+          {
+            "seed_symbol_id": "d5259673bf6fcc7b4e6eebcc0e6256fb78978c9ca3f866d6df7c8838531d2f7c",
+            "seed_rank": 1,
+            "seed_chunk_id": "d592e27209549517fbea37ad3b9804347f908cbbc16db5b5eca822ca9a0fa115",
+            "edge_id": "39c2e2eb1a3d337b68d6904e12116bcbf360d9b81f56aba9e3e2dddcedce58a7",
+            "edge": {
+              "source": "63157541224c4edacab3c021c73a01b7c56189ec1ae4fa37232a6d9e60fba1ac",
+              "target": "d5259673bf6fcc7b4e6eebcc0e6256fb78978c9ca3f866d6df7c8838531d2f7c",
+              "kind": "call",
+              "confidence": "static",
+              "path": "rich/constrain.py",
+              "line": 36,
+              "expression": "Measurement.get"
+            },
+            "direction": "reverse",
+            "weight": 1.0,
+            "support": 1.0
+          }
+        ],
+        "target": {
+          "path": "rich/constrain.py",
+          "qualified_name": "rich.constrain.Constrain.__rich_measure__",
+          "start_line": 31,
+          "end_line": 37
+        },
+        "evidence_chunk": {
+          "id": "a4828ad77e8f15bdfa3d909825c097d8d8fe0117310b837802c354fb311eded9",
+          "start_line": 31,
+          "end_line": 37
+        },
+        "judgment": null
+      }
+    },
+    {
+      "query_id": "tomlkit-03",
+      "query": "Where is Parser._parse_array implemented?",
+      "ndcg_at_10_delta": -0.6131471927654584,
+      "hybrid_known_positive_ranks": [
+        {
+          "rank": 1,
+          "name": "tomlkit.parser.Parser._parse_array"
+        }
+      ],
+      "structure_known_positive_ranks": [
+        {
+          "rank": 5,
+          "name": "tomlkit.parser.Parser._parse_array"
+        }
+      ],
+      "structure_first_hit": {
+        "rank": 1,
+        "key": "ab70d989b2d8922a0e6e6834eac725c15894b8148d39c594efa2772f18fcec87",
+        "score": 0.03576501623376623,
+        "components": {
+          "bm25_rank": 17.0,
+          "bm25_score": 7.404025186864457,
+          "bm25_rrf": 0.012987012987012988,
+          "dense_rank": 4.0,
+          "dense_score": 0.40831705927848816,
+          "dense_rrf": 0.015625,
+          "base_score": 0.028612012987012988,
+          "structure_bonus": 0.007153003246753247
+        },
+        "provenance": [
+          {
+            "seed_symbol_id": "bee9cc56d197bf757f8ca9ff419f7c0850140ea12f008ea672badd8f49dc9271",
+            "seed_rank": 1,
+            "seed_chunk_id": "df5f98fb3f626d42ce888743c966f78f4ebe281998a76f1c0308859bce6bb357",
+            "edge_id": "8a55ba6e592babd3111f7767805b53d74e22b5215f3abdb83273926f38f1b6bc",
+            "edge": {
+              "source": "bee9cc56d197bf757f8ca9ff419f7c0850140ea12f008ea672badd8f49dc9271",
+              "target": "1e3dd16a937207d52fefc3ec4ae7a2e900fe24faaa214ad0c7006583ec2105c3",
+              "kind": "call",
+              "confidence": "heuristic",
+              "path": "tomlkit/parser.py",
+              "line": 608,
+              "expression": "self.parse_error"
+            },
+            "direction": "forward",
+            "weight": 0.5,
+            "support": 0.5
+          },
+          {
+            "seed_symbol_id": "7e815018f4568f95d267a92d7031bfaff09d39da8e22f5b0e14cdc74b0a75d65",
+            "seed_rank": 2,
+            "seed_chunk_id": "c5fc92f6531c4c659905b82ddfef610186ff40c7f0f420205b1c195e2496ee4d",
+            "edge_id": "16494e0e8b46173b26f68d9d6c6d7ff2a8b9af40eb51be48db363a2ec6748eea",
+            "edge": {
+              "source": "7e815018f4568f95d267a92d7031bfaff09d39da8e22f5b0e14cdc74b0a75d65",
+              "target": "1e3dd16a937207d52fefc3ec4ae7a2e900fe24faaa214ad0c7006583ec2105c3",
+              "kind": "call",
+              "confidence": "heuristic",
+              "path": "tomlkit/parser.py",
+              "line": 516,
+              "expression": "self.parse_error"
+            },
+            "direction": "forward",
+            "weight": 0.5,
+            "support": 0.49193548387096775
+          },
+          {
+            "seed_symbol_id": "5701ea3c888acc1d05967ff78be91dcb151631a49cc5bedb2da69aad886f92b2",
+            "seed_rank": 3,
+            "seed_chunk_id": "8ccd9ed64c531cb8048bb4df2541ad0fe43e2b5688ce1225da70132296c9c932",
+            "edge_id": "3e6a882e8f2cc8c5c8055d49f0b1e64e2d312c13e16aee8bd394e4ad659471ab",
+            "edge": {
+              "source": "5701ea3c888acc1d05967ff78be91dcb151631a49cc5bedb2da69aad886f92b2",
+              "target": "1e3dd16a937207d52fefc3ec4ae7a2e900fe24faaa214ad0c7006583ec2105c3",
+              "kind": "call",
+              "confidence": "heuristic",
+              "path": "tomlkit/parser.py",
+              "line": 149,
+              "expression": "self.parse_error"
+            },
+            "direction": "forward",
+            "weight": 0.5,
+            "support": 0.48412698412698413
+          }
+        ],
+        "target": {
+          "path": "tomlkit/parser.py",
+          "qualified_name": "tomlkit.parser.Parser.parse_error",
+          "start_line": 123,
+          "end_line": 127
+        },
+        "evidence_chunk": {
+          "id": "b0f8cc3b1bfc010dc523cdb967611021225946459740e31034d6113028f52a61",
+          "start_line": 123,
+          "end_line": 127
+        },
+        "judgment": null
+      }
+    },
+    {
+      "query_id": "networkx-02",
+      "query": "Find the connected_components generator for undirected graphs.",
+      "ndcg_at_10_delta": -0.5693234419266069,
+      "hybrid_known_positive_ranks": [
+        {
+          "rank": 1,
+          "name": "networkx.algorithms.components.connected.connected_components"
+        }
+      ],
+      "structure_known_positive_ranks": [
+        {
+          "rank": 4,
+          "name": "networkx.algorithms.components.connected.connected_components"
+        }
+      ],
+      "structure_first_hit": {
+        "rank": 1,
+        "key": "16d8d0fdf0cdf7d593df9f731cd7734c3ed6badfe5d39f77bb61697757776489",
+        "score": 0.04038627668764655,
+        "components": {
+          "bm25_rank": 13.0,
+          "bm25_score": 22.73877318416677,
+          "bm25_rrf": 0.0136986301369863,
+          "dense_rank": 14.0,
+          "dense_score": 0.6042541861534119,
+          "dense_rrf": 0.013513513513513514,
+          "base_score": 0.027212143650499815,
+          "structure_bonus": 0.013174133037146736
+        },
+        "provenance": [
+          {
+            "seed_symbol_id": "14e753a8ad15f0285d79c9d3ce3eaf335f5b1169243101bf9b518fd2232cc0b7",
+            "seed_rank": 3,
+            "seed_chunk_id": "3c4d96f974f0503535d33dab3c53cc805270a0cd506ffeda4a782087d68354e1",
+            "edge_id": "e3402fb8237a70b18cd6288629fce4d0425ccaba10309d6afca4665bc7be324e",
+            "edge": {
+              "source": "cc4f9bf3557e6bb134e34a2547668f670795f38df3351d200b32e04a797a73b9",
+              "target": "14e753a8ad15f0285d79c9d3ce3eaf335f5b1169243101bf9b518fd2232cc0b7",
+              "kind": "call",
+              "confidence": "static",
+              "path": "networkx/algorithms/components/weakly_connected.py",
+              "line": 102,
+              "expression": "weakly_connected_components"
+            },
+            "direction": "reverse",
+            "weight": 1.0,
+            "support": 0.9682539682539683
+          }
+        ],
+        "target": {
+          "path": "networkx/algorithms/components/weakly_connected.py",
+          "qualified_name": "networkx.algorithms.components.weakly_connected.number_weakly_connected_components",
+          "start_line": 65,
+          "end_line": 102
+        },
+        "evidence_chunk": {
+          "id": "34ac5c521e1647d4df8e6c32f527784237b53644b6647d58a5994c6bb29146cf",
+          "start_line": 65,
+          "end_line": 102
+        },
+        "judgment": null
+      }
+    },
+    {
+      "query_id": "packaging-13",
+      "query": "Trace requirement construction to the grammar entry point that parses the dependency string.",
+      "ndcg_at_10_delta": 0.5296344895052818,
+      "hybrid_known_positive_ranks": [
+        {
+          "rank": 3,
+          "name": "src.packaging._parser._parse_requirement"
+        },
+        {
+          "rank": 12,
+          "name": "src.packaging._parser.parse_requirement"
+        },
+        {
+          "rank": 14,
+          "name": "src.packaging.requirements.Requirement.__init__"
+        }
+      ],
+      "structure_known_positive_ranks": [
+        {
+          "rank": 1,
+          "name": "src.packaging._parser.parse_requirement"
+        },
+        {
+          "rank": 6,
+          "name": "src.packaging._parser._parse_requirement"
+        },
+        {
+          "rank": 19,
+          "name": "src.packaging.requirements.Requirement.__init__"
+        }
+      ],
+      "structure_first_hit": {
+        "rank": 1,
+        "key": "fecde1eb375692199cb1549de66ec81c8c1949fc0497356e3f77d9adf6d89a0b",
+        "score": 0.03351815496270594,
+        "components": {
+          "bm25_rank": 89.0,
+          "bm25_score": 5.429437327007382,
+          "bm25_rrf": 0.006711409395973154,
+          "dense_rank": 3.0,
+          "dense_score": 0.48863402009010315,
+          "dense_rrf": 0.015873015873015872,
+          "base_score": 0.022584425268989027,
+          "structure_bonus": 0.01093372969371691
+        },
+        "provenance": [
+          {
+            "seed_symbol_id": "c3bba28d6d6f96ae5c0042764c4464f53802c326f2d6555face9bffe1ab25e02",
+            "seed_rank": 1,
+            "seed_chunk_id": "dda6b9c24d6cf5b6d8c550c61037f753f1f0e0200e06c912742c8ced3d401c23",
+            "edge_id": "bb755ab9babc7824ac09010d053e39134000fdf3727053021355912ce2dc131a",
+            "edge": {
+              "source": "c3bba28d6d6f96ae5c0042764c4464f53802c326f2d6555face9bffe1ab25e02",
+              "target": "152483f020434749a8efe2916f0c7a999a55a46bceac435adbaee2c2d3b00e97",
+              "kind": "containment",
+              "confidence": "static",
+              "path": "src/packaging/_parser.py",
+              "line": 61,
+              "expression": "parse_requirement"
+            },
+            "direction": "forward",
+            "weight": 0.2,
+            "support": 0.2
+          },
+          {
+            "seed_symbol_id": "d534eb48f71364e172f2b298b9bed0685aeec4eb140deeb0a083637155396544",
+            "seed_rank": 3,
+            "seed_chunk_id": "c85b45b7d4f4d28dfa2699ba62ae3fddcddc53b27f040e637dab4fe1b765941d",
+            "edge_id": "3a9f729180d17b0cc656a066fe3fc58d94d062f78c89f3b4715761990a6ac586",
+            "edge": {
+              "source": "152483f020434749a8efe2916f0c7a999a55a46bceac435adbaee2c2d3b00e97",
+              "target": "d534eb48f71364e172f2b298b9bed0685aeec4eb140deeb0a083637155396544",
+              "kind": "call",
+              "confidence": "static",
+              "path": "src/packaging/_parser.py",
+              "line": 62,
+              "expression": "_parse_requirement"
+            },
+            "direction": "reverse",
+            "weight": 1.0,
+            "support": 0.9682539682539683
+          }
+        ],
+        "target": {
+          "path": "src/packaging/_parser.py",
+          "qualified_name": "src.packaging._parser.parse_requirement",
+          "start_line": 61,
+          "end_line": 62
+        },
+        "evidence_chunk": {
+          "id": "19d9aad83914e7d1b18d32612a5c21a6a24e0fb5cee4b28ca0d2143c3c1121d8",
+          "start_line": 61,
+          "end_line": 62
+        },
+        "judgment": 2
+      }
+    },
+    {
+      "query_id": "rich-03",
+      "query": "Where is Measurement.get implemented?",
+      "ndcg_at_10_delta": 0.6666666666666667,
+      "hybrid_known_positive_ranks": [
+        {
+          "rank": 7,
+          "name": "rich.measure.Measurement.get"
+        }
+      ],
+      "structure_known_positive_ranks": [
+        {
+          "rank": 1,
+          "name": "rich.measure.Measurement.get"
+        }
+      ],
+      "structure_first_hit": {
+        "rank": 1,
+        "key": "3378b4e494f2d9ecef53020cb055c37ea4675ccfc82d09e5f37410cb478bdd70",
+        "score": 0.04188012653621119,
+        "components": {
+          "bm25_rank": 3.0,
+          "bm25_score": 12.618699021990071,
+          "bm25_rrf": 0.015873015873015872,
+          "dense_rank": 21.0,
+          "dense_score": 0.3618342876434326,
+          "dense_rrf": 0.012345679012345678,
+          "base_score": 0.02821869488536155,
+          "structure_bonus": 0.01366143165084964
+        },
+        "provenance": [
+          {
+            "seed_symbol_id": "63157541224c4edacab3c021c73a01b7c56189ec1ae4fa37232a6d9e60fba1ac",
+            "seed_rank": 3,
+            "seed_chunk_id": "a4828ad77e8f15bdfa3d909825c097d8d8fe0117310b837802c354fb311eded9",
+            "edge_id": "39c2e2eb1a3d337b68d6904e12116bcbf360d9b81f56aba9e3e2dddcedce58a7",
+            "edge": {
+              "source": "63157541224c4edacab3c021c73a01b7c56189ec1ae4fa37232a6d9e60fba1ac",
+              "target": "d5259673bf6fcc7b4e6eebcc0e6256fb78978c9ca3f866d6df7c8838531d2f7c",
+              "kind": "call",
+              "confidence": "static",
+              "path": "rich/constrain.py",
+              "line": 36,
+              "expression": "Measurement.get"
+            },
+            "direction": "forward",
+            "weight": 1.0,
+            "support": 0.9682539682539683
+          },
+          {
+            "seed_symbol_id": "c53a71cd7f71da17838404a92380f23564ebf9a218af60539948d8953074b20f",
+            "seed_rank": 4,
+            "seed_chunk_id": "d435921766ce606f249bac59220ce2d6ed3eb41b52f1e779c25963fbd6c2e51d",
+            "edge_id": "8e5a8fc0df11b793837f8c2ff2837820f818d2c2843b0e99a25ad5152f9061ac",
+            "edge": {
+              "source": "c53a71cd7f71da17838404a92380f23564ebf9a218af60539948d8953074b20f",
+              "target": "d5259673bf6fcc7b4e6eebcc0e6256fb78978c9ca3f866d6df7c8838531d2f7c",
+              "kind": "call",
+              "confidence": "static",
+              "path": "rich/align.py",
+              "line": 230,
+              "expression": "Measurement.get"
+            },
+            "direction": "forward",
+            "weight": 1.0,
+            "support": 0.953125
+          }
+        ],
+        "target": {
+          "path": "rich/measure.py",
+          "qualified_name": "rich.measure.Measurement.get",
+          "start_line": 78,
+          "end_line": 122
+        },
+        "evidence_chunk": {
+          "id": "d592e27209549517fbea37ad3b9804347f908cbbc16db5b5eca822ca9a0fa115",
+          "start_line": 78,
+          "end_line": 122
+        },
+        "judgment": 2
+      }
+    },
+    {
+      "query_id": "networkx-10",
+      "query": "Which implementation counts connected components without first materializing them into a list?",
+      "ndcg_at_10_delta": 0.6989700043360187,
+      "hybrid_known_positive_ranks": [
+        {
+          "rank": 9,
+          "name": "networkx.algorithms.components.connected.number_connected_components"
+        }
+      ],
+      "structure_known_positive_ranks": [
+        {
+          "rank": 1,
+          "name": "networkx.algorithms.components.connected.number_connected_components"
+        }
+      ],
+      "structure_first_hit": {
+        "rank": 1,
+        "key": "ce6bb6e2b340d4005f61ec0d0282608503f21f2655b501ad43af0cd7963ba970",
+        "score": 0.03860885552321128,
+        "components": {
+          "bm25_rank": 47.0,
+          "bm25_score": 14.231454602883542,
+          "bm25_rrf": 0.009345794392523364,
+          "dense_rank": 1.0,
+          "dense_score": 0.5417231321334839,
+          "dense_rrf": 0.01639344262295082,
+          "base_score": 0.025739237015474183,
+          "structure_bonus": 0.012869618507737091
+        },
+        "provenance": [
+          {
+            "seed_symbol_id": "72026b65477d96524b0735236c767e7c07c7959500476252466d604698808613",
+            "seed_rank": 1,
+            "seed_chunk_id": "524634694648d2741cd19d1e1f9d414b2222ea223c6b257bd38d6326f93f397b",
+            "edge_id": "4078cc80a6a62e0bd74fcf11b84381679a529e42c43674f5722931a3dcc9f8b2",
+            "edge": {
+              "source": "ba781d57e2347580f608ef2a928ede9c0ebe19378027b08b059f79e7d9c12ced",
+              "target": "72026b65477d96524b0735236c767e7c07c7959500476252466d604698808613",
+              "kind": "call",
+              "confidence": "static",
+              "path": "networkx/algorithms/components/connected.py",
+              "line": 108,
+              "expression": "connected_components"
+            },
+            "direction": "reverse",
+            "weight": 1.0,
+            "support": 1.0
+          }
+        ],
+        "target": {
+          "path": "networkx/algorithms/components/connected.py",
+          "qualified_name": "networkx.algorithms.components.connected.number_connected_components",
+          "start_line": 71,
+          "end_line": 108
+        },
+        "evidence_chunk": {
+          "id": "fac0172e33bc8c9b0e6f96a3c3bfa45fceb2661aef6a2c2a7fd3d12c207238b1",
+          "start_line": 71,
+          "end_line": 108
+        },
+        "judgment": 2
+      }
+    }
+  ]
+}

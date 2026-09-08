@@ -1,0 +1,95 @@
+{
+  "compared_runs": 15,
+  "results": [
+    {
+      "configuration": "bm25-seed",
+      "previous_report": "reports/m4/bm25/summary.json",
+      "quality_fingerprint": "490a2b5d836d280ab8cb657f41d6705fd4b45ebcafff201200b28c8f6f2b4d50",
+      "matched": true
+    },
+    {
+      "configuration": "dense-seed",
+      "previous_report": "reports/m4/dense/summary.json",
+      "quality_fingerprint": "cc5d920f0a1b22e313021fa04910a77bb3a2a706838d3283ddd32c3b8bc47869",
+      "matched": true
+    },
+    {
+      "configuration": "hybrid-seed",
+      "previous_report": "reports/m5/runs/hybrid-seed/summary.json",
+      "quality_fingerprint": "c7335a38926235df83754b0c34d7409f83bfb8ddd8d6f0c88b1771ec95ef4e53",
+      "matched": true
+    },
+    {
+      "configuration": "structure-call",
+      "previous_report": "reports/m5/runs/structure-call/summary.json",
+      "quality_fingerprint": "0463392e8d73f35b5ebfa0ebc939468043c3d461417b1a3d60a9683703202ca6",
+      "matched": true
+    },
+    {
+      "configuration": "structure-containment",
+      "previous_report": "reports/m5/runs/structure-containment/summary.json",
+      "quality_fingerprint": "bf0c52df7c6d4d4aa4623a1415c6e0cbd21ce7e2c2b530affec3e8fff4a50c33",
+      "matched": true
+    },
+    {
+      "configuration": "structure-full",
+      "previous_report": "reports/m5/runs/structure-full/summary.json",
+      "quality_fingerprint": "7e9c330e43ddce1429d3edc8e0ef1f1b3f156e6c86c2ce653983c6a2d87281a5",
+      "matched": true
+    },
+    {
+      "configuration": "structure-import",
+      "previous_report": "reports/m5/runs/structure-import/summary.json",
+      "quality_fingerprint": "85bb4cfdd7a08fbebba5baa427524510eb5b5c6cf04e7799c99d4b2c4654f459",
+      "matched": true
+    },
+    {
+      "configuration": "structure-no-call",
+      "previous_report": "reports/m5/runs/structure-no-call/summary.json",
+      "quality_fingerprint": "e873fe4189bbdae3c5f7fd4b6ff630e4782f3aad709b8e3bc67ca8315a679c31",
+      "matched": true
+    },
+    {
+      "configuration": "structure-no-containment",
+      "previous_report": "reports/m5/runs/structure-no-containment/summary.json",
+      "quality_fingerprint": "15198cd24754ad3141e99b5dfe3847f200145ded805e3b2d1ea9be54db587137",
+      "matched": true
+    },
+    {
+      "configuration": "structure-no-import",
+      "previous_report": "reports/m5/runs/structure-no-import/summary.json",
+      "quality_fingerprint": "c0b67fb6b3f2a5288e437e1818f45d4358d65d30e4515f6899be10ffc1ff955b",
+      "matched": true
+    },
+    {
+      "configuration": "structure-no-test",
+      "previous_report": "reports/m5/runs/structure-no-test/summary.json",
+      "quality_fingerprint": "cb41e86c16761f52fb747af7e1afb53f27c54558f11271158ae755bc60623477",
+      "matched": true
+    },
+    {
+      "configuration": "structure-none",
+      "previous_report": "reports/m5/runs/structure-none/summary.json",
+      "quality_fingerprint": "c7335a38926235df83754b0c34d7409f83bfb8ddd8d6f0c88b1771ec95ef4e53",
+      "matched": true
+    },
+    {
+      "configuration": "structure-symbol-seed",
+      "previous_report": "reports/m5/runs/structure-symbol-seed/summary.json",
+      "quality_fingerprint": "2a81cc1714cf6613d0b3ccf68fb0601a958973d09eee40eeef5b4db7428812ec",
+      "matched": true
+    },
+    {
+      "configuration": "structure-test",
+      "previous_report": "reports/m5/runs/structure-test/summary.json",
+      "quality_fingerprint": "334d8020d2e9d6becb9619191730b28d4fbb66e59e0d2390fb26b5028cbb39a2",
+      "matched": true
+    },
+    {
+      "configuration": "symbol-seed",
+      "previous_report": "reports/m5/runs/symbol-seed/summary.json",
+      "quality_fingerprint": "d816554dd625fa6fec7d78b8b345173092da4a8d389cb52dc6343e3dcf940158",
+      "matched": true
+    }
+  ]
+}

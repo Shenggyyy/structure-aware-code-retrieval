@@ -131,3 +131,140 @@ def test_split_leakage_and_changed_freezes_fail(suite_path, change):
     with pytest.raises(ValueError):
         audit_suite(suite_path, root / "invalid")
     assert not (root / "invalid").exists()
+
+
+@pytest.fixture
+def matrix_root(suite_path):
+    from structure_aware_retrieval.evaluation.experiments import TEMPLATES, write_config
+
+    root = suite_path.parent
+    suite = json.loads(suite_path.read_text())
+    for member in suite["members"]:
+        member["config"] = str(root / member["config"])
+    (root / "benchmarks").mkdir()
+    write_json(root / "benchmarks/suite-v1.json", suite)
+    (root / "uv.lock").write_text("fixture lock")
+    # Real fixed strategy settings, synthetic input paths; no model needed to freeze.
+    import tomllib
+
+    repository = Path(__file__).resolve().parents[2]
+    for name in TEMPLATES:
+        data = tomllib.loads((repository / f"configs/{name}.toml").read_text())
+        data["benchmark"] = str(root / "dev/benchmark/benchmark.json")
+        for field in ("indexes", "vectors", "graphs"):
+            if field in data:
+                data[field] = {"fixture": str(root / "dev/index.sqlite")}
+        write_config(root / f"configs/{name}.toml", data)
+    return root
+
+
+def test_matrix_freeze_preserves_all_settings_and_is_destination_independent(matrix_root):
+    from structure_aware_retrieval.evaluation.config import load_config
+    from structure_aware_retrieval.evaluation.experiments import TEMPLATES, freeze_experiments
+
+    output = matrix_root / "frozen"
+    with pytest.raises(ValueError, match="allow-provisional"):
+        freeze_experiments(matrix_root, output)
+    assert not output.exists()
+    plan = freeze_experiments(matrix_root, output, allow_provisional=True)
+    assert plan["result_status"] == "provisional"
+    assert not plan["review_complete"]
+    assert plan == freeze_experiments(matrix_root, matrix_root / "again", allow_provisional=True)
+    assert len(list((output / "configs").rglob("*.toml"))) == 45
+    for role in plan["roles"]:
+        for name in TEMPLATES:
+            actual = load_config(output / f"configs/{role}/{name}.toml")
+            original = load_config(matrix_root / f"configs/{name}.toml")
+            assert actual.structure == original.structure
+            assert (actual.strategy, actual.ks, actual.seed, actual.repeats) == (
+                original.strategy,
+                original.ks,
+                original.seed,
+                original.repeats,
+            )
+            assert actual.benchmark == matrix_root / role / "benchmark/benchmark.json"
+            assert actual.indexes["fixture"] == output / f"artifacts/{role}/indexes/fixture.sqlite"
+    with pytest.raises(FileExistsError):
+        freeze_experiments(matrix_root, output, allow_provisional=True)
+
+
+def test_matrix_worker_failure_never_publishes_completion(matrix_root, monkeypatch):
+    from structure_aware_retrieval.evaluation.experiments import run_suite
+
+    def fail(*args):
+        raise RuntimeError("worker failed")
+
+    monkeypatch.setattr("structure_aware_retrieval.evaluation.experiments.profile_job", fail)
+    output = matrix_root / "failed-matrix"
+    with pytest.raises(RuntimeError, match="worker failed"):
+        run_suite(matrix_root, output, allow_provisional=True)
+    assert (output / "plan.json").is_file()
+    assert not (output / "suite-results.json").exists()
+
+
+@pytest.mark.parametrize("change_code", [False, True])
+def test_matrix_isolates_roles_and_checks_freeze_before_queries(
+    matrix_root, monkeypatch, change_code
+):
+    from structure_aware_retrieval.evaluation import experiments
+    from structure_aware_retrieval.evaluation.config import load_config
+
+    jobs, comparisons = [], []
+    provenance = experiments.analysis_provenance()
+
+    def worker(job, directory):
+        jobs.append(job)
+        if job["kind"] == "experiment":
+            config = load_config(Path(job["config"]))
+            assert config.benchmark.parent.parent.name == Path(job["output"]).parent.name
+            assert job["benchmark_digest"] == load_benchmark(config.benchmark).digest
+            assert len(job["config_sha256"]) == 64
+        return {
+            "kind": job["kind"],
+            "operation_seconds": 1,
+            "peak_memory": {"bytes": 1024},
+            "details": {"artifact_bytes": 2048},
+        }
+
+    def compare(runs, output):
+        assert len({path.parent for path in runs}) == 1
+        comparisons.append([path.name for path in runs])
+        output.mkdir(parents=True)
+        write_json(
+            output / "comparison.json",
+            {
+                "runs": [
+                    {
+                        "strategy": path.name,
+                        "overall": {
+                            "metrics": {"10": {"recall": 0.5, "ndcg": 0.4, "mrr": 0.3}},
+                            "latency_ms": {"p50": 2.0, "p95": 3.0},
+                        },
+                    }
+                    for path in runs
+                ],
+            },
+        )
+
+    monkeypatch.setattr(experiments, "profile_job", worker)
+    monkeypatch.setattr(experiments, "compare_runs", compare)
+    if change_code:
+        monkeypatch.setattr(
+            experiments, "analysis_provenance", lambda: {"changed": True} if jobs else provenance
+        )
+    output = matrix_root / "matrix"
+    if change_code:
+        with pytest.raises(ValueError, match="Implementation changed"):
+            experiments.run_suite(matrix_root, output, allow_provisional=True)
+        assert len(jobs) == 9  # Three build operations on each of three fixture repositories.
+        assert not (output / "suite-results.json").exists()
+        return
+    result = experiments.run_suite(matrix_root, output, allow_provisional=True)
+    assert len(result["runs"]) == 45
+    assert len(result["builds"]) == 9
+    assert result["complete"] and not result["review_complete"]
+    assert result["result_status"] == "provisional"
+    assert [names[0] for names in comparisons] == ["hybrid-seed", "structure-full"] * 3
+    text = (output / "report.md").read_text()
+    assert all(f"## {role}" in text for role in ("dev", "test", "public"))
+    assert "not original RepoQA" in text

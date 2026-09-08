@@ -1,0 +1,1082 @@
+[
+  {
+    "role": "dev",
+    "repository": "requests",
+    "schema_version": 1,
+    "kind": "index",
+    "operation_seconds": 0.8387576000532135,
+    "peak_memory": {
+      "bytes": 40353792,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+      "files_indexed": 36,
+      "diagnostics": [],
+      "artifact_bytes": 2748416
+    },
+    "worker_wall_seconds": 0.9886068000923842
+  },
+  {
+    "role": "dev",
+    "repository": "requests",
+    "schema_version": 1,
+    "kind": "graph",
+    "operation_seconds": 0.2943993000080809,
+    "peak_memory": {
+      "bytes": 47984640,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "graph_hash": "d4d638a29c5cea26561e81159dc471d757e18673dadf9f3b6e96a4c374a76fc8",
+      "edge_counts": {
+        "call": 337,
+        "containment": 753,
+        "import": 188,
+        "test": 419
+      },
+      "unresolved_counts": {
+        "ambiguous_binding": 21,
+        "dynamic_receiver": 99,
+        "external_or_missing_module": 589,
+        "module_attribute_shadowed": 12,
+        "shadowed_or_dynamic_binding": 814,
+        "unknown_name": 469
+      },
+      "build_seconds": 0.15398319996893406,
+      "symbols": 789,
+      "chunks": 867,
+      "artifact_bytes": 841925
+    },
+    "worker_wall_seconds": 0.4869715999811888
+  },
+  {
+    "role": "dev",
+    "repository": "requests",
+    "schema_version": 1,
+    "kind": "vectors",
+    "operation_seconds": 45.89606900000945,
+    "peak_memory": {
+      "bytes": 725696512,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "vector_hash": "c9738a61443554eac16400c59fea76985c98773aa23260847bfdfd30936eb35a",
+      "build_seconds": 20.40935339999851,
+      "vector_bytes": 1331712,
+      "documents": 867,
+      "truncated_documents": 134,
+      "max_document_tokens": 1314,
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "symbols": 789,
+      "chunks": 867,
+      "artifact_bytes": 1269144
+    },
+    "worker_wall_seconds": 46.664427599986084
+  },
+  {
+    "role": "dev",
+    "repository": "click",
+    "schema_version": 1,
+    "kind": "index",
+    "operation_seconds": 1.141927000018768,
+    "peak_memory": {
+      "bytes": 36360192,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "snapshot_id": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+      "files_indexed": 70,
+      "diagnostics": [],
+      "artifact_bytes": 4476928
+    },
+    "worker_wall_seconds": 1.3007172999205068
+  },
+  {
+    "role": "dev",
+    "repository": "click",
+    "schema_version": 1,
+    "kind": "graph",
+    "operation_seconds": 0.43565679993480444,
+    "peak_memory": {
+      "bytes": 54099968,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "graph_hash": "381fdd2aa090adad7be63fdecaef857391113d10b73c2b54c5903bb897d43be9",
+      "edge_counts": {
+        "call": 636,
+        "containment": 1382,
+        "import": 229,
+        "test": 524
+      },
+      "unresolved_counts": {
+        "ambiguous_binding": 40,
+        "dynamic_receiver": 222,
+        "external_or_missing_module": 672,
+        "shadowed_or_dynamic_binding": 1028,
+        "unknown_name": 578
+      },
+      "build_seconds": 0.26002569997217506,
+      "symbols": 1452,
+      "chunks": 1771,
+      "artifact_bytes": 1225936
+    },
+    "worker_wall_seconds": 0.5984876999864355
+  },
+  {
+    "role": "dev",
+    "repository": "click",
+    "schema_version": 1,
+    "kind": "vectors",
+    "operation_seconds": 42.84996749996208,
+    "peak_memory": {
+      "bytes": 723562496,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "vector_hash": "e0431c8a64149447df5725e1b12560ec283b5a18052d0841578e7fa6b35b85c5",
+      "build_seconds": 36.140794200007804,
+      "vector_bytes": 2720256,
+      "documents": 1771,
+      "truncated_documents": 193,
+      "max_document_tokens": 1777,
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "symbols": 1452,
+      "chunks": 1771,
+      "artifact_bytes": 2591686
+    },
+    "worker_wall_seconds": 43.604744800017215
+  },
+  {
+    "role": "test",
+    "repository": "flask",
+    "schema_version": 1,
+    "kind": "index",
+    "operation_seconds": 1.0907190999714658,
+    "peak_memory": {
+      "bytes": 36503552,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "snapshot_id": "2fcd7cefa43a269e6719a26996bdc52928b4b27adce72c8369e5209c37ace306",
+      "files_indexed": 82,
+      "diagnostics": [],
+      "artifact_bytes": 4993024
+    },
+    "worker_wall_seconds": 1.2704127999022603
+  },
+  {
+    "role": "test",
+    "repository": "flask",
+    "schema_version": 1,
+    "kind": "graph",
+    "operation_seconds": 0.3948997000698,
+    "peak_memory": {
+      "bytes": 54480896,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "graph_hash": "696e8cb77030bc122e4601e9442f967986642ea36139869189753d4009717503",
+      "edge_counts": {
+        "call": 307,
+        "containment": 1562,
+        "import": 218,
+        "test": 405
+      },
+      "unresolved_counts": {
+        "ambiguous_binding": 8,
+        "dynamic_receiver": 193,
+        "external_or_missing_module": 853,
+        "shadowed_or_dynamic_binding": 1500,
+        "unknown_name": 577
+      },
+      "build_seconds": 0.2308813000563532,
+      "symbols": 1644,
+      "chunks": 2030,
+      "artifact_bytes": 1267614
+    },
+    "worker_wall_seconds": 0.5735740000382066
+  },
+  {
+    "role": "test",
+    "repository": "flask",
+    "schema_version": 1,
+    "kind": "vectors",
+    "operation_seconds": 44.736588099971414,
+    "peak_memory": {
+      "bytes": 728268800,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "vector_hash": "0248273175c6a7c85d01254b5f574b52abfdef063b25d43e6d85af78725d8ba0",
+      "build_seconds": 36.80705930001568,
+      "vector_bytes": 3118080,
+      "documents": 2030,
+      "truncated_documents": 186,
+      "max_document_tokens": 1118,
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "symbols": 1644,
+      "chunks": 2030,
+      "artifact_bytes": 2969196
+    },
+    "worker_wall_seconds": 45.4521993000526
+  },
+  {
+    "role": "test",
+    "repository": "rich",
+    "schema_version": 1,
+    "kind": "index",
+    "operation_seconds": 2.330655200057663,
+    "peak_memory": {
+      "bytes": 39612416,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "snapshot_id": "f3ab061547301f3fbff7463a1d6a913752a1af662a4c7effa1f8d5bece6355dd",
+      "files_indexed": 190,
+      "diagnostics": [],
+      "artifact_bytes": 8474624
+    },
+    "worker_wall_seconds": 2.4895218999590725
+  },
+  {
+    "role": "test",
+    "repository": "rich",
+    "schema_version": 1,
+    "kind": "graph",
+    "operation_seconds": 0.8150695000076666,
+    "peak_memory": {
+      "bytes": 85307392,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "graph_hash": "90484cd13549d72ca5e0c3f6e5076d36fad05a14c1621b39bc791a35997272db",
+      "edge_counts": {
+        "call": 1890,
+        "containment": 2016,
+        "import": 845,
+        "test": 1916
+      },
+      "unresolved_counts": {
+        "ambiguous_binding": 136,
+        "dynamic_receiver": 225,
+        "external_or_missing_module": 1464,
+        "shadowed_or_dynamic_binding": 2698,
+        "unknown_name": 1682
+      },
+      "build_seconds": 0.5693753999657929,
+      "symbols": 2206,
+      "chunks": 2539,
+      "artifact_bytes": 2915469
+    },
+    "worker_wall_seconds": 1.012088300078176
+  },
+  {
+    "role": "test",
+    "repository": "rich",
+    "schema_version": 1,
+    "kind": "vectors",
+    "operation_seconds": 58.28303070005495,
+    "peak_memory": {
+      "bytes": 765644800,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "vector_hash": "ecb8bc76c3c9d0091509564dc6bba5ecd8e37254c11c4267c93a25b865c94dac",
+      "build_seconds": 51.712063399958424,
+      "vector_bytes": 3899904,
+      "documents": 2539,
+      "truncated_documents": 492,
+      "max_document_tokens": 17604,
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "symbols": 2206,
+      "chunks": 2539,
+      "artifact_bytes": 3713325
+    },
+    "worker_wall_seconds": 58.950577099923976
+  },
+  {
+    "role": "test",
+    "repository": "networkx",
+    "schema_version": 1,
+    "kind": "index",
+    "operation_seconds": 9.500166699988768,
+    "peak_memory": {
+      "bytes": 58875904,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "snapshot_id": "ee5359ca7dd22ac05c484c3e20d318960faeb7210aed4425558ec446c78adfe8",
+      "files_indexed": 657,
+      "diagnostics": [],
+      "artifact_bytes": 37695488
+    },
+    "worker_wall_seconds": 9.686605999944732
+  },
+  {
+    "role": "test",
+    "repository": "networkx",
+    "schema_version": 1,
+    "kind": "graph",
+    "operation_seconds": 3.5323974000057206,
+    "peak_memory": {
+      "bytes": 297656320,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "graph_hash": "94baad3232c53eb41d54cbe9c7c09fc85df2624d5d6c75421872ea548eaa8979",
+      "edge_counts": {
+        "call": 2963,
+        "containment": 7527,
+        "import": 1040,
+        "test": 964
+      },
+      "unresolved_counts": {
+        "ambiguous_binding": 27,
+        "dynamic_receiver": 1154,
+        "external_or_missing_module": 5213,
+        "shadowed_or_dynamic_binding": 14326,
+        "unknown_name": 12756,
+        "wildcard_import": 13962
+      },
+      "build_seconds": 2.7282878999831155,
+      "symbols": 8184,
+      "chunks": 9252,
+      "artifact_bytes": 12058185
+    },
+    "worker_wall_seconds": 3.7293066000565886
+  },
+  {
+    "role": "test",
+    "repository": "networkx",
+    "schema_version": 1,
+    "kind": "vectors",
+    "operation_seconds": 200.82744719996117,
+    "peak_memory": {
+      "bytes": 1007087616,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "vector_hash": "8fd476191d0a41d2b759dd3d9eb708806173a0123ed77313f1b9fc93c44613b9",
+      "build_seconds": 193.109179400024,
+      "vector_bytes": 14211072,
+      "documents": 9252,
+      "truncated_documents": 2861,
+      "max_document_tokens": 2471,
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "symbols": 8184,
+      "chunks": 9252,
+      "artifact_bytes": 13526281
+    },
+    "worker_wall_seconds": 201.51840069994796
+  },
+  {
+    "role": "test",
+    "repository": "packaging",
+    "schema_version": 1,
+    "kind": "index",
+    "operation_seconds": 0.6097234000917524,
+    "peak_memory": {
+      "bytes": 34680832,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "snapshot_id": "9bc4908803672a50fb0c2f08878a2c54dab8697683071ebaaf7b42424a125562",
+      "files_indexed": 31,
+      "diagnostics": [],
+      "artifact_bytes": 2334720
+    },
+    "worker_wall_seconds": 0.778576000011526
+  },
+  {
+    "role": "test",
+    "repository": "packaging",
+    "schema_version": 1,
+    "kind": "graph",
+    "operation_seconds": 0.2851898999651894,
+    "peak_memory": {
+      "bytes": 43900928,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "graph_hash": "c269f1849a77b6ba7478c375dae03b1ba2b2a420485f682ad44b52d37a978669",
+      "edge_counts": {
+        "call": 294,
+        "containment": 640,
+        "import": 91,
+        "test": 614
+      },
+      "unresolved_counts": {
+        "dynamic_receiver": 107,
+        "external_or_missing_module": 392,
+        "shadowed_or_dynamic_binding": 573,
+        "unknown_name": 460
+      },
+      "build_seconds": 0.1506956999655813,
+      "symbols": 671,
+      "chunks": 719,
+      "artifact_bytes": 732688
+    },
+    "worker_wall_seconds": 0.4593996999319643
+  },
+  {
+    "role": "test",
+    "repository": "packaging",
+    "schema_version": 1,
+    "kind": "vectors",
+    "operation_seconds": 21.58764110004995,
+    "peak_memory": {
+      "bytes": 719523840,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "vector_hash": "8e1edc6d82b1cd9f1452c3d7d7d5a7ddaa8738356b3381ce2a459aea607828cf",
+      "build_seconds": 14.303888200083748,
+      "vector_bytes": 1104384,
+      "documents": 719,
+      "truncated_documents": 154,
+      "max_document_tokens": 1550,
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "symbols": 671,
+      "chunks": 719,
+      "artifact_bytes": 1052744
+    },
+    "worker_wall_seconds": 22.23188570002094
+  },
+  {
+    "role": "test",
+    "repository": "tomlkit",
+    "schema_version": 1,
+    "kind": "index",
+    "operation_seconds": 0.5194642000133172,
+    "peak_memory": {
+      "bytes": 34672640,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "snapshot_id": "eae5895dc476935a9d94000d1dbfed7e4a200fcde4ab220263b936c72c04b782",
+      "files_indexed": 27,
+      "diagnostics": [],
+      "artifact_bytes": 1830912
+    },
+    "worker_wall_seconds": 0.6871699000475928
+  },
+  {
+    "role": "test",
+    "repository": "tomlkit",
+    "schema_version": 1,
+    "kind": "graph",
+    "operation_seconds": 0.2632073999848217,
+    "peak_memory": {
+      "bytes": 41693184,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "graph_hash": "c8f71180a78a4e97a36ccde8d1c292d10f38e0110153ed92e9006fdbbde74a4b",
+      "edge_counts": {
+        "call": 544,
+        "containment": 650,
+        "import": 213,
+        "test": 243
+      },
+      "unresolved_counts": {
+        "ambiguous_binding": 79,
+        "dynamic_receiver": 137,
+        "external_or_missing_module": 338,
+        "shadowed_or_dynamic_binding": 560,
+        "unknown_name": 609
+      },
+      "build_seconds": 0.1350279999896884,
+      "symbols": 677,
+      "chunks": 707,
+      "artifact_bytes": 753508
+    },
+    "worker_wall_seconds": 0.43042039999272674
+  },
+  {
+    "role": "test",
+    "repository": "tomlkit",
+    "schema_version": 1,
+    "kind": "vectors",
+    "operation_seconds": 18.05294700001832,
+    "peak_memory": {
+      "bytes": 707059712,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "vector_hash": "6df9acd1206ce2fe31b126ccd587313dc69af0b7e85268e4f05a7f3ea9430722",
+      "build_seconds": 11.242720099980943,
+      "vector_bytes": 1085952,
+      "documents": 707,
+      "truncated_documents": 76,
+      "max_document_tokens": 946,
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "symbols": 677,
+      "chunks": 707,
+      "artifact_bytes": 1035050
+    },
+    "worker_wall_seconds": 18.691230700002052
+  },
+  {
+    "role": "public",
+    "repository": "marshmallow",
+    "schema_version": 1,
+    "kind": "index",
+    "operation_seconds": 0.5489909000461921,
+    "peak_memory": {
+      "bytes": 41299968,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "snapshot_id": "e60f190f3f89fccf26e96053864cae6928ff61ccc054475a0f818d21b0849b91",
+      "files_indexed": 37,
+      "diagnostics": [],
+      "artifact_bytes": 5165056
+    },
+    "worker_wall_seconds": 0.7634283000370488
+  },
+  {
+    "role": "public",
+    "repository": "marshmallow",
+    "schema_version": 1,
+    "kind": "graph",
+    "operation_seconds": 0.5661387000000104,
+    "peak_memory": {
+      "bytes": 60248064,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "graph_hash": "63942bbd6a65abd21ab07c5da2bec6b48c8ca5083ab0b2a6e2a0c0bcfb328557",
+      "edge_counts": {
+        "call": 769,
+        "containment": 1720,
+        "import": 156,
+        "test": 1230
+      },
+      "unresolved_counts": {
+        "dynamic_receiver": 529,
+        "external_or_missing_module": 790,
+        "shadowed_or_dynamic_binding": 1297,
+        "unknown_name": 806
+      },
+      "build_seconds": 0.35757750004995614,
+      "symbols": 1757,
+      "chunks": 2118,
+      "artifact_bytes": 1711241
+    },
+    "worker_wall_seconds": 0.7550000000046566
+  },
+  {
+    "role": "public",
+    "repository": "marshmallow",
+    "schema_version": 1,
+    "kind": "vectors",
+    "operation_seconds": 38.802542399964295,
+    "peak_memory": {
+      "bytes": 736272384,
+      "method": "GetProcessMemoryInfo.PeakWorkingSetSize"
+    },
+    "memory_scope": "fresh_worker_process_lifetime_including_imports_not_children",
+    "runtime": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4"
+      }
+    },
+    "details": {
+      "vector_hash": "95be125f2482a01885e330448dc4422d3210759d24a480e95f4a1cb0a17a5f6b",
+      "build_seconds": 31.583125100005418,
+      "vector_bytes": 3253248,
+      "documents": 2118,
+      "truncated_documents": 162,
+      "max_document_tokens": 1169,
+      "encoder": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "symbols": 1757,
+      "chunks": 2118,
+      "artifact_bytes": 3099102
+    },
+    "worker_wall_seconds": 39.51261460001115
+  }
+]

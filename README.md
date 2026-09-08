@@ -4,13 +4,14 @@ A Python project investigating whether repository structure improves code retrie
 for LLM applications. The planned system compares lexical, dense, hybrid,
 symbol-aware, and structure-aware retrieval, then supplies evidence to repository QA.
 
-**Status: M6b — broader draft benchmarks and public-subset adaptation.** All five retrieval strategies
+**Status: M6c — fixed experiments and construction/memory profiling.** All five retrieval strategies
 are implemented, with snapshot-bound relation graphs, bounded expansion, source traces,
 evaluation and cost reports. The frozen draft suite now contains 40 development
 questions, 120 new test candidates on five repositories and a separate ten-question
 RepoQA adaptation. **All labels remain provisional, pending independent human review**.
-The broader test/public data have not been scored during M6b. Formal experiments,
-LLM QA and Docker delivery remain outstanding; M6 is still in progress.
+M6c runs the inherited 15 strategy/ablation configurations separately on each dataset
+and records build, storage and process peak-memory costs. Results remain provisional;
+reviewed-label acceptance, LLM QA and Docker delivery remain outstanding.
 
 ## Quickstart
 
@@ -216,6 +217,19 @@ pending. The current two-repository seed is too small for this project's bootstr
 interval reporting policy. See [review instructions](docs/review.md) for preparation,
 grading and `sacr check-review`, and [M6a findings](reports/m6a/README.md).
 
+## Expanded experiment suite
+
+The expanded experiment workflow uses already prepared sources and model weights:
+
+```text
+uv run --locked --extra dense python scripts/run_m6c.py --allow-provisional --output artifacts/m6c-reproduce
+```
+
+It freezes the matrix before retrieval and executes 45 runs in fresh workers, keeping
+development, test and public results separate. See [preparation and measurement
+boundaries](docs/experiments.md) and [the M6c results](reports/m6c/README.md). Draft
+results do not satisfy the independent-review requirement.
+
 ## Development checks
 
 ```text
@@ -247,6 +261,8 @@ M6a tests weighted cluster resampling, legacy fingerprint verification, candidat
 pooling, source bindings, pending reviews, changed evidence and adjudication conflicts.
 M6b adds draft generation, explicit overload selection, UTF-8/line/decorator mapping
 for public needles, split overlap checks and label-only review before retrieval.
+M6c adds fresh-process measurement, failure evidence, frozen-config checks and
+cross-role experiment routing. CI remains offline and does not run the real model matrix.
 Use `uv run --locked --extra dense ...` to retain optional dependencies while developing
 with the model; `uv sync --locked --dev` restores the smaller base environment.
 
@@ -278,9 +294,11 @@ reports/m4/                   Four-strategy runs, paired comparison and analysis
 reports/m5/                   Structure ablations, source traces and context costs
 reports/m6a/                  Paired audit and frozen pending pool metadata
 reports/m6b/                  Split/source validation and pending-review evidence
+reports/m6c/                  Fixed expanded runs, paired tradeoffs and measured costs
 scripts/run_m5.py             Fixed 13-configuration experiment suite
 scripts/run_m6a.py            Offline analysis and pending review bundle
 scripts/run_m6b.py            Data regeneration and review, with opt-in preparation
+scripts/run_m6c.py            Offline fixed matrix with fresh-process cost profiling
 .github/workflows/             Windows/Linux CI
 pyproject.toml                Package metadata and tool configuration
 uv.lock                       Locked application/development dependencies

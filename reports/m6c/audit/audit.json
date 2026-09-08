@@ -1,0 +1,171 @@
+{
+  "suite_id": "repository-suite-v1",
+  "audit_runtime": {
+    "python": "3.12.14",
+    "normalized_source_hash": "e82045c797960f45ec1153140d0e9b41ff10ec5160de2186433baf84dc051b66"
+  },
+  "suite_digest": "42f9000256c73dc9b9bd21f04046b41d2efcc6d79113cd839644ee55783f2e3d",
+  "primary_k": 10,
+  "primary_metrics": [
+    "recall",
+    "ndcg"
+  ],
+  "repository_count": 8,
+  "query_count": 170,
+  "members": [
+    {
+      "role": "dev",
+      "benchmark_id": "repository-seed",
+      "benchmark_digest": "5baaa721437a927b9e4509262b2d5d21db47c07aa46f6fc5cd69f6a03abf0155",
+      "annotation_status": "provisional",
+      "query_count": 40,
+      "judgment_count": 55,
+      "no_answer_count": 0,
+      "by_category": {
+        "behavior": 16,
+        "cross_file": 8,
+        "symbol": 8,
+        "test": 8
+      },
+      "families": null,
+      "repositories": [
+        {
+          "id": "requests",
+          "url": "https://github.com/psf/requests.git",
+          "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+          "license": "Apache-2.0",
+          "corpus_hash": "9ee6912de4712b2d30c1b1c208ceaca95f249cca35b72727fc821b15df3a3c05",
+          "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+          "files": 36,
+          "symbols": 789,
+          "chunks": 867,
+          "index_file_bytes": 2748416
+        },
+        {
+          "id": "click",
+          "url": "https://github.com/pallets/click.git",
+          "commit": "934813e4d421071a1b3db3973c02fe2721359a6e",
+          "license": "BSD-3-Clause",
+          "corpus_hash": "68b8e6737c30a60ab48f8dcaf25a0695ad278ab8ec7662f53177ded5221360d5",
+          "snapshot_id": "cd2874d1022544c38227a8a22a3628d1ac46d672d9866cd60eef22b869ddd022",
+          "files": 70,
+          "symbols": 1452,
+          "chunks": 1771,
+          "index_file_bytes": 4476928
+        }
+      ]
+    },
+    {
+      "role": "test",
+      "benchmark_id": "repository-expanded",
+      "benchmark_digest": "6425370dcf651f80f649d4189059feba289cc4ad2d7722a22a2aac4b3b5000f6",
+      "annotation_status": "provisional",
+      "query_count": 120,
+      "judgment_count": 164,
+      "no_answer_count": 0,
+      "by_category": {
+        "behavior": 40,
+        "cross_file": 40,
+        "symbol": 20,
+        "test": 20
+      },
+      "families": 85,
+      "repositories": [
+        {
+          "id": "flask",
+          "url": "https://github.com/pallets/flask.git",
+          "commit": "c12a5d874c5a014495eb2db8a73f40037bc813ac",
+          "license": "BSD-3-Clause",
+          "corpus_hash": "8439f705b95221f12752bff90bd745743a0c5c4fc0369da908734de3e56f00ad",
+          "snapshot_id": "2fcd7cefa43a269e6719a26996bdc52928b4b27adce72c8369e5209c37ace306",
+          "files": 82,
+          "symbols": 1644,
+          "chunks": 2030,
+          "index_file_bytes": 4993024
+        },
+        {
+          "id": "rich",
+          "url": "https://github.com/Textualize/rich.git",
+          "commit": "7f580bdcf07a3b269a0e786b6a3aa9c804f393cf",
+          "license": "MIT",
+          "corpus_hash": "f6e0fa3e7174327425eb0b4da41b79d783239b171a742d9968a7744b9b1541ca",
+          "snapshot_id": "f3ab061547301f3fbff7463a1d6a913752a1af662a4c7effa1f8d5bece6355dd",
+          "files": 190,
+          "symbols": 2206,
+          "chunks": 2539,
+          "index_file_bytes": 8474624
+        },
+        {
+          "id": "networkx",
+          "url": "https://github.com/networkx/networkx.git",
+          "commit": "7fdddfa2caa8275f7862c46524b803db99ff2cde",
+          "license": "BSD-3-Clause",
+          "corpus_hash": "0f209fe86fc73478da03ac6239a8b8bb5016d58b13716858b6616f8557cae5a1",
+          "snapshot_id": "ee5359ca7dd22ac05c484c3e20d318960faeb7210aed4425558ec446c78adfe8",
+          "files": 657,
+          "symbols": 8184,
+          "chunks": 9252,
+          "index_file_bytes": 37695488
+        },
+        {
+          "id": "packaging",
+          "url": "https://github.com/pypa/packaging.git",
+          "commit": "85442b8032cb7bae72866dfd7782234a98dd2fb7",
+          "license": "Apache-2.0 OR BSD-2-Clause",
+          "corpus_hash": "20d1f8eedf10cb8deefc8120d8927ae532f8d04f882958ff47ea6376de654023",
+          "snapshot_id": "9bc4908803672a50fb0c2f08878a2c54dab8697683071ebaaf7b42424a125562",
+          "files": 31,
+          "symbols": 671,
+          "chunks": 719,
+          "index_file_bytes": 2334720
+        },
+        {
+          "id": "tomlkit",
+          "url": "https://github.com/python-poetry/tomlkit.git",
+          "commit": "a96883b15f545169dd33f16160bd609d624471e3",
+          "license": "MIT",
+          "corpus_hash": "196cd6983390a593eb3ee29af71b0bea5cda70da36cac0786c8358ee417845d3",
+          "snapshot_id": "eae5895dc476935a9d94000d1dbfed7e4a200fcde4ab220263b936c72c04b782",
+          "files": 27,
+          "symbols": 677,
+          "chunks": 707,
+          "index_file_bytes": 1830912
+        }
+      ]
+    },
+    {
+      "role": "public",
+      "benchmark_id": "repoqa-marshmallow-retrieval",
+      "benchmark_digest": "7123b8cc45afe82275cfbd5e3d7109dc09c47996098e883b6a9705d45ec6c3e4",
+      "annotation_status": "provisional",
+      "query_count": 10,
+      "judgment_count": 10,
+      "no_answer_count": 0,
+      "by_category": {
+        "behavior": 10
+      },
+      "families": null,
+      "repositories": [
+        {
+          "id": "marshmallow",
+          "url": "https://github.com/marshmallow-code/marshmallow.git",
+          "commit": "b8149cec77d16357d11b08f86de3b13e6fe02fa0",
+          "license": "MIT",
+          "corpus_hash": "87660c5e7113a0a71c0cb3bc392989f8d6888ac0448b8e3207ceff6984e269f1",
+          "snapshot_id": "e60f190f3f89fccf26e96053864cae6928ff61ccc054475a0f818d21b0849b91",
+          "files": 37,
+          "symbols": 1757,
+          "chunks": 2118,
+          "index_file_bytes": 5165056
+        }
+      ]
+    }
+  ],
+  "retrieval_executed": false,
+  "review_complete": false,
+  "limitations": [
+    "Annotation status is declared, not independently authenticated.",
+    "Repository disjointness and exact-text checks do not prove semantic independence or absence of model-training contamination.",
+    "Public adapted scores must be reported separately from the repository question benchmark."
+  ]
+}

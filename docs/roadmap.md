@@ -24,7 +24,7 @@ writing the push command; the owner executes these commands.
 | M7 — QA | Context budget, model adapter, cited answers, reviewed answer-evaluation cases. Compare strategies using a fixed LLM/prompt; assess citation validity separately from support. | `Add repository QA with source citations` |
 | M8 — Delivery | CPU Docker path, final docs, reports or dashboard, clean-environment reproduction. A reader can run indexing, search, QA with configured credentials, and evaluation. | `Package reproducible experiments and project documentation` |
 
-M1 and M2 are complete, with M1–M6a CI reported passing by the owner. M3's evaluation
+M1 and M2 are complete, with M1–M6b CI reported passing by the owner. M3's evaluation
 pipeline and 40-query source-checked seed are implemented; **independent human label
 review remains pending**. The seed and its reports remain provisional until that
 acceptance item is completed. M4 adds three retrieval baselines, persistent vectors,
@@ -37,8 +37,10 @@ on five disjoint test-candidate repositories, plus ten adapted RepoQA Marshmallo
 questions on a separate eighth repository. Generation, provenance, split audits and
 source review bundles are implemented without scoring the new datasets. **Independent
 review/adjudication remains outstanding**, so M6b's reviewed-label acceptance is not
-complete. M6 also still needs formal experiment runs and scale profiling. M7–M8
-remain planned, and human label review still gates claims of a reviewed retrieval MVP.
+complete. M6c adds the fixed 45-run matrix and construction/storage/peak-memory
+profiling with explicit provisional-label opt-in. Its engineering checkpoint does
+not complete independent review or reviewed-label reruns. M7–M8 remain planned,
+and human label review still gates claims of a reviewed retrieval MVP.
 New remote CI runs after the owner
 pushes; local checks cannot establish remote CI status.
 
@@ -57,6 +59,9 @@ pushes; local checks cannot establish remote CI status.
 - **M6c — Formal experiment suite:** rerun all strategies and fixed ablations on the
   frozen expanded benchmark, measure scale/build/storage/peak-memory costs, and report
   paired tradeoffs and limitations. Preserve previous development results.
+  The provisional data/tooling checkpoint uses commit message
+  `Add frozen experiment matrix and retrieval cost profiling`; broader test outcomes
+  are now exposed, so later tuning needs a new untouched test version.
 
 Each is a coherent subgoal ending with checks and an owner commit/push checkpoint.
 The original M6 breadth and quality targets remain unchanged.

@@ -81,12 +81,15 @@ old files. Do not silently edit a frozen manifest to read `human_reviewed`.
 
 ## Subsequent experiments
 
-M6c still needs the five fixed strategies, relationship ablations and scale profiling
-over the expanded corpora. Tune only on development data; freeze configuration before
-test runs. Compute paired uncertainty over repositories and respect the M6a small-sample
+M6c's [fixed matrix](experiments.md) runs the five strategies, relationship ablations
+and construction/memory profiling over these frozen corpora with explicit provisional
+status. Tune only on development data; freeze configuration before test runs.
+Compute paired uncertainty over repositories and respect the M6a small-sample
 limits. Report the public adaptation separately. Report failures, sparse-label coverage,
 context/token proxies, build/storage/peak-memory costs and hardware-dependent timing.
 
 Source validation, corpus-size counts and reproducible question files are M6b's
 engineering deliverables. They are not new quality measurements, semantic approval,
 or completion of M6's formal-experiment acceptance criteria.
+After M6c scoring, these test questions are exposed. Preserve this fact when reporting
+results and select a fresh untouched test version before further parameter tuning.

@@ -218,6 +218,14 @@ changes separate from retrieval and prevents accidental rewriting of old experim
 
 ## Storage and references
 
+M6c's `evaluation/experiments.py` freezes the inherited configuration matrix and
+coordinates separate dev/test/public runs. `evaluation/profiling.py` launches one
+fresh Python worker per index/graph/vector build or experiment. It records OS memory
+high-water marks, operation and worker wall times, artifacts and failure logs without
+adding a service or dependency. Existing loaders, runner and comparison logic remain
+the source of retrieval/metric behavior. Provisional-label opt-in is explicit;
+experiment completion does not grant human-review status.
+
 M6b's `evaluation/curation.py` resolves explicit draft targets and imports a pinned
 RepoQA subset into the existing benchmark schema. It records source/provenance hashes
 and always publishes provisional labels. Public mapping checks UTF-8 byte offsets,

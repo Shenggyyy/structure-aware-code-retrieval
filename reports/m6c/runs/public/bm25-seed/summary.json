@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-08T05:44:51.770911+00:00",
+  "benchmark": {
+    "id": "repoqa-marshmallow-retrieval",
+    "version": "0.1.0",
+    "split": "test",
+    "annotation_status": "provisional",
+    "digest": "7123b8cc45afe82275cfbd5e3d7109dc09c47996098e883b6a9705d45ec6c3e4"
+  },
+  "config": {
+    "strategy": "bm25",
+    "unit": "symbol",
+    "ks": [
+      1,
+      5,
+      10,
+      20
+    ],
+    "warmup_queries": 2,
+    "repeats": 3,
+    "seed": 0,
+    "candidate_policy": "all_matching_chunks_then_unique_units",
+    "query_order": [
+      "repoqa-marshmallow-08",
+      "repoqa-marshmallow-09",
+      "repoqa-marshmallow-02",
+      "repoqa-marshmallow-06",
+      "repoqa-marshmallow-04",
+      "repoqa-marshmallow-05",
+      "repoqa-marshmallow-03",
+      "repoqa-marshmallow-01",
+      "repoqa-marshmallow-10",
+      "repoqa-marshmallow-07"
+    ],
+    "name": "bm25-seed"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "system": "Windows",
+    "release": "11",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpus": 20,
+    "thread_environment": {
+      "OMP_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4"
+    },
+    "packages": {
+      "structure-aware-code-retrieval": "0.1.0",
+      "rank-bm25": "0.2.2",
+      "numpy": "2.5.3",
+      "pathspec": "1.1.1"
+    },
+    "implementation_git": {
+      "commit": "9ec158938b318c0ff76b2a590ff8d998795dc116",
+      "dirty": true
+    },
+    "implementation_hash": "e82045c797960f45ec1153140d0e9b41ff10ec5160de2186433baf84dc051b66",
+    "lockfile_hash": null
+  },
+  "indexes": {
+    "marshmallow": {
+      "snapshot_id": "e60f190f3f89fccf26e96053864cae6928ff61ccc054475a0f818d21b0849b91",
+      "corpus_hash": "87660c5e7113a0a71c0cb3bc392989f8d6888ac0448b8e3207ceff6984e269f1",
+      "git": {
+        "commit": "b8149cec77d16357d11b08f86de3b13e6fe02fa0",
+        "dirty": false
+      },
+      "config": {
+        "schema_version": 1,
+        "parser_version": 1,
+        "scanner_version": 1,
+        "tokenizer_version": 1,
+        "max_chunk_lines": 80,
+        "max_file_bytes": 1048576,
+        "exclude": [],
+        "excluded_directories": [
+          ".cache",
+          ".git",
+          ".hg",
+          ".idea",
+          ".pytest_cache",
+          ".ruff_cache",
+          ".svn",
+          ".venv",
+          ".vscode",
+          "__pycache__",
+          "artifacts",
+          "build",
+          "dist",
+          "node_modules",
+          "venv"
+        ],
+        "gitignore_hashes": {
+          ".gitignore": "521143b52402f476413353c2f84dbdae57c48ad845ee8bc9251287f40f955971",
+          "docs/.gitignore": "d128f2c483cbbc0bae4a8b0d898a3f75e989423a6c8c398e6dc09a2bf6aac977"
+        },
+        "bm25": {
+          "variant": "BM25Plus",
+          "k1": 1.5,
+          "b": 0.75,
+          "delta": 0.0
+        }
+      },
+      "symbol_count": 1757,
+      "chunk_count": 2118,
+      "load_ms": 54.7785,
+      "index_file_hash": "14fa8ab40faa18ec5501c66e07de28c241fd1bcfdaf957bb90bcd3719215fa0c"
+    }
+  },
+  "quality_fingerprint": "feacbff242e5416f77079579e2f25b617508125a75fecb7709dfc31d43bfa3ff",
+  "overall": {
+    "query_count": 10,
+    "answerable_count": 10,
+    "no_answer_count": 0,
+    "no_answer_with_results": 0,
+    "metrics": {
+      "1": {
+        "precision": 0.2,
+        "recall": 0.2,
+        "mrr": 0.2,
+        "ndcg": 0.2,
+        "judged_fraction": 0.2
+      },
+      "5": {
+        "precision": 0.060000000000000005,
+        "recall": 0.3,
+        "mrr": 0.23333333333333334,
+        "ndcg": 0.25,
+        "judged_fraction": 0.060000000000000005
+      },
+      "10": {
+        "precision": 0.030000000000000002,
+        "recall": 0.3,
+        "mrr": 0.23333333333333334,
+        "ndcg": 0.25,
+        "judged_fraction": 0.030000000000000002
+      },
+      "20": {
+        "precision": 0.02,
+        "recall": 0.4,
+        "mrr": 0.24242424242424243,
+        "ndcg": 0.277894294565113,
+        "judged_fraction": 0.02
+      }
+    },
+    "latency_ms": {
+      "p50": 31.2864,
+      "p95": 40.40125499999999
+    },
+    "context_cost": {
+      "1": {
+        "utf8_bytes": 2568.6,
+        "lines": 51.1,
+        "lexical_tokens": 381.1
+      },
+      "5": {
+        "utf8_bytes": 8921.4,
+        "lines": 187.3,
+        "lexical_tokens": 1294.9
+      },
+      "10": {
+        "utf8_bytes": 14589.2,
+        "lines": 320.4,
+        "lexical_tokens": 2082.1
+      },
+      "20": {
+        "utf8_bytes": 25351.9,
+        "lines": 577.8,
+        "lexical_tokens": 3598.8
+      }
+    },
+    "retrieval_work": {
+      "seed_symbols": 0,
+      "edges_examined": 0,
+      "expanded_symbols": 0,
+      "edge_cap_seeds": 0
+    }
+  },
+  "by_repository": {
+    "marshmallow": {
+      "query_count": 10,
+      "answerable_count": 10,
+      "no_answer_count": 0,
+      "no_answer_with_results": 0,
+      "metrics": {
+        "1": {
+          "precision": 0.2,
+          "recall": 0.2,
+          "mrr": 0.2,
+          "ndcg": 0.2,
+          "judged_fraction": 0.2
+        },
+        "5": {
+          "precision": 0.060000000000000005,
+          "recall": 0.3,
+          "mrr": 0.23333333333333334,
+          "ndcg": 0.25,
+          "judged_fraction": 0.060000000000000005
+        },
+        "10": {
+          "precision": 0.030000000000000002,
+          "recall": 0.3,
+          "mrr": 0.23333333333333334,
+          "ndcg": 0.25,
+          "judged_fraction": 0.030000000000000002
+        },
+        "20": {
+          "precision": 0.02,
+          "recall": 0.4,
+          "mrr": 0.24242424242424243,
+          "ndcg": 0.277894294565113,
+          "judged_fraction": 0.02
+        }
+      },
+      "latency_ms": {
+        "p50": 31.2864,
+        "p95": 40.40125499999999
+      },
+      "context_cost": {
+        "1": {
+          "utf8_bytes": 2568.6,
+          "lines": 51.1,
+          "lexical_tokens": 381.1
+        },
+        "5": {
+          "utf8_bytes": 8921.4,
+          "lines": 187.3,
+          "lexical_tokens": 1294.9
+        },
+        "10": {
+          "utf8_bytes": 14589.2,
+          "lines": 320.4,
+          "lexical_tokens": 2082.1
+        },
+        "20": {
+          "utf8_bytes": 25351.9,
+          "lines": 577.8,
+          "lexical_tokens": 3598.8
+        }
+      },
+      "retrieval_work": {
+        "seed_symbols": 0,
+        "edges_examined": 0,
+        "expanded_symbols": 0,
+        "edge_cap_seeds": 0
+      }
+    }
+  },
+  "by_category": {
+    "behavior": {
+      "query_count": 10,
+      "answerable_count": 10,
+      "no_answer_count": 0,
+      "no_answer_with_results": 0,
+      "metrics": {
+        "1": {
+          "precision": 0.2,
+          "recall": 0.2,
+          "mrr": 0.2,
+          "ndcg": 0.2,
+          "judged_fraction": 0.2
+        },
+        "5": {
+          "precision": 0.060000000000000005,
+          "recall": 0.3,
+          "mrr": 0.23333333333333334,
+          "ndcg": 0.25,
+          "judged_fraction": 0.060000000000000005
+        },
+        "10": {
+          "precision": 0.030000000000000002,
+          "recall": 0.3,
+          "mrr": 0.23333333333333334,
+          "ndcg": 0.25,
+          "judged_fraction": 0.030000000000000002
+        },
+        "20": {
+          "precision": 0.02,
+          "recall": 0.4,
+          "mrr": 0.24242424242424243,
+          "ndcg": 0.277894294565113,
+          "judged_fraction": 0.02
+        }
+      },
+      "latency_ms": {
+        "p50": 31.2864,
+        "p95": 40.40125499999999
+      },
+      "context_cost": {
+        "1": {
+          "utf8_bytes": 2568.6,
+          "lines": 51.1,
+          "lexical_tokens": 381.1
+        },
+        "5": {
+          "utf8_bytes": 8921.4,
+          "lines": 187.3,
+          "lexical_tokens": 1294.9
+        },
+        "10": {
+          "utf8_bytes": 14589.2,
+          "lines": 320.4,
+          "lexical_tokens": 2082.1
+        },
+        "20": {
+          "utf8_bytes": 25351.9,
+          "lines": 577.8,
+          "lexical_tokens": 3598.8
+        }
+      },
+      "retrieval_work": {
+        "seed_symbols": 0,
+        "edges_examined": 0,
+        "expanded_symbols": 0,
+        "edge_cap_seeds": 0
+      }
+    }
+  }
+}

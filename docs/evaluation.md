@@ -265,8 +265,9 @@ the planned wider/public datasets, held-out protocol and scale measurements.
 The explicit suite manifest now separates the existing 40-query development seed,
 120 test-candidate questions on Flask/Rich/NetworkX/Packaging/TOMLKit and ten public
 RepoQA Marshmallow descriptions adapted to symbol retrieval. All three manifests
-remain provisional. Primary planned measures are Recall@10 and NDCG@10; review and
-formal test execution remain outstanding. Exact suite membership is frozen by data
+remain provisional. Primary planned measures are Recall@10 and NDCG@10. M6b deferred
+test execution; M6c adds provisional scores while review remains outstanding.
+Exact suite membership is frozen by data
 and provenance digests, not by a mutable directory name.
 
 `audit-suite` validates repository URL disjointness, normalized exact question-text
@@ -280,3 +281,16 @@ The public adapter retains descriptions, checks archive/file hashes and exact AS
 byte/line bounds, and includes decorators in target ranges. Full source including
 tests/docstrings is indexed, so its retrieval metrics are not upstream RepoQA scores.
 See [benchmark selection, attribution and reproduction](benchmarks.md).
+
+## M6c fixed matrix and cost measurements
+
+`scripts/run_m6c.py` freezes the existing 15 strategy/ablation configurations, rebuilds
+indexes/graphs/vectors and runs each configuration separately for dev, test and public.
+Draft labels require `--allow-provisional`; the setting and pending review status are
+recorded with every suite. No parameters are selected from the new quality results.
+
+Fresh worker processes measure lifetime peak memory including native allocations.
+Construction/load costs and warm query latency have distinct timing boundaries;
+builds have one sample and uncontrolled OS caches. Comparisons against Hybrid and
+full structure retain per-query/repository/category evidence and the existing small
+sample uncertainty limits. See [the matrix, reproduction and measurement protocol](experiments.md).
