@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-08",
+  "kind": "unapproved_judge_only_proposal",
+  "execution_authorized": false,
+  "api_calls_made": 0,
+  "prepared_bundle": "artifacts/qa/m7c-v2-prepared-001",
+  "prepared_plan_fingerprint": "28bf7b780982b17d37150c1c4bad1e717769832faddd6e59ce24edbc656324f7",
+  "requests_fingerprint": "1b0ba0f91a1349a04c4a9de5110876a67164a791147fe96c5062f317f67b47b3",
+  "source_records_fingerprint": "a9f030ad189ddd4cb2b3cbdc8fb92bcda75992cabd72711d26be92e45146d8b7",
+  "source_archive_sha256": "340a5c7226c453ceabaa2fc277a8942cb80b792750de99c877a7d707dc9a3f7a",
+  "rubric_id": "repository-qa-judge-rubric-v2",
+  "rubric_fingerprint": "0d1c8d68507d00d6211c266a6bd5345b80acad0fe43e9f3b1f232e197cd2f6cb",
+  "judge": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "max_output_tokens": 2048,
+    "api_key_env": "OPENAI_API_KEY",
+    "reasoning_effort": "none",
+    "pricing": {
+      "input_per_million": 0.75,
+      "output_per_million": 4.5,
+      "as_of": "2026-09-08"
+    }
+  },
+  "request_count": 60,
+  "estimated_cost": {
+    "new_generation_calls": 0,
+    "maximum_judge_calls": 60,
+    "estimated_input_tokens": 2107257,
+    "maximum_input_tokens_per_call": 50814,
+    "maximum_output_tokens": 122880,
+    "combined_usd": 2.13340275,
+    "method": "Exact saved-answer request bytes, dynamic schemas, framing and maximum output",
+    "prior_generation_cost_included": false,
+    "billing_guarantee": false
+  },
+  "suggested_budget_usd": 2.2,
+  "pricing_verified_on": "2026-09-08",
+  "pricing_source": "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+  "approval_required": "Explicit owner confirmation of this model, all 60 judge requests and new budget; previous M7b approval does not apply",
+  "implementation_files_sha256": {
+    "scripts/run_qa_judge_revision.py": "e05916e32be0aa75e2a5a3af3d8bd2de869cf20723444f59ec48768a4519ee0b",
+    "scripts/verify_qa_judge_revision.py": "c005cb7936a84a1c22f91fba1d7b9e94358ded06f926ac5bda47963758f0642a",
+    "src/structure_aware_retrieval/qa/judge_reporting.py": "652dd03afd12b14f3a4daf09a72ac5043b9fb21048f1a2cfb7fa0e1a71ff2c88"
+  },
+  "implementation_base_commit": "66a04f2130041cf6d1bcd5d1b8b3cd56b8120621"
+}

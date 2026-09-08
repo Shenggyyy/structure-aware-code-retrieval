@@ -4,8 +4,9 @@ The repository provides an operational retrieval/evaluation system and a two-sta
 QA/LLM-assessment runtime. **The first authorized live experiment finished all 120
 requests with 36 invalid judge outputs.** Core implementation and the first evidence
 set are delivered; judge coverage is insufficient for a reliable QA-quality ranking.
-M7c now supplies an offline v2 protocol candidate with per-answer schemas and archived
-failure diagnostics. No v2 model response or improved live acceptance rate is claimed.
+M7c supplies an offline v2 protocol candidate with per-answer schemas and archived
+failure diagnostics. M7d adds judge-only execution and saved-run verification, tested
+with offline doubles. No v2 model response or improved live acceptance rate is claimed.
 Human or independent review is optional, not a completion prerequisite. Existing
 labels remain provisional; automatic checks and model judgments must be described
 according to what they actually measure.
@@ -21,7 +22,7 @@ according to what they actually measure.
 | Systems measurements | 45 completed retrieval runs and 24 construction measurements, storage and worker peak memory | Measurements describe one interactive host, not production service guarantees |
 | Repository QA | 60 live generations: 48 answers, 12 abstentions; all source audits and applicable citation ID checks passed | Automatic checks establish location/identity, not semantic truth |
 | QA experiment | Twelve provisional development cases × five strategies; 120 authorized calls, complete raw archive, known usage for every call | Small development scope and same-model generator/judge limit generalization; usage-based cost is not an invoice |
-| LLM evaluation | 24 accepted v1 judgments, 36 protocol failures; v2 exact-answer schemas, evidence catalogs and offline replay diagnostics | A new judge-only run is a separate optional scope requiring an execution path and fresh model/budget approval; no observed v2 acceptance rate yet |
+| LLM evaluation | 24 accepted v1 judgments, 36 protocol failures; v2 exact-answer schemas, evidence catalogs, offline replay diagnostics and a judge-only runtime with saved-run verification | A new judge-only run is a separate optional scope requiring fresh model/plan/budget approval; no observed v2 acceptance rate yet |
 | Packaging and testing | Installable package, automated tests, base/CPU Dense Docker targets, offline smoke checks, Windows/Linux CI configuration | Current checkpoint's remote CI runs after the owner commits and pushes |
 | Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline saved-run verification and reproduction instructions | Retain limits and version future protocol/dataset changes |
 
@@ -71,6 +72,13 @@ according to what they actually measure.
   schemas with a read-only checker. Archived-output replay is a protocol diagnostic,
   not new inference or repaired scores. The report records current local validation;
   remote CI follows the owner's next commit and push.
+- The owner reports the M7c checkpoint passed GitHub CI. This confirms the preceding
+  pushed checkpoint, not the current M7d changes.
+- [M7d judge-only runtime](../reports/m7d/README.md) reuses saved generations and
+  executes only newly approved judge requests, retaining failures, unknown outcomes
+  and all planned source cases. It adds offline verification of complete and partial
+  runs. Validation uses test doubles; no paid request or new model assessment was
+  made. The report records local checks; remote CI follows the owner's commit/push.
 
 Historical reports retain their original measurements and completion criteria.
 This page records the current automatic-evaluation acceptance policy; historical
@@ -78,12 +86,13 @@ references to required human review do not override it.
 
 ## Recommended research follow-up
 
-1. The offline v2 protocol checkpoint is complete. Inspect its exact prepared requests
-   and diagnostics before proposing another real comparison; preserve all v1 evidence.
-2. If another real comparison is desired, implement a bounded judge-only runner as a
-   separate milestone, then obtain new approval for the exact model, request scope and
-   estimate. Reuse the saved answers across every compared strategy. The completed
-   US$5.63-budget run's approval does not authorize further calls.
+1. The offline v2 protocol and judge-only runtime checkpoints are complete. Inspect
+   the exact prepared requests and diagnostics before another real comparison;
+   preserve all v1 evidence.
+2. If another real comparison is desired, obtain new approval for the exact model,
+   request scope, plan and budget before using the judge-only runner. Reuse the saved
+   answers across every compared strategy. The completed US$5.63-budget run's approval
+   does not authorize further calls.
 3. Improve coverage and external validation before broader answer-quality claims.
    LLM assessment is not human ground truth or a verified true correctness rate.
    Positive Structure improvements are not required; transparent evidence is.

@@ -11,6 +11,9 @@ Further paid calls require a newly approved scope and **combined** budget.
 M7c now freezes an offline v2 protocol candidate and prepares requests from the exact
 archived answers. It supplies no new judgments and does not change v1's 24 accepted
 and 36 invalid outcomes. See the [M7c record](../reports/m7c/README.md).
+M7d implements judge-only execution and read-only verification of those prepared
+requests. Its [offline validation](../reports/m7d/README.md) uses test doubles, not new
+LLM responses; no v2 live acceptance rate or quality comparison is available.
 
 Human calibration or spot-checking is optional. Its absence is a limitation to
 report, not a prerequisite for running evaluation or completing an engineering
@@ -83,9 +86,10 @@ never overwrites v1 artifacts and never counts these copies as v2 judgments. Pas
 schema or rejecting a known failure does not measure new model reliability or accuracy.
 
 Use the [offline preparation and check commands](reproduction.md#prepare-judge-protocol-v2-from-saved-answers).
-The combined runner remains v1; there is no v2 execution command in M7c. A future
-judge-only runner and experiment require separate scope and fresh model/budget approval.
-The completed US$5.63-budget run cannot authorize more requests.
+The combined runner remains v1. M7d's separate [judge-only runner](qa.md#judge-only-v2-execution)
+requires a checked v2 bundle and fresh model, plan and budget approval. It reuses
+the saved generations, without regeneration or reusing old judgments. The completed
+US$5.63-budget run cannot authorize more requests.
 
 ## Judge input and reference separation
 
@@ -203,3 +207,31 @@ envelopes, partial text and available usage. They stop the run without retry/res
 `summary.json` and `report.md` keep per-dimension and per-stage denominators, unknown
 outcomes and known cost subtotals visible. A successful local test run is software
 evidence, not a real answer-quality experiment.
+
+## M7d judge-only execution and comparison boundary
+
+The v2 runner consumes the exact M7c request payloads, including per-answer schemas,
+source-bound references and frozen judge settings. Approval must match the judge
+model and plan fingerprint and cover the new request estimate. Only new judge calls
+are in this scope: the original generation cost is historical, and the exact saved
+answer replaces M7b's maximum-answer-size reserve in the input estimate.
+
+Every source case remains in `records.json`, including generations ineligible for
+judging. Generation objects are copied verbatim; `judging` contains only the new
+stage's outcome. Previous v1 judgments remain in the copied source archive and are
+not sent to the judge or substituted for missing v2 outcomes. Report new judging
+usage and latency separately from historical generation measurements; no new
+end-to-end generation latency has been observed.
+
+Before each request the runner writes a durable attempt; after it, the runner writes
+the result. Invalid judgments are retained and execution continues. Provider errors
+stop subsequent requests, and interruption can leave an attempted outcome unknown.
+There is no overwrite, resume or automatic retry. Unknown possibly billed usage
+makes the complete new-run cost unknown, with known subtotals reported separately.
+
+The read-only verifier checks source bindings, approval, request/response records and
+recomputed outcomes without an API key. This establishes internal consistency, not
+provider authenticity or semantic correctness. Offline test doubles establish
+software behavior only. A later real run must retain all v1 evidence and compare
+coverage and failures explicitly; accepting more schema-valid outputs alone does
+not establish better semantic judgments.

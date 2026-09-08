@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-08",
+  "checkpoint": "m7d-judge-only-runtime",
+  "api_calls_made": 0,
+  "python": "3.12.14",
+  "platform": "Windows 11",
+  "pytest": {
+    "command": "uv run --locked pytest --cov --cov-report=term-missing --cov-report=xml --cov-report=json:artifacts/m7d-coverage.json --junitxml=artifacts/m7d-tests.xml",
+    "collected": 785,
+    "passed": 784,
+    "skipped": 1,
+    "failed": 0,
+    "skip_reason": "Windows host cannot create symlinks",
+    "duration_seconds": 339.29,
+    "new_regression_cases": 60
+  },
+  "coverage": {
+    "scope": "structure_aware_retrieval package; standalone scripts exercised by integration tests but excluded from coverage denominator",
+    "covered_lines": 4182,
+    "num_statements": 4498,
+    "percent_covered": 91.6243654822335,
+    "percent_covered_display": "92",
+    "missing_lines": 316,
+    "excluded_lines": 13,
+    "percent_statements_covered": 92.97465540240107,
+    "percent_statements_covered_display": "93",
+    "num_branches": 1806,
+    "num_partial_branches": 200,
+    "covered_branches": 1594,
+    "missing_branches": 212,
+    "percent_branches_covered": 88.26135105204872,
+    "percent_branches_covered_display": "88"
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "retrieval_overview": "45 saved runs checked unchanged",
+  "synthetic_transport_check": {
+    "api_calls_made": 0,
+    "source_requests": 60,
+    "response_kind": "Synthetic values generated from schema for software tests only",
+    "credentials_and_live_provider_access": "Blocked with local test replacements",
+    "semantic_assessments": "not_measured",
+    "independent_verification": {
+      "status": "complete",
+      "source_planned_cases": 60,
+      "judge_requests": 60,
+      "attempts": 60,
+      "recorded_results": 60,
+      "execution_mode": "injected_models",
+      "plan_fingerprint": "28bf7b780982b17d37150c1c4bad1e717769832faddd6e59ce24edbc656324f7",
+      "new_generation_calls": 0
+    }
+  },
+  "historical_archive": "M7b run.zip SHA256 unchanged; frozen M7c plan and requests validated",
+  "linux_and_container_checks": "Not rerun locally; existing CI matrix retained",
+  "previous_remote_ci": "Owner reports M7c passed",
+  "current_remote_ci": "Pending owner commit and push"
+}

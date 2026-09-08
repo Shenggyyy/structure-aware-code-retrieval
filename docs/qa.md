@@ -11,6 +11,9 @@ The owner approved the two fixed Mini models and a US$5.63 combined budget.
 See [the live evidence and failures](../reports/m7b-live/README.md),
 [the scoring specification](llm-evaluation.md) and [current acceptance](status.md).
 Any additional live run requires approval of its scope and combined cost.
+M7c freezes a v2 judge protocol; M7d implements execution over saved answers and
+offline run verification. These checkpoints make no new API calls and provide no
+new model quality results. See [the M7d checkpoint](../reports/m7d/README.md).
 
 ## Preview a question
 
@@ -174,6 +177,53 @@ An attempted request without a result has an unknown outcome, distinct from a
 request never started. The latter remains in planned-case denominators. A valid
 abstention receives no perfect correctness/support score. Means condition on scored
 cases; matched comparisons use shared scored case IDs, with coverage visible.
+
+## Judge-only v2 execution
+
+First [prepare and check a v2 bundle from saved answers](reproduction.md#prepare-judge-protocol-v2-from-saved-answers).
+This freezes exact answer-specific messages, schemas and judge settings. The current
+M7c proposal contains 60 judge requests and zero new generation calls; its saved
+estimate is US$2.13340275. This is a proposal at frozen rates, not approval or a
+billing hard cap. Confirm the exact model, request scope and budget before any call.
+The earlier completed US$5.63-budget experiment grants no further authorization.
+
+After approval, replace every uppercase placeholder with its approved value:
+
+```text
+uv run --locked python scripts/run_qa_judge_revision.py --bundle CHECKED_BUNDLE --output NEW_RUN_DIRECTORY --judge-model APPROVED_MODEL --approved-plan APPROVED_PLAN_FINGERPRINT --budget-usd APPROVED_BUDGET_USD --execute
+```
+
+The model and fingerprint must match the checked bundle; the finite budget must
+cover its estimate. `--execute` is mandatory. Missing or mismatched approval makes
+no requests. The combined `run-qa-assessment` command remains v1 and cannot execute
+this v2 bundle. Configure the key locally only after approval.
+
+The new run copies its checked input under `prepared/` and writes `approval.json`,
+`attempts.jsonl`, `results.jsonl`, `records.json`, `summary.json` and `report.md`.
+All source case/strategy rows remain present. Their `generation` objects are reused
+verbatim; `judging` stores only the new v2 outcome. Invalid source generations skip
+judging, and old v1 judgments never fill missing v2 results or enter model messages.
+Original generations, references and provisional labels remain unchanged.
+
+Requests use the saved per-answer payloads with no automatic retries. Invalid judge
+outputs are archived and later requests continue; provider errors stop the run.
+An interrupted attempt may have an unknown result and cost. New output directories
+are required: there is no overwrite or resume. Repeating requests requires a new
+approved scope. Reports distinguish historical generation measurements from new
+judging costs and latency, retaining coverage and unknown usage explicitly.
+The execution command returns a nonzero status for protocol or provider failures;
+inspect the saved report even when every planned request was attempted.
+
+Verify a saved judge-only run without credentials or API calls:
+
+```text
+uv run --locked python scripts/verify_qa_judge_revision.py --run SAVED_RUN_DIRECTORY
+```
+
+The verifier checks bundle and source bindings, approval, request journals, outcomes
+and summaries without modifying them. These are consistency checks, not proof of
+semantic correctness or provider authenticity. M7d's offline test responses are
+software fixtures; no v2 live reliability or answer-quality improvement is claimed.
 
 ## Provider configuration and measurements
 

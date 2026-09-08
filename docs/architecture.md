@@ -14,7 +14,8 @@ distributed services, and model training are outside the initial scope.
 The flow below describes the implemented pipeline: scanning, AST extraction, chunks,
 SQLite persistence, five retrieval strategies, vector/graph artifacts, evaluation
 and bounded QA. The first live QA/LLM-scoring experiment is archived; M7c adds an
-offline judge-protocol revision without new inference. Human review is an optional
+offline judge-protocol revision and M7d adds judge-only execution, tested without
+new inference. Human review is an optional
 extension. See [acceptance status](status.md).
 
 ## Data flow
@@ -59,6 +60,7 @@ flowchart TD
 | `qa.assessment_plan` / `qa.assessment_execution` | Freeze both stages, shared references and costs; validate approval and journal execution |
 | `qa.judging` / `qa.assessment_reporting` | Validate source-bound LLM judgments; report ordinal dimensions, coverage and separate stage costs |
 | `qa.judgment_schema` | Build v2 per-answer response catalogs and strict schemas from actual claim and evidence IDs |
+| `qa.judge_reporting` | Report new judge-only outcomes and costs separately from preserved generation measurements |
 | `evaluation` | Dataset validation, experiments, metrics, reports |
 
 Keep the CLI thin and library logic independent of the user interface. Shared data
@@ -282,8 +284,19 @@ checking bindings. Duplicate IDs, selected-claim citation support and reference-
 coupling still require host checks. Valid schema output does not establish semantic truth.
 The bundle freezes messages, per-answer schemas, provenance and an offline cost proposal.
 Its archived-output replay changes only the rubric identifier in diagnostic copies;
-v1 results remain immutable. There is no v2 execution command, and the combined
-assessment runner continues to accept only v1. See [M7c evidence](../reports/m7c/README.md).
+v1 results remain immutable. The combined assessment runner continues to accept only
+v1. See [M7c evidence](../reports/m7c/README.md).
+
+M7d's `scripts/run_qa_judge_revision.py` executes a checked M7c bundle only after
+explicit model, plan, budget and execution consent. It copies the frozen bundle,
+reuses source generations verbatim and journals only the new v2 judge calls. All
+source cases remain in the records; ineligible generations are skipped, while
+invalid judge responses remain visible and do not stop subsequent requests.
+Provider errors stop execution. Fresh output paths, no retries and no resume keep
+the approved scope bounded. `scripts/verify_qa_judge_revision.py` checks saved inputs,
+journals, results and recomputed summaries without credentials or model calls.
+Unknown attempted outcomes retain unknown usage and cost. The [M7d checkpoint](../reports/m7d/README.md)
+validates this behavior with test doubles; it measures no new model performance.
 
 `qa/review.py` validates optional human judgments and gates only its own manual
 aggregates on complete submissions. It does not gate project acceptance.

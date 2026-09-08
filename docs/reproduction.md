@@ -265,9 +265,29 @@ An estimate is not execution approval.
 
 Replay only retags the rubric identifier in diagnostic copies of v1 outputs; it does
 not repair them or generate v2 scores. The original archive and provisional labels
-remain unchanged. M7c has no paid execution command. The legacy combined runner remains
-v1; a future judge-only run needs a separate implementation milestone and new explicit
-model, scope and budget approval.
+remain unchanged. M7c preparation is offline and the legacy combined runner remains
+v1. M7d adds a separate execution path for the prepared v2 requests, requiring new
+explicit model, scope and budget approval.
+
+## Execute and verify a judge-only run
+
+Inspect the checked bundle's exact payloads, model, `plan_fingerprint` and estimate.
+Obtain owner approval before executing the [judge-only command](qa.md#judge-only-v2-execution).
+It reuses archived generations; it does not rerun retrieval or generate answers.
+Choose a new run directory. The runner neither resumes nor overwrites earlier runs.
+
+Once a judge-only run exists, verify it offline:
+
+```text
+uv run --locked python scripts/verify_qa_judge_revision.py --run artifacts/qa/m7d-run-001
+```
+
+The verifier needs only the saved run and installed project dependencies, with no
+credentials, source checkout, model weights or network. It checks the copied bundle,
+approval, journals, results and summaries; it neither sends requests nor changes
+recorded results. The [M7d report](../reports/m7d/README.md) records software checks,
+not a completed live rejudging experiment. M7c's archived generated README describes
+its original offline checkpoint; the current execution contract is in the QA guide.
 
 ## Development checks
 

@@ -9,7 +9,7 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M7c — offline judge protocol v2 prepared and checked.**
+**Latest checkpoint: M7d — judge-only execution implemented and tested offline.**
 All five retrievers, evaluation, QA tooling and CPU Docker delivery are implemented.
 The retrieval matrix contains 45 runs on eight snapshots and 170 questions. The
 [live QA experiment](reports/m7b-live/README.md) adds 60 real generations and 60
@@ -18,7 +18,9 @@ protocol. **Labels remain provisional; limited judge coverage prevents a reliabl
 QA-quality ranking.** Model assessments are not human review or true accuracy.
 The [v2 protocol checkpoint](reports/m7c/README.md) adds exact-answer schemas,
 explicit evidence catalogs and offline diagnostics against archived failures.
-It makes no API calls and supplies no new model judgments or quality scores.
+The [judge-only runtime](reports/m7d/README.md) can execute those frozen requests
+after new approval and verify its saved records offline. This checkpoint makes no
+API calls and supplies no new model judgments or quality scores.
 See [acceptance status](docs/status.md) and the
 [LLM evaluation specification](docs/llm-evaluation.md). Human review is optional.
 
@@ -100,6 +102,7 @@ behavior on synthetic data, not real retrieval or answer quality.
 | Prepare QA requests and inspect automatic citation checks | [QA setup and evaluation](docs/qa.md) |
 | Inspect real LLM assessments, failures and costs | [Live QA evidence](reports/m7b-live/README.md), [scoring specification](docs/llm-evaluation.md) |
 | Prepare and verify the revised judge protocol offline | [M7c checkpoint](reports/m7c/README.md), [commands](docs/reproduction.md#prepare-judge-protocol-v2-from-saved-answers) |
+| Reassess saved answers after approval and verify the run offline | [M7d checkpoint](reports/m7d/README.md), [judge-only workflow](docs/qa.md#judge-only-v2-execution) |
 
 Dense retrieval uses optional CPU Sentence Transformers dependencies and a pinned
 `all-MiniLM-L6-v2` model. Explicit source/model preparation may download inputs;
@@ -117,7 +120,8 @@ references, frozen settings and combined estimate offline using the
 [QA workflow](docs/qa.md). Both proposed models and the combined budget require explicit
 owner approval before any additional API calls. Saved results can be verified offline.
 The combined runner remains on rubric v1. M7c prepares v2 requests from saved answers;
-running those requests requires a separate judge-only execution milestone and new approval.
+M7d adds judge-only execution with a fresh model, plan and budget approval. It reuses
+the original answers and makes no generation calls. No v2 live run has been performed.
 
 ## Docker
 

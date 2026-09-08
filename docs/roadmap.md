@@ -38,6 +38,8 @@ authorized calls, with 24 accepted judgments and 36 protocol failures. Raw evide
 coverage and costs are preserved in the [live record](../reports/m7b-live/README.md).
 M7c adds an [offline v2 protocol candidate](../reports/m7c/README.md), dynamic schemas
 for exact saved answers, and replay diagnostics without new model calls.
+M7d adds a [judge-only execution runtime](../reports/m7d/README.md) and read-only
+saved-run verification, tested offline. A real v2 run remains separately approved.
 M8a supplies CPU Docker delivery; M8b supplies the validated results overview and
 reproduction documentation. Current acceptance uses automatic checks and explicitly
 reported LLM assessment; independent human review is optional. See [status](status.md).
@@ -82,6 +84,12 @@ M7 is delivered in checkpoints:
   bundles and diagnose archived failures offline. No API calls or v2 execution path
   are part of this checkpoint. Suggested commit:
   `Add offline v2 judge protocol preparation and replay diagnostics`.
+- **M7d — Judge-only runtime:** execute checked v2 requests over saved generations
+  only after exact model/plan/budget approval. Preserve source cases, journal attempts
+  and results, report new costs separately, and verify saved runs offline. Test
+  approval failures, protocol failures, provider errors and unknown outcomes with
+  offline doubles; make no paid calls in this implementation checkpoint. Suggested
+  commit: `Add approved judge-only execution and saved-run verification`.
 
 See the [M7b implementation record](../reports/m7b/README.md) and
 [offline preparation commands](qa.md#prepare-and-check-the-combined-experiment).
@@ -98,8 +106,10 @@ overview and a dedicated reproduction guide. These checkpoints did not close M7b
 M7b now supplies the first live results and updates the findings and acceptance
 matrix. Its 40% judge acceptance rate prevents a strong QA comparison. M7c completes
 the offline, versioned protocol revision; it does not establish improved live reliability.
-An optional next checkpoint can implement bounded judge-only execution over the saved
-answers, with a fresh exact plan and model/scope/budget approval before any call.
+M7d implements bounded judge-only execution and saved-run verification over the saved
+answers. Its tests make no API calls. An optional next checkpoint can run the checked
+v2 plan after fresh model/scope/budget approval, then report actual coverage, failures
+and costs alongside the preserved v1 results.
 The existing combined runner remains v1. Engineering
 delivery must not be presented as proof that Structure improves answer quality.
 
