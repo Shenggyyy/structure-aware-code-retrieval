@@ -1,6 +1,7 @@
 # Evaluation Protocol
 
-M3 implements this protocol for BM25 with symbol/file evaluation. The first seed
+M3 introduced this protocol; M4 applies it to BM25, dense, hybrid and symbol-aware
+retrieval with the same symbol/file evaluation contract. The first seed
 contains 40 questions and 55 source-checked judgments across Requests and Click.
 Labels are agent-authored, sparse, and marked `provisional`; independent human review
 is still required. The resulting development scores are not final benchmark claims.
@@ -139,6 +140,10 @@ that behavior is covered by automated fixtures.
 TOML config fields are `schema_version=1`, `benchmark`, `strategy="bm25"`,
 `unit="symbol"` or `"file"`, `ks`, `warmup_queries`, `repeats`, `seed`, and an `indexes`
 mapping from every repository ID to its database. Paths resolve beside the config.
+M4 also accepts `strategy="dense"`, `"hybrid"`, or `"symbol"`, which require
+`model_cache` and a `vectors` mapping with exactly the same repository IDs as `indexes`.
+BM25 rejects these unused fields. Encoder and fusion parameters are fixed in code and
+recorded in run metadata; the three new configs freeze the initial comparison.
 
 The runner requires clean pinned-commit provenance and exact selected-source/ignore
 hashes. This corpus check is independent of chunk sizes; the complete index settings
@@ -178,3 +183,27 @@ Source-code and lockfile hashes, Git dirty state, package versions, hardware and
 relevant thread settings are recorded separately. Byte-identical quality fingerprints
 are expected for repeated runs in the same locked environment, not bit-identical
 timing or whole-report files.
+
+## M4 comparison and costs
+
+Dense, hybrid and symbol-aware strategies consider all dense rows (including negative
+cosines) before symbol/file deduplication. Hybrid RRF uses complete BM25/dense chunk
+rankings; symbol-aware adds the field-feature ranking. There is no tuned threshold or
+candidate cap. Dense has no calibrated abstention mechanism, so an unknown query can
+still return results. The same no-answer accounting remains active.
+
+All methods share canonical inputs before the encoder's documented 256-word-piece
+truncation. Raw chunk text and qrel mapping are unchanged. Vector metadata reports
+truncated-document counts, build time, dimensions and array bytes. The model is loaded
+once per experiment; its initialization is timed separately from per-query encoding,
+scoring, fusion and deduplication. Existing vector artifacts are loaded, never rebuilt
+silently during evaluation. BLAS is not used for dense row scoring; CPU encoding uses
+four torch threads and deterministic algorithms. This does not promise bitwise
+agreement across different hardware, platforms or library versions.
+
+`sacr compare --run BASELINE --run OTHER --output NEW_DIRECTORY` validates the
+benchmark digest/status, unit, K values, repository snapshots and query IDs. It writes
+`report.md` and `comparison.json`, including each query's quality delta and win/tie/loss
+counts (absolute tolerance 1e-12). It does not compare unlike evaluation units.
+Latency values are observations from separate runs, not controlled paired timing
+estimates. Read per-run hardware/startup provenance when comparing costs.

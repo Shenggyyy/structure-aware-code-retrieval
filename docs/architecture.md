@@ -11,9 +11,9 @@ repository per query. Read source statically without importing or running it.
 Report syntax errors and unsupported files. Code editing, agent execution loops,
 distributed services, and model training are outside the initial scope.
 
-The flow below is the target design. M3 includes scanning, AST extraction, chunks,
-SQLite persistence, BM25 search, and the evaluation runner. Graph retrieval, dense
-embeddings and QA remain planned.
+The flow below is the target design. M4 includes scanning, AST extraction, chunks,
+SQLite persistence, four retrieval baselines, dense vector artifacts and evaluation.
+Graph retrieval and QA remain planned.
 
 ## Data flow
 
@@ -96,7 +96,7 @@ chunking separately from graph features.
 | Parsing | Standard-library `ast` plus original source text |
 | Metadata/relations | SQLite; no database service |
 | Lexical retrieval | `rank-bm25` with project-controlled tokenization |
-| Embeddings | Sentence Transformers; choose and pin a model in M4 |
+| Embeddings | Optional Sentence Transformers; pinned all-MiniLM-L6-v2 on CPU |
 | Vector search | NumPy exact search; consider ANN only after measurement |
 | Quality | pytest, pytest-cov, Ruff, Windows/Linux GitHub Actions |
 | Delivery | CLI and static reports first; Docker in M8 |
@@ -157,6 +157,29 @@ code/dependency versions, and machine context. Rankings and per-query metrics ar
 retained rather than publishing only aggregate scores. Reports identify provisional
 labels and unjudged candidates. The human-review acceptance item is deliberately
 distinct from successful schema/source-location validation.
+
+## M4 retrieval boundary
+
+`strategies.Retriever` defines `index` and `search(query, top_k=...)`; the original
+`BM25Retriever` satisfies it without loading model dependencies. The factory dispatches
+BM25, exact dense, two-branch RRF hybrid, and three-branch symbol-aware RRF. Each returns
+the same source objects; new strategies add score components for auditability.
+
+`embeddings.py` keeps model setup separate from retrieval. One `SentenceEncoder` is
+reused across repositories in an experiment. Offline chunk encoding writes a compressed
+NPZ array plus JSON metadata, bound to snapshot ID, ordered chunk IDs, canonical text,
+model revision and encoder package versions. Loading forbids pickle arrays and validates
+shape, finite unit vectors and checksum. No vector database or ANN index is introduced.
+
+The experiment runner injects the encoder/vector files into the factory, preserves
+M3's deduplication and label rules, and records model startup plus per-repository vector
+costs. Query encoding and fusion are timed on every repetition; query embeddings are
+not cached. `compare` checks recorded-run compatibility and emits paired per-query
+quality changes. It does not infer statistical significance or relabel candidates.
+
+See [baseline definitions](baselines.md) for constants, truncation and limitations.
+M4's symbol heuristic regresses on several questions; M5 must compare seed choices
+and relation ablations rather than assume this heuristic is the strongest foundation.
 
 ## Storage and references
 

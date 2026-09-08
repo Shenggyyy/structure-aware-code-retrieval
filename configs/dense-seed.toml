@@ -1,0 +1,17 @@
+schema_version = 1
+benchmark = "../benchmarks/seed-v1/benchmark.json"
+strategy = "dense"
+unit = "symbol"
+ks = [1, 5, 10, 20]
+warmup_queries = 2
+repeats = 3
+seed = 0
+model_cache = "../artifacts/models"
+
+[indexes]
+requests = "../artifacts/benchmark/indexes/requests.sqlite"
+click = "../artifacts/benchmark/indexes/click.sqlite"
+
+[vectors]
+requests = "../artifacts/benchmark/vectors/requests.npz"
+click = "../artifacts/benchmark/vectors/click.npz"

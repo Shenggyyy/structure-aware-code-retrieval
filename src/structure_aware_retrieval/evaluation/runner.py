@@ -13,6 +13,7 @@ from functools import partial
 from importlib.metadata import version
 from pathlib import Path
 
+from structure_aware_retrieval.embeddings import SentenceEncoder
 from structure_aware_retrieval.evaluation.config import ExperimentConfig, load_config
 from structure_aware_retrieval.evaluation.dataset import (
     Benchmark,
@@ -28,10 +29,10 @@ from structure_aware_retrieval.evaluation.metrics import (
 from structure_aware_retrieval.evaluation.reporting import write_report
 from structure_aware_retrieval.indexing import _git_provenance, load_index
 from structure_aware_retrieval.models import SearchResult, stable_id
-from structure_aware_retrieval.retrieval import BM25Retriever
+from structure_aware_retrieval.strategies import RRF_K, SYMBOL_WEIGHTS, Retriever, create_retriever
 
 
-def rank_units(retriever: BM25Retriever, hits: list[SearchResult], unit: str) -> list[dict]:
+def rank_units(retriever: Retriever, hits: list[SearchResult], unit: str) -> list[dict]:
     """Deduplicate before truncating so long functions do not consume several ranks."""
     seen = set()
     results = []
@@ -46,6 +47,7 @@ def rank_units(retriever: BM25Retriever, hits: list[SearchResult], unit: str) ->
                 "rank": len(results) + 1,
                 "key": key,
                 "score": hit.score,
+                **({"components": hit.components} if hit.components else {}),
                 "target": asdict(symbol_target(symbol)),
                 "evidence_chunk": {
                     "id": hit.chunk_id,
@@ -66,7 +68,7 @@ def _judgments(benchmark: Benchmark, query_id: str, unit: str) -> dict[str, int]
     return result
 
 
-def retrieve_units(retriever: BM25Retriever, text: str, *, unit: str) -> list[dict]:
+def retrieve_units(retriever: Retriever, text: str, *, unit: str) -> list[dict]:
     depth = max(1, len(retriever.index.chunks))
     return rank_units(retriever, retriever.search(text, top_k=depth), unit)
 
@@ -135,10 +137,18 @@ def run_experiment(config_path: Path, output: Path) -> dict:
     # Validate all inputs before running any query or creating output directories.
     retrievers = {}
     index_records = {}
+    encoder = None
+    model_load_ms = None
+    if config.model_cache is not None:
+        start = time.perf_counter_ns()
+        encoder = SentenceEncoder(config.model_cache)
+        model_load_ms = (time.perf_counter_ns() - start) / 1_000_000
     for repository in benchmark.repositories:
         start = time.perf_counter_ns()
         index = load_index(config.indexes[repository.id])
-        retriever = BM25Retriever(index)
+        retriever = create_retriever(
+            config.strategy, index, encoder=encoder, vectors=config.vectors.get(repository.id)
+        )
         load_ms = (time.perf_counter_ns() - start) / 1_000_000
         validate_index(benchmark, repository, index)
         retrievers[repository.id] = retriever
@@ -154,6 +164,14 @@ def run_experiment(config_path: Path, output: Path) -> dict:
                 config.indexes[repository.id].read_bytes()
             ).hexdigest(),
         }
+        if encoder is not None:
+            from structure_aware_retrieval.embeddings import load_vectors
+
+            _, metadata = load_vectors(config.vectors[repository.id], index, encoder.spec)
+            index_records[repository.id]["vectors"] = metadata
+            index_records[repository.id]["vector_file_bytes"] = (
+                config.vectors[repository.id].stat().st_size
+            )
 
     rows = []
     ranking_records = []
@@ -218,6 +236,10 @@ def run_experiment(config_path: Path, output: Path) -> dict:
         "candidate_policy": "all_matching_chunks_then_unique_units",
         "query_order": schedule,
     }
+    if encoder is not None:
+        effective["encoder"] = encoder.spec
+        effective["rrf_k"] = RRF_K if config.strategy in ("hybrid", "symbol") else None
+        effective["symbol_weights"] = SYMBOL_WEIGHTS if config.strategy == "symbol" else None
     quality = [{key: value for key, value in row.items() if key != "latency_ms"} for row in rows]
     summary = {
         "schema_version": 1,
@@ -245,6 +267,8 @@ def run_experiment(config_path: Path, output: Path) -> dict:
             for category in sorted({row["category"] for row in rows})
         },
     }
+    if encoder is not None:
+        summary["runtime"]["model_load_ms"] = model_load_ms
     output = output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".sacr-run-", dir=output.parent) as temporary:

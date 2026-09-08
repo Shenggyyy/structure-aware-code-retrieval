@@ -1,7 +1,7 @@
 """Portable TOML experiment configuration; paths resolve beside the config file."""
 
 import tomllib
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from structure_aware_retrieval.evaluation.metrics import validate_ks
@@ -18,6 +18,8 @@ class ExperimentConfig:
     warmup_queries: int
     repeats: int
     seed: int
+    model_cache: Path | None = None
+    vectors: dict[str, Path] = field(default_factory=dict)
 
 
 def load_config(path: Path) -> ExperimentConfig:
@@ -36,13 +38,21 @@ def load_config(path: Path) -> ExperimentConfig:
         "seed",
     }
     if (
-        set(data) != fields
+        set(data) - {"model_cache", "vectors"} != fields
         or type(data["schema_version"]) is not int
         or data["schema_version"] != 1
     ):
         raise ValueError("Experiment config must use schema_version=1 and the documented fields")
-    if data["strategy"] != "bm25" or data["unit"] not in ("symbol", "file"):
-        raise ValueError("Supported strategy: bm25; supported units: symbol, file")
+    if data["strategy"] not in ("bm25", "dense", "hybrid", "symbol") or data["unit"] not in (
+        "symbol",
+        "file",
+    ):
+        raise ValueError("Supported strategies: bm25, dense, hybrid, symbol; units: symbol, file")
+    if data["strategy"] == "bm25":
+        if "model_cache" in data or "vectors" in data:
+            raise ValueError("BM25 does not use model_cache or vectors")
+    elif "model_cache" not in data or not isinstance(data.get("vectors"), dict):
+        raise ValueError("Dense strategies require model_cache and vectors")
     for key, minimum in (("warmup_queries", 0), ("repeats", 1), ("seed", 0)):
         if type(data[key]) is not int or data[key] < minimum:
             raise ValueError(f"{key} must be an integer >= {minimum}")
@@ -57,6 +67,8 @@ def load_config(path: Path) -> ExperimentConfig:
 
     if not isinstance(data["indexes"], dict) or not data["indexes"]:
         raise ValueError("indexes must map repository IDs to SQLite paths")
+    if data["strategy"] != "bm25" and set(data["vectors"]) != set(data["indexes"]):
+        raise ValueError("vectors must exactly match the indexes repository IDs")
     return ExperimentConfig(
         path,
         resolve(data["benchmark"]),
@@ -67,4 +79,6 @@ def load_config(path: Path) -> ExperimentConfig:
         data["warmup_queries"],
         data["repeats"],
         data["seed"],
+        resolve(data["model_cache"]) if "model_cache" in data else None,
+        {key: resolve(value) for key, value in data.get("vectors", {}).items()},
     )

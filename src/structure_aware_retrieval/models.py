@@ -2,7 +2,7 @@
 
 import hashlib
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 def stable_id(*parts: object) -> str:
@@ -78,3 +78,4 @@ class SearchResult:
     start_line: int
     end_line: int
     text: str
+    components: dict[str, float] = field(default_factory=dict)

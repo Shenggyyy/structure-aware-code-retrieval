@@ -24,10 +24,11 @@ writing the push command; the owner executes these commands.
 | M7 — QA | Context budget, model adapter, cited answers, reviewed answer-evaluation cases. Compare strategies using a fixed LLM/prompt; assess citation validity separately from support. | `Add repository QA with source citations` |
 | M8 — Delivery | CPU Docker path, final docs, reports or dashboard, clean-environment reproduction. A reader can run indexing, search, QA with configured credentials, and evaluation. | `Package reproducible experiments and project documentation` |
 
-M1 and M2 are complete, with CI reported passing by the owner. M3's evaluation
+M1 and M2 are complete, with M1–M3 CI reported passing by the owner. M3's evaluation
 pipeline and 40-query source-checked seed are implemented; **independent human label
 review remains pending**. The seed and its reports remain provisional until that
-acceptance item is completed. M4–M8 are planned. New remote CI runs after the owner
+acceptance item is completed. M4 adds three retrieval baselines, persistent vectors,
+offline tests and real-model comparisons. M5–M8 are planned. New remote CI runs after the owner
 pushes; local checks cannot establish remote CI status.
 
 ## MVP and final acceptance
@@ -49,7 +50,8 @@ defensible evidence is.
 
 ## Deferred decisions
 
-Choose the embedding model after local memory, inference-time, and quality checks in
-M4. Select formal repositories after license, snapshot, and annotation-feasibility
+M4 uses pinned MiniLM on CPU and records vector size, construction time and quality;
+larger code-specialized encoders and peak-memory profiling remain future experiments.
+Select formal repositories after license, snapshot, and annotation-feasibility
 checks. Introduce ANN only if M6 measurements justify it. Choose the QA provider in
 M7 based on availability, cost, and reproducibility.

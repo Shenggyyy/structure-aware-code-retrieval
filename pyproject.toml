@@ -17,6 +17,17 @@ dependencies = [
 [project.scripts]
 sacr = "structure_aware_retrieval.cli:app"
 
+[project.optional-dependencies]
+dense = ["sentence-transformers>=5.7,<6", "torch>=2.6,<3"]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'win32' or sys_platform == 'linux'" }]
+
 [dependency-groups]
 dev = [
     "pytest>=8.3,<10",

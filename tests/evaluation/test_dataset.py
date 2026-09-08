@@ -82,8 +82,10 @@ def test_config_paths_are_relative_and_unknown_fields_rejected(
 ) -> None:
     monkeypatch.chdir(experiment.parent / "benchmark")
     assert load_config(experiment).indexes["fixture"] == experiment.parent / "index.sqlite"
-    experiment.write_text(experiment.read_text().replace('strategy = "bm25"', 'strategy = "dense"'))
-    with pytest.raises(ValueError, match="Supported strategy"):
+    experiment.write_text(
+        experiment.read_text().replace('strategy = "bm25"', 'strategy = "unknown"')
+    )
+    with pytest.raises(ValueError, match="Supported strategies"):
         load_config(experiment)
 
 

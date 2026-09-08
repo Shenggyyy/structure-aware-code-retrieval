@@ -85,15 +85,30 @@ def search(
         Path, typer.Option("--index", help="Previously created SQLite snapshot.")
     ] = Path("artifacts/index.sqlite"),
     top_k: Annotated[int, typer.Option("--top-k", "-k", min=1)] = 5,
+    strategy: Annotated[str, typer.Option(help="bm25, dense, hybrid, or symbol")] = "bm25",
+    vectors: Annotated[Path | None, typer.Option(help="Snapshot-bound vector archive")] = None,
+    model_cache: Annotated[Path, typer.Option(help="Local pinned model cache")] = Path(
+        "artifacts/models"
+    ),
     json_output: Annotated[
         bool, typer.Option("--json", help="Print full results as JSON.")
     ] = False,
 ) -> None:
-    """Retrieve matching code chunks with BM25 and snapshot source locations."""
-    from structure_aware_retrieval.retrieval import BM25Retriever
+    """Retrieve code chunks using a selected strategy and stored source locations."""
+    from structure_aware_retrieval.embeddings import SentenceEncoder
+    from structure_aware_retrieval.indexing import load_index
+    from structure_aware_retrieval.strategies import STRATEGIES, create_retriever
 
     try:
-        retriever = BM25Retriever.from_path(index)
+        if strategy not in STRATEGIES:
+            raise ValueError(f"Unknown strategy: {strategy}")
+        if strategy != "bm25" and vectors is None:
+            raise ValueError("--vectors is required for dense, hybrid and symbol search")
+        if strategy == "bm25" and vectors is not None:
+            raise ValueError("BM25 does not use --vectors")
+        snapshot = load_index(index)
+        encoder = SentenceEncoder(model_cache) if strategy != "bm25" else None
+        retriever = create_retriever(strategy, snapshot, encoder=encoder, vectors=vectors)
         results = retriever.search(query, top_k=top_k)
     except (OSError, ValueError, sqlite3.Error) as error:
         typer.echo(f"Error: {error}", err=True)
@@ -104,7 +119,9 @@ def search(
                 {
                     "query": query,
                     "snapshot_id": retriever.index.metadata["snapshot_id"],
-                    "strategy": retriever.index.metadata["config"]["bm25"],
+                    "strategy": retriever.index.metadata["config"]["bm25"]
+                    if strategy == "bm25"
+                    else strategy,
                     "results": [asdict(result) for result in results],
                 },
                 ensure_ascii=True,
@@ -168,3 +185,54 @@ def prepare(
         raise typer.Exit(1) from error
     for record in records:
         typer.echo(f"Ready: {record['repository']} -> {record['index']}")
+
+
+@app.command("prepare-model")
+def prepare_model(
+    cache: Annotated[Path, typer.Option(help="Model cache destination")] = Path("artifacts/models"),
+) -> None:
+    """Download and validate the pinned CPU embedding model (network required)."""
+    from structure_aware_retrieval.embeddings import SentenceEncoder
+
+    try:
+        encoder = SentenceEncoder(cache, download=True)
+        typer.echo(json.dumps(encoder.spec, indent=2))
+    except (OSError, ValueError) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+
+
+@app.command("embed")
+def embed(
+    index: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option(help="New .npz vector archive")],
+    model_cache: Annotated[Path, typer.Option()] = Path("artifacts/models"),
+) -> None:
+    """Encode stored chunks offline; refuse existing outputs or stale model caches."""
+    from structure_aware_retrieval.embeddings import SentenceEncoder, build_vectors
+    from structure_aware_retrieval.indexing import load_index
+
+    try:
+        if output.exists() or output.is_symlink():
+            raise FileExistsError(f"Vector output already exists: {output}; choose a new file")
+        metadata = build_vectors(load_index(index), SentenceEncoder(model_cache), output)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(json.dumps(metadata, indent=2))
+
+
+@app.command("compare")
+def compare(
+    runs: Annotated[list[Path], typer.Option("--run", exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option(help="New comparison directory")],
+) -> None:
+    """Compare compatible evaluation runs; the first --run is the baseline."""
+    from structure_aware_retrieval.evaluation.comparison import compare_runs
+
+    try:
+        compare_runs(runs, output)
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"Comparison: {output.resolve() / 'report.md'}")

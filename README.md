@@ -4,11 +4,10 @@ A Python project investigating whether repository structure improves code retrie
 for LLM applications. The planned system compares lexical, dense, hybrid,
 symbol-aware, and structure-aware retrieval, then supplies evidence to repository QA.
 
-**Status: M3 — reproducible retrieval evaluation.** Python indexing and BM25 search
-are available alongside versioned benchmark validation, symbol/file-level metrics,
-timing, and experiment reports. The initial 40-query development set covers Requests
-and Click; its source-checked labels remain **provisional, pending human review**.
-Dense/hybrid/structure-aware retrieval and LLM QA remain planned.
+**Status: M4 — retrieval baseline comparison.** Python indexing, BM25, dense, hybrid,
+and symbol-aware search are available, with reproducible evaluation and comparison
+reports. The 40-query Requests/Click development set remains **provisional, pending
+human review**. Structure-aware graph retrieval and LLM QA remain planned.
 
 ## Quickstart
 
@@ -34,7 +33,7 @@ The equivalent module entry point is:
 uv run --locked python -m structure_aware_retrieval --help
 ```
 
-No API key, model download, GPU, or Docker installation is required for M3. The
+The BM25 quickstart requires no API key, model download, GPU, or Docker. The
 sample fixture is only parsed: it intentionally raises an error if executed.
 
 ## Index and search a repository
@@ -123,6 +122,41 @@ agreement with known labels, not exhaustive real-world relevance. See the
 [dataset card](benchmarks/seed-v1/README.md), [evaluation protocol](docs/evaluation.md),
 and [recorded M3 results](reports/m3/README.md).
 
+## Dense, hybrid and symbol-aware retrieval
+
+Install the optional CPU dependencies and download the pinned model once:
+
+```text
+uv sync --locked --dev --extra dense
+uv run --locked --extra dense sacr prepare-model --cache artifacts/models
+uv run --locked --extra dense sacr prepare-benchmark benchmarks/seed-v1/benchmark.json
+uv run --locked --extra dense sacr embed --index artifacts/benchmark/indexes/requests.sqlite --output artifacts/benchmark/vectors/requests.npz
+uv run --locked --extra dense sacr embed --index artifacts/benchmark/indexes/click.sqlite --output artifacts/benchmark/vectors/click.npz
+uv run --locked --extra dense sacr search "prepare an HTTP request URL" --strategy hybrid --index artifacts/benchmark/indexes/requests.sqlite --vectors artifacts/benchmark/vectors/requests.npz
+```
+
+Supported `--strategy` values are `bm25` (default), `dense`, `hybrid`, and `symbol`.
+Dense strategies use `--model-cache artifacts/models` by default; only `prepare-model`
+allows model downloads. Search, embedding and evaluation use local model files.
+`embed` requires a new output file. After changing a source index or encoder dependencies,
+create new vectors and point search/configs to them; stale caches fail validation.
+
+Run all four strategies on the same symbol-level benchmark, then compare:
+
+```text
+uv run --locked --extra dense sacr evaluate --config configs/bm25-seed.toml --output artifacts/runs/m4-bm25-001
+uv run --locked --extra dense sacr evaluate --config configs/dense-seed.toml --output artifacts/runs/m4-dense-001
+uv run --locked --extra dense sacr evaluate --config configs/hybrid-seed.toml --output artifacts/runs/m4-hybrid-001
+uv run --locked --extra dense sacr evaluate --config configs/symbol-seed.toml --output artifacts/runs/m4-symbol-001
+uv run --locked --extra dense sacr compare --run artifacts/runs/m4-bm25-001 --run artifacts/runs/m4-dense-001 --run artifacts/runs/m4-hybrid-001 --run artifacts/runs/m4-symbol-001 --output artifacts/runs/m4-comparison-001
+```
+
+The first `--run` is the comparison baseline. Different labels, snapshots, units or
+K values are rejected; paired quality differences are saved per query.
+See [M4 results](reports/m4/README.md) and [model/fusion details](docs/baselines.md).
+The compact MiniLM model truncates long chunks to 256 word pieces; this is measured
+in vector metadata. Symbol features are heuristics and can reduce retrieval quality.
+
 ## Development checks
 
 ```text
@@ -145,6 +179,11 @@ run offline after setup; real-source preparation is never part of the test suite
 GitHub Actions runs checks and builds on Windows
 and Linux. Coverage is reported without a percentage gate. A real symlink-creation
 test skips on Windows hosts without that privilege; link filtering also has a unit test.
+CI's base installation does not download torch or model weights. Synthetic encoders
+test cosine ranking, cache invalidation, RRF, symbol features, CLI integration and
+cross-strategy reports offline. Real-model validation is recorded separately in M4.
+Use `uv run --locked --extra dense ...` to retain optional dependencies while developing
+with the model; `uv sync --locked --dev` restores the smaller base environment.
 
 ## Repository layout
 
@@ -157,12 +196,15 @@ src/structure_aware_retrieval/
   indexing.py                 Atomic SQLite persistence
   tokenization.py             Identifier-aware lexical preprocessing
   retrieval.py                BM25 ranking over saved chunks
+  embeddings.py               Pinned CPU encoder and persistent vector artifacts
+  strategies.py               Shared interface, dense, hybrid and symbol retrieval
   evaluation/                 Dataset/config validation, metrics, runner, reports
 tests/                        Unit/integration tests and source fixtures
 docs/                         Design, evaluation plans, smoke validation
 benchmarks/seed-v1/            Pinned corpus manifest, 40 queries, source judgments
 configs/                      Reproducible symbol/file experiment settings
 reports/m3/                   Selected real BM25 runs and their limitations
+reports/m4/                   Four-strategy runs, paired comparison and analysis
 .github/workflows/             Windows/Linux CI
 pyproject.toml                Package metadata and tool configuration
 uv.lock                       Locked application/development dependencies
