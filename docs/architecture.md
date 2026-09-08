@@ -11,9 +11,9 @@ repository per query. Read source statically without importing or running it.
 Report syntax errors and unsupported files. Code editing, agent execution loops,
 distributed services, and model training are outside the initial scope.
 
-The flow below is the target design. M4 includes scanning, AST extraction, chunks,
-SQLite persistence, four retrieval baselines, dense vector artifacts and evaluation.
-Graph retrieval and QA remain planned.
+The flow below is the target design. M5 includes scanning, AST extraction, chunks,
+SQLite persistence, five retrieval strategies, vector/graph artifacts and evaluation.
+The QA and context-budget pipeline remains planned.
 
 ## Data flow
 
@@ -180,6 +180,28 @@ quality changes. It does not infer statistical significance or relabel candidate
 See [baseline definitions](baselines.md) for constants, truncation and limitations.
 M4's symbol heuristic regresses on several questions; M5 must compare seed choices
 and relation ablations rather than assume this heuristic is the strongest foundation.
+
+## M5 graph boundary
+
+`relations.py` reconstructs line-aligned source from persisted chunks and performs a
+second static AST pass. Scope bindings resolve a restricted subset of imports/calls;
+no source is imported or executed. Typed edges and unresolved references are published
+as a separate JSON artifact bound to snapshot, symbols, chunks and resolver version.
+This preserves M2–M4 index/vector compatibility and keeps graph extraction independently
+testable. Test-to-source calls form a disjoint edge category for meaningful ablations.
+
+`structure.py` wraps the shared retriever interface. It takes unique seed symbols,
+examines a bounded prefix of typed adjacency lists in both directions, and boosts
+only the best existing evidence chunk of each selected non-seed neighbor. One-hop
+depth, caps, relation weights and maximum support prevent recursive or unbounded
+propagation. This is a heuristic reranker over full baseline results, not graph-only
+candidate retrieval or a scalability improvement. Each boost records its seed and edge.
+
+The runner adds graph provenance, observed graph work and per-K returned context size.
+Cost accounting is outside the retrieval timer. Context uses one stored evidence
+chunk per returned unit; lexical token counts are not model billing tokens. Optional
+experiment names allow `compare` to distinguish multiple structure configurations.
+See [the resolver, scoring policy and limits](structure.md).
 
 ## Storage and references
 

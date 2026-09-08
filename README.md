@@ -4,10 +4,11 @@ A Python project investigating whether repository structure improves code retrie
 for LLM applications. The planned system compares lexical, dense, hybrid,
 symbol-aware, and structure-aware retrieval, then supplies evidence to repository QA.
 
-**Status: M4 — retrieval baseline comparison.** Python indexing, BM25, dense, hybrid,
-and symbol-aware search are available, with reproducible evaluation and comparison
-reports. The 40-query Requests/Click development set remains **provisional, pending
-human review**. Structure-aware graph retrieval and LLM QA remain planned.
+**Status: M5 — structure-aware retrieval and ablations.** All five retrieval strategies
+are implemented, with snapshot-bound relation graphs, bounded expansion, source traces,
+evaluation and cost reports. The 40-query Requests/Click development set remains
+**provisional, pending human review**. Broader formal experiments, LLM QA and Docker
+delivery remain planned; this is the retrieval MVP's engineering stage.
 
 ## Quickstart
 
@@ -135,7 +136,7 @@ uv run --locked --extra dense sacr embed --index artifacts/benchmark/indexes/cli
 uv run --locked --extra dense sacr search "prepare an HTTP request URL" --strategy hybrid --index artifacts/benchmark/indexes/requests.sqlite --vectors artifacts/benchmark/vectors/requests.npz
 ```
 
-Supported `--strategy` values are `bm25` (default), `dense`, `hybrid`, and `symbol`.
+Baseline `--strategy` values are `bm25` (default), `dense`, `hybrid`, and `symbol`.
 Dense strategies use `--model-cache artifacts/models` by default; only `prepare-model`
 allows model downloads. Search, embedding and evaluation use local model files.
 `embed` requires a new output file. After changing a source index or encoder dependencies,
@@ -156,6 +157,35 @@ K values are rejected; paired quality differences are saved per query.
 See [M4 results](reports/m4/README.md) and [model/fusion details](docs/baselines.md).
 The compact MiniLM model truncates long chunks to 256 word pieces; this is measured
 in vector metadata. Symbol features are heuristics and can reduce retrieval quality.
+
+## Structure-aware retrieval
+
+After the M4 benchmark indexes/model/vectors are prepared, build relation graphs
+from the saved source chunks. Existing M4 artifacts can be reused:
+
+```text
+uv run --locked --extra dense sacr graph --index artifacts/benchmark/indexes/requests.sqlite --output artifacts/benchmark/graphs/requests.json
+uv run --locked --extra dense sacr graph --index artifacts/benchmark/indexes/click.sqlite --output artifacts/benchmark/graphs/click.json
+uv run --locked --extra dense sacr search "rewind a request body during redirects" --strategy structure --index artifacts/benchmark/indexes/requests.sqlite --vectors artifacts/benchmark/vectors/requests.npz --graph artifacts/benchmark/graphs/requests.json --json
+uv run --locked --extra dense sacr evaluate --config configs/structure-full.toml --output artifacts/runs/m5-full-001
+uv run --locked --extra dense python scripts/run_m5.py --output artifacts/runs/m5-suite-001
+```
+
+Graphs and run outputs require new paths. Graph creation uses only saved snapshot
+text, not live source or model weights. `--strategy structure` defaults to Hybrid
+seeds; `--seed-strategy bm25` also works without vectors/model dependencies.
+The suite runs 13 configurations: two seed baselines, full/disabled structure,
+four individual relation types, four leave-one-out variants, and Symbol-aware seeds.
+It creates a comparison with per-query differences and all underlying run artifacts.
+If interrupted, completed individual runs remain inspectable; use a new suite path
+for a complete retry. No graph or vector is silently rebuilt during evaluation.
+
+Relations cover containment, imports, statically located calls and test-to-source
+calls. Uncertain bindings remain unresolved; test links are not runtime coverage.
+Expansion is one hop with explicit edge/neighbor budgets, maximum support rather
+than repeated votes, and source/seed traces in JSON results. It reweights a bounded
+set of symbols within the baseline's full ranking; it does not reduce full-scan cost.
+See [the exact policy](docs/structure.md) and [M5 results](reports/m5/README.md).
 
 ## Development checks
 
@@ -182,6 +212,8 @@ test skips on Windows hosts without that privilege; link filtering also has a un
 CI's base installation does not download torch or model weights. Synthetic encoders
 test cosine ranking, cache invalidation, RRF, symbol features, CLI integration and
 cross-strategy reports offline. Real-model validation is recorded separately in M4.
+M5 adds tests for scope/import ambiguity, shadowing, graph corruption, bounded
+expansion, seed provenance, no-edge equivalence and named ablation comparisons.
 Use `uv run --locked --extra dense ...` to retain optional dependencies while developing
 with the model; `uv sync --locked --dev` restores the smaller base environment.
 
@@ -198,6 +230,8 @@ src/structure_aware_retrieval/
   retrieval.py                BM25 ranking over saved chunks
   embeddings.py               Pinned CPU encoder and persistent vector artifacts
   strategies.py               Shared interface, dense, hybrid and symbol retrieval
+  relations.py                Syntactic relation extraction and graph persistence
+  structure.py                Bounded one-hop support and reranking
   evaluation/                 Dataset/config validation, metrics, runner, reports
 tests/                        Unit/integration tests and source fixtures
 docs/                         Design, evaluation plans, smoke validation
@@ -205,6 +239,8 @@ benchmarks/seed-v1/            Pinned corpus manifest, 40 queries, source judgme
 configs/                      Reproducible symbol/file experiment settings
 reports/m3/                   Selected real BM25 runs and their limitations
 reports/m4/                   Four-strategy runs, paired comparison and analysis
+reports/m5/                   Structure ablations, source traces and context costs
+scripts/run_m5.py             Fixed 13-configuration experiment suite
 .github/workflows/             Windows/Linux CI
 pyproject.toml                Package metadata and tool configuration
 uv.lock                       Locked application/development dependencies

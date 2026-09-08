@@ -85,7 +85,13 @@ def search(
         Path, typer.Option("--index", help="Previously created SQLite snapshot.")
     ] = Path("artifacts/index.sqlite"),
     top_k: Annotated[int, typer.Option("--top-k", "-k", min=1)] = 5,
-    strategy: Annotated[str, typer.Option(help="bm25, dense, hybrid, or symbol")] = "bm25",
+    strategy: Annotated[
+        str, typer.Option(help="bm25, dense, hybrid, symbol, or structure")
+    ] = "bm25",
+    graph: Annotated[Path | None, typer.Option(help="Snapshot-bound relation graph")] = None,
+    seed_strategy: Annotated[
+        str, typer.Option(help="Seed method for structure retrieval")
+    ] = "hybrid",
     vectors: Annotated[Path | None, typer.Option(help="Snapshot-bound vector archive")] = None,
     model_cache: Annotated[Path, typer.Option(help="Local pinned model cache")] = Path(
         "artifacts/models"
@@ -102,13 +108,25 @@ def search(
     try:
         if strategy not in STRATEGIES:
             raise ValueError(f"Unknown strategy: {strategy}")
-        if strategy != "bm25" and vectors is None:
+        if strategy == "structure" and graph is None:
+            raise ValueError("--graph is required for structure search")
+        if strategy != "structure" and graph is not None:
+            raise ValueError("Only structure search uses --graph")
+        base_strategy = seed_strategy if strategy == "structure" else strategy
+        if base_strategy != "bm25" and vectors is None:
             raise ValueError("--vectors is required for dense, hybrid and symbol search")
-        if strategy == "bm25" and vectors is not None:
+        if base_strategy == "bm25" and vectors is not None:
             raise ValueError("BM25 does not use --vectors")
         snapshot = load_index(index)
-        encoder = SentenceEncoder(model_cache) if strategy != "bm25" else None
-        retriever = create_retriever(strategy, snapshot, encoder=encoder, vectors=vectors)
+        encoder = SentenceEncoder(model_cache) if base_strategy != "bm25" else None
+        retriever = create_retriever(
+            strategy,
+            snapshot,
+            encoder=encoder,
+            vectors=vectors,
+            graph=graph,
+            structure={"seed_strategy": seed_strategy},
+        )
         results = retriever.search(query, top_k=top_k)
     except (OSError, ValueError, sqlite3.Error) as error:
         typer.echo(f"Error: {error}", err=True)
@@ -236,3 +254,20 @@ def compare(
         typer.echo(f"Error: {error}", err=True)
         raise typer.Exit(1) from error
     typer.echo(f"Comparison: {output.resolve() / 'report.md'}")
+
+
+@app.command("graph")
+def graph_index(
+    index: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option(help="New relation graph JSON file")],
+) -> None:
+    """Extract typed relations and unresolved references from saved source chunks."""
+    from structure_aware_retrieval.indexing import load_index
+    from structure_aware_retrieval.relations import build_graph
+
+    try:
+        metadata = build_graph(load_index(index), output)
+    except (OSError, ValueError, SyntaxError) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(json.dumps(metadata, indent=2))

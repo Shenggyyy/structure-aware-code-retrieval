@@ -73,5 +73,6 @@ with source access. Sparse, correlated, agent-authored development labels do not
 generalization or significance claims. Do not change labels to make a strategy win.
 
 Use [recorded results and regressions](../reports/m4/README.md) to guide M5 ablations.
-Graph relations, code-specialized model comparisons, ANN and large-scale profiling
-remain future work.
+M5's [graph support and ablations](structure.md) extend these baselines without
+changing their definitions. Code-specialized model comparisons, ANN and large-scale
+profiling remain future work.

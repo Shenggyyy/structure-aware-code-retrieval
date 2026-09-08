@@ -24,11 +24,14 @@ writing the push command; the owner executes these commands.
 | M7 — QA | Context budget, model adapter, cited answers, reviewed answer-evaluation cases. Compare strategies using a fixed LLM/prompt; assess citation validity separately from support. | `Add repository QA with source citations` |
 | M8 — Delivery | CPU Docker path, final docs, reports or dashboard, clean-environment reproduction. A reader can run indexing, search, QA with configured credentials, and evaluation. | `Package reproducible experiments and project documentation` |
 
-M1 and M2 are complete, with M1–M3 CI reported passing by the owner. M3's evaluation
+M1 and M2 are complete, with M1–M4 CI reported passing by the owner. M3's evaluation
 pipeline and 40-query source-checked seed are implemented; **independent human label
 review remains pending**. The seed and its reports remain provisional until that
 acceptance item is completed. M4 adds three retrieval baselines, persistent vectors,
-offline tests and real-model comparisons. M5–M8 are planned. New remote CI runs after the owner
+offline tests and real-model comparisons. M5 adds relation extraction, bounded structure
+reranking, 13 fixed comparison configurations and source/cost traces. M6–M8 remain
+planned, and human label review still gates claims of a reviewed retrieval MVP.
+New remote CI runs after the owner
 pushes; local checks cannot establish remote CI status.
 
 ## MVP and final acceptance

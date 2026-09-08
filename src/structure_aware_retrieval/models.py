@@ -79,3 +79,4 @@ class SearchResult:
     end_line: int
     text: str
     components: dict[str, float] = field(default_factory=dict)
+    provenance: list[dict] = field(default_factory=list)

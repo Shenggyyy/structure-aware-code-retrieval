@@ -34,7 +34,9 @@ def compare_runs(runs: list[Path], output: Path) -> dict:
             {repo: item["snapshot_id"] for repo, item in summary["indexes"].items()},
         )
 
-    strategies = [summary["config"]["strategy"] for summary in summaries]
+    strategies = [
+        summary["config"].get("name", summary["config"]["strategy"]) for summary in summaries
+    ]
     if len(set(strategies)) != len(strategies):
         raise ValueError("Each compared run must have a distinct strategy")
     if any(contract(summary) != contract(summaries[0]) for summary in summaries[1:]):
@@ -52,6 +54,8 @@ def compare_runs(runs: list[Path], output: Path) -> dict:
         result["runs"].append(
             {
                 "strategy": strategy,
+                "retrieval_strategy": summary["config"]["strategy"],
+                "structure": summary["config"].get("structure"),
                 "quality_fingerprint": summary["quality_fingerprint"],
                 "overall": summary["overall"],
             }

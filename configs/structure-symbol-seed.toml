@@ -1,0 +1,31 @@
+schema_version = 1
+benchmark = "../benchmarks/seed-v1/benchmark.json"
+name = "structure-symbol-seed"
+strategy = "structure"
+unit = "symbol"
+ks = [1, 5, 10, 20]
+warmup_queries = 2
+repeats = 3
+seed = 0
+model_cache = "../artifacts/models"
+
+[indexes]
+requests = "../artifacts/benchmark/indexes/requests.sqlite"
+click = "../artifacts/benchmark/indexes/click.sqlite"
+
+[vectors]
+requests = "../artifacts/benchmark/vectors/requests.npz"
+click = "../artifacts/benchmark/vectors/click.npz"
+
+[graphs]
+requests = "../artifacts/benchmark/graphs/requests.json"
+click = "../artifacts/benchmark/graphs/click.json"
+
+[structure]
+seed_strategy = "symbol"
+relations = ["containment", "import", "call", "test"]
+seed_k = 5
+max_neighbors = 8
+max_expanded = 20
+max_edges = 64
+alpha = 0.5

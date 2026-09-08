@@ -13,7 +13,7 @@ from structure_aware_retrieval.models import SearchResult, Symbol
 from structure_aware_retrieval.retrieval import BM25Retriever
 from structure_aware_retrieval.tokenization import tokenize_code
 
-STRATEGIES = ("bm25", "dense", "hybrid", "symbol")
+STRATEGIES = ("bm25", "dense", "hybrid", "symbol", "structure")
 RRF_K = 60
 SYMBOL_WEIGHTS = {"qualified": 4.0, "name": 2.0, "name_tokens": 1.0, "signature": 0.5, "path": 0.5}
 
@@ -169,11 +169,22 @@ def create_retriever(
     *,
     encoder: Encoder | None = None,
     vectors: Path | None = None,
+    graph: Path | None = None,
+    structure: dict | None = None,
 ) -> Retriever:
     if strategy not in STRATEGIES:
         raise ValueError(f"Unknown strategy: {strategy}")
     if strategy == "bm25":
         return BM25Retriever(index)
+    if strategy == "structure":
+        from structure_aware_retrieval.relations import load_graph
+        from structure_aware_retrieval.structure import StructureRetriever, parse_structure
+
+        if graph is None:
+            raise ValueError("Structure retrieval requires a graph file")
+        config = parse_structure(structure or {})
+        base = create_retriever(config.seed_strategy, index, encoder=encoder, vectors=vectors)
+        return StructureRetriever(base, load_graph(graph, index), config)
     if encoder is None or vectors is None:
         raise ValueError("Dense, hybrid and symbol strategies require a model and vector file")
     dense = DenseRetriever(index, encoder, vectors)

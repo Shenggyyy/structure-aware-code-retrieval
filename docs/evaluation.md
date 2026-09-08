@@ -207,3 +207,36 @@ benchmark digest/status, unit, K values, repository snapshots and query IDs. It 
 counts (absolute tolerance 1e-12). It does not compare unlike evaluation units.
 Latency values are observations from separate runs, not controlled paired timing
 estimates. Read per-run hardware/startup provenance when comparing costs.
+
+## M5 relations, ablations and context accounting
+
+`strategy="structure"` requires a `graphs` mapping with the same repository IDs as
+`indexes`. Its optional `[structure]` table defines `seed_strategy` (hybrid, symbol,
+or bm25), `relations`, `seed_k`, `max_neighbors`, `max_expanded`, `max_edges`, and `alpha`.
+Hybrid/symbol seeds require the M4 model/vector fields; BM25 seeds reject unused model
+fields. Optional top-level `name` identifies a run in comparisons without changing
+the strategy. Other strategies reject structure-specific fields.
+
+Freeze the 11 structure configs before examining results. Together with Hybrid and
+Symbol-aware baselines, `scripts/run_m5.py` runs 13 configurations on unchanged labels,
+snapshots and vectors. Disabled relations must reproduce the Hybrid ranking and
+quality fingerprint exactly. Single-type and leave-one-out results are exploratory;
+do not select a test-set winner or rewrite labels after seeing these scores.
+
+Graph hashes, build seconds, archive sizes, edge/confidence counts and unresolved
+reason counts are recorded per repository. These counts measure extractor output,
+not relation precision/recall. Provenance on every boosted evidence chunk records
+the seed ID/rank/chunk, edge ID/type/direction, source path/line/expression, confidence,
+weight and support. Unboosted evidence retains the baseline representation.
+
+Per-query `retrieval_work` records seed count, examined edges, expanded non-seed
+symbols and seeds hitting the edge cap. Graph work is included in retrieval latency.
+Dense seeds still score all chunks; expanded symbols are already present somewhere
+in the full ranking and receive additional support, not new embeddings.
+
+`context_cost` reports per-K UTF-8 bytes, physical source lines and lexical tokens,
+summing one winning evidence chunk per unique returned symbol/file. It neither
+materializes whole functions/files nor applies an LLM context budget. Lexical tokens
+use the existing identifier tokenizer and are explicitly a proxy. Cost fields are
+excluded from the existing quality fingerprint; graph-derived scores/provenance are
+included with ranked evidence. Reporting and context accounting are outside timing.

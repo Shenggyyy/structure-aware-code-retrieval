@@ -52,6 +52,7 @@ def write_report(directory: Path, summary: dict, queries: list[dict], rankings: 
     lines = [
         "# Retrieval Evaluation",
         "",
+        f"Run: `{summary['config'].get('name', summary['config']['strategy'])}`.",
         f"Benchmark: `{summary['benchmark']['id']}` / `{summary['benchmark']['version']}`; "
         f"split: `{summary['benchmark']['split']}`.",
         f"Strategy: `{summary['config']['strategy']}`; "
@@ -94,6 +95,24 @@ def write_report(directory: Path, summary: dict, queries: list[dict], rankings: 
         )
 
     table("Overall", summary["overall"])
+    if "context_cost" in summary["overall"]:
+        lines.extend(
+            [
+                "## Returned context cost",
+                "",
+                "Mean cost of one evidence chunk per returned unit. "
+                "Lexical tokens are a proxy, not LLM tokens.",
+                "",
+                "| K | UTF-8 bytes | Lines | Lexical tokens |",
+                "| --- | --- | --- | --- |",
+            ]
+        )
+        for k, cost in summary["overall"]["context_cost"].items():
+            lines.append(
+                f"| {k} | {cost['utf8_bytes']:.1f} | {cost['lines']:.1f} "
+                f"| {cost['lexical_tokens']:.1f} |"
+            )
+        lines.extend(["", f"Mean retrieval work: `{summary['overall']['retrieval_work']}`.", ""])
     for key, value in summary["by_repository"].items():
         table(f"Repository: {key}", value)
     for key, value in summary["by_category"].items():

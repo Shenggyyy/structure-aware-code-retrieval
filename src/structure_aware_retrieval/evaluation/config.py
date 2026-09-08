@@ -1,5 +1,6 @@
 """Portable TOML experiment configuration; paths resolve beside the config file."""
 
+import re
 import tomllib
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -20,6 +21,9 @@ class ExperimentConfig:
     seed: int
     model_cache: Path | None = None
     vectors: dict[str, Path] = field(default_factory=dict)
+    graphs: dict[str, Path] = field(default_factory=dict)
+    structure: dict = field(default_factory=dict)
+    name: str | None = None
 
 
 def load_config(path: Path) -> ExperimentConfig:
@@ -38,17 +42,35 @@ def load_config(path: Path) -> ExperimentConfig:
         "seed",
     }
     if (
-        set(data) - {"model_cache", "vectors"} != fields
+        set(data) - {"model_cache", "vectors", "graphs", "structure", "name"} != fields
         or type(data["schema_version"]) is not int
         or data["schema_version"] != 1
     ):
         raise ValueError("Experiment config must use schema_version=1 and the documented fields")
-    if data["strategy"] not in ("bm25", "dense", "hybrid", "symbol") or data["unit"] not in (
+    if data["strategy"] not in ("bm25", "dense", "hybrid", "symbol", "structure") or data[
+        "unit"
+    ] not in (
         "symbol",
         "file",
     ):
-        raise ValueError("Supported strategies: bm25, dense, hybrid, symbol; units: symbol, file")
-    if data["strategy"] == "bm25":
+        raise ValueError(
+            "Supported strategies: bm25, dense, hybrid, symbol, structure; units: symbol, file"
+        )
+    seed_strategy = data["strategy"]
+    if seed_strategy == "structure":
+        from structure_aware_retrieval.structure import parse_structure
+
+        seed_strategy = parse_structure(data.get("structure", {})).seed_strategy
+        if not isinstance(data.get("graphs"), dict):
+            raise ValueError("Structure retrieval requires graphs")
+    elif "structure" in data or "graphs" in data:
+        raise ValueError("Only structure retrieval uses graphs or structure settings")
+    if "name" in data and (
+        not isinstance(data["name"], str)
+        or not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_.-]*", data["name"])
+    ):
+        raise ValueError("Experiment name must be an identifier")
+    if seed_strategy == "bm25":
         if "model_cache" in data or "vectors" in data:
             raise ValueError("BM25 does not use model_cache or vectors")
     elif "model_cache" not in data or not isinstance(data.get("vectors"), dict):
@@ -67,8 +89,10 @@ def load_config(path: Path) -> ExperimentConfig:
 
     if not isinstance(data["indexes"], dict) or not data["indexes"]:
         raise ValueError("indexes must map repository IDs to SQLite paths")
-    if data["strategy"] != "bm25" and set(data["vectors"]) != set(data["indexes"]):
+    if seed_strategy != "bm25" and set(data["vectors"]) != set(data["indexes"]):
         raise ValueError("vectors must exactly match the indexes repository IDs")
+    if data["strategy"] == "structure" and set(data["graphs"]) != set(data["indexes"]):
+        raise ValueError("graphs must exactly match the indexes repository IDs")
     return ExperimentConfig(
         path,
         resolve(data["benchmark"]),
@@ -81,4 +105,7 @@ def load_config(path: Path) -> ExperimentConfig:
         data["seed"],
         resolve(data["model_cache"]) if "model_cache" in data else None,
         {key: resolve(value) for key, value in data.get("vectors", {}).items()},
+        {key: resolve(value) for key, value in data.get("graphs", {}).items()},
+        data.get("structure", {}),
+        data.get("name"),
     )

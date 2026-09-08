@@ -30,6 +30,7 @@ from structure_aware_retrieval.evaluation.reporting import write_report
 from structure_aware_retrieval.indexing import _git_provenance, load_index
 from structure_aware_retrieval.models import SearchResult, stable_id
 from structure_aware_retrieval.strategies import RRF_K, SYMBOL_WEIGHTS, Retriever, create_retriever
+from structure_aware_retrieval.tokenization import tokenize_code
 
 
 def rank_units(retriever: Retriever, hits: list[SearchResult], unit: str) -> list[dict]:
@@ -48,6 +49,7 @@ def rank_units(retriever: Retriever, hits: list[SearchResult], unit: str) -> lis
                 "key": key,
                 "score": hit.score,
                 **({"components": hit.components} if hit.components else {}),
+                **({"provenance": hit.provenance} if hit.provenance else {}),
                 "target": asdict(symbol_target(symbol)),
                 "evidence_chunk": {
                     "id": hit.chunk_id,
@@ -96,6 +98,17 @@ def _aggregate(queries: list[dict], ks: tuple[int, ...]) -> dict:
         ),
         "metrics": metrics,
         "latency_ms": {"p50": percentile(samples, 0.5), "p95": percentile(samples, 0.95)},
+        "context_cost": {
+            k: {
+                name: statistics.mean(row["context_cost"][k][name] for row in queries)
+                for name in ("utf8_bytes", "lines", "lexical_tokens")
+            }
+            for k in ks
+        },
+        "retrieval_work": {
+            name: statistics.mean(row.get("retrieval_work", {}).get(name, 0) for row in queries)
+            for name in ("seed_symbols", "edges_examined", "expanded_symbols", "edge_cap_seeds")
+        },
     }
 
 
@@ -147,7 +160,12 @@ def run_experiment(config_path: Path, output: Path) -> dict:
         start = time.perf_counter_ns()
         index = load_index(config.indexes[repository.id])
         retriever = create_retriever(
-            config.strategy, index, encoder=encoder, vectors=config.vectors.get(repository.id)
+            config.strategy,
+            index,
+            encoder=encoder,
+            vectors=config.vectors.get(repository.id),
+            graph=config.graphs.get(repository.id),
+            structure=config.structure,
         )
         load_ms = (time.perf_counter_ns() - start) / 1_000_000
         validate_index(benchmark, repository, index)
@@ -172,12 +190,25 @@ def run_experiment(config_path: Path, output: Path) -> dict:
             index_records[repository.id]["vector_file_bytes"] = (
                 config.vectors[repository.id].stat().st_size
             )
+        if config.strategy == "structure":
+            index_records[repository.id]["graph"] = retriever.graph_metadata
+            index_records[repository.id]["graph_file_bytes"] = (
+                config.graphs[repository.id].stat().st_size
+            )
 
     rows = []
     ranking_records = []
     schedule = []
     for repository in benchmark.repositories:
         retriever = retrievers[repository.id]
+        chunk_costs = {
+            chunk.id: {
+                "utf8_bytes": len(chunk.text.encode("utf-8")),
+                "lines": chunk.end_line - chunk.start_line + 1,
+                "lexical_tokens": len(tokenize_code(chunk.text)),
+            }
+            for chunk in retriever.index.chunks
+        }
         queries = [query for query in benchmark.queries if query.repository == repository.id]
         random.Random(config.seed).shuffle(queries)
         retrieve = partial(retrieve_units, retriever, unit=config.unit)
@@ -209,6 +240,17 @@ def run_experiment(config_path: Path, output: Path) -> dict:
                     "known_relevant": sum(grade > 0 for grade in grades.values()),
                     "returned_units": len(ranking),
                     "metrics": metrics,
+                    "context_cost": {
+                        k: {
+                            name: sum(
+                                chunk_costs[hit["evidence_chunk"]["id"]][name]
+                                for hit in ranking[:k]
+                            )
+                            for name in ("utf8_bytes", "lines", "lexical_tokens")
+                        }
+                        for k in config.ks
+                    },
+                    "retrieval_work": dict(getattr(retriever, "last_stats", {})),
                     "latency_ms": {
                         "samples": samples,
                         "p50": percentile(samples, 0.5),
@@ -240,7 +282,24 @@ def run_experiment(config_path: Path, output: Path) -> dict:
         effective["encoder"] = encoder.spec
         effective["rrf_k"] = RRF_K if config.strategy in ("hybrid", "symbol") else None
         effective["symbol_weights"] = SYMBOL_WEIGHTS if config.strategy == "symbol" else None
-    quality = [{key: value for key, value in row.items() if key != "latency_ms"} for row in rows]
+    if config.name is not None:
+        effective["name"] = config.name
+    if config.strategy == "structure":
+        from structure_aware_retrieval.structure import parse_structure
+
+        effective["structure"] = parse_structure(config.structure).describe()
+        effective["rrf_k"] = RRF_K if effective["structure"]["seed_strategy"] != "bm25" else None
+        effective["symbol_weights"] = (
+            SYMBOL_WEIGHTS if effective["structure"]["seed_strategy"] == "symbol" else None
+        )
+    quality = [
+        {
+            key: value
+            for key, value in row.items()
+            if key not in {"latency_ms", "context_cost", "retrieval_work"}
+        }
+        for row in rows
+    ]
     summary = {
         "schema_version": 1,
         "created_at": datetime.now(UTC).isoformat(),
