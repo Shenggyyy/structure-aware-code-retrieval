@@ -6,9 +6,10 @@ ablations, source traces, and computational costs reproducible. **The frozen ful
 structure heuristic did not improve aggregate retrieval quality over Hybrid on the
 expanded test candidates.** Reporting this failure is part of the experiment.
 
-All relevance labels and quality results remain **provisional**: independent human
-review is pending. No live LLM answer experiment has been run. Retrieval scores do
-not establish answer correctness or citation support.
+All relevance labels and quality results remain **provisional**. Human review is
+optional, and no human-reviewed labels are claimed. No live LLM answer or judge
+experiment has been run. Retrieval scores and automatic source checks do not
+establish answer correctness, completeness or semantic citation support.
 
 ## Evaluation scope
 
@@ -102,5 +103,9 @@ recorded measurements, outside the quality fingerprints.
 
 See the [complete experiment analysis](reports/m6c/README.md),
 [reproduction guide](docs/reproduction.md), and [acceptance status](docs/status.md).
-Remaining research acceptance includes independent relevance review, reruns against
-reviewed labels, and the deferred live QA comparison with answer/citation review.
+Remaining acceptance is the authorized live QA comparison and LLM-assisted assessment
+of correctness, completeness and citation support, with recorded usage, failures,
+latency and combined generation/judging costs. The judge is planned for M7b and has
+no current scores. Model judgments will be reported as model judgments, not human
+ground truth. Optional manual review is not a completion prerequisite; the current
+sparse-label retrieval results retain their stated limitations.

@@ -7,6 +7,7 @@ import pytest
 
 from structure_aware_retrieval.indexing import LoadedIndex, build_index, load_index
 from structure_aware_retrieval.models import Chunk, SearchResult, Symbol, stable_id
+from structure_aware_retrieval.qa.citations import audit_evidence
 from structure_aware_retrieval.qa.context import pack_context
 from structure_aware_retrieval.retrieval import BM25Retriever
 
@@ -69,6 +70,20 @@ def test_unicode_separator_is_not_a_physical_source_line():
     result = pack_context(index, hits)
     assert result["evidence"][0]["end_line"] == 2
     assert result["evidence"][0]["text"] == hits[0].text
+
+
+def test_canonical_posix_filename_with_colon_is_preserved():
+    index, hits = make_index(("valid", "pkg/a:b.py", 1, "return 1\n"))
+    context = pack_context(index, hits)
+    assert context["evidence"][0]["path"] == "pkg/a:b.py"
+    assert audit_evidence(context["evidence"])["paths_valid"] is True
+
+
+@pytest.mark.parametrize("path", ["C:/absolute.py", "C:relative.py"])
+def test_windows_drive_paths_cannot_be_canonical_repository_targets(path):
+    index, hits = make_index(("invalid", path, 1, "return 1\n"))
+    with pytest.raises(ValueError, match="source path"):
+        pack_context(index, hits)
 
 
 def test_unfittable_first_line_does_not_prevent_lower_ranked_evidence():

@@ -1,14 +1,20 @@
-# Benchmark Review and Paired Analysis
+# Optional Benchmark Review and Paired Analysis
 
 ## Scope
+
+Manual review is an optional extension, not a project completion requirement. The
+current evaluation route combines reproducible retrieval/source checks with the
+planned [LLM-assisted QA assessment](llm-evaluation.md). It leaves existing relevance
+labels provisional and does not claim human-reviewed ground truth.
 
 M6a adds an audit workflow before broader formal experiments. It uses the existing
 40-query development set, not a new held-out benchmark. None of its commands change
 qrels, tune retrieval parameters, verify a person's identity, or declare labels human
 reviewed. M6b supplies wider **provisional** data and a
 [source-review workflow before retrieval](benchmarks.md). M6c records the fixed
-expanded experiment matrix and scale measurements; independent review, adjudication,
-versioned reviewed labels and experiments using those labels remain outstanding.
+expanded experiment matrix and scale measurements. The procedures below remain
+available if maintainers choose to collect manual labels; their pending status does
+not block the automatic-evaluation route.
 
 ## Reproduce the audit
 
@@ -52,7 +58,7 @@ they are not automatically graded zero. Every target is checked against its snap
    and rationale. Answerability concerns the repository, not just the retrieved pool.
    Inspect wider source before declaring no answer. Record missing targets and unclear
    questions for a revised pool; do not force an incomplete pool to pass validation.
-4. Ask an independent reviewer to resolve uncertain/conflicting cases. Preserve each
+4. If collecting multiple reviews, resolve uncertain/conflicting cases explicitly. Preserve each
    submission in a separate output directory. This tool validates a submission; it
    does not implement reviewer consensus, inter-rater agreement or identity checks.
 5. Validate the edited files:
@@ -106,7 +112,7 @@ keys when checking legacy fingerprints. Comparison JSON records both the current
 analysis code hash (normalized newlines) and the original retrieval runtime metadata.
 Timing remains an observation from the original runs, not newly paired timing.
 
-## Publish new labels without rewriting history
+## Optional new labels without rewriting history
 
 Keep `seed-v1` and M3–M5 reports unchanged. Once review and adjudication are actually
 finished, publish new benchmark and pool versions with the decision records and

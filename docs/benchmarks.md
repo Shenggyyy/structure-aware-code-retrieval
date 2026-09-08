@@ -7,16 +7,18 @@ and annotation-provenance digests. The primary planned quality measures are Reca
 and NDCG@10; Precision, MRR, other K values and cost measurements remain secondary.
 These choices preserve the M5 tradeoff instead of choosing a new winning metric.
 
-| Role | Source | Repositories | Queries | Independent review |
+| Role | Source | Repositories | Queries | Label status |
 | --- | --- | --- | --- | --- |
-| Development | Existing Requests/Click seed | 2 | 40 | Pending |
-| Test candidate | Flask, Rich, NetworkX, Packaging, TOMLKit | 5 | 120 | Pending |
-| Public adaptation | RepoQA Marshmallow | 1 | 10 | Pending |
+| Development | Existing Requests/Click seed | 2 | 40 | Provisional |
+| Test candidate | Flask, Rich, NetworkX, Packaging, TOMLKit | 5 | 120 | Provisional |
+| Public adaptation | RepoQA Marshmallow | 1 | 10 | Provisional |
 
 The original-question benchmark totals 160 queries across seven repositories. The
 public adaptation adds ten separate queries, bringing the suite to 170 on eight.
-The roadmap target is **reviewed** questions; this draft meets the intended breadth
-but does not satisfy the independent-review acceptance criterion.
+The suite meets the intended breadth. Automatic checks bind targets to exact source
+identities, paths and ranges; they do not prove semantic relevance or exhaustive
+labels. Human review is optional. Completion follows the transparent automatic and
+LLM-assisted evaluation route in [current acceptance](status.md).
 
 Repository URL disjointness and normalized exact-text uniqueness are enforced by
 `sacr audit-suite`. This prevents accidental split overlap and renamed repository
@@ -60,7 +62,10 @@ benchmark and indexes. Auditing and `pool-labels` do not execute those experimen
 Actual test/public retrieval is deferred during M6b to avoid using the new scores
 to revise questions or strategy parameters.
 
-## Review and publish
+## Optional manual review and new label versions
+
+The following tools are available for future label improvement; using them is not
+a requirement for completing this project.
 
 Open the generated `test-review/review.md` and `public-review/review.md`. They provide
 source pages and editable judgment/query templates following [the review protocol](review.md).
@@ -89,7 +94,6 @@ limits. Report the public adaptation separately. Report failures, sparse-label c
 context/token proxies, build/storage/peak-memory costs and hardware-dependent timing.
 
 Source validation, corpus-size counts and reproducible question files are M6b's
-engineering deliverables. They are not new quality measurements, semantic approval,
-or completion of M6's formal-experiment acceptance criteria.
+engineering deliverables. They are not new quality measurements or semantic approval.
 After M6c scoring, these test questions are exposed. Preserve this fact when reporting
 results and select a fresh untouched test version before further parameter tuning.

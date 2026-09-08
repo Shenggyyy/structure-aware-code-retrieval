@@ -6,6 +6,7 @@ import json
 
 from structure_aware_retrieval.indexing import LoadedIndex
 from structure_aware_retrieval.models import Chunk, SearchResult, Symbol, stable_id
+from structure_aware_retrieval.qa.citations import validate_source_target
 
 CONTEXT_VERSION = 1
 MAX_CONTEXT_BYTES = 1_000_000
@@ -17,6 +18,14 @@ def _serialize(value: object) -> str:
 
 
 def _validate_chunk(chunk: Chunk, symbol: Symbol, snapshot_id: str) -> list[str]:
+    validate_source_target(
+        {
+            "path": chunk.path,
+            "qualified_name": symbol.qualified_name,
+            "start_line": chunk.start_line,
+            "end_line": chunk.end_line,
+        }
+    )
     if chunk.id != stable_id(snapshot_id, chunk.symbol_id, chunk.start_line, chunk.end_line):
         raise ValueError("Chunk does not belong to the index snapshot")
     if (

@@ -9,12 +9,15 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Current checkpoint: M8b — results and documentation consolidation.** All five
+**Latest checkpoint: M7a — offline QA checks and evaluation specification complete.** All five
 retrievers, evaluation, QA tooling and CPU Docker delivery are implemented. The saved
 experiment matrix contains 45 runs on eight snapshots and 170 questions. **Relevance
-labels remain provisional; independent review and real LLM QA experiments are pending.**
-See [acceptance status](docs/status.md) for the distinction between working software
-and completed research evidence.
+labels remain provisional; real LLM QA and LLM-assisted answer evaluation are pending.**
+Completion uses reproducible automatic checks and explicitly reported LLM assessment;
+human review is optional. See [acceptance status](docs/status.md) and the
+[LLM evaluation specification](docs/llm-evaluation.md) for the remaining work.
+The [offline validation record](reports/m7a-offline/README.md) covers sixty prepared
+requests, separate check/assessment fields and the current regression results.
 
 ## What the experiments show
 
@@ -83,8 +86,9 @@ behavior on synthetic data, not real retrieval or answer quality.
 | Understand typed edges, expansion and ablations | [Structure retrieval](docs/structure.md) |
 | Rebuild the eight-repository, 45-run experiment | [Frozen matrix and measurement protocol](docs/experiments.md#reproduction) |
 | Understand labels, splits, metrics and attribution | [Benchmarks](docs/benchmarks.md), [evaluation](docs/evaluation.md) |
-| Review relevance labels and adjudicate conflicts | [Independent review workflow](docs/review.md) |
-| Prepare QA requests, run a model and review answers | [QA setup and evaluation](docs/qa.md) |
+| Inspect optional manual relevance-review tools | [Review workflow](docs/review.md) |
+| Prepare QA requests and inspect automatic citation checks | [QA setup and evaluation](docs/qa.md) |
+| Understand planned LLM correctness, completeness and citation-support scoring | [LLM evaluation specification](docs/llm-evaluation.md) |
 
 Dense retrieval uses optional CPU Sentence Transformers dependencies and a pinned
 `all-MiniLM-L6-v2` model. Explicit source/model preparation may download inputs;
@@ -97,6 +101,8 @@ requires supplied source IDs for answer claims. Generating answers requires expl
 `--execute`, a model and local `OPENAI_API_KEY`; see the QA guide before execution.
 The prepared 12-case, five-strategy experiment has no live provider results yet.
 Valid citation identifiers alone do not establish correctness or source support.
+M7b will add live LLM-assisted assessment. Before API calls, freeze the generation
+and judge models and estimate their combined cost for explicit owner approval.
 
 ## Docker
 

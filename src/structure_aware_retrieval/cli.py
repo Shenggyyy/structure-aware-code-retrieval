@@ -105,8 +105,11 @@ def prepare_qa(
         typer.echo(f"Error: {error}", err=True)
         raise typer.Exit(1) from error
     typer.echo(f"Prepared {plan['request_count']} requests; no API calls made.")
-    typer.echo(f"Cost projection: ${plan['estimated_cost_usd']:.4f} USD (not a billing guarantee)")
-    typer.echo(f"Review: {output.resolve() / 'README.md'}")
+    typer.echo(
+        f"Generation-only cost projection: ${plan['estimated_cost_usd']:.4f} USD "
+        "(LLM judging excluded; not a billing guarantee)"
+    )
+    typer.echo(f"Prepared bundle: {output.resolve() / 'README.md'}")
 
 
 @app.command("run-qa")

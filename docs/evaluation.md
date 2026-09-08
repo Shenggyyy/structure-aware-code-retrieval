@@ -3,8 +3,9 @@
 M3 introduced this protocol; M4 applies it to BM25, dense, hybrid and symbol-aware
 retrieval with the same symbol/file evaluation contract. The first seed
 contains 40 questions and 55 source-checked judgments across Requests and Click.
-Labels are agent-authored, sparse, and marked `provisional`; independent human review
-is still required. The resulting development scores are not final benchmark claims.
+Labels are agent-authored, sparse, and marked `provisional`. Human review is optional.
+Automatic validation and future LLM assessment have separate reporting contracts;
+neither establishes human-reviewed labels or a verified true correctness rate.
 
 The M2 baseline uses BM25Plus with `k1=1.5`, `b=0.75`, and `delta=0`, as recorded in
 index metadata. Freeze this explicit variant before comparing later strategies.
@@ -15,7 +16,7 @@ index metadata. Freeze this explicit variant before comparing later strategies.
 imports, nested definitions, long functions, syntax errors, and empty results. They
 validate implementation, not real-world retrieval quality.
 
-**Reviewed benchmark:** start with approximately 40–60 questions across two fixed
+**Source-bound benchmark:** start with approximately 40–60 questions across two fixed
 Python snapshots; later target 150–250 across 5–8 repositories. Include symbol lookup,
 behavioral search, cross-file flows, test discovery, and multi-evidence questions.
 
@@ -37,10 +38,11 @@ preprocessing, and adaptations; do not equate subset scores with full-benchmark 
 
 ## Annotation and splits
 
-Verify relevance against source; model-generated labels require human review. Pool
-candidates from all strategies and supplement with independent source inspection.
-Record unjudged candidates and judgment coverage. With incomplete labels, recall is
-against known relevant items, not guaranteed true recall.
+Validate target identities, paths and ranges against pinned source. Preserve model-
+or agent-authored label provenance and provisional status; existence checks do not
+prove semantic relevance. Optional manual pooling and source inspection can improve
+future label versions. Record unjudged candidates and judgment coverage. With
+incomplete labels, recall is against known relevant items, not guaranteed true recall.
 
 Tune on development data. Prefer repository-disjoint development and held-out test
 sets; the small MVP benchmark supports exploratory conclusions. Freeze test labels
@@ -245,7 +247,7 @@ use the existing identifier tokenizer and are explicitly a proxy. Cost fields ar
 excluded from the existing quality fingerprint; graph-derived scores/provenance are
 included with ranked evidence. Reporting and context accounting are outside timing.
 
-## M6a audit and label review
+## M6a audit and optional label review
 
 `scripts/run_m6a.py` reuses committed BM25/Dense M4 runs and Hybrid/Symbol/Structure M5
 runs, retaining their recorded timing/provenance. It unions their top-10 symbols with
@@ -256,8 +258,9 @@ decision templates; committed M6a artifacts retain metadata and the pending stat
 
 Review checks enforce complete identities and rationales, frozen pool evidence,
 query clarity, and agreement between answerability and positive reviewed targets.
-These are structural checks, not proof of independent human review. New labels need
-adjudication, a new benchmark version and reruns of every strategy. M6b/M6c retain
+These are structural checks, not proof of independent human review. If collecting
+manual labels, resolve disputed decisions before publishing a new version and rerun
+every strategy. Human review is not a completion requirement. M6b/M6c retain
 the planned wider/public datasets, held-out protocol and scale measurements.
 
 ## M6b source-checked draft suite
@@ -266,7 +269,7 @@ The explicit suite manifest now separates the existing 40-query development seed
 120 test-candidate questions on Flask/Rich/NetworkX/Packaging/TOMLKit and ten public
 RepoQA Marshmallow descriptions adapted to symbol retrieval. All three manifests
 remain provisional. Primary planned measures are Recall@10 and NDCG@10. M6b deferred
-test execution; M6c adds provisional scores while review remains outstanding.
+test execution; M6c adds provisional scores without claiming human review.
 Exact suite membership is frozen by data
 and provenance digests, not by a mutable directory name.
 
@@ -275,7 +278,8 @@ uniqueness, source snapshots, qrel targets, intended split roles and primary-K s
 It does not score any question. `pool-labels` provides a source review bundle from
 existing qrels without loading predictions. This keeps initial test-label review
 separate from retrieval outcome inspection. Neither operation establishes completeness
-of relevance labels; later pooled judgments need independent review and new versions.
+of relevance labels; any later judgment changes require new versions and explicit
+annotation provenance.
 
 The public adapter retains descriptions, checks archive/file hashes and exact AST
 byte/line bounds, and includes decorators in target ranges. Full source including
@@ -299,12 +303,21 @@ sample uncertainty limits. See [the matrix, reproduction and measurement protoco
 
 QA uses a separate twelve-case provisional development dataset and the same frozen
 model/prompt/context policy across five strategies. Retrieval labels and draft
-reference points are reviewer material, never model input. Frozen request plans are
-offline preparation artifacts, not generated-answer results.
+reference points are evaluation material, never input to the answering model or
+retrieval. Frozen request plans are offline preparation artifacts, not generated-
+answer results. M7a strengthens automatic citation checks and freezes the
+[LLM evaluation specification](llm-evaluation.md); M7b judge execution is not implemented.
 
-Source citation identity is automatically checked against packed snapshot evidence.
-Factual answer correctness and semantic citation support require separate manual
-judgments; both remain unknown before review. Report generation errors, abstentions,
-not-run cases and missing token usage explicitly. An abstention control probes missing
-deployment information; it does not measure all forms of answerability or hallucination.
-See [QA reproduction and review](qa.md) for cost, timing and review denominators.
+Automatic checks establish source citation identity, paths and ranges against packed
+snapshot evidence. M7b will separately assess correctness, completeness and semantic
+citation support using a frozen LLM evaluator. These semantic scores remain unknown
+until an authorized real experiment; future outputs are model assessments, not human
+ground truth. Report generation/judge errors, abstentions, not-run cases and missing
+usage explicitly. An abstention control probes missing deployment information; it
+does not measure every form of answerability or hallucination.
+
+Before live calls, freeze generation and judge models, prompts, request limits and
+reporting denominators, estimate their combined costs, and obtain explicit owner
+approval. Existing generation-only estimates do not authorize judging spend. See
+[QA reproduction](qa.md) and the [scoring specification](llm-evaluation.md). Existing
+manual-answer review remains optional and separate from this acceptance route.

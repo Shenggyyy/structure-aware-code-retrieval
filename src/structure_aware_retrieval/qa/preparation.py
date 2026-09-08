@@ -286,6 +286,8 @@ def prepare_experiment(config_path: Path, output: Path) -> dict:
         "runtime": _runtime(next(iter(configs.values()))),
         "pricing": pricing,
         "cost_estimation": {
+            "scope": "answer_generation_only",
+            "includes_llm_judging": False,
             "method": "one token per UTF-8 content/schema byte plus framing allowance",
             "framing_allowance_tokens_per_request": FRAMING_ALLOWANCE,
             "estimated_input_tokens": estimated_input,
@@ -326,11 +328,14 @@ def prepare_experiment(config_path: Path, output: Path) -> dict:
             "No model was called. No answers or QA quality scores exist.\n\n"
             f"{len(rows)} cases/strategies; at most {len(candidates)} API calls. "
             f"Proposed model: `{plan['model']}`. "
-            f"Conservative cost projection: ${plan['estimated_cost_usd']:.4f} USD; "
+            f"Generation-only cost projection: ${plan['estimated_cost_usd']:.4f} USD; "
             "this is not a billing guarantee.\n\n"
             "Inspect requests.jsonl for exact messages and previews/ for source evidence. "
-            "cases.json contains separate provisional reviewer references, never model input. "
-            "Context budgets count UTF-8 bytes, not model tokens. Timing is one preparation pass, "
+            "cases.json contains separate provisional references, never answering-model input. "
+            "LLM judging is not included; M7b needs a combined generation/judging estimate "
+            "and explicit model/budget approval. Context budgets count UTF-8 bytes, "
+            "not model tokens. "
+            "Timing is one preparation pass, "
             "not a latency benchmark. Execution requires explicit budget "
             "and environment credentials.\n",
             encoding="utf-8",

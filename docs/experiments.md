@@ -16,9 +16,10 @@ The same repository is selected for each query across all strategies.
 
 All current labels remain provisional. By default the script refuses these labels;
 `--allow-provisional` explicitly permits draft experiments and records that choice.
-This flag does not replace independent review or make the suite's reviewed-label
-acceptance complete. Once outcomes are visible, the test candidate set must be
-described as exposed; future tuning requires another untouched test version.
+This flag does not establish semantic label correctness or human review. Manual
+review is optional; preserve the explicit provisional status. Once outcomes are
+visible, describe the test candidate set as exposed; future tuning requires another
+untouched test version.
 
 ## Reproduction
 
@@ -102,11 +103,15 @@ profiles also retain float32 payload size and pre-truncation document counts.
 Lexical context tokens remain a proxy, not LLM billing tokens. No answer correctness,
 API token usage or end-to-end QA latency is measured until M7.
 
-## Review after retrieval
+## Optional manual review after retrieval
+
+Human review is not an acceptance prerequisite. The current completion route uses
+automatic retrieval/source checks and future [LLM-assisted QA assessment](llm-evaluation.md),
+with the two kinds of evidence reported separately.
 
 Keep the M6b source-first reviews separate from later outcome-informed pooling. To
 create a broader blinded pool, pass all fixed run directories for one role to
-`sacr pool`; never combine public and original-question labels. Reviewers must check
+`sacr pool`; never combine public and original-question labels. When collecting reviews, check
 missing alternatives, misleading questions and sparse positives. Preserve submissions,
 adjudicate disagreements, publish a new label version and rerun every strategy.
 Neither this experiment script nor CI supplies independent human judgments.

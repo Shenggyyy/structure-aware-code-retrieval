@@ -234,6 +234,8 @@ def test_prepare_is_offline_and_keeps_gold_out_of_messages(
     assert plan["request_digest"] == stable_id(rows)
     assert plan["cases_digest"] == stable_id(cases)
     assert plan["estimated_cost_usd"] > 0
+    assert plan["cost_estimation"]["scope"] == "answer_generation_only"
+    assert plan["cost_estimation"]["includes_llm_judging"] is False
     assert plan["cost_estimation"]["billing_guarantee"] is False
     assert plan["cost_estimation"]["maximum_output_tokens"] == (
         plan["maximum_api_calls"] * plan["max_output_tokens"]

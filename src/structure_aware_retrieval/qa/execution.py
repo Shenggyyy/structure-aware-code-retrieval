@@ -1,13 +1,11 @@
 """Explicit, budget-checked QA execution with durable records and pending review."""
 
-import hashlib
-import io
 import json
 import math
 import os
 import re
 from collections import Counter
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 
 from structure_aware_retrieval.models import stable_id
 from structure_aware_retrieval.qa.answering import (
@@ -16,6 +14,8 @@ from structure_aware_retrieval.qa.answering import (
     complete_question,
     render_answer,
 )
+from structure_aware_retrieval.qa.citations import audit_evidence
+from structure_aware_retrieval.qa.citations import validate_source_target as _source_target
 from structure_aware_retrieval.qa.context import CONTEXT_VERSION, SELECTION_POLICY
 from structure_aware_retrieval.qa.provider import ANSWER_SCHEMA, AnswerModel, OpenAIModel
 
@@ -66,24 +66,6 @@ def _string(value):
 
 def _hash(value):
     return isinstance(value, str) and bool(re.fullmatch(r"[a-f0-9]{64}", value))
-
-
-def _source_target(target):
-    if not isinstance(target, dict):
-        raise ValueError("Invalid source target in QA bundle")
-    path = target.get("path")
-    if (
-        not _string(path)
-        or "\\" in path
-        or PurePosixPath(path).is_absolute()
-        or ".." in PurePosixPath(path).parts
-        or not _string(target.get("qualified_name"))
-        or type(target.get("start_line")) is not int
-        or target["start_line"] < 1
-        or type(target.get("end_line")) is not int
-        or target["end_line"] < target["start_line"]
-    ):
-        raise ValueError("Invalid source path, symbol, or line range in QA bundle")
 
 
 def _cases(raw: object) -> dict:
@@ -186,31 +168,8 @@ def _validate_prepared(prepared: object, case: dict) -> None:
     ):
         raise ValueError("Prepared context configuration or fingerprint is invalid")
     source_fields = ("id", "path", "qualified_name", "start_line", "end_line", "text")
-    sources, symbols, ranges = [], set(), {}
-    for ordinal, source in enumerate(evidence, 1):
-        _source_target(source)
-        if (
-            source.get("id") != f"S{ordinal}"
-            or not isinstance(source.get("text"), str)
-            or type(source.get("truncated")) is not bool
-            or not _hash(source.get("chunk_id"))
-            or not _hash(source.get("symbol_id"))
-            or source["symbol_id"] in symbols
-        ):
-            raise ValueError("Prepared evidence has invalid or duplicate source identity")
-        text = source["text"]
-        if (
-            source.get("text_sha256") != hashlib.sha256(text.encode("utf-8")).hexdigest()
-            or len(io.StringIO(text).readlines()) != source["end_line"] - source["start_line"] + 1
-            or any(
-                a <= source["end_line"] and source["start_line"] <= b
-                for a, b in ranges.get(source["path"], [])
-            )
-        ):
-            raise ValueError("Prepared evidence text, line ranges, or hash are invalid")
-        symbols.add(source["symbol_id"])
-        ranges.setdefault(source["path"], []).append((source["start_line"], source["end_line"]))
-        sources.append({field: source[field] for field in source_fields})
+    audit_evidence(evidence)
+    sources = [{field: source[field] for field in source_fields} for source in evidence]
     serialized = json.dumps(sources, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     size = len(serialized.encode("utf-8"))
     if (
@@ -227,7 +186,8 @@ def _validate_prepared(prepared: object, case: dict) -> None:
         )
     except (ValueError, UnicodeError, RecursionError) as error:
         raise ValueError("Prepared user message is not valid JSON") from error
-    if user != {"question": case["question"], "evidence": sources}:
+    # Preserve JSON types instead of accepting Python's True == 1 == 1.0 equality.
+    if stable_id(user) != stable_id({"question": case["question"], "evidence": sources}):
         raise ValueError("Prepared user message differs from its case and evidence")
     timings = prepared.get("timing_ms")
     if (

@@ -13,8 +13,8 @@ distributed services, and model training are outside the initial scope.
 
 The flow below describes the implemented pipeline: scanning, AST extraction, chunks,
 SQLite persistence, five retrieval strategies, vector/graph artifacts, evaluation
-and bounded QA. Live QA experiments and independent relevance/answer review remain
-pending; see [acceptance status](status.md).
+and bounded QA. Live QA plus LLM-assisted scoring remains the next experiment;
+human review is an optional extension. See [acceptance status](status.md).
 
 ## Data flow
 
@@ -242,12 +242,22 @@ serialized evidence metadata, but excludes the system prompt and provider framin
 `qa/answering.py` keeps evidence as data, validates structured claims and citation IDs,
 and renders source excerpts. No tool execution or agent loop is involved.
 
+`qa/citations.py` shares deterministic packed-evidence checks across single-question
+completion and frozen-bundle validation: portable paths, source identities, hashes
+and physical line ranges. Source ownership is bound to the canonical index during
+packing. Answer artifacts separate `automatic_checks` from `llm_assessment`, which
+stays `not_run` in M7a. The [fixed model-scoring specification](llm-evaluation.md)
+defines the future M7b judge; no judge runtime or live scores exist yet.
+
 `qa/provider.py` sends one strict-schema OpenAI Responses request, only when explicitly
 invoked. It stores reported usage and identifiers without credentials and never retries.
 `qa/preparation.py` freezes requests from existing retrieval configs, excluding reference
 answers; `qa/execution.py` verifies the bundle and records each attempted/completed request.
-`qa/review.py` validates separate human judgments; semantic scores stay unknown until
-review is complete. See [the QA protocol](qa.md) for failure and measurement boundaries.
+`qa/review.py` validates optional human judgments and gates only its own manual
+aggregates on complete submissions. It does not gate project acceptance. Future
+model scores remain separately labeled and do not promote provisional labels.
+See [the QA protocol](qa.md) for failure, generation-only cost and M7b combined-budget
+boundaries.
 
 M6c's `evaluation/experiments.py` freezes the inherited configuration matrix and
 coordinates separate dev/test/public runs. `evaluation/profiling.py` launches one

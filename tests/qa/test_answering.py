@@ -351,4 +351,5 @@ def test_markdown_escapes_untrusted_question_claim_path_and_source(prepared):
     assert "\\# forged heading" in markdown
     assert "&lt;/pre&gt;&lt;script&gt;" in markdown
     assert "[S1](#s1)" in markdown
-    assert "semantic support require independent review" in markdown
+    assert "LLM-assisted assessment has not run" in markdown
+    assert "Human review is an optional extension" in markdown

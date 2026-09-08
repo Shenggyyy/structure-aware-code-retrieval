@@ -24,14 +24,20 @@ were validated against the benchmark before drafting the reference points.
 Keep these labels versioned with the pinned source; do not silently carry line
 references forward to newer upstream revisions.
 
-## Manual Review Rubric
+## Evaluation Rubric
 
-Review generated answers against the actual supplied context and pinned source:
+M7a freezes the [LLM evaluation specification](../../docs/llm-evaluation.md) and
+strengthens automatic source checks. M7b will implement LLM-assisted evaluation of
+real answers; no judge results exist yet. Assess generated answers against the
+actual supplied context and pinned source:
 
-- **Correctness:** mark each substantive claim as correct, incorrect, or
-  unsupported. Check whether the answer directly addresses the question and
-  covers the relevant reference points; optional explanatory detail is not
-  required for a simple location question.
+- **Correctness:** assess material assertions against source. Insufficient
+  evidence leaves correctness uncertain; missing citation support alone does not
+  prove an assertion false.
+- **Completeness:** compare coverage with common, source-backed reference evidence
+  for the case, separately from the context selected by each retriever. Optional
+  explanatory detail is not required for a simple location question. The provisional
+  reference points are evidence to check, not authoritative answers.
 - **Citation support:** verify that the cited visible lines support their
   associated claims. A valid source identifier and in-range line numbers prove
   citation identity, not semantic support or answer correctness. Record missing
@@ -39,19 +45,23 @@ Review generated answers against the actual supplied context and pinned source:
 - **Abstention:** the two controls require unavailable private deployment
   information. Expect `insufficient_context` with `claims: []`, without invented
   timeout values or application commands. Record the missing evidence in the
-  review rationale; the model output contract does not include an abstention
+  evaluation rationale; the answer output contract does not include an abstention
   explanation. Do not infer global absence of a library capability. For
   source-grounded cases, distinguish retrieval/context omissions from model
   failure to use evidence. Report automatic empty-evidence abstention separately
   from model-generated abstention.
 
-Record reviewer identity, rationale, disagreements, and adjudication before
-claiming reviewed accuracy. Report controls separately from answerable cases.
+Report controls separately from answerable cases. Future model assessments must
+record evaluator model/prompt/evidence provenance, rationale, errors and cost; they
+are not human-reviewed accuracy or verified true correctness. Manual review is an
+optional investigation tool, not a requirement. If used, record reviewer identity,
+rationale and unresolved disagreements separately.
 
 ## Label Leakage Prevention
 
-Only the question and retrieved code context belong in the model request.
+Only the question and retrieved code context belong in the answering-model request.
 Never send `reference_points`, `source_targets`, `expected_status`, or the
-selection rationale to the model or use them to seed retrieval. These fields
-are evaluation-only. Keep prompt/model development confined to this development
-set; freeze changes before evaluating independently reviewed test data.
+selection rationale to the answering model or use them to seed retrieval. These fields
+are evaluation-only; the separate evaluator-input contract is defined in the scoring
+specification. Keep prompt/model development confined to this development set;
+freeze changes before evaluating a new untouched test version.

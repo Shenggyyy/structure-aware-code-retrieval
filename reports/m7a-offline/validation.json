@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "milestone": "M7a offline evaluation route revision",
+  "recorded_on": "2026-09-08",
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Windows"
+  },
+  "human_review_required": false,
+  "annotation_status": "provisional",
+  "offline_preparation": {
+    "case_count": 12,
+    "requests_by_strategy": {
+      "bm25": 12,
+      "dense": 12,
+      "hybrid": 12,
+      "structure": 12,
+      "symbol": 12
+    },
+    "request_count": 60,
+    "packed_evidence_occurrences": 600,
+    "requests_passing_source_checks": 60,
+    "requests_with_answer_citation_check_not_applicable": 60,
+    "preview_status": "preview",
+    "llm_assessment_status": "not_run",
+    "api_calls_made": 0,
+    "answers_generated": 0,
+    "llm_assessments_generated": 0,
+    "actual_api_spend_usd": 0,
+    "content_fingerprint": "e39035f3d7bb4837cb26c9a4decdb1038c7b03e97535464e89391edad35689ce",
+    "matches_original_m7a_content": true,
+    "plan_fingerprint": "9516dd5586bfb7f4142804c574746ce7037a335c098062608954afa54ec95d80",
+    "cases_digest": "1eb96f5aed6e30026af1142d96ca0be0fef6e2f5417fc3ed93a384257a7a6b96",
+    "bundle_files_sha256": {
+      "plan.json": "44754a3d663dadf7e748cf29dfcee529dacee4639ee3f42c1d4a0ffc627d79cc",
+      "requests.jsonl": "8b0e99044761e12c7fd7489f36a901be3237505ff3a2bf6674af50b21f097323",
+      "cases.json": "1f0dae4bb5e83b188da33f6ad32b8ea6b38c6640dd4b6212e947a7161db1b3f9"
+    }
+  },
+  "cost_projection": {
+    "scope": "answer_generation_only",
+    "includes_llm_judging": false,
+    "method": "one token per UTF-8 content/schema byte plus framing allowance",
+    "framing_allowance_tokens_per_request": 4096,
+    "estimated_input_tokens": 849637,
+    "maximum_output_tokens": 61440,
+    "billing_guarantee": false,
+    "historical_generation_model_proposal": "gpt-5.4-mini-2026-03-17",
+    "historical_generation_pricing": {
+      "input_per_million": 0.75,
+      "output_per_million": 4.5,
+      "as_of": "2026-09-08"
+    },
+    "generation_estimated_cost_usd": 0.91370775,
+    "judge_model": null,
+    "combined_estimated_cost_usd": null,
+    "live_models_and_combined_budget_approved": false
+  },
+  "judge_specification": {
+    "id": "repository-qa-judge-rubric-v1",
+    "implementation_status": "specification_only",
+    "rubric_sha256": "6cf4b22ab575666e6779f8556848d4e57e54c7e44c92de8e4e6c5797849340c3",
+    "system_prompt_sha256": "c3eb05a8b7e0113561c9f73dc6bee3ce718784373846d24cfa8d4713b7ad9728",
+    "score_dimensions": [
+      "correctness",
+      "completeness",
+      "citation_support"
+    ],
+    "ordinal_range": [
+      0,
+      3
+    ],
+    "unknown_or_not_applicable_score": null
+  },
+  "local_tests": {
+    "tests": 541,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 1,
+    "passed": 540,
+    "coverage_percent": 91.79695431472081,
+    "coverage_scope": "combined statements and branches",
+    "skip_reason": "Windows symlink creation unavailable"
+  },
+  "source_files_sha256": {
+    "src/structure_aware_retrieval/qa/__init__.py": "927e1c68db5d96ff18226f55ac36ef342c9bc34640523707ece12c5119fed407",
+    "src/structure_aware_retrieval/qa/answering.py": "b0a9fe4ba4016ad48596f0235cb8a970ed08e0987ab66787b61bba6f974049cb",
+    "src/structure_aware_retrieval/qa/citations.py": "5492f3eabbdd6a577093dad67989e2d0f39e2cfec741f6c88d05ca6d6adffbf2",
+    "src/structure_aware_retrieval/qa/context.py": "4975260bac2b9ef1d2235cd383518cab7fb60f17e9d1406b06234f577da1f033",
+    "src/structure_aware_retrieval/qa/execution.py": "5983b31383290981de382e4a05ed54494997a0781a0d7a5c268af9230d030a3e",
+    "src/structure_aware_retrieval/qa/preparation.py": "2985d964f1dd93eed335d6fd7ca553209290fca8af8a55701383a5d928567ee9",
+    "src/structure_aware_retrieval/qa/provider.py": "a1feb87d151317014dd2ee75f50c790750d8c496323a8d7fd5a23803fdcfadad",
+    "src/structure_aware_retrieval/qa/review.py": "2b70f206f8f8eadd39098777fda68ec854dc3b5191fdff72c4844abc5fb96c6d",
+    "src/structure_aware_retrieval/cli.py": "85687359fe3ae01ff6f542c3643450fe5e7718640009274bf41f1fc81563f1b6"
+  },
+  "limitations": [
+    "Source checks establish canonical packed snapshot identity and internal consistency, not semantic answer quality or cryptographic source authenticity.",
+    "No answers or model judgments were produced; software test doubles are not experiment outcomes.",
+    "Retrieval labels and QA references remain provisional; no human calibration has been measured.",
+    "The saved generation-only estimate excludes judging and is not a billing cap or approval.",
+    "M7b judge execution and the combined cost gate remain to implement before any authorized live experiment."
+  ]
+}

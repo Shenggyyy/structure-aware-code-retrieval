@@ -39,7 +39,7 @@ Archive SHA-256:
 The published release contains multiple languages; this importer selects only
 Python and the exact Marshmallow repository, with an expected count of ten.
 
-## Reproduction and review
+## Reproduction and optional review
 
 `recipe.json` specifies the source. `provenance.jsonl` preserves upstream offsets,
 needle identities, file/needle/description hashes and pending independent review.
@@ -52,8 +52,9 @@ uv run --locked python scripts/run_m6b.py --prepare --output artifacts/m6b-repro
 
 Omit `--prepare` to use existing artifacts offline. See
 [benchmark workflow](../../docs/benchmarks.md) for the dedicated public review bundle.
-The manifest remains `annotation_status=provisional` until actual independent review
-and adjudication. A successful source-alignment check is not semantic label approval.
+The manifest remains `annotation_status=provisional`; human review is optional and
+is not a completion prerequisite. A successful source-alignment check is not semantic
+label approval. Any later label improvement needs a new version and truthful provenance.
 
 ## Attribution and licensing
 

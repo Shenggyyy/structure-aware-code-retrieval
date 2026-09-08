@@ -10,6 +10,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from structure_aware_retrieval.models import stable_id
+from structure_aware_retrieval.qa.citations import audit_evidence
 from structure_aware_retrieval.qa.context import pack_context
 from structure_aware_retrieval.qa.provider import AnswerModel
 from structure_aware_retrieval.strategies import Retriever
@@ -122,6 +123,7 @@ def validate_answer(text: str, evidence: list[dict]) -> dict:
 def complete_question(prepared: dict, model: AnswerModel | None = None) -> dict:
     """None creates a reviewable preview; empty evidence abstains without an API call."""
     started = time.perf_counter()
+    automatic = _audit_prepared(prepared)
     result = {
         **prepared,
         "model_called": False,
@@ -129,6 +131,13 @@ def complete_question(prepared: dict, model: AnswerModel | None = None) -> dict:
         "raw_output": None,
         "answer": None,
         "error": None,
+        "automatic_checks": {**automatic, "citation_ids_valid": None},
+        "llm_assessment": {
+            "status": "not_run",
+            "scores": None,
+            "judge_model": None,
+            "rubric_version": None,
+        },
         "evaluation": {
             "citation_identity_valid": None,
             "answer_correctness": None,
@@ -167,6 +176,9 @@ def complete_question(prepared: dict, model: AnswerModel | None = None) -> dict:
         "generation_and_validation": (time.perf_counter() - started) * 1000,
     }
     result["timing_ms"]["total_excluding_load"] = sum(result["timing_ms"].values())
+    result["automatic_checks"]["citation_ids_valid"] = result["evaluation"][
+        "citation_identity_valid"
+    ]
     result["answer_fingerprint"] = stable_id(
         prepared["prompt_fingerprint"],
         result["status"],
@@ -175,6 +187,40 @@ def complete_question(prepared: dict, model: AnswerModel | None = None) -> dict:
         result["provider"]["model"] if result["provider"] else None,
     )
     return result
+
+
+def _audit_prepared(prepared: dict) -> dict:
+    """Bind automatically checked sources to the actual messages before any model call."""
+    try:
+        context, messages = prepared["context"], prepared["messages"]
+        automatic = audit_evidence(context["evidence"])
+        fields = ("id", "path", "qualified_name", "start_line", "end_line", "text")
+        sources = [{key: source[key] for key in fields} for source in context["evidence"]]
+        serialized = json.dumps(sources, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        if (
+            context["context_text"] != serialized
+            or context["context_fingerprint"]
+            != stable_id(
+                context["schema_version"],
+                context["snapshot_id"],
+                context["config"],
+                context["evidence"],
+            )
+            or prepared["prompt_version"] != PROMPT_VERSION
+            or prepared["prompt_fingerprint"] != stable_id(messages)
+            or not isinstance(messages, list)
+            or len(messages) != 2
+            or messages[0] != {"role": "system", "content": SYSTEM_PROMPT}
+            or set(messages[1]) != {"role", "content"}
+            or messages[1]["role"] != "user"
+            # JSON hashes preserve types: Python equality treats True and 1.0 as 1.
+            or stable_id(json.loads(messages[1]["content"], object_pairs_hook=_object))
+            != stable_id({"question": prepared["question"], "evidence": sources})
+        ):
+            raise ValueError("Prepared messages do not match the checked source evidence")
+        return automatic
+    except (KeyError, TypeError, json.JSONDecodeError, RecursionError) as error:
+        raise ValueError("Malformed prepared QA messages or source evidence") from error
 
 
 def _markdown(text: str) -> str:
@@ -231,8 +277,9 @@ def render_answer(result: dict) -> str:
         )
     lines.extend(
         [
-            "Citation identity/ranges are checked automatically. Answer correctness and "
-            "semantic support require independent review; neither is inferred from valid IDs.",
+            "Citation IDs, canonical paths and physical line ranges are checked automatically. "
+            "These checks do not establish answer correctness, completeness or semantic support. "
+            "LLM-assisted assessment has not run. Human review is an optional extension.",
             "",
         ]
     )

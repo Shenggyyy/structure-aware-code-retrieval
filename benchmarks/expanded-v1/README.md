@@ -56,8 +56,10 @@ uv run --locked python scripts/run_m6b.py --prepare --output artifacts/m6b-repro
 rebuild and audit entirely offline without torch or model weights. Outputs must be
 new directories. The script compares all regenerated text artifacts with this
 committed version and creates a label-only review bundle. It does not execute
-retrieval or change these files. Review the bundle following
-[the review guide](../../docs/review.md), then publish a new version after adjudication.
+retrieval or change these files. Manual review is optional, not a completion requirement.
+If collecting judgments, use [the review guide](../../docs/review.md), resolve disputes
+and publish a new label version. Automatic checks do not convert provisional labels
+into human-reviewed ground truth.
 
 Pinned upstream source and license files:
 [Flask](https://github.com/pallets/flask/tree/c12a5d874c5a014495eb2db8a73f40037bc813ac),

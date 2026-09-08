@@ -103,7 +103,8 @@ TOML paths resolve relative to the configuration file. Each run writes `summary.
 `per_query.jsonl`, `rankings.jsonl`, `metrics.csv` and `report.md`. Quality is scored at
 K=1,5,10,20 after deduplicating symbols or files. Repeated runs should reproduce quality
 fingerprints; hardware-dependent timing and runtime metadata need not match. The
-40-query seed has **provisional, sparse labels**, not completed independent review.
+40-query seed has **provisional, sparse labels**. Automatic source checks do not
+establish exhaustive semantic relevance; human review is optional.
 Read the [evaluation protocol](evaluation.md) for metrics, denominators and limitations.
 
 ## Prepare dense retrieval and compare baselines
@@ -163,7 +164,10 @@ One-hop expansion has explicit budgets and reweights the full baseline ranking.
 It does not make the underlying full-corpus search sublinear. See the
 [graph and reranking policy](structure.md) and [recorded ablations](../reports/m5/README.md).
 
-## Prepare source-review bundles
+## Optional source-review bundles
+
+These existing tools support manual label improvement. They are not required for
+project completion; the current QA evaluation route is [specified separately](llm-evaluation.md).
 
 After preparing the development source indexes, reproduce the saved-result audit
 and pending candidate pool without an embedding model:
@@ -197,7 +201,7 @@ Only explicit input/model preparation needs network access; measured retrieval i
 Keep the 40 development, 120 expanded test-candidate and ten public-adaptation
 questions separate. All labels remain provisional, requiring `--allow-provisional`.
 The test outcomes are exposed; further tuning needs a fresh untouched test version.
-See [benchmark freeze and attribution](benchmarks.md), [review instructions](review.md)
+See [benchmark freeze and attribution](benchmarks.md), [optional review instructions](review.md)
 and [M6c measurements](../reports/m6c/README.md). Published reports preserve quality,
 paired differences, failures, source traces and construction/storage/memory costs.
 
@@ -214,10 +218,13 @@ uv run --locked --extra dense sacr prepare-qa --config configs/qa-m7.toml --outp
 ```
 
 This freezes twelve development cases across five strategies: sixty exact requests,
-source previews, provenance and a cost projection. Reviewer reference points remain
-separate from model messages. Preparation makes no API call and establishes no answer
-quality. Real execution remains separately authorized and reviewed; follow
-[QA credentials, execution and manual review](qa.md) when ready.
+source previews, provenance and a generation-only cost projection. Evaluation reference
+points remain separate from answering-model messages. Preparation makes no API call
+and establishes no answer quality. M7b will implement live LLM-assisted assessment;
+it is not implemented by this preparation command. Before any API experiment, estimate
+generation plus judging costs and obtain explicit model/budget approval. The old
+60-request generation estimate is not a combined experiment budget. Follow
+[QA execution](qa.md) and the [LLM evaluation specification](llm-evaluation.md).
 
 ## Development checks
 

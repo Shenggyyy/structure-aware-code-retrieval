@@ -30,12 +30,14 @@ does not independently prove semantic relevance. Labels are not claimed to cover
 every relevant symbol, and most unjudged results have not been reviewed. Keep them
 distinct from explicit negatives.
 
-## Human review and limitations
+## Optional human review and limitations
 
-Before treating this as a formal benchmark, a reviewer should check each question
-and source rationale, inspect pooled candidates from all compared strategies, add
-missing positives/explicit negatives, and record the review in a versioned change.
-Only then should maintainers change `annotation_status` to `human_reviewed`.
+Human review is not required for project completion. The current benchmark remains
+provisional and supports reproducible metrics against its recorded labels. If
+maintainers choose manual review, inspect questions, rationales and pooled candidates,
+record missing positives/explicit negatives, and publish a new label version with
+actual review provenance. Never change `annotation_status` to `human_reviewed` based
+only on automatic source validation or model judgments.
 
 Do not tune on a future held-out set or rewrite queries to improve a particular
 retriever's scores. Expand to repository-disjoint development/test collections in M6.
