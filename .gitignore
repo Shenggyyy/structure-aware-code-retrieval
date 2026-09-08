@@ -1,0 +1,26 @@
+# Local environments, tools, and editors
+.venv/
+.cache/
+.idea/
+.vscode/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Build and test outputs
+dist/
+build/
+*.egg-info/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Downloaded repositories, indexes, models, and experiment intermediates
+artifacts/
+
+# Local credentials
+.env
+.env.*
+!.env.example
