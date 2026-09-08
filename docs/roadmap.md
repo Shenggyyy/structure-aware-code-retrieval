@@ -39,7 +39,9 @@ coverage and costs are preserved in the [live record](../reports/m7b-live/README
 M7c adds an [offline v2 protocol candidate](../reports/m7c/README.md), dynamic schemas
 for exact saved answers, and replay diagnostics without new model calls.
 M7d adds a [judge-only execution runtime](../reports/m7d/README.md) and read-only
-saved-run verification, tested offline. A real v2 run remains separately approved.
+saved-run verification. The separately approved [real v2 run](../reports/m7d-live/README.md)
+is partial: a local interruption left 12 valid judgments, one unknown attempted
+outcome and 47 requests not started. The planned 60-request comparison is unfinished.
 M8a supplies CPU Docker delivery; M8b supplies the validated results overview and
 reproduction documentation. Current acceptance uses automatic checks and explicitly
 reported LLM assessment; independent human review is optional. See [status](status.md).
@@ -90,12 +92,19 @@ M7 is delivered in checkpoints:
   approval failures, protocol failures, provider errors and unknown outcomes with
   offline doubles; make no paid calls in this implementation checkpoint. Suggested
   commit: `Add approved judge-only execution and saved-run verification`.
+- **M7d live — Partial execution evidence:** preserve the approved v2 run's exact
+  requests, raw known responses and all planned rows after interruption. Keep the
+  unknown attempt and unstarted requests explicit, report known cost subtotals
+  without inventing a full total, and verify the archive offline. Archive delivery
+  does not complete the 60-request experiment or establish a strategy comparison.
 
 See the [M7b implementation record](../reports/m7b/README.md) and
 [offline preparation commands](qa.md#prepare-and-check-the-combined-experiment).
 
 The prior 60-request estimate covers generation only; it is not an approved combined
 budget. The later Mini/Mini approval covered one completed US$5.63-budget run.
+The subsequent US$2.20 approval covered at most 60 v2 Mini judgments over existing
+answers; only 13 attempts were journaled before the partial run stopped.
 LLM scores must be labeled as model assessments,
 with unknown or failed cases explicit, not verified true correctness rates.
 
@@ -107,9 +116,11 @@ M7b now supplies the first live results and updates the findings and acceptance
 matrix. Its 40% judge acceptance rate prevents a strong QA comparison. M7c completes
 the offline, versioned protocol revision; it does not establish improved live reliability.
 M7d implements bounded judge-only execution and saved-run verification over the saved
-answers. Its tests make no API calls. An optional next checkpoint can run the checked
-v2 plan after fresh model/scope/budget approval, then report actual coverage, failures
-and costs alongside the preserved v1 results.
+answers. Its implementation tests make no API calls. The subsequent approved live
+run yielded 12 valid judgments from the ordered prefix, one unknown attempted
+outcome and 47 requests not started. Its known cost subtotal is US$0.08424075; full
+cost remains unknown. Preserve this partial evidence alongside v1. Additional paid
+attempts require an explicitly scoped decision; there is no automatic retry or resume.
 The existing combined runner remains v1. Engineering
 delivery must not be presented as proof that Structure improves answer quality.
 

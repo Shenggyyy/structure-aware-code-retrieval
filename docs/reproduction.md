@@ -286,8 +286,30 @@ The verifier needs only the saved run and installed project dependencies, with n
 credentials, source checkout, model weights or network. It checks the copied bundle,
 approval, journals, results and summaries; it neither sends requests nor changes
 recorded results. The [M7d report](../reports/m7d/README.md) records software checks,
-not a completed live rejudging experiment. M7c's archived generated README describes
+while the [later live record](../reports/m7d-live/README.md) preserves a partial
+real run. M7c's archived generated README describes
 its original offline checkpoint; the current execution contract is in the QA guide.
+
+## Verify the partial live v2 archive
+
+The [partial v2 archive](../reports/m7d-live/README.md) contains 13 attempted judge
+requests, 12 recorded valid judgments, one unknown outcome and 47 requests not
+started. It preserves the original generations and makes no claim that the planned
+60-request comparison finished. Check the report's archive hash, then extract into
+a fresh directory in PowerShell:
+
+```powershell
+Get-FileHash reports/m7d-live/run.zip -Algorithm SHA256
+Expand-Archive -LiteralPath reports/m7d-live/run.zip -DestinationPath artifacts/qa/m7d-live-replay-001
+uv run --locked python scripts/verify_qa_judge_revision.py --run artifacts/qa/m7d-live-replay-001/run
+```
+
+These commands do not call a model, need credentials or resume the run. Inspect
+`run/records.json`, `run/summary.json` and the request/result journals for coverage
+and known usage. The 13th attempt has no saved response, so its usage and the complete
+new judging cost remain unknown; the known subtotal is US$0.08424075. Verification
+checks the saved evidence's internal consistency, not the missing response or the
+semantic correctness of model judgments.
 
 ## Development checks
 

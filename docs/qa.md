@@ -12,8 +12,11 @@ See [the live evidence and failures](../reports/m7b-live/README.md),
 [the scoring specification](llm-evaluation.md) and [current acceptance](status.md).
 Any additional live run requires approval of its scope and combined cost.
 M7c freezes a v2 judge protocol; M7d implements execution over saved answers and
-offline run verification. These checkpoints make no new API calls and provide no
-new model quality results. See [the M7d checkpoint](../reports/m7d/README.md).
+offline run verification. Their implementation checkpoints made no new API calls.
+The subsequent [approved v2 run](../reports/m7d-live/README.md) is partial: 12 valid
+judgments, one unknown attempted outcome and 47 requests not started after a local
+execution interruption. Its cause was not preserved. The planned comparison remains
+incomplete; known output validity is not an answer-accuracy measurement.
 
 ## Preview a question
 
@@ -183,9 +186,11 @@ cases; matched comparisons use shared scored case IDs, with coverage visible.
 First [prepare and check a v2 bundle from saved answers](reproduction.md#prepare-judge-protocol-v2-from-saved-answers).
 This freezes exact answer-specific messages, schemas and judge settings. The current
 M7c proposal contains 60 judge requests and zero new generation calls; its saved
-estimate is US$2.13340275. This is a proposal at frozen rates, not approval or a
-billing hard cap. Confirm the exact model, request scope and budget before any call.
-The earlier completed US$5.63-budget experiment grants no further authorization.
+estimate is US$2.13340275 at frozen rates, not a billing hard cap. The owner approved
+one scope using `gpt-5.4-mini-2026-03-17` and US$2.20; its [partial execution
+record](../reports/m7d-live/README.md) preserves 13 attempts and 12 known results.
+That record is not permission to restart or retry requests. Confirm the exact model,
+request scope and budget for additional paid attempts.
 
 After approval, replace every uppercase placeholder with its approved value:
 
@@ -213,6 +218,11 @@ approved scope. Reports distinguish historical generation measurements from new
 judging costs and latency, retaining coverage and unknown usage explicitly.
 The execution command returns a nonzero status for protocol or provider failures;
 inspect the saved report even when every planned request was attempted.
+Unexpected execution exceptions now also attempt to write `interruption.json` with
+the exception type, phase, request/count metadata, numeric OS codes and traceback
+locations. It omits exception messages, arguments, source lines and local variables.
+This best-effort diagnostic cannot recover an unknown model response and does not
+retroactively identify the cause of the archived partial run.
 
 Verify a saved judge-only run without credentials or API calls:
 
@@ -222,8 +232,11 @@ uv run --locked python scripts/verify_qa_judge_revision.py --run SAVED_RUN_DIREC
 
 The verifier checks bundle and source bindings, approval, request journals, outcomes
 and summaries without modifying them. These are consistency checks, not proof of
-semantic correctness or provider authenticity. M7d's offline test responses are
-software fixtures; no v2 live reliability or answer-quality improvement is claimed.
+semantic correctness or provider authenticity. M7d's offline test responses remain
+software fixtures. The separate live prefix has 12 valid judgments out of 60 planned
+rows, with one unknown outcome and 47 not-run requests. Its US$0.08424075 known cost
+subtotal excludes unknown usage and is not a full-run cost or invoice. See the
+[archive reproduction commands](reproduction.md#verify-the-partial-live-v2-archive).
 
 ## Provider configuration and measurements
 

@@ -5,8 +5,11 @@ QA/LLM-assessment runtime. **The first authorized live experiment finished all 1
 requests with 36 invalid judge outputs.** Core implementation and the first evidence
 set are delivered; judge coverage is insufficient for a reliable QA-quality ranking.
 M7c supplies an offline v2 protocol candidate with per-answer schemas and archived
-failure diagnostics. M7d adds judge-only execution and saved-run verification, tested
-with offline doubles. No v2 model response or improved live acceptance rate is claimed.
+failure diagnostics. M7d adds judge-only execution and saved-run verification. Its
+separately approved live run stopped after 13 attempts: 12 valid judgments, one
+unknown outcome and 47 requests not started. The known judging cost subtotal is
+US$0.08424075; the complete cost is unknown. This ordered Click-only prefix does not
+complete the planned comparison or establish improved general judge reliability.
 Human or independent review is optional, not a completion prerequisite. Existing
 labels remain provisional; automatic checks and model judgments must be described
 according to what they actually measure.
@@ -22,7 +25,7 @@ according to what they actually measure.
 | Systems measurements | 45 completed retrieval runs and 24 construction measurements, storage and worker peak memory | Measurements describe one interactive host, not production service guarantees |
 | Repository QA | 60 live generations: 48 answers, 12 abstentions; all source audits and applicable citation ID checks passed | Automatic checks establish location/identity, not semantic truth |
 | QA experiment | Twelve provisional development cases × five strategies; 120 authorized calls, complete raw archive, known usage for every call | Small development scope and same-model generator/judge limit generalization; usage-based cost is not an invoice |
-| LLM evaluation | 24 accepted v1 judgments, 36 protocol failures; v2 exact-answer schemas, evidence catalogs, offline replay diagnostics and a judge-only runtime with saved-run verification | A new judge-only run is a separate optional scope requiring fresh model/plan/budget approval; no observed v2 acceptance rate yet |
+| LLM evaluation | 24 accepted v1 judgments, 36 protocol failures; v2 schemas and judge-only runtime; partial live v2 run has 12 valid judgments, one unknown attempted outcome and 47 not-run requests | The approved 60-request comparison remains incomplete; the ordered 12-result prefix cannot establish a full strategy ranking or general protocol reliability |
 | Packaging and testing | Installable package, automated tests, base/CPU Dense Docker targets, offline smoke checks, Windows/Linux CI configuration | Current checkpoint's remote CI runs after the owner commits and pushes |
 | Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline saved-run verification and reproduction instructions | Retain limits and version future protocol/dataset changes |
 
@@ -73,12 +76,21 @@ according to what they actually measure.
   not new inference or repaired scores. The report records current local validation;
   remote CI follows the owner's next commit and push.
 - The owner reports the M7c checkpoint passed GitHub CI. This confirms the preceding
-  pushed checkpoint, not the current M7d changes.
+  pushed checkpoint, not later uncommitted changes.
 - [M7d judge-only runtime](../reports/m7d/README.md) reuses saved generations and
   executes only newly approved judge requests, retaining failures, unknown outcomes
   and all planned source cases. It adds offline verification of complete and partial
-  runs. Validation uses test doubles; no paid request or new model assessment was
-  made. The report records local checks; remote CI follows the owner's commit/push.
+  runs. That implementation checkpoint used test doubles and made no paid request
+  or new model assessment. Its report records local checks.
+- [M7d partial live run](../reports/m7d-live/README.md) records the owner-approved
+  `gpt-5.4-mini-2026-03-17` judge-only scope: at most 60 requests and US$2.20, with no
+  new generation calls. A local execution interruption left 13 attempted requests,
+  12 recorded valid judgments, one unknown outcome and 47 requests not started. Its
+  cause was not preserved. All 60 original generation records remain unchanged;
+  the 12 known responses report the requested model. The known cost subtotal is
+  US$0.08424075 at frozen uncached rates; the unknown attempt prevents a complete
+  usage/cost total. No retry or resume was performed. The report records current
+  local validation; the partial experiment is not a completed 60-request comparison.
 
 Historical reports retain their original measurements and completion criteria.
 This page records the current automatic-evaluation acceptance policy; historical
@@ -86,13 +98,14 @@ references to required human review do not override it.
 
 ## Recommended research follow-up
 
-1. The offline v2 protocol and judge-only runtime checkpoints are complete. Inspect
-   the exact prepared requests and diagnostics before another real comparison;
-   preserve all v1 evidence.
-2. If another real comparison is desired, obtain new approval for the exact model,
-   request scope, plan and budget before using the judge-only runner. Reuse the saved
-   answers across every compared strategy. The completed US$5.63-budget run's approval
-   does not authorize further calls.
+1. Inspect the archived partial v2 run and its unknown outcome. The 12 known results
+   cover all strategies for two Click cases and BM25/Dense for one more Click case;
+   Requests and the later cases have no new recorded judgments. Preserve all v1
+   evidence and keep these partial denominators visible.
+2. Any additional paid attempts need an explicitly scoped decision covering the
+   exact model, requests, plan and budget. The runner has no automatic retry or
+   resume; do not repeat the unknown attempt implicitly. Read-only archive checking
+   needs no new approval. Reuse the original saved answers for future comparisons.
 3. Improve coverage and external validation before broader answer-quality claims.
    LLM assessment is not human ground truth or a verified true correctness rate.
    Positive Structure improvements are not required; transparent evidence is.

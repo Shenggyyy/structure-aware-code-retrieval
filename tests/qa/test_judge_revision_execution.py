@@ -82,6 +82,7 @@ def test_success_reuses_answers_and_journals_each_exact_request(revision, tmp_pa
     assert summary["status"] == "complete"
     assert summary["execution_mode"] == "injected_models"
     assert summary["new_generation_calls"] == 0
+    assert not (output / "interruption.json").exists()
     assert len(calls) == len(_rows(output / "attempts.jsonl")) == 6
     source = _read(revision.source / "records.json")
     records = _read(output / "records.json")
@@ -146,6 +147,7 @@ def test_provider_failure_stops_and_unknown_usage_is_not_zero(revision, tmp_path
     assert stage["not_run_count"] == 5
     assert stage["cost_usd_at_frozen_uncached_rates"] is None
     assert stage["observed_cost_subtotal_usd_at_frozen_uncached_rates"] == 0
+    assert not (output / "interruption.json").exists()
 
 
 def test_interruption_preserves_unknown_attempt_without_resume(revision, tmp_path):
@@ -161,6 +163,11 @@ def test_interruption_preserves_unknown_attempt_without_resume(revision, tmp_pat
     assert summary["overall"]["judging"]["unknown_outcome_count"] == 1
     assert summary["overall"]["judging"]["cost_usd_at_frozen_uncached_rates"] is None
     assert len(calls) == 1
+    interruption = _read(output / "interruption.json")
+    assert interruption["exception_type"] == "KeyboardInterrupt"
+    assert interruption["phase"] == "model_call"
+    assert interruption["attempted_count"] == 1
+    assert interruption["completed_count"] == 0
     with pytest.raises(FileExistsError):
         run_revision(revision, output, calls)
     assert len(calls) == 1
@@ -280,3 +287,185 @@ def test_no_generation_or_live_provider_is_used_by_execution(revision, tmp_path,
     monkeypatch.setattr("structure_aware_retrieval.qa.answering.complete_question", forbidden)
     result = run_revision(revision, tmp_path / "judged", [])
     assert result["status"] == "complete"
+
+
+def test_precall_checkpoint_failure_records_safe_metadata_without_calling_model(
+    revision, tmp_path, monkeypatch
+):
+    output, calls = tmp_path / "judged", []
+    original = PermissionError(13, "sk-secret-exception-message", "secret-file-path")
+    original.winerror = 5
+    write = execute_revision.__globals__["_write"]
+    summary_writes = 0
+
+    def failed_checkpoint(path, value):
+        nonlocal summary_writes
+        if path == output / "summary.json":
+            summary_writes += 1
+            if summary_writes == 2:
+                raise original
+        return write(path, value)
+
+    monkeypatch.setitem(execute_revision.__globals__, "_write", failed_checkpoint)
+    with pytest.raises(PermissionError) as caught:
+        run_revision(revision, output, calls)
+    assert caught.value is original
+    assert calls == []
+    diagnostic_text = (output / "interruption.json").read_text(encoding="utf-8")
+    assert "sk-secret" not in diagnostic_text
+    assert "secret-file-path" not in diagnostic_text
+    diagnostic = json.loads(diagnostic_text)
+    assert diagnostic["exception_type"] == "PermissionError"
+    assert diagnostic["phase"] == "precall_checkpoint"
+    assert diagnostic["errno"] == 13
+    assert diagnostic["winerror"] == 5
+    assert diagnostic["active_request_id"] == _rows(output / "attempts.jsonl")[0]["id"]
+    assert diagnostic["attempted_count"] == 1
+    assert diagnostic["completed_count"] == 0
+    assert 1 <= len(diagnostic["traceback_locations"]) <= 8
+    for location in diagnostic["traceback_locations"]:
+        assert set(location) == {"file", "function", "line"}
+        assert Path(location["file"]).name == location["file"]
+        assert type(location["line"]) is int
+    assert _read(output / "summary.json")["status"] == "interrupted"
+
+
+def test_unexpected_model_exception_records_identity_but_never_exception_text(revision, tmp_path):
+    output, calls = tmp_path / "judged", []
+    original = RuntimeError("sk-secret", {"Authorization": "Bearer private"})
+
+    def broken(_messages):
+        raise original
+
+    with pytest.raises(RuntimeError) as caught:
+        run_revision(revision, output, calls, behavior=broken)
+    assert caught.value is original
+    diagnostic_text = (output / "interruption.json").read_text(encoding="utf-8")
+    assert "sk-secret" not in diagnostic_text
+    assert "Authorization" not in diagnostic_text
+    assert "Bearer private" not in diagnostic_text
+    diagnostic = json.loads(diagnostic_text)
+    assert diagnostic["exception_type"] == "RuntimeError"
+    assert diagnostic["phase"] == "model_call"
+    assert diagnostic["attempted_count"] == 1
+    assert diagnostic["completed_count"] == 0
+    assert len(calls) == 1
+
+
+def test_initialize_failure_is_recorded_before_any_attempt(revision, tmp_path, monkeypatch):
+    output, calls = tmp_path / "judged", []
+    original = OSError("private-copy-path")
+
+    def broken_copy(_source, _target):
+        raise original
+
+    monkeypatch.setattr(RUNTIME["shutil"], "copyfile", broken_copy)
+    with pytest.raises(OSError) as caught:
+        run_revision(revision, output, calls)
+    assert caught.value is original
+    diagnostic = _read(output / "interruption.json")
+    assert diagnostic["phase"] == "initialize"
+    assert diagnostic["active_request_id"] is None
+    assert diagnostic["attempted_count"] == diagnostic["completed_count"] == 0
+    assert calls == []
+    assert "private-copy-path" not in (output / "interruption.json").read_text(encoding="utf-8")
+
+
+@pytest.mark.parametrize("diagnostic_fails", [False, True])
+def test_secondary_checkpoint_or_diagnostic_failure_never_masks_original(
+    revision, tmp_path, monkeypatch, diagnostic_fails
+):
+    output, calls = tmp_path / "judged", []
+    original = RuntimeError("original-private-message")
+    write = execute_revision.__globals__["_write"]
+    write_text = Path.write_text
+
+    def broken(_messages):
+        raise original
+
+    def checkpoint_failure(path, value):
+        if path == output / "summary.json" and value["status"] == "interrupted":
+            raise PermissionError("secondary-private-message")
+        return write(path, value)
+
+    def diagnostic_failure(path, *args, **kwargs):
+        if diagnostic_fails and path == output / "interruption.json":
+            raise OSError("diagnostic-private-message")
+        return write_text(path, *args, **kwargs)
+
+    monkeypatch.setitem(execute_revision.__globals__, "_write", checkpoint_failure)
+    monkeypatch.setattr(Path, "write_text", diagnostic_failure)
+    with pytest.raises(RuntimeError) as caught:
+        run_revision(revision, output, calls, behavior=broken)
+    assert caught.value is original
+    assert len(calls) == 1
+    assert len(_rows(output / "attempts.jsonl")) == 1
+    assert _rows(output / "results.jsonl") == []
+    if diagnostic_fails:
+        assert not (output / "interruption.json").exists()
+    else:
+        diagnostic = _read(output / "interruption.json")
+        assert diagnostic["exception_type"] == "RuntimeError"
+        assert diagnostic["phase"] == "model_call"
+
+
+def test_final_checkpoint_failure_is_diagnosed_after_results_are_journaled(
+    revision, tmp_path, monkeypatch
+):
+    output, calls = tmp_path / "judged", []
+    original = PermissionError("private-final-checkpoint")
+    write = execute_revision.__globals__["_write"]
+
+    def checkpoint_failure(path, value):
+        if path == output / "summary.json" and value["status"] == "complete":
+            raise original
+        return write(path, value)
+
+    monkeypatch.setitem(execute_revision.__globals__, "_write", checkpoint_failure)
+    with pytest.raises(PermissionError) as caught:
+        run_revision(revision, output, calls)
+    assert caught.value is original
+    diagnostic = _read(output / "interruption.json")
+    assert diagnostic["status"] == "interrupted"
+    assert diagnostic["phase"] == "final_checkpoint"
+    assert diagnostic["active_request_id"] is None
+    assert diagnostic["attempted_count"] == diagnostic["completed_count"] == 6
+    assert len(_rows(output / "results.jsonl")) == len(calls) == 6
+
+
+@pytest.mark.parametrize("exception_type", [PermissionError, RuntimeError, KeyboardInterrupt])
+def test_cli_reports_safe_exception_class_without_printing_secret_arguments(
+    tmp_path, monkeypatch, capsys, exception_type
+):
+    def broken(*_args, **_kwargs):
+        raise exception_type("sk-secret-exception", {"Authorization": "Bearer private"})
+
+    main = RUNTIME["main"]
+    monkeypatch.setitem(main.__globals__, "execute_revision", broken)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            str(SCRIPT),
+            "--bundle",
+            str(tmp_path / "bundle"),
+            "--output",
+            str(tmp_path / "judged"),
+            "--judge-model",
+            "test-model",
+            "--approved-plan",
+            "test-plan",
+            "--budget-usd",
+            "1",
+            "--execute",
+        ],
+    )
+    with pytest.raises(SystemExit) as caught:
+        main()
+    assert caught.value.code == (130 if exception_type is KeyboardInterrupt else 1)
+    captured = capsys.readouterr()
+    assert exception_type.__name__ in captured.err
+    assert "interruption.json" in captured.err
+    assert "sk-secret" not in captured.err + captured.out
+    assert "Authorization" not in captured.err + captured.out
+    assert "Bearer private" not in captured.err + captured.out

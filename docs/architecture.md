@@ -14,8 +14,9 @@ distributed services, and model training are outside the initial scope.
 The flow below describes the implemented pipeline: scanning, AST extraction, chunks,
 SQLite persistence, five retrieval strategies, vector/graph artifacts, evaluation
 and bounded QA. The first live QA/LLM-scoring experiment is archived; M7c adds an
-offline judge-protocol revision and M7d adds judge-only execution, tested without
-new inference. Human review is an optional
+offline judge-protocol revision and M7d adds judge-only execution. The subsequent
+approved v2 run is archived as partial: 12 valid judgments, one unknown attempted
+outcome and 47 requests not started after interruption. Human review is an optional
 extension. See [acceptance status](status.md).
 
 ## Data flow
@@ -297,6 +298,16 @@ the approved scope bounded. `scripts/verify_qa_judge_revision.py` checks saved i
 journals, results and recomputed summaries without credentials or model calls.
 Unknown attempted outcomes retain unknown usage and cost. The [M7d checkpoint](../reports/m7d/README.md)
 validates this behavior with test doubles; it measures no new model performance.
+Unexpected exceptions now trigger a best-effort `interruption.json` containing
+execution phase, counts, exception type, numeric OS codes and traceback locations,
+without exception text, source lines or local variables. Diagnostics do not replace
+the original exception, recover a missing response or authorize another request.
+The later [partial live archive](../reports/m7d-live/README.md) contains 13 attempts
+and 12 recorded results after a local execution interruption whose cause was not
+preserved. Its missing response remains unknown, and the 47 unstarted requests
+remain in the planned denominator. Offline verification neither recovers the
+missing provider outcome nor triggers a retry. The prefix of known judgments does
+not establish a completed strategy comparison.
 
 `qa/review.py` validates optional human judgments and gates only its own manual
 aggregates on complete submissions. It does not gate project acceptance.

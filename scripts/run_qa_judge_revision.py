@@ -4,6 +4,7 @@ import argparse
 import json
 import math
 import shutil
+import traceback
 from copy import deepcopy
 from pathlib import Path
 from runpy import run_path
@@ -45,6 +46,78 @@ def execute_revision(
     Approval is explicit invocation, not identity verification. The projection gate
     is not a billing hard cap. No overwrite, resume, regeneration or retries.
     """
+    progress = {
+        "output_created": False,
+        "phase": "initialize",
+        "active_request_id": None,
+        "attempted_count": 0,
+        "completed_count": 0,
+    }
+    try:
+        return _execute_revision(
+            bundle,
+            output,
+            budget_usd=budget_usd,
+            judge_model_id=judge_model_id,
+            approved_plan=approved_plan,
+            execute=execute,
+            model_factory=model_factory,
+            progress=progress,
+        )
+    except BaseException as error:
+        _record_interruption(output, error, progress)
+        raise
+
+
+def _record_interruption(output, error, progress):
+    """Best-effort metadata only; exception text and traceback source are excluded."""
+    try:
+        if not progress["output_created"]:
+            return
+        locations = [
+            {
+                "file": Path(frame.f_code.co_filename).name,
+                "function": frame.f_code.co_name,
+                "line": line,
+            }
+            for frame, line in traceback.walk_tb(error.__traceback__)
+        ][-8:]
+        diagnostic = {
+            "schema_version": 1,
+            "status": "interrupted",
+            "exception_type": type(error).__name__,
+            "phase": progress["phase"],
+            "active_request_id": progress["active_request_id"],
+            "attempted_count": progress["attempted_count"],
+            "completed_count": progress["completed_count"],
+            "traceback_locations": locations,
+        }
+        for attribute in ("errno", "winerror"):
+            value = getattr(error, attribute, None)
+            if type(value) is int:
+                diagnostic[attribute] = value
+        # Avoid the checkpoint writer so a failure there can still be diagnosed.
+        (output / "interruption.json").write_text(
+            json.dumps(diagnostic, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+    except BaseException:
+        # Diagnostics must never replace the original execution exception.
+        pass
+
+
+def _execute_revision(
+    bundle,
+    output,
+    *,
+    budget_usd,
+    judge_model_id,
+    approved_plan,
+    execute,
+    model_factory,
+    progress,
+):
     if execute is not True:
         raise ValueError("Explicit --execute approval is required; no calls made")
     plan = check_revision(bundle)
@@ -60,6 +133,7 @@ def execute_revision(
     if output.exists() or output.is_symlink():
         raise FileExistsError("Judge run output exists; use a new directory")
     output.mkdir(parents=True, exist_ok=False)
+    progress["output_created"] = True
     frozen = output / "prepared"
     for name in BUNDLE_FILES:
         target = frozen / name
@@ -141,6 +215,7 @@ def execute_revision(
         ):
             checkpoint()
             for row, model in zip(rows, models, strict=True):
+                progress["active_request_id"] = row["id"]
                 attempt = {
                     "id": row["id"],
                     "stage": "judging",
@@ -149,18 +224,26 @@ def execute_revision(
                     "request_payload": row["request_payload"],
                     "request_payload_sha256": row["request_payload_sha256"],
                 }
+                progress["phase"] = "attempt_journal"
                 _append(journal, attempt)
                 attempts.append(attempt)
+                progress["attempted_count"] = len(attempts)
+                progress["phase"] = "precall_checkpoint"
                 checkpoint()
+                progress["phase"] = "model_call"
                 result = complete_judgment(deepcopy(row["prepared"]), model)
                 result.update(
                     requested_model=judge_model_id,
                     attempted_at=attempt["attempted_at"],
                     request_payload_sha256=attempt["request_payload_sha256"],
                 )
+                progress["phase"] = "result_journal"
                 _append(results, {"id": row["id"], "stage": "judging", "result": result})
                 by_id[row["id"]]["judging"] = result
+                progress["completed_count"] += 1
+                progress["phase"] = "result_checkpoint"
                 checkpoint()
+                progress["active_request_id"] = None
                 if result["status"] == "provider_error":
                     state = "failed"
                     break
@@ -172,9 +255,18 @@ def execute_revision(
                 )
     except BaseException:
         state = "interrupted"
+        # Preserve both the original exception and its phase if this write fails too.
+        try:
+            checkpoint()
+        except BaseException:
+            pass
         raise
-    finally:
+    progress["phase"] = "final_checkpoint"
+    try:
         summary = checkpoint()
+    except BaseException:
+        state = "interrupted"
+        raise
     return summary
 
 
@@ -196,8 +288,12 @@ def main():
             approved_plan=args.approved_plan,
             execute=args.execute,
         )
-    except (OSError, ValueError, TypeError, KeyError):
-        parser.exit(1, "Judge-only execution failed; inspect local plan and run records.\n")
+    except BaseException as error:
+        parser.exit(
+            130 if isinstance(error, KeyboardInterrupt) else 1,
+            f"Judge-only execution failed ({type(error).__name__}); "
+            "inspect interruption.json when present and local plan/run records.\n",
+        )
     print(
         json.dumps(
             {

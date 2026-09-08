@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-08",
+  "checkpoint": "m7d-partial-live-and-interruption-diagnostics",
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "live_execution": {
+    "status": "interrupted",
+    "journaled_judge_attempts": 13,
+    "known_judge_results": 12,
+    "unknown_outcomes": 1,
+    "not_run": 47,
+    "new_generation_calls": 0,
+    "known_cost_subtotal_usd": 0.08424075,
+    "full_cost_usd": null,
+    "retry_or_resume_performed": false,
+    "original_interruption_cause": "Not recorded; unknown"
+  },
+  "pytest": {
+    "command": "uv run --locked pytest --cov --cov-report=term-missing --cov-report=xml --cov-report=json:artifacts/m7d-live-coverage.json --junitxml=artifacts/m7d-live-tests.xml",
+    "collected": 794,
+    "passed": 793,
+    "skipped": 1,
+    "failed": 0,
+    "errors": 0,
+    "skip_reasons": [
+      "Creating symlinks is unavailable on this host"
+    ],
+    "duration_seconds": 359.424,
+    "new_regression_cases": 9,
+    "validation_api_calls_made": 0
+  },
+  "coverage": {
+    "scope": "structure_aware_retrieval package; standalone scripts exercised by integration tests but excluded from coverage denominator",
+    "covered_lines": 4182,
+    "num_statements": 4498,
+    "percent_covered": 91.6243654822335,
+    "percent_covered_display": "92",
+    "missing_lines": 316,
+    "excluded_lines": 13,
+    "percent_statements_covered": 92.97465540240107,
+    "percent_statements_covered_display": "93",
+    "num_branches": 1806,
+    "num_partial_branches": 200,
+    "covered_branches": 1594,
+    "missing_branches": 212,
+    "percent_branches_covered": 88.26135105204872,
+    "percent_branches_covered_display": "88"
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed (210 files)",
+  "retrieval_overview": "45 saved runs checked unchanged",
+  "archive_verification": {
+    "command": "uv run --locked python scripts/verify_qa_judge_revision.py --run artifacts/qa/m7d-live-replay-001/run",
+    "result": {
+      "status": "interrupted",
+      "source_planned_cases": 60,
+      "judge_requests": 60,
+      "attempts": 13,
+      "recorded_results": 12,
+      "execution_mode": "openai",
+      "plan_fingerprint": "28bf7b780982b17d37150c1c4bad1e717769832faddd6e59ce24edbc656324f7",
+      "new_generation_calls": 0
+    },
+    "archive_sha256": "a15ffd0bac05d4735b02ff5ab8b32dc04884e3b38b3a5e3c0ee27803212f48e6",
+    "member_hashes_verified": 79,
+    "public_plan_approval_summary_report_match_archived_bytes": true,
+    "executing_source_hashes_match_approval": true,
+    "archived_runner_sha256": "e05916e32be0aa75e2a5a3af3d8bd2de869cf20723444f59ec48768a4519ee0b",
+    "current_runner_sha256": "182e7efe3270873230052f88d02173519d74c32940b4b56986c2456ee9421b44",
+    "code_snapshot_note": "Archive preserves the actual pre-diagnostic implementation; subsequent diagnostic changes are not retroactive run evidence",
+    "m7b_archive_sha256_unchanged": "340a5c7226c453ceabaa2fc277a8942cb80b792750de99c877a7d707dc9a3f7a"
+  },
+  "linux_and_container_checks": "Not rerun locally; existing CI matrix retained",
+  "current_remote_ci": "Pending owner commit and push"
+}

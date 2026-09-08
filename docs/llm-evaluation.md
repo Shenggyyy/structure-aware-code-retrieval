@@ -13,7 +13,10 @@ archived answers. It supplies no new judgments and does not change v1's 24 accep
 and 36 invalid outcomes. See the [M7c record](../reports/m7c/README.md).
 M7d implements judge-only execution and read-only verification of those prepared
 requests. Its [offline validation](../reports/m7d/README.md) uses test doubles, not new
-LLM responses; no v2 live acceptance rate or quality comparison is available.
+LLM responses. A subsequent [approved live v2 run](../reports/m7d-live/README.md)
+stopped after 13 attempts: 12 valid judgments, one unknown outcome and 47 requests
+not started. It is an ordered prefix, not a complete comparison or evidence of a
+general improvement in judge reliability.
 
 Human calibration or spot-checking is optional. Its absence is a limitation to
 report, not a prerequisite for running evaluation or completing an engineering
@@ -232,6 +235,28 @@ makes the complete new-run cost unknown, with known subtotals reported separatel
 The read-only verifier checks source bindings, approval, request/response records and
 recomputed outcomes without an API key. This establishes internal consistency, not
 provider authenticity or semantic correctness. Offline test doubles establish
-software behavior only. A later real run must retain all v1 evidence and compare
-coverage and failures explicitly; accepting more schema-valid outputs alone does
-not establish better semantic judgments.
+software behavior only. Real runs retain all v1 evidence and compare coverage and
+failures explicitly; accepting more schema-valid outputs alone does not establish
+better semantic judgments.
+
+### Partial live v2 evidence
+
+The owner approved `gpt-5.4-mini-2026-03-17`, at most 60 judge requests, zero new
+generations and US$2.20 for the frozen v2 plan. A local execution interruption left
+12 recorded judgments from 13 journaled attempts. All 12 known judgments passed
+the protocol, and their reported model matched the requested snapshot. One
+attempt has no recorded response or usage; 47 requests were never started. The
+interruption's cause was not preserved by the original execution command.
+
+The known results cover `qa-click-04` and `qa-click-08` across all five strategies,
+then `qa-click-13` for BM25 and Dense. This ordered prefix excludes later cases and
+all Requests cases. Report 12 valid judgments out of 60 planned rows, with the
+unknown and not-run counts; do not present 12/12 as full-run success or true
+accuracy. Conditional model scores remain model assessments, and this prefix
+cannot support the intended full cross-strategy comparison.
+
+New judging usage implies a known subtotal of US$0.08424075 at frozen uncached
+rates. The 13th attempt may be billable, so complete new usage and cost totals
+remain unknown. The 60 original generations, v1 judgments and provisional labels
+are unchanged. The [partial archive](../reports/m7d-live/README.md) retains these
+boundaries and can be checked offline. There was no automatic retry or resume.
