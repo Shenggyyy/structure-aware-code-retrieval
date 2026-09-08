@@ -246,6 +246,29 @@ exact combined plan fingerprint, combined budget, a new output directory and
 That record also provides an offline archive-validation path; it requires no API key
 and does not repeat paid requests.
 
+## Prepare judge protocol v2 from saved answers
+
+First extract and verify the [saved M7b archive](../reports/m7b-live/README.md) under
+`artifacts/qa/m7b-replay-001`, so its assessment run is at the path below. Then prepare
+the revised requests and check the new bundle:
+
+```text
+uv run --locked python scripts/prepare_qa_judge_revision.py prepare --run artifacts/qa/m7b-replay-001/run --config configs/qa-judge-revision-m7c.toml --output artifacts/qa/m7c-v2-prepared-001
+uv run --locked python scripts/prepare_qa_judge_revision.py check --bundle artifacts/qa/m7c-v2-prepared-001
+```
+
+Choose a fresh output directory for every preparation. These commands read saved
+answers and common references; they need no API key, source checkout, index or model
+weights. Inspect the generated bundle and [M7c report](../reports/m7c/README.md) for
+exact messages, dynamic schemas, provenance, replay diagnostics and the cost proposal.
+An estimate is not execution approval.
+
+Replay only retags the rubric identifier in diagnostic copies of v1 outputs; it does
+not repair them or generate v2 scores. The original archive and provisional labels
+remain unchanged. M7c has no paid execution command. The legacy combined runner remains
+v1; a future judge-only run needs a separate implementation milestone and new explicit
+model, scope and budget approval.
+
 ## Development checks
 
 ```text

@@ -19,10 +19,17 @@ from structure_aware_retrieval.qa.answering import (
     validate_answer,
 )
 from structure_aware_retrieval.qa.citations import audit_evidence, validate_source_target
+from structure_aware_retrieval.qa.judgment_schema import build_schema, response_contract
 from structure_aware_retrieval.qa.provider import AnswerModel
 
 RUBRIC_ID = "repository-qa-judge-rubric-v1"
 RUBRIC_FINGERPRINT = "1d84225c419d8b73c481c0b5c2c399f75cef2f8108d9c44ac19bafce7eb57926"
+RUBRIC_V2_ID = "repository-qa-judge-rubric-v2"
+RUBRIC_V2_FINGERPRINT = "0d1c8d68507d00d6211c266a6bd5345b80acad0fe43e9f3b1f232e197cd2f6cb"
+REGISTERED_RUBRICS = {
+    RUBRIC_FINGERPRINT: (RUBRIC_ID, 1),
+    RUBRIC_V2_FINGERPRINT: (RUBRIC_V2_ID, 2),
+}
 MAX_JUDGMENT_BYTES = 65536
 DIMENSIONS = ("correctness", "completeness", "citation_support")
 SOURCE_FIELDS = {
@@ -104,13 +111,15 @@ def _hash(value: object) -> bool:
 def _validate_rubric(rubric: object) -> dict:
     rubric = _fields(rubric, RUBRIC_FIELDS, "loaded rubric")
     spec = rubric["spec"]
+    fingerprint = stable_id(spec)
+    registered = REGISTERED_RUBRICS.get(fingerprint)
     if (
         not isinstance(spec, dict)
-        or stable_id(spec) != RUBRIC_FINGERPRINT
-        or rubric["rubric_id"] != RUBRIC_ID
+        or registered is None
+        or rubric["rubric_id"] != registered[0]
         or type(rubric["rubric_version"]) is not int
-        or rubric["rubric_version"] != 1
-        or rubric["rubric_fingerprint"] != RUBRIC_FINGERPRINT
+        or rubric["rubric_version"] != registered[1]
+        or rubric["rubric_fingerprint"] != fingerprint
         or not _hash(rubric["rubric_file_sha256"])
         or rubric["system_prompt_sha256"] != _sha(spec["system_prompt"])
         or rubric["output_schema_sha256"] != _sha(_json(spec["output_schema"]))
@@ -120,7 +129,7 @@ def _validate_rubric(rubric: object) -> dict:
 
 
 def load_rubric(path: Path) -> dict:
-    """Load only the reviewed v1 contract; whitespace may vary, grading rules may not."""
+    """Load a registered frozen contract; whitespace may vary, grading rules may not."""
     raw = path.read_bytes()
     if len(raw) > 1_000_000:
         raise ValueError("QA judge rubric exceeds the size limit")
@@ -128,12 +137,13 @@ def load_rubric(path: Path) -> dict:
         spec = _parse(raw.decode("utf-8"))
     except UnicodeError as error:
         raise ValueError("QA judge rubric must be UTF-8") from error
-    if not isinstance(spec, dict) or stable_id(spec) != RUBRIC_FINGERPRINT:
+    registered = REGISTERED_RUBRICS.get(stable_id(spec))
+    if not isinstance(spec, dict) or registered is None:
         raise ValueError("Unsupported or modified frozen QA judge rubric")
     rubric = {
         "spec": spec,
-        "rubric_id": RUBRIC_ID,
-        "rubric_version": 1,
+        "rubric_id": registered[0],
+        "rubric_version": registered[1],
         "rubric_file_sha256": hashlib.sha256(raw).hexdigest(),
         "rubric_fingerprint": stable_id(spec),
         "system_prompt_sha256": _sha(spec["system_prompt"]),
@@ -196,7 +206,7 @@ def validate_reference(reference: dict) -> None:
 def judgment_messages(
     question: str, answer: dict | None, evidence: list[dict], reference: dict, rubric: dict
 ) -> list[dict]:
-    """Serialize exact messages; answer=None is reserved for offline cost estimation."""
+    """Serialize exact messages; only v1 supports answer=None for offline estimation."""
     _text(question, "question")
     if len(question.encode("utf-8")) > 4000:
         raise ValueError("QA question exceeds 4000 bytes")
@@ -207,6 +217,8 @@ def judgment_messages(
         _fields(source, SOURCE_FIELDS, "packed source")
     if answer is not None:
         validate_answer(_json(answer), evidence)
+    elif rubric["rubric_version"] == 2:
+        raise ValueError("Judge rubric v2 requires an exact archived answer")
     payload = {
         "question": question,
         "answer": answer,
@@ -222,10 +234,29 @@ def judgment_messages(
             )
         },
     }
+    if rubric["rubric_version"] == 2:
+        payload["response_contract"] = response_contract(answer, evidence, reference)
     return [
         {"role": "system", "content": spec["system_prompt"]},
         {"role": "user", "content": _json(payload)},
     ]
+
+
+def judgment_schema(
+    answer: dict | None, evidence: list[dict], reference: dict, rubric: dict
+) -> dict:
+    """Return the frozen v1 schema or the v2 schema bound to exact source and claim IDs."""
+    spec = _validate_rubric(rubric)
+    if rubric["rubric_version"] == 1:
+        return deepcopy(spec["output_schema"])
+    if answer is None:
+        raise ValueError("Judge rubric v2 requires an exact archived answer")
+    validate_reference(reference)
+    audit_evidence(evidence)
+    for source in evidence:
+        _fields(source, SOURCE_FIELDS, "packed source")
+    validate_answer(_json(answer), evidence)
+    return build_schema(answer, evidence, reference, rubric["rubric_id"])
 
 
 def _validated_generation(result: dict) -> None:
@@ -282,7 +313,9 @@ def prepare_judgment(result: dict, reference: dict, rubric: dict) -> dict:
         "messages": messages,
         "prompt_fingerprint": stable_id(messages),
         "messages_sha256": _sha(_json(messages)),
-        "output_schema": deepcopy(rubric["spec"]["output_schema"]),
+        "output_schema": judgment_schema(
+            result["answer"], result["context"]["evidence"], reference, rubric
+        ),
         "bindings": {
             "answer_fingerprint": result["answer_fingerprint"],
             "context_fingerprint": result["context"]["context_fingerprint"],
@@ -332,9 +365,13 @@ def _validate_prepared(prepared: dict) -> None:
         != stable_id({k: v for k, v in prepared.items() if k != "prepared_fingerprint"})
     ):
         raise ValueError("Invalid prepared judgment version or fingerprint")
+    _validate_rubric(prepared["rubric"])
+    payload_fields = {"question", "answer", "packed_evidence", "reference_context"}
+    if prepared["rubric"]["rubric_version"] == 2:
+        payload_fields.add("response_contract")
     payload = _fields(
         prepared["payload"],
-        {"question", "answer", "packed_evidence", "reference_context"},
+        payload_fields,
         "judge payload",
     )
     bindings = _fields(
@@ -394,7 +431,10 @@ def _validate_prepared(prepared: dict) -> None:
         or bindings["question_sha256"] != _sha(payload["question"])
         or stable_id(payload["packed_evidence"]) != stable_id(context["evidence"])
         or stable_id(payload) != stable_id(_parse(messages[1]["content"]))
-        or stable_id(prepared["output_schema"]) != stable_id(rubric["spec"]["output_schema"])
+        or stable_id(prepared["output_schema"])
+        != stable_id(
+            judgment_schema(payload["answer"], payload["packed_evidence"], reference, rubric)
+        )
         or prepared["messages_sha256"] != _sha(_json(messages))
         or prepared["prompt_fingerprint"] != stable_id(messages)
         or stable_id(prepared["messages"]) != stable_id(messages)
@@ -404,6 +444,17 @@ def _validate_prepared(prepared: dict) -> None:
 
 def _schema(value: object, schema: dict, path: str = "judgment") -> None:
     """The frozen schema uses only this small, explicit JSON Schema subset."""
+    if "anyOf" in schema:
+        for branch in schema["anyOf"]:
+            try:
+                _schema(value, branch, path)
+            except ValueError:
+                continue
+            break
+        else:
+            raise ValueError(f"No allowed judgment state at {path}")
+        if "type" not in schema:
+            return
     types = schema["type"] if isinstance(schema["type"], list) else [schema["type"]]
     checks = {
         "object": isinstance(value, dict),
@@ -421,10 +472,16 @@ def _schema(value: object, schema: dict, path: str = "judgment") -> None:
         for key, item in value.items():
             _schema(item, schema["properties"][key], f"{path}.{key}")
     elif isinstance(value, list):
+        if len(value) < schema.get("minItems", 0) or (
+            "maxItems" in schema and len(value) > schema["maxItems"]
+        ):
+            raise ValueError(f"Invalid judgment array length at {path}")
         for item in value:
             _schema(item, schema["items"], f"{path}[]")
     elif isinstance(value, str):
         _text(value, path)
+        if len(value) < schema.get("minLength", 0):
+            raise ValueError(f"Invalid judgment string length at {path}")
     elif type(value) is int and "minimum" in schema and value < schema["minimum"]:
         raise ValueError(f"Invalid judgment minimum at {path}")
 

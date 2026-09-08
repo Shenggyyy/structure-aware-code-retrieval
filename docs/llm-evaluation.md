@@ -8,6 +8,9 @@ generation/judge execution and reporting. The owner-approved Mini/Mini experimen
 now has real responses, accepted judgments and protocol failures. See the
 [M7b live record](../reports/m7b-live/README.md) for coverage, costs and limitations.
 Further paid calls require a newly approved scope and **combined** budget.
+M7c now freezes an offline v2 protocol candidate and prepares requests from the exact
+archived answers. It supplies no new judgments and does not change v1's 24 accepted
+and 36 invalid outcomes. See the [M7c record](../reports/m7c/README.md).
 
 Human calibration or spot-checking is optional. Its absence is a limitation to
 report, not a prerequisite for running evaluation or completing an engineering
@@ -27,6 +30,8 @@ structured output schema, cross-field validation rules, aggregation rules and
 run-record requirements. This is a project-designed rubric. Freeze its
 content hash with each run; a substantive change requires a new rubric version and
 rejudging every compared strategy under that version.
+[`configs/qa-judge-rubric-v2.json`](../configs/qa-judge-rubric-v2.json) preserves these
+score anchors and semantic policies while changing the prompt and response protocol.
 
 Each dimension returns `status`, `score`, a concise source-grounded `rationale`,
 evidence IDs and relevant zero-based answer claim indices. `scored` requires an
@@ -50,6 +55,37 @@ rubrics, and identifies position and verbosity bias. It also recommends human
 calibration. Here that calibration is optional; without it, report that judge
 agreement with human judgments has not been measured.
 [Source](https://developers.openai.com/api/docs/guides/evaluation-best-practices).
+
+## Offline protocol v2
+
+V2 adds a caller-generated `response_contract` containing full `packed:S1` and
+`reference:R1` IDs, zero-based claim indices, each claim's actual citations and
+permitted status combinations. Reference-point IDs such as `P1` are not source IDs.
+This catalog adds no evidence and changes no answer, source text or provisional label.
+
+Each archived answer gets its own deterministic strict schema: nested `anyOf` branches
+couple statuses to scores, enums restrict evidence IDs and claim indices, and empty
+catalogs require empty arrays. Citation-support IDs must come from the answer's cited
+packed evidence; abstention IDs may only use packed evidence. The base schema in the
+rubric file describes the output shape; the exact request uses the prepared per-answer
+`output_schema`. V2 preparation requires an actual answer, never `answer=None`.
+
+Host validation still rejects duplicate IDs/indices, citations unrelated to the selected
+claims, and inconsistent reference/completeness states. For abstentions, usable
+answerable references require completeness 0; usable out-of-scope references require
+`not_applicable`. Uncertain completeness instead requires inadequate/conflicting
+references and an explicit issue. Correctness may cite source IDs to explain an N/A
+abstention; citation support has no claims or evidence to assess.
+
+The offline replay changes only `rubric_id` in a diagnostic copy of each archived v1
+output so it can reach v2 validation. It never repairs evidence IDs, statuses or scores,
+never overwrites v1 artifacts and never counts these copies as v2 judgments. Passing a
+schema or rejecting a known failure does not measure new model reliability or accuracy.
+
+Use the [offline preparation and check commands](reproduction.md#prepare-judge-protocol-v2-from-saved-answers).
+The combined runner remains v1; there is no v2 execution command in M7c. A future
+judge-only runner and experiment require separate scope and fresh model/budget approval.
+The completed US$5.63-budget run cannot authorize more requests.
 
 ## Judge input and reference separation
 

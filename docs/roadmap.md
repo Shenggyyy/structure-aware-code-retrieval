@@ -36,6 +36,8 @@ planning, common source references, generation/judge execution, durable records 
 coverage/cost reporting. Its first real Mini/Mini experiment completed all 120
 authorized calls, with 24 accepted judgments and 36 protocol failures. Raw evidence,
 coverage and costs are preserved in the [live record](../reports/m7b-live/README.md).
+M7c adds an [offline v2 protocol candidate](../reports/m7c/README.md), dynamic schemas
+for exact saved answers, and replay diagnostics without new model calls.
 M8a supplies CPU Docker delivery; M8b supplies the validated results overview and
 reproduction documentation. Current acceptance uses automatic checks and explicitly
 reported LLM assessment; independent human review is optional. See [status](status.md).
@@ -64,7 +66,7 @@ The M6 breadth target is met; sparse-label limitations remain part of every conc
 
 ## MVP and final acceptance
 
-M7 is delivered in two checkpoints:
+M7 is delivered in checkpoints:
 
 - **M7a — Offline QA and specification:** validate context/source identity, paths and
   line ranges; freeze the scoring, failure and reporting rules in the
@@ -74,6 +76,12 @@ M7 is delivered in two checkpoints:
   request limits, and obtain explicit owner approval before API calls. Record actual
   answers, automatic citation checks, LLM correctness/completeness/support assessments,
   usage, failures and latency. No synthetic response counts as a real experiment.
+- **M7c — Offline judge protocol revision:** freeze v2 without changing v1 or its
+  results. Prepare dynamic request schemas from saved answers and common references;
+  make full evidence IDs, claim indices and abstention constraints explicit. Validate
+  bundles and diagnose archived failures offline. No API calls or v2 execution path
+  are part of this checkpoint. Suggested commit:
+  `Add offline v2 judge protocol preparation and replay diagnostics`.
 
 See the [M7b implementation record](../reports/m7b/README.md) and
 [offline preparation commands](qa.md#prepare-and-check-the-combined-experiment).
@@ -88,9 +96,11 @@ containers, reproducible delivery checks and usage documentation. **M8b** consol
 recorded evidence and project presentation, including an automatically checked
 overview and a dedicated reproduction guide. These checkpoints did not close M7b.
 M7b now supplies the first live results and updates the findings and acceptance
-matrix. Its 40% judge acceptance rate prevents a strong QA comparison. The recommended
-next checkpoint is an offline, versioned judge-protocol reliability improvement;
-any further API experiment needs separate model/scope/budget approval. Engineering
+matrix. Its 40% judge acceptance rate prevents a strong QA comparison. M7c completes
+the offline, versioned protocol revision; it does not establish improved live reliability.
+An optional next checkpoint can implement bounded judge-only execution over the saved
+answers, with a fresh exact plan and model/scope/budget approval before any call.
+The existing combined runner remains v1. Engineering
 delivery must not be presented as proof that Structure improves answer quality.
 
 M1–M5 define the implemented retrieval MVP: Python parsing/indexing, five strategies,

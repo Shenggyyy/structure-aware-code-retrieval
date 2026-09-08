@@ -101,6 +101,11 @@ def _settings(value: object) -> dict:
 
 
 def make_model(settings: dict, rubric: dict | None = None) -> OpenAIModel:
+    if rubric and rubric["rubric_version"] != 1:
+        raise ValueError(
+            "The combined runner supports rubric v1 only; "
+            "prepare v2 per-answer requests with scripts/prepare_qa_judge_revision.py"
+        )
     return OpenAIModel(
         model=settings["model"],
         api_key_env=settings["api_key_env"],

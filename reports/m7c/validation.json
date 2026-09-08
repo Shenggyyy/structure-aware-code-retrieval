@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-08",
+  "checkpoint": "m7c-offline-judge-protocol-v2",
+  "api_calls_made": 0,
+  "python": "3.12.14",
+  "platform": "Windows 11",
+  "pytest": {
+    "command": "uv run --locked pytest --cov --cov-report=term-missing --cov-report=xml --cov-report=json:artifacts/m7c-coverage.json --junitxml=artifacts/m7c-tests.xml",
+    "collected": 725,
+    "passed": 724,
+    "skipped": 1,
+    "skip_reason": "Creating symlinks is unavailable on this host",
+    "failed": 0,
+    "duration_seconds": 160.85,
+    "new_regression_cases": 44,
+    "credentials_and_provider_calls": "Blocked by offline test fixtures"
+  },
+  "coverage": {
+    "scope": "structure_aware_retrieval package; excludes standalone scripts",
+    "combined_percent": 91.46696891191709,
+    "covered_statements": 4094,
+    "statements": 4410,
+    "covered_branches": 1555,
+    "branches": 1766
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "distribution_build": "uv build --offline passed",
+  "retrieval_overview": "45 saved runs checked without new retrieval experiments",
+  "historical_source_verification": "All source files in the revision bundle match the unchanged M7b run.zip members; full saved-run verifier passed",
+  "revision_bundle_check": "60 exact judge requests recomputed and validated offline",
+  "linux_and_container_checks": "Not run locally at this checkpoint; existing CI matrix retained",
+  "previous_remote_ci": "Owner reports the preceding import fix passed",
+  "current_remote_ci": "Pending owner commit and push",
+  "limitations": "Software and exposed-output migration checks only; no v2 provider acceptance, model quality or human calibration measurement"
+}

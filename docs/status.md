@@ -4,6 +4,8 @@ The repository provides an operational retrieval/evaluation system and a two-sta
 QA/LLM-assessment runtime. **The first authorized live experiment finished all 120
 requests with 36 invalid judge outputs.** Core implementation and the first evidence
 set are delivered; judge coverage is insufficient for a reliable QA-quality ranking.
+M7c now supplies an offline v2 protocol candidate with per-answer schemas and archived
+failure diagnostics. No v2 model response or improved live acceptance rate is claimed.
 Human or independent review is optional, not a completion prerequisite. Existing
 labels remain provisional; automatic checks and model judgments must be described
 according to what they actually measure.
@@ -19,7 +21,7 @@ according to what they actually measure.
 | Systems measurements | 45 completed retrieval runs and 24 construction measurements, storage and worker peak memory | Measurements describe one interactive host, not production service guarantees |
 | Repository QA | 60 live generations: 48 answers, 12 abstentions; all source audits and applicable citation ID checks passed | Automatic checks establish location/identity, not semantic truth |
 | QA experiment | Twelve provisional development cases × five strategies; 120 authorized calls, complete raw archive, known usage for every call | Small development scope and same-model generator/judge limit generalization; usage-based cost is not an invoice |
-| LLM evaluation | 24 accepted judgments, 36 protocol failures; each ordinal dimension scored in 21/60 rows, with per-strategy coverage and matched cases | Improve protocol reliability before claiming a robust QA-quality comparison; further paid runs require new approval |
+| LLM evaluation | 24 accepted v1 judgments, 36 protocol failures; v2 exact-answer schemas, evidence catalogs and offline replay diagnostics | A new judge-only run is a separate optional scope requiring an execution path and fresh model/budget approval; no observed v2 acceptance rate yet |
 | Packaging and testing | Installable package, automated tests, base/CPU Dense Docker targets, offline smoke checks, Windows/Linux CI configuration | Current checkpoint's remote CI runs after the owner commits and pushes |
 | Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline saved-run verification and reproduction instructions | Retain limits and version future protocol/dataset changes |
 
@@ -62,6 +64,13 @@ according to what they actually measure.
   Final local validation: 679 passed, one symlink-privilege skip, 91.25% combined
   statement/branch coverage; Ruff, distribution builds and extracted-run verification
   pass. Current remote CI remains pending the owner's commit and push.
+- The owner reports the subsequent standalone-verifier import fix passed GitHub CI.
+  This confirms the preceding pushed checkpoint, not the current uncommitted changes.
+- [M7c offline protocol](../reports/m7c/README.md) preserves v1, the archived answers,
+  references and provisional labels. It freezes v2 and prepares source-bound dynamic
+  schemas with a read-only checker. Archived-output replay is a protocol diagnostic,
+  not new inference or repaired scores. The report records current local validation;
+  remote CI follows the owner's next commit and push.
 
 Historical reports retain their original measurements and completion criteria.
 This page records the current automatic-evaluation acceptance policy; historical
@@ -69,12 +78,12 @@ references to required human review do not override it.
 
 ## Recommended research follow-up
 
-1. Use archived failures to design and test a new evaluator protocol offline.
-   Make evidence namespaces and abstention status constraints explicit. Preserve
-   rubric v1, its rejected outputs and all current benchmark labels unchanged.
-2. If another real comparison is desired, freeze the new protocol, scope and
-   combined cost and obtain approval before calls. The first run's approval has
-   been consumed; it does not authorize repeating or repairing paid requests.
+1. The offline v2 protocol checkpoint is complete. Inspect its exact prepared requests
+   and diagnostics before proposing another real comparison; preserve all v1 evidence.
+2. If another real comparison is desired, implement a bounded judge-only runner as a
+   separate milestone, then obtain new approval for the exact model, request scope and
+   estimate. Reuse the saved answers across every compared strategy. The completed
+   US$5.63-budget run's approval does not authorize further calls.
 3. Improve coverage and external validation before broader answer-quality claims.
    LLM assessment is not human ground truth or a verified true correctness rate.
    Positive Structure improvements are not required; transparent evidence is.

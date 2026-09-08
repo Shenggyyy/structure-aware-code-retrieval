@@ -13,8 +13,9 @@ distributed services, and model training are outside the initial scope.
 
 The flow below describes the implemented pipeline: scanning, AST extraction, chunks,
 SQLite persistence, five retrieval strategies, vector/graph artifacts, evaluation
-and bounded QA. Live QA plus LLM-assisted scoring remains the next experiment;
-human review is an optional extension. See [acceptance status](status.md).
+and bounded QA. The first live QA/LLM-scoring experiment is archived; M7c adds an
+offline judge-protocol revision without new inference. Human review is an optional
+extension. See [acceptance status](status.md).
 
 ## Data flow
 
@@ -57,6 +58,7 @@ flowchart TD
 | `qa` | Model adapter, evidence-grounded prompts, citations |
 | `qa.assessment_plan` / `qa.assessment_execution` | Freeze both stages, shared references and costs; validate approval and journal execution |
 | `qa.judging` / `qa.assessment_reporting` | Validate source-bound LLM judgments; report ordinal dimensions, coverage and separate stage costs |
+| `qa.judgment_schema` | Build v2 per-answer response catalogs and strict schemas from actual claim and evidence IDs |
 | `evaluation` | Dataset validation, experiments, metrics, reports |
 
 Keep the CLI thin and library logic independent of the user interface. Shared data
@@ -271,6 +273,17 @@ preserves every planned case, and stops on provider errors without retries/resum
 ordinal statuses, citations and answer/context bindings. `qa/assessment_reporting.py`
 keeps conditional means, paired scored cases, missing outcomes, stage costs and
 timing boundaries explicit. Preparation and validation make no API calls.
+
+M7c's `scripts/prepare_qa_judge_revision.py` verifies an existing assessment archive,
+then prepares v2 judge requests using the exact saved answers, packed context and
+common references. `qa/judgment_schema.py` exposes legal status/score combinations,
+full source-ID enums and claim bounds; `qa/judging.py` recomputes those schemas when
+checking bindings. Duplicate IDs, selected-claim citation support and reference-status
+coupling still require host checks. Valid schema output does not establish semantic truth.
+The bundle freezes messages, per-answer schemas, provenance and an offline cost proposal.
+Its archived-output replay changes only the rubric identifier in diagnostic copies;
+v1 results remain immutable. There is no v2 execution command, and the combined
+assessment runner continues to accept only v1. See [M7c evidence](../reports/m7c/README.md).
 
 `qa/review.py` validates optional human judgments and gates only its own manual
 aggregates on complete submissions. It does not gate project acceptance.

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-08",
+  "kind": "offline_protocol_revision",
+  "api_calls_made": 0,
+  "source_archive": {
+    "path": "../m7b-live/run.zip",
+    "sha256": "340a5c7226c453ceabaa2fc277a8942cb80b792750de99c877a7d707dc9a3f7a",
+    "copied_source_files_match_archive": true
+  },
+  "plan_fingerprint": "28bf7b780982b17d37150c1c4bad1e717769832faddd6e59ce24edbc656324f7",
+  "files_sha256": {
+    "plan.json": "efbbef58c9e465b7121dd4fe363d9cbf00ebe047bce653330078fd4a9b37066a",
+    "replay.json": "4a756f42fd6597ba23655e555ee4184e5998cc3048fb7495d11d4d14a4b4a0e1"
+  },
+  "rubric_fingerprint": "0d1c8d68507d00d6211c266a6bd5345b80acad0fe43e9f3b1f232e197cd2f6cb",
+  "requests_fingerprint": "1b0ba0f91a1349a04c4a9de5110876a67164a791147fe96c5062f317f67b47b3",
+  "v1_rubric_sha256": "6cf4b22ab575666e6779f8556848d4e57e54c7e44c92de8e4e6c5797849340c3",
+  "replay_counts": {
+    "source_status": {
+      "invalid_judgment": 36,
+      "scored": 24
+    },
+    "schema": {
+      "rejected": 34,
+      "accepted": 26
+    },
+    "validation": {
+      "rejected": 36,
+      "accepted": 24
+    }
+  }
+}
