@@ -1,8 +1,12 @@
 # Evaluation Protocol
 
-This is the planned protocol. M1 contains no benchmark, metric implementation, or
-experimental result. Finalize executable schemas and metric edge cases in M3 before
-comparing strategies.
+This is the planned protocol. M2 has a BM25 implementation and real-repository smoke
+checks, but no labeled benchmark or quality metrics. Finalize executable schemas and
+metric edge cases in M3 before comparing strategies. Smoke queries verify functionality
+and expose examples; they do not establish Recall, Precision, MRR, or NDCG.
+
+The M2 baseline uses BM25Plus with `k1=1.5`, `b=0.75`, and `delta=0`, as recorded in
+index metadata. Freeze this explicit variant before comparing later strategies.
 
 ## Dataset layers
 

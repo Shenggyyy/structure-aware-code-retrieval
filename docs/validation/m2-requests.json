@@ -1,0 +1,162 @@
+{
+  "purpose": "M2 functional smoke validation, not retrieval-quality evaluation",
+  "repository": "https://github.com/psf/requests",
+  "tag": "v2.32.3",
+  "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+  "snapshot_id": "61238cbd783a9882d1a86d36c1c58e993c6d31d79bf69400fc7544f43d3226e7",
+  "runtime": {
+    "python": "3.12.14",
+    "packages": {
+      "structure-aware-code-retrieval": "0.1.0",
+      "rank-bm25": "0.2.2",
+      "pathspec": "1.1.1"
+    }
+  },
+  "config": {
+    "schema_version": 1,
+    "parser_version": 1,
+    "scanner_version": 1,
+    "tokenizer_version": 1,
+    "max_chunk_lines": 80,
+    "max_file_bytes": 1048576,
+    "exclude": [],
+    "excluded_directories": [
+      ".cache",
+      ".git",
+      ".hg",
+      ".idea",
+      ".pytest_cache",
+      ".ruff_cache",
+      ".svn",
+      ".venv",
+      ".vscode",
+      "__pycache__",
+      "artifacts",
+      "build",
+      "dist",
+      "node_modules",
+      "venv"
+    ],
+    "gitignore_hashes": {
+      ".gitignore": "1a4dd48fcac4cb41f594018cdb84a30dd40f0dd964d922c82c7069d8ffd69fdd",
+      "docs/_themes/.gitignore": "d63a59a6ebf9774f95ac642e911de140b1a5edc56597cb84744a742580546108"
+    },
+    "bm25": {
+      "variant": "BM25Plus",
+      "k1": 1.5,
+      "b": 0.75,
+      "delta": 0.0
+    }
+  },
+  "counts": {
+    "files_indexed": 36,
+    "symbol_count": 789,
+    "chunk_count": 867,
+    "import_count": 471
+  },
+  "checks": {
+    "all_source_hashes_match": true,
+    "all_chunk_line_ranges_match": true,
+    "repeat_build_matches": true,
+    "separate_process_search_matches": true,
+    "parse_diagnostics": []
+  },
+  "queries": [
+    {
+      "query": "cookiejar_from_dict",
+      "results": [
+        {
+          "rank": 1,
+          "score": 19.969171525764565,
+          "path": "src/requests/cookies.py",
+          "qualified_name": "src.requests.cookies.cookiejar_from_dict",
+          "kind": "function",
+          "start_line": 521,
+          "end_line": 539
+        },
+        {
+          "rank": 2,
+          "score": 17.869477486446986,
+          "path": "src/requests/utils.py",
+          "qualified_name": "src.requests.utils.add_dict_to_cookiejar",
+          "kind": "function",
+          "start_line": 478,
+          "end_line": 486
+        },
+        {
+          "rank": 3,
+          "score": 14.979609336626456,
+          "path": "tests/test_requests.py",
+          "qualified_name": "tests.test_requests.TestRequests.test_param_cookiejar_works",
+          "kind": "method",
+          "start_line": 430,
+          "end_line": 436
+        }
+      ]
+    },
+    {
+      "query": "HTTPAdapter send timeout",
+      "results": [
+        {
+          "rank": 1,
+          "score": 16.195251172593615,
+          "path": "src/requests/adapters.py",
+          "qualified_name": "src.requests.adapters.HTTPAdapter.add_headers",
+          "kind": "method",
+          "start_line": 578,
+          "end_line": 590
+        },
+        {
+          "rank": 2,
+          "score": 15.742885184947454,
+          "path": "tests/test_requests.py",
+          "qualified_name": "tests.test_requests.TestRequests.test_transport_adapter_ordering",
+          "kind": "method",
+          "start_line": 1581,
+          "end_line": 1617
+        },
+        {
+          "rank": 3,
+          "score": 12.384079616751801,
+          "path": "src/requests/adapters.py",
+          "qualified_name": "src.requests.adapters.HTTPAdapter.send",
+          "kind": "method",
+          "start_line": 693,
+          "end_line": 719
+        }
+      ]
+    },
+    {
+      "query": "prepare_url",
+      "results": [
+        {
+          "rank": 1,
+          "score": 16.90674102143039,
+          "path": "tests/conftest.py",
+          "qualified_name": "tests.conftest.prepare_url",
+          "kind": "function",
+          "start_line": 15,
+          "end_line": 18
+        },
+        {
+          "rank": 2,
+          "score": 16.50030298235886,
+          "path": "tests/conftest.py",
+          "qualified_name": "tests.conftest.prepare_url",
+          "kind": "function",
+          "start_line": 21,
+          "end_line": 22
+        },
+        {
+          "rank": 3,
+          "score": 13.219298841863997,
+          "path": "tests/conftest.py",
+          "qualified_name": "tests.conftest.prepare_url.inner",
+          "kind": "function",
+          "start_line": 19,
+          "end_line": 20
+        }
+      ]
+    }
+  ]
+}

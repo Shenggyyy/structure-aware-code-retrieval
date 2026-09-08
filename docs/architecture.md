@@ -11,8 +11,9 @@ repository per query. Read source statically without importing or running it.
 Report syntax errors and unsupported files. Code editing, agent execution loops,
 distributed services, and model training are outside the initial scope.
 
-This is the target design. M1 implements only the package, CLI information entry
-points, checks, and documentation.
+The flow below is the target design. M2 implements scanning, AST extraction, chunks,
+SQLite persistence, and BM25 search. Graph retrieval, dense embeddings, QA, and the
+experiment runner remain planned.
 
 ## Data flow
 
@@ -100,9 +101,44 @@ chunking separately from graph features.
 | Quality | pytest, pytest-cov, Ruff, Windows/Linux GitHub Actions |
 | Delivery | CLI and static reports first; Docker in M8 |
 
-Only Typer and development tools are installed in M1. Add model and retrieval
-dependencies with their features. No external vector/graph database, web service,
-or orchestration framework is currently justified.
+M2 adds `pathspec` for nested ignore rules and `rank-bm25` (with NumPy) for lexical
+search. Model dependencies arrive with their features. No external database service,
+web service, or orchestration framework is currently justified.
+
+## M2 implementation details
+
+Current components are single modules named after their responsibilities. Split a
+module into a package only when additional implementations justify it.
+
+- `scan_repository` yields sorted source files, raw byte hashes, applied ignore-file
+  hashes, skipped-file diagnostics, and counts of excluded entries. Excluded
+  directories are counted as entries, not recursively counted files.
+- `parse_file` decodes Python encoding cookies and normalizes CRLF/CR to LF. It keeps
+  decorators in definition ranges and assigns each source line to its deepest
+  definition. Parent chunks retain the remaining lines; whitespace-only chunks are
+  omitted. Long spans are split at a configurable line count without overlap.
+- Names are **path-qualified** lexical names. For example, `src/requests/api.py`
+  produces `src.requests.api`, without inferring runtime `sys.path` or import roots.
+- `build_index` writes metadata, files, symbols, chunks/tokens, and import references
+  to a temporary SQLite database, then replaces the destination atomically. Failed
+  writes preserve the previous snapshot. Rebuild is explicit, not incremental.
+- `load_index` validates the application/schema/tokenizer identifiers and loads
+  JSON records, without source access or pickle deserialization.
+- `BM25Retriever.from_path` reconstructs corpus statistics once; reuse the instance
+  for repeated queries. Ranking currently scores all chunks in memory.
+
+The snapshot fingerprint hashes source-byte manifests, selection/chunk/tokenizer
+configuration, ignore-file hashes, and skipped-file identities/reasons. Paths to
+the local checkout and timestamps are excluded. Identical source bytes and config
+produce identical IDs across checkout locations; different checkout line endings
+can change hashes. Git commit/dirty state and runtime versions are recorded as
+provenance, not substitutes for the captured source manifest.
+
+The explicit baseline variant is `BM25Plus(k1=1.5, b=0.75, delta=0)`, using positive
+IDF `log((N+1)/df)`. Delta zero ensures nonmatches score zero even when some query
+terms occur elsewhere. Code/path/name/signature share one text field; this is not
+the later symbol-aware reranking strategy. Keep this baseline and parameters fixed
+when introducing subsequent methods.
 
 ## Storage and references
 

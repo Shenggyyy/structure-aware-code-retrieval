@@ -7,6 +7,10 @@ tests, and update README and relevant documents. At completion, stop and report 
 changed, why, principal files, validation, and a recommended commit message. The owner
 commits and pushes. Do not begin the next milestone automatically.
 
+At every milestone completion, provide complete copyable commands for reviewing,
+staging, committing, and pushing changes. Verify the current branch and remote before
+writing the push command; the owner executes these commands.
+
 ## Milestones and acceptance criteria
 
 | Stage | Deliverable and acceptance | Suggested commit |
@@ -20,8 +24,9 @@ commits and pushes. Do not begin the next milestone automatically.
 | M7 — QA | Context budget, model adapter, cited answers, reviewed answer-evaluation cases. Compare strategies using a fixed LLM/prompt; assess citation validity separately from support. | `Add repository QA with source citations` |
 | M8 — Delivery | CPU Docker path, final docs, reports or dashboard, clean-environment reproduction. A reader can run indexing, search, QA with configured credentials, and evaluation. | `Package reproducible experiments and project documentation` |
 
-M1 is the current stage; M2–M8 are planned. Remote CI results are available only
-after the owner pushes and GitHub Actions runs.
+M1 is complete, with CI reported passing by the owner. M2 implementation and local
+validation are complete; see the [smoke-check record](validation/m2.md). M3–M8 are
+planned. Remote CI for new changes runs only after the owner pushes.
 
 ## MVP and final acceptance
 
