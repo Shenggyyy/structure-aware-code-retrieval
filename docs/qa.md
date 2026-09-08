@@ -5,11 +5,12 @@ Human review is optional and is not a completion prerequisite. Existing retrieva
 labels and QA reference points remain **provisional**; neither valid citations nor
 model scores establish human-reviewed correctness or a calibrated accuracy rate.
 
-**M7a is offline:** context preparation, answer contracts, citation checks, generation
-cost projection and a frozen judge specification. **M7b remains to implement and
-run the generation-plus-judging experiment.** No live answers or model scores have
-been produced. See [the scoring specification](llm-evaluation.md) and
-[current acceptance](status.md).
+**M7a provides offline QA checks and the judge specification. M7b implements the
+combined generation/judging workflow and records a real Mini/Mini experiment.**
+The owner approved the two fixed Mini models and a US$5.63 combined budget.
+See [the live evidence and failures](../reports/m7b-live/README.md),
+[the scoring specification](llm-evaluation.md) and [current acceptance](status.md).
+Any additional live run requires approval of its scope and combined cost.
 
 ## Preview a question
 
@@ -47,8 +48,13 @@ New `qa.json` records distinguish:
 | Field | Meaning |
 | --- | --- |
 | `automatic_checks` | Packed evidence ID/path/range checks and answer citation-ID validity; no semantic scoring |
-| `llm_assessment` | `not_run` with null scores/model/rubric in M7a; future M7b model assessment belongs here |
+| `llm_assessment` | A `not_run` snapshot with null scores/model/rubric in single-generation output; not rewritten by the separate combined runner |
 | `evaluation` | Legacy fields used by optional manual-review tooling; pending/null values do not block completion |
+
+Combined `records.json` joins these generation artifacts with a separate `judging`
+outcome per planned case/strategy. Read `row.judging` and the combined summary for
+actual LLM judgments; a nested `generation.llm_assessment.status = not_run` is not
+the status of the later judging stage.
 
 Paths and lines refer to the stored snapshot, not necessarily a changed live checkout.
 Fingerprints detect inconsistent records, not maliciously reauthored evidence. Valid
@@ -72,37 +78,110 @@ model or budget. QA tuning does not use the expanded or public test questions.
 The bundle contains `plan.json`, exact `requests.jsonl`, source `previews/` and separate
 `cases.json` references. It validates source targets, snapshot/model/vector/graph
 bindings, questions and retrieval strategies. Reference points, expected status and
-gold targets are excluded from the **answering** model's messages. M7b will provide
+gold targets are excluded from the **answering** model's messages. M7b supplies
 separately marked, source-backed references to the judge under the fixed specification.
 
 The content fingerprint binds messages and case/strategy IDs; timings do not affect
 it. Full plan fingerprints also bind runtime metadata and timings and can differ
 between preparations. Fixed models/prompts do not guarantee bitwise identical outputs.
 
-## Generation-only estimates and the M7b budget gate
+## Prepare and check the combined experiment
 
-Current `plan.json` explicitly records `cost_estimation.scope = answer_generation_only`
+Use the existing generation bundle and the same Requests/Click indexes:
+
+```text
+uv run --locked sacr prepare-qa-assessment --bundle artifacts/qa/m7-prepared --config configs/qa-assessment-m7-mini.toml --output artifacts/qa/m7b-prepared
+uv run --locked sacr check-qa-assessment --bundle artifacts/qa/m7b-prepared
+```
+
+Both commands are offline and read no API key. Preparation copies the generation
+inputs and rubric, resolves reference source and freezes the settings, estimate and
+plan fingerprint. Checking the completed bundle needs no indexes or model weights
+and changes no files. Use a new preparation path; prior artifacts are preserved.
+
+Reference source includes all canonical chunks within each exact target, including
+chunks owned by nested definitions. Every provisional reference point links to the
+case's candidate source set. This is not verified sentence-to-source alignment.
+The references are identical across strategies and never enter generation messages.
+Inspect `references.json` alongside the generated plan before approving the run.
+
+The recorded run uses [qa-assessment-m7-mini.toml](../configs/qa-assessment-m7-mini.toml):
+
+| Stage | Recorded model | Max output tokens | Reasoning effort | Input / output USD per million tokens |
+| --- | --- | ---: | --- | --- |
+| Generation | `gpt-5.4-mini-2026-03-17` | 1,024 | `none` | 0.75 / 4.50 |
+| Judging | `gpt-5.4-mini-2026-03-17` | 2,048 | `none` | 0.75 / 4.50 |
+
+Standard uncached rates are frozen as of 2026-09-08 from the official
+[GPT-5.4 mini](https://developers.openai.com/api/docs/models/gpt-5.4-mini) page.
+The exact combined estimate was US$5.6289795. The earlier GPT-5.4 judge proposal is
+preserved in [the offline checkpoint](../reports/m7b/README.md); it was superseded
+before any calls. The saved approval covers one run, not future invocations.
+Verify prices and prepare a new plan when changing inputs or settings.
+
+## Combined budget and execution approval
+
+The original generation `plan.json` records `cost_estimation.scope = answer_generation_only`
 and `includes_llm_judging = false`. Input estimation uses UTF-8 message/schema bytes
 plus a framing allowance; output estimation uses the configured maximum. This is a
 conservative projection at saved uncached rates, **not a billing hard cap**. The old
 60-request estimate excludes judging and must not be reused as the combined budget.
 
-Before M7b executes, present one plan containing both proposed model snapshots,
+The combined estimator counts model-visible message UTF-8 bytes plus serialized
+schema/settings and framing. It additionally reserves the full **65,536-byte valid
+answer ceiling** as judge input, plus both stages' maximum output tokens. This can
+greatly exceed typical usage; it is not a tokenized prediction or billing hard cap.
+
+Before any new paid experiment executes, present its plan containing both proposed model snapshots,
 settings, exact prompt/rubric versions, generation/judge call limits, input/output
 estimates, separately verified prices and **generation + judging total cost**. Judge
 input must include the generated answer and common reference evidence. Wait for the
 owner to confirm the models and combined budget before sending any request.
 
+After approval, `run-qa-assessment` requires all of these flags:
+
+| Flag | Required value |
+| --- | --- |
+| `--bundle` | The checked combined bundle |
+| `--output` | A new run directory; no overwrite or resume |
+| `--generation-model`, `--judge-model` | Both exact approved IDs from the plan |
+| `--approve-plan` | The exact approved `plan_fingerprint` |
+| `--budget-usd` | The approved budget covering the combined estimate |
+| `--execute` | Explicitly enable requests after approval |
+
+Missing execution consent, model/fingerprint mismatches and inadequate budgets make
+no calls. Local empty-context abstentions bypass generation; invalid generation
+skips judging. Provider errors stop the run, preserving partial results. Additional
+attempts require a separately approved scope; there are no automatic retries.
+
 The existing `ask --execute` and `run-qa --execute` paths perform generation only;
 they neither run an LLM judge nor enforce a combined two-stage budget. They remain
-available as low-level commands, but are not the completed M7b evaluation workflow.
-M7a tests use synthetic provider responses and never substitute them for real results.
+available as low-level commands, but do not replace `run-qa-assessment` for M7b.
+Offline tests use synthetic provider responses and never substitute them for real results.
+
+## Combined run outputs
+
+| File | Contents |
+| --- | --- |
+| `approval.json` | Approved models, plan fingerprint, budget and execution mode |
+| `prepared/` | Copied generation inputs, common references, rubric and combined plan |
+| `attempts.jsonl` | Durable pre-call events with exact credential-free request payloads and hashes |
+| `results.jsonl` | Stage-result events, including unsuccessful outputs and available provider metadata |
+| `records.json` | Every planned case/strategy with separate `generation` and `judging` results; absent outcomes remain null |
+| `summary.json`, `report.md` | Automatic checks, ordinal dimensions, coverage, paired case IDs, abstentions, stage costs and timing |
+
+An attempted request without a result has an unknown outcome, distinct from a
+request never started. The latter remains in planned-case denominators. A valid
+abstention receives no perfect correctness/support score. Means condition on scored
+cases; matched comparisons use shared scored case IDs, with coverage visible.
 
 ## Provider configuration and measurements
 
 The existing adapter uses OpenAI Responses, strict structured output, `store=false`,
 no tools, no automatic retries and a 60-second timeout. It records returned model,
-request ID, raw output, status and usage. Empty evidence bypasses the API. Failed or
+request/response IDs, any reported revision, bounded raw response envelopes, text,
+status and usage. Incomplete/refused responses retain partial text and known usage
+when supplied. Empty evidence bypasses generation. Failed or
 uncertain attempts may be billable; missing usage is unknown rather than zero.
 `store=false` is an API setting, not a claim about all provider retention.
 
@@ -120,7 +199,7 @@ An existing desktop session must inherit the environment setting. Execution rese
 new output paths and journals attempted/completed requests; it never silently resumes
 or overwrites an old run. New runs can repeat paid calls and need explicit scope.
 
-Keep retrieval/packing, generation and future judging latency separate, then report
+Keep offline retrieval/packing, generation and judging latency separate, then report
 end-to-end measurement boundaries. Preserve generation and judge token usage and cost
 estimates separately and together. Unknown billed usage prevents a complete total;
 known subtotals require coverage counts. Scope-control agreement and answer status

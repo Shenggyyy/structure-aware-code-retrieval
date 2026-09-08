@@ -110,6 +110,17 @@ def test_run_requires_explicit_execute(tmp_path, monkeypatch):
     assert "No calls made" in result.output
 
 
-@pytest.mark.parametrize("command", ["ask", "prepare-qa", "run-qa", "check-qa-review"])
+@pytest.mark.parametrize(
+    "command",
+    [
+        "ask",
+        "prepare-qa",
+        "run-qa",
+        "check-qa-review",
+        "prepare-qa-assessment",
+        "check-qa-assessment",
+        "run-qa-assessment",
+    ],
+)
 def test_qa_help(command):
     assert runner.invoke(app, [command, "--help"]).exit_code == 0

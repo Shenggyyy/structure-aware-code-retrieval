@@ -34,6 +34,11 @@ flowchart TD
     T --> H[Ranked hits with source locations]
     H --> B[Context builder]
     B --> A[LLM answer with citations]
+    I --> Ref[Common reference source]
+    A --> J[LLM judge with fixed rubric]
+    B --> J
+    Ref --> J
+    J --> JR[Ordinal scores, coverage and cost]
     D[Benchmark and configuration] --> X[Experiment runner]
     X --> T
     X --> O[Metrics and per-query reports]
@@ -50,6 +55,8 @@ flowchart TD
 | `retrieval` / `strategies` / `structure` | BM25, shared interface, baseline fusion and bounded graph reranking |
 | `qa.context` | Deduplicate and pack evidence under an exact UTF-8 byte budget |
 | `qa` | Model adapter, evidence-grounded prompts, citations |
+| `qa.assessment_plan` / `qa.assessment_execution` | Freeze both stages, shared references and costs; validate approval and journal execution |
+| `qa.judging` / `qa.assessment_reporting` | Validate source-bound LLM judgments; report ordinal dimensions, coverage and separate stage costs |
 | `evaluation` | Dataset validation, experiments, metrics, reports |
 
 Keep the CLI thin and library logic independent of the user interface. Shared data
@@ -159,8 +166,8 @@ comparison contract through the shared factory.
 Run metadata binds quality results to labels, source bytes, parser/index settings,
 code/dependency versions, and machine context. Rankings and per-query metrics are
 retained rather than publishing only aggregate scores. Reports identify provisional
-labels and unjudged candidates. The human-review acceptance item is deliberately
-distinct from successful schema/source-location validation.
+labels and unjudged candidates. Optional human review remains distinct from successful
+schema/source-location validation and is not an acceptance prerequisite.
 
 ## M4 retrieval boundary
 
@@ -245,17 +252,29 @@ and renders source excerpts. No tool execution or agent loop is involved.
 `qa/citations.py` shares deterministic packed-evidence checks across single-question
 completion and frozen-bundle validation: portable paths, source identities, hashes
 and physical line ranges. Source ownership is bound to the canonical index during
-packing. Answer artifacts separate `automatic_checks` from `llm_assessment`, which
-stays `not_run` in M7a. The [fixed model-scoring specification](llm-evaluation.md)
-defines the future M7b judge; no judge runtime or live scores exist yet.
+packing. Single-generation artifacts separate `automatic_checks` from `llm_assessment`,
+whose `not_run` placeholder remains a snapshot of that generation stage. Combined
+assessment records store the actual separate outcome in `row.judging`; they do not
+rewrite the generation object. The [fixed scoring contract](llm-evaluation.md) is
+implemented by M7b's judge; the [live record](../reports/m7b-live/README.md) separates
+accepted experimental scores from judge protocol failures and missing dimensions.
 
 `qa/provider.py` sends one strict-schema OpenAI Responses request, only when explicitly
 invoked. It stores reported usage and identifiers without credentials and never retries.
 `qa/preparation.py` freezes requests from existing retrieval configs, excluding reference
 answers; `qa/execution.py` verifies the bundle and records each attempted/completed request.
+`qa/assessment_plan.py` binds exact generation inputs, common canonical reference
+chunks, rubric, model settings and combined cost to one approved fingerprint.
+`qa/assessment_execution.py` records attempts before calls and outputs after them,
+preserves every planned case, and stops on provider errors without retries/resume.
+`qa/judging.py` separates packed evidence from judge-only references and validates
+ordinal statuses, citations and answer/context bindings. `qa/assessment_reporting.py`
+keeps conditional means, paired scored cases, missing outcomes, stage costs and
+timing boundaries explicit. Preparation and validation make no API calls.
+
 `qa/review.py` validates optional human judgments and gates only its own manual
-aggregates on complete submissions. It does not gate project acceptance. Future
-model scores remain separately labeled and do not promote provisional labels.
+aggregates on complete submissions. It does not gate project acceptance.
+Model scores remain separately labeled and do not promote provisional labels.
 See [the QA protocol](qa.md) for failure, generation-only cost and M7b combined-budget
 boundaries.
 

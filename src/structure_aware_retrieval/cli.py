@@ -112,6 +112,83 @@ def prepare_qa(
     typer.echo(f"Prepared bundle: {output.resolve() / 'README.md'}")
 
 
+@app.command("prepare-qa-assessment")
+def prepare_qa_assessment(
+    bundle: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    config: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option(help="New directory for both stages and combined cost")],
+) -> None:
+    """Freeze QA and LLM judging with common source references, without API calls."""
+    from structure_aware_retrieval.qa.assessment_plan import prepare_assessment
+
+    try:
+        plan = prepare_assessment(bundle, config, output)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    estimate = plan["estimated_cost"]
+    typer.echo(f"Prepared {plan['request_count']} cases/strategies; no API calls made.")
+    typer.echo(f"Generation: ${estimate['generation']['estimated_cost_usd']:.6f} USD")
+    typer.echo(f"LLM judging: ${estimate['judging']['estimated_cost_usd']:.6f} USD")
+    typer.echo(f"Combined: ${estimate['combined_usd']:.6f} USD (not a billing hard cap)")
+    typer.echo(f"Plan fingerprint: {plan['plan_fingerprint']}")
+    typer.echo(f"Inspect models, references and budget: {output.resolve() / 'README.md'}")
+
+
+@app.command("check-qa-assessment")
+def check_qa_assessment(
+    bundle: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+) -> None:
+    """Check frozen inputs, rubric, references and combined cost without API calls."""
+    from structure_aware_retrieval.qa.assessment_plan import validate_assessment_bundle
+
+    try:
+        plan, rows, _, _ = validate_assessment_bundle(bundle)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"Validated {len(rows)} planned cases/strategies; no API calls made.")
+    typer.echo(f"Plan fingerprint: {plan['plan_fingerprint']}")
+
+
+@app.command("run-qa-assessment")
+def run_qa_assessment(
+    bundle: Annotated[Path, typer.Option(exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option(help="New run directory; never overwritten or resumed")],
+    generation_model: Annotated[str, typer.Option(help="Approved generation model ID")],
+    judge_model: Annotated[str, typer.Option(help="Approved judge model ID")],
+    approve_plan: Annotated[str, typer.Option(help="Approved combined plan fingerprint")],
+    budget_usd: Annotated[
+        float, typer.Option(min=0.000001, help="Approved combined estimate budget")
+    ],
+    execute: Annotated[
+        bool, typer.Option(help="Send approved generation and judging requests")
+    ] = False,
+) -> None:
+    """Execute the exact approved two-stage experiment, recording failures and usage."""
+    if not execute:
+        typer.echo("No calls made. Review both models and combined budget before using --execute.")
+        raise typer.Exit(1)
+    from structure_aware_retrieval.qa.assessment_execution import execute_assessment
+
+    try:
+        summary = execute_assessment(
+            bundle,
+            output,
+            budget_usd=budget_usd,
+            generation_model_id=generation_model,
+            judge_model_id=judge_model,
+            approved_plan=approve_plan,
+        )
+    except (OSError, ValueError, sqlite3.Error) as error:
+        typer.echo(f"Error: {error}", err=True)
+        raise typer.Exit(1) from error
+    typer.echo(f"Assessment status: {summary['status']}")
+    typer.echo(f"Results and limitations: {output.resolve() / 'report.md'}")
+    if summary["status"] != "complete":
+        raise typer.Exit(1)
+
+
 @app.command("run-qa")
 def run_qa(
     bundle: Annotated[Path, typer.Option(exists=True, file_okay=False)],

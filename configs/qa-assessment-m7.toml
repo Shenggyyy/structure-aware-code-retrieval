@@ -1,0 +1,32 @@
+schema_version = 1
+rubric = "qa-judge-rubric-v1.json"
+reference_version = "qa-seed-v1-source-v1"
+max_reference_bytes = 65536
+
+# Proposals only. Confirm both models and the combined estimate before live calls.
+# Standard uncached prices verified 2026-09-08 in the official model pages:
+# https://developers.openai.com/api/docs/models/gpt-5.4-mini
+# https://developers.openai.com/api/docs/models/gpt-5.4
+[generation]
+model = "gpt-5.4-mini-2026-03-17"
+max_output_tokens = 1024
+api_key_env = "OPENAI_API_KEY"
+reasoning_effort = "none"
+[generation.pricing]
+input_per_million = 0.75
+output_per_million = 4.50
+as_of = "2026-09-08"
+
+[judge]
+model = "gpt-5.4-2026-03-05"
+max_output_tokens = 2048
+api_key_env = "OPENAI_API_KEY"
+reasoning_effort = "none"
+[judge.pricing]
+input_per_million = 2.50
+output_per_million = 15.00
+as_of = "2026-09-08"
+
+[indexes]
+requests = "../artifacts/benchmark/indexes/requests.sqlite"
+click = "../artifacts/benchmark/indexes/click.sqlite"

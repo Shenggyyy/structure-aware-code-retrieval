@@ -4,7 +4,7 @@ M3 introduced this protocol; M4 applies it to BM25, dense, hybrid and symbol-awa
 retrieval with the same symbol/file evaluation contract. The first seed
 contains 40 questions and 55 source-checked judgments across Requests and Click.
 Labels are agent-authored, sparse, and marked `provisional`. Human review is optional.
-Automatic validation and future LLM assessment have separate reporting contracts;
+Automatic validation and LLM assessment have separate reporting contracts;
 neither establishes human-reviewed labels or a verified true correctness rate.
 
 The M2 baseline uses BM25Plus with `k1=1.5`, `b=0.75`, and `delta=0`, as recorded in
@@ -306,12 +306,14 @@ model/prompt/context policy across five strategies. Retrieval labels and draft
 reference points are evaluation material, never input to the answering model or
 retrieval. Frozen request plans are offline preparation artifacts, not generated-
 answer results. M7a strengthens automatic citation checks and freezes the
-[LLM evaluation specification](llm-evaluation.md); M7b judge execution is not implemented.
+[LLM evaluation specification](llm-evaluation.md). M7b implements the two-stage
+runner and reporting. The [Mini/Mini live experiment](../reports/m7b-live/README.md)
+records real generation, judgments and validation failures under a frozen protocol.
 
 Automatic checks establish source citation identity, paths and ranges against packed
-snapshot evidence. M7b will separately assess correctness, completeness and semantic
-citation support using a frozen LLM evaluator. These semantic scores remain unknown
-until an authorized real experiment; future outputs are model assessments, not human
+snapshot evidence. M7b separately assesses correctness, completeness and semantic
+citation support using a frozen LLM evaluator. The saved semantic scores cover only
+accepted, scored judgments; its outputs are model assessments, not human
 ground truth. Report generation/judge errors, abstentions, not-run cases and missing
 usage explicitly. An abstention control probes missing deployment information; it
 does not measure every form of answerability or hallucination.
@@ -321,3 +323,10 @@ reporting denominators, estimate their combined costs, and obtain explicit owner
 approval. Existing generation-only estimates do not authorize judging spend. See
 [QA reproduction](qa.md) and the [scoring specification](llm-evaluation.md). Existing
 manual-answer review remains optional and separate from this acceptance route.
+
+The combined summary retains all planned cases, each dimension's scored/unsure/N/A
+counts, invalid generation/judgment outcomes and unknown or unrun attempts. Means use
+only scored cases; pairwise differences use explicitly listed shared scored case IDs.
+Generation and judging have separate observed usage, frozen-rate cost projections
+and latency. Missing possibly billed usage leaves totals null while known subtotals
+remain visible. See the [M7b live evidence](../reports/m7b-live/README.md).

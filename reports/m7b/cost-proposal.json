@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-08",
+  "status": "awaiting_model_and_combined_budget_approval",
+  "api_calls_made": 0,
+  "annotation_status": "provisional",
+  "human_review_required": false,
+  "cases": 12,
+  "strategies": 5,
+  "proposed_budget_usd": 20,
+  "approved": false,
+  "billing_guarantee": false,
+  "pricing_sources": [
+    "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+    "https://developers.openai.com/api/docs/models/gpt-5.4"
+  ],
+  "plan_fingerprint": "18bdcaf157d5e9d511aae165250e65fe6a9200879a2f2ff252294b55d5145457",
+  "generation_content_fingerprint": "e39035f3d7bb4837cb26c9a4decdb1038c7b03e97535464e89391edad35689ce",
+  "generation": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "max_output_tokens": 1024,
+    "api_key_env": "OPENAI_API_KEY",
+    "reasoning_effort": "none",
+    "pricing": {
+      "input_per_million": 0.75,
+      "output_per_million": 4.5,
+      "as_of": "2026-09-08"
+    }
+  },
+  "judge": {
+    "model": "gpt-5.4-2026-03-05",
+    "max_output_tokens": 2048,
+    "api_key_env": "OPENAI_API_KEY",
+    "reasoning_effort": "none",
+    "pricing": {
+      "input_per_million": 2.5,
+      "output_per_million": 15.0,
+      "as_of": "2026-09-08"
+    }
+  },
+  "estimated_cost": {
+    "generation": {
+      "maximum_api_calls": 60,
+      "estimated_input_tokens": 861397,
+      "maximum_input_tokens_per_call": 21676,
+      "maximum_output_tokens": 61440,
+      "estimated_cost_usd": 0.92252775
+    },
+    "judging": {
+      "maximum_api_calls": 60,
+      "estimated_input_tokens": 5537689,
+      "maximum_input_tokens_per_call": 107032,
+      "maximum_output_tokens": 122880,
+      "estimated_cost_usd": 15.6874225
+    },
+    "combined_usd": 16.60995025,
+    "method": "one token per message/schema/settings UTF-8 byte plus allowances",
+    "framing_allowance_tokens_per_call": 4096,
+    "maximum_answer_bytes_reserved_per_judge_call": 65536,
+    "billing_guarantee": false,
+    "includes_llm_judging": true
+  },
+  "reference_version": "qa-seed-v1-source-v1",
+  "references_fingerprint": "67020281d9143d6f7b9be666d91e34e490c1d6996c0a702da017433a610f9a1f",
+  "reference_index_sha256": {
+    "requests": "3e15f6ce222dc9f7bf033cedff57e5b8135ce6921ffab18b071b426db94edd53",
+    "click": "3a237782f39263efc75fbd42fce989871f2031dc265a1932fbef233e2dac79ab"
+  },
+  "rubric_file_sha256": "6cf4b22ab575666e6779f8556848d4e57e54c7e44c92de8e4e6c5797849340c3",
+  "rubric_fingerprint": "1d84225c419d8b73c481c0b5c2c399f75cef2f8108d9c44ac19bafce7eb57926",
+  "config_sha256": "d59361211578a935da4a4e74251630c25adf10540399ac16a35c269aaef87f2f",
+  "runtime": {
+    "generation_preparation": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null
+      },
+      "packages": {
+        "structure-aware-code-retrieval": "0.1.0",
+        "rank-bm25": "0.2.2",
+        "numpy": "2.5.3",
+        "pathspec": "1.1.1"
+      },
+      "implementation_git": {
+        "commit": "4eb4ab4cd36267dbb45a022aab92961542b832c5",
+        "dirty": true
+      },
+      "implementation_hash": "e73af10950ac841a0c7d5a9c9866d02f9b3fb579ff73aa75e5c6d73f27120fe9",
+      "lockfile_hash": "3a9d84cb03820e68e9c0a59f57ff7ba8d55bcedf0350e700786e5d429c0d96e6"
+    },
+    "assessment_preparation": {
+      "python": "3.12.14",
+      "platform": "Windows-11-10.0.22631-SP0",
+      "source_files_sha256": {
+        "cli.py": "47e593f29647a6843533c63bc28cb0ab11c06fe60a63ec876ccb00b22bafbad4",
+        "qa/__init__.py": "927e1c68db5d96ff18226f55ac36ef342c9bc34640523707ece12c5119fed407",
+        "qa/answering.py": "2121137474a273c793f76d52242351f0a670e82af882c72663d9e9d2b93a3acd",
+        "qa/assessment_execution.py": "9a856f01bb7405304c5d803e36e28ccaae7fc34d165c90b49bccecaf9619c88b",
+        "qa/assessment_plan.py": "eade57f55b8b7f0e3ee146fc25d6e4fbbbd3df7c99cfb67d64e86950e7716a26",
+        "qa/assessment_reporting.py": "14253dea626a451a75008093ac11b7e5ab59674b534c99c60cb71982c40441f9",
+        "qa/citations.py": "5492f3eabbdd6a577093dad67989e2d0f39e2cfec741f6c88d05ca6d6adffbf2",
+        "qa/context.py": "4975260bac2b9ef1d2235cd383518cab7fb60f17e9d1406b06234f577da1f033",
+        "qa/execution.py": "5983b31383290981de382e4a05ed54494997a0781a0d7a5c268af9230d030a3e",
+        "qa/judging.py": "99c73e161c5ba1a8673502e66d8dfe623c26a143af7e7b226a43c4b7a6785387",
+        "qa/preparation.py": "2985d964f1dd93eed335d6fd7ca553209290fca8af8a55701383a5d928567ee9",
+        "qa/provider.py": "2c81f9a444d63e6916b3d77a39e228da4c3091e6ec2b6f09d5e18fd34e4a51f7",
+        "qa/review.py": "2b70f206f8f8eadd39098777fda68ec854dc3b5191fdff72c4844abc5fb96c6d"
+      }
+    }
+  }
+}

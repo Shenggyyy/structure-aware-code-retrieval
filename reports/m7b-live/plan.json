@@ -1,0 +1,483 @@
+{
+  "schema_version": 1,
+  "kind": "qa_assessment_plan",
+  "status": "prepared",
+  "annotation_status": "provisional",
+  "human_review_required": false,
+  "generation": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "max_output_tokens": 1024,
+    "api_key_env": "OPENAI_API_KEY",
+    "reasoning_effort": "none",
+    "pricing": {
+      "input_per_million": 0.75,
+      "output_per_million": 4.5,
+      "as_of": "2026-09-08"
+    }
+  },
+  "judge": {
+    "model": "gpt-5.4-mini-2026-03-17",
+    "max_output_tokens": 2048,
+    "api_key_env": "OPENAI_API_KEY",
+    "reasoning_effort": "none",
+    "pricing": {
+      "input_per_million": 0.75,
+      "output_per_million": 4.5,
+      "as_of": "2026-09-08"
+    }
+  },
+  "request_settings": {
+    "generation": {
+      "model": "gpt-5.4-mini-2026-03-17",
+      "max_output_tokens": 1024,
+      "store": false,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "name": "repository_answer",
+          "strict": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "answered",
+                  "insufficient_context"
+                ]
+              },
+              "claims": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "citations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "citations"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "status",
+              "claims"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "reasoning": {
+        "effort": "none"
+      }
+    },
+    "judging": {
+      "model": "gpt-5.4-mini-2026-03-17",
+      "max_output_tokens": 2048,
+      "store": false,
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "name": "repository_judgment",
+          "strict": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "rubric_id": {
+                "type": "string",
+                "enum": [
+                  "repository-qa-judge-rubric-v1"
+                ]
+              },
+              "correctness": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "scored",
+                      "unsure",
+                      "not_applicable"
+                    ]
+                  },
+                  "score": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "enum": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      null
+                    ]
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "claim_indices": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "score",
+                  "rationale",
+                  "evidence_ids",
+                  "claim_indices"
+                ],
+                "additionalProperties": false
+              },
+              "completeness": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "scored",
+                      "unsure",
+                      "not_applicable"
+                    ]
+                  },
+                  "score": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "enum": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      null
+                    ]
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "claim_indices": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "score",
+                  "rationale",
+                  "evidence_ids",
+                  "claim_indices"
+                ],
+                "additionalProperties": false
+              },
+              "citation_support": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "scored",
+                      "unsure",
+                      "not_applicable"
+                    ]
+                  },
+                  "score": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "enum": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      null
+                    ]
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "claim_indices": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                },
+                "required": [
+                  "status",
+                  "score",
+                  "rationale",
+                  "evidence_ids",
+                  "claim_indices"
+                ],
+                "additionalProperties": false
+              },
+              "abstention": {
+                "type": "object",
+                "properties": {
+                  "decision": {
+                    "type": "string",
+                    "enum": [
+                      "not_abstained",
+                      "appropriate",
+                      "unnecessary",
+                      "unsure"
+                    ]
+                  },
+                  "packed_context_sufficiency": {
+                    "type": "string",
+                    "enum": [
+                      "sufficient",
+                      "insufficient",
+                      "unsure"
+                    ]
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "decision",
+                  "packed_context_sufficiency",
+                  "rationale",
+                  "evidence_ids"
+                ],
+                "additionalProperties": false
+              },
+              "reference_status": {
+                "type": "string",
+                "enum": [
+                  "usable",
+                  "inadequate",
+                  "conflicting"
+                ]
+              },
+              "reference_issues": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "rubric_id",
+              "correctness",
+              "completeness",
+              "citation_support",
+              "abstention",
+              "reference_status",
+              "reference_issues"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "reasoning": {
+        "effort": "none"
+      }
+    }
+  },
+  "omitted_request_parameters": [
+    "temperature",
+    "seed",
+    "service_tier",
+    "tools"
+  ],
+  "generation_plan_fingerprint": "9516dd5586bfb7f4142804c574746ce7037a335c098062608954afa54ec95d80",
+  "generation_content_fingerprint": "e39035f3d7bb4837cb26c9a4decdb1038c7b03e97535464e89391edad35689ce",
+  "generation_files_sha256": {
+    "plan.json": "44754a3d663dadf7e748cf29dfcee529dacee4639ee3f42c1d4a0ffc627d79cc",
+    "cases.json": "1f0dae4bb5e83b188da33f6ad32b8ea6b38c6640dd4b6212e947a7161db1b3f9",
+    "requests.jsonl": "8b0e99044761e12c7fd7489f36a901be3237505ff3a2bf6674af50b21f097323"
+  },
+  "reference_version": "qa-seed-v1-source-v1",
+  "max_reference_bytes": 65536,
+  "references_fingerprint": "67020281d9143d6f7b9be666d91e34e490c1d6996c0a702da017433a610f9a1f",
+  "reference_index_sha256": {
+    "requests": "3e15f6ce222dc9f7bf033cedff57e5b8135ce6921ffab18b071b426db94edd53",
+    "click": "3a237782f39263efc75fbd42fce989871f2031dc265a1932fbef233e2dac79ab"
+  },
+  "rubric_file_sha256": "6cf4b22ab575666e6779f8556848d4e57e54c7e44c92de8e4e6c5797849340c3",
+  "rubric_fingerprint": "1d84225c419d8b73c481c0b5c2c399f75cef2f8108d9c44ac19bafce7eb57926",
+  "estimated_cost": {
+    "generation": {
+      "maximum_api_calls": 60,
+      "estimated_input_tokens": 861397,
+      "maximum_input_tokens_per_call": 21676,
+      "maximum_output_tokens": 61440,
+      "estimated_cost_usd": 0.92252775
+    },
+    "judging": {
+      "maximum_api_calls": 60,
+      "estimated_input_tokens": 5537989,
+      "maximum_input_tokens_per_call": 107037,
+      "maximum_output_tokens": 122880,
+      "estimated_cost_usd": 4.70645175
+    },
+    "combined_usd": 5.6289795,
+    "method": "one token per message/schema/settings UTF-8 byte plus allowances",
+    "framing_allowance_tokens_per_call": 4096,
+    "maximum_answer_bytes_reserved_per_judge_call": 65536,
+    "billing_guarantee": false,
+    "includes_llm_judging": true
+  },
+  "request_count": 60,
+  "request_order": [
+    "1b0652d21ec0f9ce559537f859727f02314578555fd8529f519d942b46e2b8d2",
+    "9c7d7c0bde8f529de10e7f765f79ae84acdee31d548a38347f1b7cd5275ae82f",
+    "f96f33596eee725ce4c855ff93eba18028d5131a4ca69d97095a283a765a6eaf",
+    "7af9ff27277dc6e2b2e841abc81842753387a151b165d3accc80cc642dea25be",
+    "17c5c2060e91f13e49866f31df092ccbfc5b6b0445eea099b8dcd6f611223f42",
+    "7eca42733fe2c8bd23d2c581615b9bea0f4398b3cd0c38cc3c58929d0eb59a66",
+    "ba8f99e48fd8b112b22657302dcda34d21d1d165fd47e7e23b66a11e33b482aa",
+    "010da7655fe85ed5699262db0d8e3165659a7600994c13cd9f55ea19a37cc7c0",
+    "3b8aceab54f1e97989a104b90ad654ad0afa3493a7d999504e646210806f1a7c",
+    "2c85fe6252cb6a2be65977192f981c30579d79cab6cb8429bea6e553bfd27be0",
+    "b40d35547b2050a088bbbc8a121f347205d66d5bef3b6809ca9647cd17ccfd9c",
+    "0515ff91e94ec9fc76a0b0ab96742c54d6b828f792e7c0afa7a0855ee5c44c46",
+    "9510e046d450edfe72754b615fe92d9743bf9dd95e9f75d2b7d817c1dac2b1bc",
+    "7f8ae55efb1425b553a567cb5fba9bbff312b53417501d946910cc0a15ae03f4",
+    "5e61e584780cbc3410b696e4a087b2481ed9b594a71743d6bae62c7603c7e50d",
+    "905795d811997ffe84c5d0f03d868f6b4abd8bacfdd9f3b2fc550b624ec4eff6",
+    "43e5ac7d438fe42327d6197dca8430ea4ded7b7129b6895cdaffcd90facff9cd",
+    "eea79f0d9dfe28690718e0cf129da9b33527d7e96594afc1a2f67d3e56e2b4c3",
+    "5e154fab678a70f751fe6e23458aa7b2f9bfa1888ae3644c243ea746a055ef3e",
+    "3f563d765c8ff529211416b524e21a2ea6937e998d63756b38ad47409a9272a2",
+    "ba274dd4b9fd09c15423a9910dc3392568d0fdc408e789fcf0b855cd4489b4c8",
+    "bbfb168eab89431370f6ea88d5bab8217802020ee5e4c1c3b1eaf9d12ed16a9a",
+    "1900559fee5c370780930776e01a5b8f93e528f87027628d6c0f442ee9215e98",
+    "2fa58468cc844b5c0747630a8b42d281d8c8efaaa6da2a8b3d0925c177c7e177",
+    "ce7ec16cbc55398747ddb8a452fa3a70d5585da4c8e7249dd77b0c3560d81806",
+    "d1a70250346d1b2ef4af55868c70bb5819296009c7f72b8606c0282d78c58f50",
+    "adf68caf399311f442161cd1efa15af05dc975f331f56f9cf6327037b0159cc0",
+    "942ed78d6ba9d5a39e3caf3658e1174962bd40043eb792b15d496381c97d711d",
+    "b35fa4b16b4c3ea72e1b78e4887ffc829caa739aa928fa23e154e66c47861699",
+    "60593870fa221a21bd755e93c36cc4cd2843d6e5d170d6246927ffcd121db407",
+    "98e04dcd829b2f3fd52b63cc377787104164a5c346a93fc46575c5afc914b575",
+    "19ec33d0c5e95f6b795ad24d5fe8ee66e98e5515c72298d1e7f4a0138e20ae04",
+    "48ed734fe195e5260a67687ce6ff370e584239c1b91c6347f5734f7464170ffa",
+    "a9dc2206c6a2f52e9b71c1421614b375ca49526a78b5051a34b63023067b79e5",
+    "f4faa38dbec477f8f99eecf73c599ea9726fa7b7e0297525a506d8541558bb12",
+    "9d8c22d5e1ff7e84d88da93d01299c5e8b1cf0b1d1253081dbb05c8c9854b6f7",
+    "0c2d553497c5764b9956c24674fe6f57c116947e037fee8550e0d3b487b95613",
+    "1e8f17eaa0e9f66fc4d238beff18a3378b0d6ac6ccb4ccafb235ad562b4c2a20",
+    "6c6b9961c7ee9d03b08f7f422bf3a58c171db373f52bb240956748d74f55a7e7",
+    "d80618e1f52b56f6d34f4c62ea64c459d08ee4915478c6e113d8c53b3326e88b",
+    "6a8766f468f9c18db7313446aa4aaf65def6387e5d4417fa83d55351dd1cd7ad",
+    "f7e5f2b94f910ce996921243115f0745407dc995c71f4186fdd5588cd146f86d",
+    "1cdb889f89235c085c318e7984ebe2e5bb6da7e8404e732b570d2d2d8cd8c674",
+    "fee2f47890c4a7c3d2df96b1e83a687ad36987064158f50ff396940e6660b11b",
+    "280af857f00c369de5c76bc9166e5279bae74449052c2650a85c8c90b54f7a54",
+    "544a40fd18701a5cc78e70649cfad8d95ff64c7c0a448ab48d16e965439e7839",
+    "9b248b43e50a049265f258e1694cae1689bb82f5a54c600348350269adbfcb63",
+    "44078b7cc514d3cc8e21da7d4d0f0dbd0a6d53a3d9848500d3e17ac3bb2788a1",
+    "b80da70f1f2a70b3330407cbfb3e9353707a3e408b02074b604e0f47e0c73528",
+    "f0b6f5bd79a056b8117e0fbea70401371c8ba1cfdbe3928131a7353c30746d92",
+    "fcc8561e3ce164f01e49f85308959d804115455519f2f6a9b22e16f5e53e78ae",
+    "ca2f441caf7393a8462ebf67f40ff52cbd1d7919cfdf626ad1eb279877ef4d56",
+    "e6679d97c8242586fe51911abae6778fc8281daa60c9a85301a93632d9a12338",
+    "0a33f5b127e8baf9bbb7cc6599dcb87834d850fb787c3e29a0a2248b586bd4ae",
+    "daeab8070b51fd0078429f439561feb92d311703934598fadca2257d9bed6b54",
+    "b2081564a85854aeaf26e1eb7b4e6d99d39d7f9facd3e68d6172ae8552678d33",
+    "b6c90bcadc6ee4e21ea50c2e04bdca6d29c00666e9d2daa427c0348cee18ac4e",
+    "6a0fad428bcc880495fffccee9cbb81636d333cbfdb0cfdadbec08e78a214d9b",
+    "de11e65036d5e6ff82f9c7084420b55be9ae1582c1b44ceb17c3eb27d424e3be",
+    "50ee2369cbc347a253c7fd3da5b9e7dc0882ecd986d253d59d534b6dd16bc54b"
+  ],
+  "execution_policy": "one attempt per stage; stop on provider error; no retries or resume",
+  "runtime": {
+    "generation_preparation": {
+      "python": "3.12.14",
+      "system": "Windows",
+      "release": "11",
+      "machine": "AMD64",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "logical_cpus": 20,
+      "thread_environment": {
+        "OMP_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null
+      },
+      "packages": {
+        "structure-aware-code-retrieval": "0.1.0",
+        "rank-bm25": "0.2.2",
+        "numpy": "2.5.3",
+        "pathspec": "1.1.1"
+      },
+      "implementation_git": {
+        "commit": "4eb4ab4cd36267dbb45a022aab92961542b832c5",
+        "dirty": true
+      },
+      "implementation_hash": "e73af10950ac841a0c7d5a9c9866d02f9b3fb579ff73aa75e5c6d73f27120fe9",
+      "lockfile_hash": "3a9d84cb03820e68e9c0a59f57ff7ba8d55bcedf0350e700786e5d429c0d96e6"
+    },
+    "assessment_preparation": {
+      "python": "3.12.14",
+      "platform": "Windows-11-10.0.22631-SP0",
+      "source_files_sha256": {
+        "cli.py": "47e593f29647a6843533c63bc28cb0ab11c06fe60a63ec876ccb00b22bafbad4",
+        "qa/__init__.py": "927e1c68db5d96ff18226f55ac36ef342c9bc34640523707ece12c5119fed407",
+        "qa/answering.py": "2121137474a273c793f76d52242351f0a670e82af882c72663d9e9d2b93a3acd",
+        "qa/assessment_execution.py": "9a856f01bb7405304c5d803e36e28ccaae7fc34d165c90b49bccecaf9619c88b",
+        "qa/assessment_plan.py": "eade57f55b8b7f0e3ee146fc25d6e4fbbbd3df7c99cfb67d64e86950e7716a26",
+        "qa/assessment_reporting.py": "14253dea626a451a75008093ac11b7e5ab59674b534c99c60cb71982c40441f9",
+        "qa/citations.py": "5492f3eabbdd6a577093dad67989e2d0f39e2cfec741f6c88d05ca6d6adffbf2",
+        "qa/context.py": "4975260bac2b9ef1d2235cd383518cab7fb60f17e9d1406b06234f577da1f033",
+        "qa/execution.py": "5983b31383290981de382e4a05ed54494997a0781a0d7a5c268af9230d030a3e",
+        "qa/judging.py": "99c73e161c5ba1a8673502e66d8dfe623c26a143af7e7b226a43c4b7a6785387",
+        "qa/preparation.py": "2985d964f1dd93eed335d6fd7ca553209290fca8af8a55701383a5d928567ee9",
+        "qa/provider.py": "2c81f9a444d63e6916b3d77a39e228da4c3091e6ec2b6f09d5e18fd34e4a51f7",
+        "qa/review.py": "2b70f206f8f8eadd39098777fda68ec854dc3b5191fdff72c4844abc5fb96c6d"
+      }
+    }
+  },
+  "config_sha256": "209a9fc9c238683ba90cea25e45a1af4a95fe2be46cfcd0b1bdfd3de06ac1efd",
+  "plan_fingerprint": "c80718ad8cca0e4da92e1aff2f3696ebf12fcd763191f3af0da858b477e652a5"
+}

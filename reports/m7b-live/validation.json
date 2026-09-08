@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-08",
+  "python": "3.12.14",
+  "platform": "Windows 11",
+  "tests": {
+    "collected": 680,
+    "passed": 679,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "skip_reason": "Windows symlink creation privilege unavailable",
+    "coverage": {
+      "covered_lines": 4006,
+      "num_statements": 4323,
+      "percent_covered": 91.25475285171103,
+      "percent_covered_display": "91",
+      "missing_lines": 317,
+      "excluded_lines": 13,
+      "percent_statements_covered": 92.66712930835068,
+      "percent_statements_covered_display": "93",
+      "num_branches": 1726,
+      "num_partial_branches": 200,
+      "covered_branches": 1514,
+      "missing_branches": 212,
+      "percent_branches_covered": 87.71726535341831,
+      "percent_branches_covered_display": "88"
+    },
+    "command": ".venv/Scripts/python.exe -m pytest --cov=structure_aware_retrieval --cov-report=term --cov-report=json:artifacts/m7b-live-coverage.json --junitxml=artifacts/m7b-live-tests.xml"
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed",
+  "saved_retrieval_overview": {
+    "status": "passed",
+    "runs": 45
+  },
+  "saved_qa_verifier": {
+    "status": "passed",
+    "original_run": true,
+    "extracted_archive_run": true,
+    "planned_cases": 60,
+    "attempts": 120,
+    "recorded_results": 120,
+    "test_cases": 19,
+    "api_calls_during_verification": 0
+  },
+  "archive_members_verified": 60,
+  "distribution_build": {
+    "status": "passed",
+    "command": "uv build --offline",
+    "wheel_python_files_matching_source": 41,
+    "sdist_includes_live_archive_config_verifier_and_notices": true
+  },
+  "remote_ci": "pending_owner_commit_and_push",
+  "docker": "not_rebuilt_for_this_checkpoint",
+  "live_calls": {
+    "generation": 60,
+    "judging": 60,
+    "retries": 0,
+    "provider_errors": 0
+  }
+}

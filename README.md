@@ -9,15 +9,15 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M7a — offline QA checks and evaluation specification complete.** All five
-retrievers, evaluation, QA tooling and CPU Docker delivery are implemented. The saved
-experiment matrix contains 45 runs on eight snapshots and 170 questions. **Relevance
-labels remain provisional; real LLM QA and LLM-assisted answer evaluation are pending.**
-Completion uses reproducible automatic checks and explicitly reported LLM assessment;
-human review is optional. See [acceptance status](docs/status.md) and the
-[LLM evaluation specification](docs/llm-evaluation.md) for the remaining work.
-The [offline validation record](reports/m7a-offline/README.md) covers sixty prepared
-requests, separate check/assessment fields and the current regression results.
+**Latest checkpoint: M7b — first live QA and LLM-assessment experiment recorded.**
+All five retrievers, evaluation, QA tooling and CPU Docker delivery are implemented.
+The retrieval matrix contains 45 runs on eight snapshots and 170 questions. The
+[live QA experiment](reports/m7b-live/README.md) adds 60 real generations and 60
+Mini-model judgments: 24 judgments passed validation and 36 failed the frozen
+protocol. **Labels remain provisional; limited judge coverage prevents a reliable
+QA-quality ranking.** Model assessments are not human review or true accuracy.
+See [acceptance status](docs/status.md) and the
+[LLM evaluation specification](docs/llm-evaluation.md). Human review is optional.
 
 ## What the experiments show
 
@@ -41,6 +41,13 @@ Read [results and limitations](RESULTS.md) for all metrics, paired uncertainty,
 latency, memory, failure cases and the outstanding research work. The
 [generated overview](reports/overview/report.md) validates and summarizes all 45
 saved runs without loading a model or rerunning retrieval.
+
+On 12 QA development questions across five strategies, the generator returned 48
+answers and 12 abstentions. Answer citation IDs passed all 48 applicable checks,
+but only 40% of judge outputs passed the semantic assessment protocol. Reported
+tokens imply **US$0.490214 at frozen uncached rates**, not an invoice. The
+[QA failure analysis and raw archive](reports/m7b-live/README.md) explain the
+evidence-ID/status failures and preserve them without repair or retries.
 
 ## Quickstart
 
@@ -88,7 +95,7 @@ behavior on synthetic data, not real retrieval or answer quality.
 | Understand labels, splits, metrics and attribution | [Benchmarks](docs/benchmarks.md), [evaluation](docs/evaluation.md) |
 | Inspect optional manual relevance-review tools | [Review workflow](docs/review.md) |
 | Prepare QA requests and inspect automatic citation checks | [QA setup and evaluation](docs/qa.md) |
-| Understand planned LLM correctness, completeness and citation-support scoring | [LLM evaluation specification](docs/llm-evaluation.md) |
+| Inspect real LLM assessments, failures and costs | [Live QA evidence](reports/m7b-live/README.md), [scoring specification](docs/llm-evaluation.md) |
 
 Dense retrieval uses optional CPU Sentence Transformers dependencies and a pinned
 `all-MiniLM-L6-v2` model. Explicit source/model preparation may download inputs;
@@ -99,10 +106,12 @@ full corpus; bounded graph expansion does not make that search sublinear.
 QA packs canonical source evidence under a **16,000 UTF-8 byte** default limit and
 requires supplied source IDs for answer claims. Generating answers requires explicit
 `--execute`, a model and local `OPENAI_API_KEY`; see the QA guide before execution.
-The prepared 12-case, five-strategy experiment has no live provider results yet.
+The 12-case, five-strategy experiment has [saved live responses and judgments](reports/m7b-live/README.md).
 Valid citation identifiers alone do not establish correctness or source support.
-M7b will add live LLM-assisted assessment. Before API calls, freeze the generation
-and judge models and estimate their combined cost for explicit owner approval.
+M7b implements separate generation and judging stages. Prepare and check their common
+references, frozen settings and combined estimate offline using the
+[QA workflow](docs/qa.md). Both proposed models and the combined budget require explicit
+owner approval before any additional API calls. Saved results can be verified offline.
 
 ## Docker
 

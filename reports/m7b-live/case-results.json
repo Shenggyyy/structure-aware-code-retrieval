@@ -1,0 +1,854 @@
+[
+  {
+    "id": "1b0652d21ec0f9ce559537f859727f02314578555fd8529f519d942b46e2b8d2",
+    "case_id": "qa-click-04",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "9c7d7c0bde8f529de10e7f765f79ae84acdee31d548a38347f1b7cd5275ae82f",
+    "case_id": "qa-click-04",
+    "strategy": "dense",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "f96f33596eee725ce4c855ff93eba18028d5131a4ca69d97095a283a765a6eaf",
+    "case_id": "qa-click-04",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "7af9ff27277dc6e2b2e841abc81842753387a151b165d3accc80cc642dea25be",
+    "case_id": "qa-click-04",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "17c5c2060e91f13e49866f31df092ccbfc5b6b0445eea099b8dcd6f611223f42",
+    "case_id": "qa-click-04",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "7eca42733fe2c8bd23d2c581615b9bea0f4398b3cd0c38cc3c58929d0eb59a66",
+    "case_id": "qa-click-08",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "ba8f99e48fd8b112b22657302dcda34d21d1d165fd47e7e23b66a11e33b482aa",
+    "case_id": "qa-click-08",
+    "strategy": "dense",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "010da7655fe85ed5699262db0d8e3165659a7600994c13cd9f55ea19a37cc7c0",
+    "case_id": "qa-click-08",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "3b8aceab54f1e97989a104b90ad654ad0afa3493a7d999504e646210806f1a7c",
+    "case_id": "qa-click-08",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "2c85fe6252cb6a2be65977192f981c30579d79cab6cb8429bea6e553bfd27be0",
+    "case_id": "qa-click-08",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "b40d35547b2050a088bbbc8a121f347205d66d5bef3b6809ca9647cd17ccfd9c",
+    "case_id": "qa-click-13",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "0515ff91e94ec9fc76a0b0ab96742c54d6b828f792e7c0afa7a0855ee5c44c46",
+    "case_id": "qa-click-13",
+    "strategy": "dense",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "9510e046d450edfe72754b615fe92d9743bf9dd95e9f75d2b7d817c1dac2b1bc",
+    "case_id": "qa-click-13",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 2
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 2
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 1
+      }
+    }
+  },
+  {
+    "id": "7f8ae55efb1425b553a567cb5fba9bbff312b53417501d946910cc0a15ae03f4",
+    "case_id": "qa-click-13",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in packed-context sufficiency",
+    "dimensions": null
+  },
+  {
+    "id": "5e61e584780cbc3410b696e4a087b2481ed9b594a71743d6bae62c7603c7e50d",
+    "case_id": "qa-click-13",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 2
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 2
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 2
+      }
+    }
+  },
+  {
+    "id": "905795d811997ffe84c5d0f03d868f6b4abd8bacfdd9f3b2fc550b624ec4eff6",
+    "case_id": "qa-click-16",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "43e5ac7d438fe42327d6197dca8430ea4ded7b7129b6895cdaffcd90facff9cd",
+    "case_id": "qa-click-16",
+    "strategy": "dense",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "eea79f0d9dfe28690718e0cf129da9b33527d7e96594afc1a2f67d3e56e2b4c3",
+    "case_id": "qa-click-16",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "5e154fab678a70f751fe6e23458aa7b2f9bfa1888ae3644c243ea746a055ef3e",
+    "case_id": "qa-click-16",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "3f563d765c8ff529211416b524e21a2ea6937e998d63756b38ad47409a9272a2",
+    "case_id": "qa-click-16",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "ba274dd4b9fd09c15423a9910dc3392568d0fdc408e789fcf0b855cd4489b4c8",
+    "case_id": "qa-click-20",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "bbfb168eab89431370f6ea88d5bab8217802020ee5e4c1c3b1eaf9d12ed16a9a",
+    "case_id": "qa-click-20",
+    "strategy": "dense",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in packed-context sufficiency",
+    "dimensions": null
+  },
+  {
+    "id": "1900559fee5c370780930776e01a5b8f93e528f87027628d6c0f442ee9215e98",
+    "case_id": "qa-click-20",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "2fa58468cc844b5c0747630a8b42d281d8c8efaaa6da2a8b3d0925c177c7e177",
+    "case_id": "qa-click-20",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "ce7ec16cbc55398747ddb8a452fa3a70d5585da4c8e7249dd77b0c3560d81806",
+    "case_id": "qa-click-20",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "d1a70250346d1b2ef4af55868c70bb5819296009c7f72b8606c0282d78c58f50",
+    "case_id": "qa-click-scope-01",
+    "strategy": "bm25",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Out-of-scope abstention completeness must be N/A",
+    "dimensions": null
+  },
+  {
+    "id": "adf68caf399311f442161cd1efa15af05dc975f331f56f9cf6327037b0159cc0",
+    "case_id": "qa-click-scope-01",
+    "strategy": "dense",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in completeness",
+    "dimensions": null
+  },
+  {
+    "id": "942ed78d6ba9d5a39e3caf3658e1174962bd40043eb792b15d496381c97d711d",
+    "case_id": "qa-click-scope-01",
+    "strategy": "hybrid",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in completeness",
+    "dimensions": null
+  },
+  {
+    "id": "b35fa4b16b4c3ea72e1b78e4887ffc829caa739aa928fa23e154e66c47861699",
+    "case_id": "qa-click-scope-01",
+    "strategy": "structure",
+    "generation_status": "insufficient_context",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "unsure",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    }
+  },
+  {
+    "id": "60593870fa221a21bd755e93c36cc4cd2843d6e5d170d6246927ffcd121db407",
+    "case_id": "qa-click-scope-01",
+    "strategy": "symbol",
+    "generation_status": "insufficient_context",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    }
+  },
+  {
+    "id": "98e04dcd829b2f3fd52b63cc377787104164a5c346a93fc46575c5afc914b575",
+    "case_id": "qa-requests-01",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "19ec33d0c5e95f6b795ad24d5fe8ee66e98e5515c72298d1e7f4a0138e20ae04",
+    "case_id": "qa-requests-01",
+    "strategy": "dense",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 2
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 2
+      }
+    }
+  },
+  {
+    "id": "48ed734fe195e5260a67687ce6ff370e584239c1b91c6347f5734f7464170ffa",
+    "case_id": "qa-requests-01",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "a9dc2206c6a2f52e9b71c1421614b375ca49526a78b5051a34b63023067b79e5",
+    "case_id": "qa-requests-01",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "f4faa38dbec477f8f99eecf73c599ea9726fa7b7e0297525a506d8541558bb12",
+    "case_id": "qa-requests-01",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "9d8c22d5e1ff7e84d88da93d01299c5e8b1cf0b1d1253081dbb05c8c9854b6f7",
+    "case_id": "qa-requests-06",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "0c2d553497c5764b9956c24674fe6f57c116947e037fee8550e0d3b487b95613",
+    "case_id": "qa-requests-06",
+    "strategy": "dense",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "1e8f17eaa0e9f66fc4d238beff18a3378b0d6ac6ccb4ccafb235ad562b4c2a20",
+    "case_id": "qa-requests-06",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "6c6b9961c7ee9d03b08f7f422bf3a58c171db373f52bb240956748d74f55a7e7",
+    "case_id": "qa-requests-06",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "d80618e1f52b56f6d34f4c62ea64c459d08ee4915478c6e113d8c53b3326e88b",
+    "case_id": "qa-requests-06",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in packed-context sufficiency",
+    "dimensions": null
+  },
+  {
+    "id": "6a8766f468f9c18db7313446aa4aaf65def6387e5d4417fa83d55351dd1cd7ad",
+    "case_id": "qa-requests-07",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "f7e5f2b94f910ce996921243115f0745407dc995c71f4186fdd5588cd146f86d",
+    "case_id": "qa-requests-07",
+    "strategy": "dense",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "1cdb889f89235c085c318e7984ebe2e5bb6da7e8404e732b570d2d2d8cd8c674",
+    "case_id": "qa-requests-07",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "fee2f47890c4a7c3d2df96b1e83a687ad36987064158f50ff396940e6660b11b",
+    "case_id": "qa-requests-07",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "280af857f00c369de5c76bc9166e5279bae74449052c2650a85c8c90b54f7a54",
+    "case_id": "qa-requests-07",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "544a40fd18701a5cc78e70649cfad8d95ff64c7c0a448ab48d16e965439e7839",
+    "case_id": "qa-requests-13",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "9b248b43e50a049265f258e1694cae1689bb82f5a54c600348350269adbfcb63",
+    "case_id": "qa-requests-13",
+    "strategy": "dense",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "44078b7cc514d3cc8e21da7d4d0f0dbd0a6d53a3d9848500d3e17ac3bb2788a1",
+    "case_id": "qa-requests-13",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "b80da70f1f2a70b3330407cbfb3e9353707a3e408b02074b604e0f47e0c73528",
+    "case_id": "qa-requests-13",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "f0b6f5bd79a056b8117e0fbea70401371c8ba1cfdbe3928131a7353c30746d92",
+    "case_id": "qa-requests-13",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in correctness",
+    "dimensions": null
+  },
+  {
+    "id": "fcc8561e3ce164f01e49f85308959d804115455519f2f6a9b22e16f5e53e78ae",
+    "case_id": "qa-requests-19",
+    "strategy": "bm25",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "ca2f441caf7393a8462ebf67f40ff52cbd1d7919cfdf626ad1eb279877ef4d56",
+    "case_id": "qa-requests-19",
+    "strategy": "dense",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "e6679d97c8242586fe51911abae6778fc8281daa60c9a85301a93632d9a12338",
+    "case_id": "qa-requests-19",
+    "strategy": "hybrid",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "0a33f5b127e8baf9bbb7cc6599dcb87834d850fb787c3e29a0a2248b586bd4ae",
+    "case_id": "qa-requests-19",
+    "strategy": "structure",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "daeab8070b51fd0078429f439561feb92d311703934598fadca2257d9bed6b54",
+    "case_id": "qa-requests-19",
+    "strategy": "symbol",
+    "generation_status": "answered",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    }
+  },
+  {
+    "id": "b2081564a85854aeaf26e1eb7b4e6d99d39d7f9facd3e68d6172ae8552678d33",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "bm25",
+    "generation_status": "insufficient_context",
+    "judge_status": "scored",
+    "judge_error": null,
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    }
+  },
+  {
+    "id": "b6c90bcadc6ee4e21ea50c2e04bdca6d29c00666e9d2daa427c0348cee18ac4e",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "dense",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Out-of-scope abstention completeness must be N/A",
+    "dimensions": null
+  },
+  {
+    "id": "6a0fad428bcc880495fffccee9cbb81636d333cbfdb0cfdadbec08e78a214d9b",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "hybrid",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in completeness",
+    "dimensions": null
+  },
+  {
+    "id": "de11e65036d5e6ff82f9c7084420b55be9ae1582c1b44ceb17c3eb27d424e3be",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "structure",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in completeness",
+    "dimensions": null
+  },
+  {
+    "id": "50ee2369cbc347a253c7fd3da5b9e7dc0882ecd986d253d59d534b6dd16bc54b",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "symbol",
+    "generation_status": "insufficient_context",
+    "judge_status": "invalid_judgment",
+    "judge_error": "Unknown or duplicate evidence IDs in completeness",
+    "dimensions": null
+  }
+]

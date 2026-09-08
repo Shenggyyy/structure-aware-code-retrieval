@@ -220,11 +220,31 @@ uv run --locked --extra dense sacr prepare-qa --config configs/qa-m7.toml --outp
 This freezes twelve development cases across five strategies: sixty exact requests,
 source previews, provenance and a generation-only cost projection. Evaluation reference
 points remain separate from answering-model messages. Preparation makes no API call
-and establishes no answer quality. M7b will implement live LLM-assisted assessment;
-it is not implemented by this preparation command. Before any API experiment, estimate
-generation plus judging costs and obtain explicit model/budget approval. The old
-60-request generation estimate is not a combined experiment budget. Follow
-[QA execution](qa.md) and the [LLM evaluation specification](llm-evaluation.md).
+and establishes no answer quality.
+
+## Prepare the combined QA and LLM assessment
+
+After the generation bundle above exists, freeze the common reference source,
+generation/judge settings and combined estimate, then validate them offline:
+
+```text
+uv run --locked sacr prepare-qa-assessment --bundle artifacts/qa/m7-prepared --config configs/qa-assessment-m7-mini.toml --output artifacts/qa/m7b-prepared
+uv run --locked sacr check-qa-assessment --bundle artifacts/qa/m7b-prepared
+```
+
+Preparation reads the configured Requests/Click indexes; checking the resulting
+bundle needs neither indexes nor model weights. Both commands make no API calls.
+Inspect the new bundle's `README.md`, `plan.json` and `references.json` before approval.
+The model proposals are configuration, not permission to run them. The earlier
+60-request generation estimate does not include judging.
+
+The implemented `run-qa-assessment` command requires both approved model IDs, the
+exact combined plan fingerprint, combined budget, a new output directory and
+`--execute`. Obtain explicit owner approval before invoking it. See
+[the approval and output contract](qa.md#combined-budget-and-execution-approval), the
+[LLM scoring specification](llm-evaluation.md) and [M7b live record](../reports/m7b-live/README.md).
+That record also provides an offline archive-validation path; it requires no API key
+and does not repeat paid requests.
 
 ## Development checks
 

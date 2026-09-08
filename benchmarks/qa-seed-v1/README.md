@@ -27,8 +27,9 @@ references forward to newer upstream revisions.
 ## Evaluation Rubric
 
 M7a freezes the [LLM evaluation specification](../../docs/llm-evaluation.md) and
-strengthens automatic source checks. M7b will implement LLM-assisted evaluation of
-real answers; no judge results exist yet. Assess generated answers against the
+strengthens automatic source checks. M7b implements LLM-assisted evaluation of
+real answers; the [Mini/Mini live record](../../reports/m7b-live/README.md) preserves
+accepted judgments and protocol failures. Labels remain provisional. Assess generated answers against the
 actual supplied context and pinned source:
 
 - **Correctness:** assess material assertions against source. Insufficient

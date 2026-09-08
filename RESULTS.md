@@ -7,8 +7,9 @@ structure heuristic did not improve aggregate retrieval quality over Hybrid on t
 expanded test candidates.** Reporting this failure is part of the experiment.
 
 All relevance labels and quality results remain **provisional**. Human review is
-optional, and no human-reviewed labels are claimed. No live LLM answer or judge
-experiment has been run. Retrieval scores and automatic source checks do not
+optional, and no human-reviewed labels are claimed. The
+[first live QA experiment](reports/m7b-live/README.md) records 120 real requests,
+including 24 accepted and 36 invalid judgments. Retrieval scores and automatic source checks do not
 establish answer correctness, completeness or semantic citation support.
 
 ## Evaluation scope
@@ -103,9 +104,26 @@ recorded measurements, outside the quality fingerprints.
 
 See the [complete experiment analysis](reports/m6c/README.md),
 [reproduction guide](docs/reproduction.md), and [acceptance status](docs/status.md).
-Remaining acceptance is the authorized live QA comparison and LLM-assisted assessment
-of correctness, completeness and citation support, with recorded usage, failures,
-latency and combined generation/judging costs. The judge is planned for M7b and has
-no current scores. Model judgments will be reported as model judgments, not human
-ground truth. Optional manual review is not a completion prerequisite; the current
-sparse-label retrieval results retain their stated limitations.
+The [first live QA experiment](reports/m7b-live/README.md) now records 60 real
+generations and 60 judgments using `gpt-5.4-mini-2026-03-17` for both stages. Its
+US$5.63 approved budget covered an exact US$5.6289795 preflight estimate; reported
+token usage implies US$0.49021425 at frozen uncached rates, not an invoice.
+
+Generation produced 48 answers and 12 abstentions. All 60 source-evidence audits
+passed, and all 48 applicable answer-citation ID checks passed. These automatic
+checks do not establish semantic truth. Only 24 of 60 judge outputs passed the
+frozen protocol; 34 failed evidence-ID rules and two failed abstention status rules.
+Rejected judgments retain null scores. No failed outputs were repaired or retried.
+
+Each ordinal dimension has 21 scored rows out of 60 planned. Hybrid and Structure
+share only three scored cases per dimension, all ties at 3. This selected subset
+cannot establish improvement or equivalence, and the unmatched conditional means
+must not be used to rank QA quality. See the live report for all strategy-specific
+denominators, paired IDs, raw outputs and latency measurements.
+
+The next research improvement is a versioned evaluator-protocol revision tested
+offline against these failures. Any new paid comparison needs separate approval;
+these exposed development outcomes cannot become an untouched test set. Model
+judgments remain model judgments, not human ground truth or verified accuracy.
+Optional manual review is not a completion prerequisite; sparse retrieval labels,
+same-model generator/judge bias and incomplete assessment coverage limit conclusions.

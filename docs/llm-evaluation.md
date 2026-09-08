@@ -2,19 +2,20 @@
 
 ## Current scope
 
-M7a is the offline checkpoint: generation request preparation, source-identity
-checks, deterministic validation and a frozen scoring specification. No model
-judgments or real answer-quality scores have been produced by writing this guide.
-M7b will implement and run generation plus LLM-assisted judging after approval of
-the models and their **combined** estimated cost. The judge runner is not yet
-implemented; do not treat this specification as an executable command.
+M7a supplies generation request preparation, source-identity checks, deterministic
+validation and this frozen scoring specification. M7b implements combined planning,
+generation/judge execution and reporting. The owner-approved Mini/Mini experiment
+now has real responses, accepted judgments and protocol failures. See the
+[M7b live record](../reports/m7b-live/README.md) for coverage, costs and limitations.
+Further paid calls require a newly approved scope and **combined** budget.
 
 Human calibration or spot-checking is optional. Its absence is a limitation to
 report, not a prerequisite for running evaluation or completing an engineering
 milestone. LLM-assisted judgments must remain identified as such and must not
 promote provisional retrieval labels to `human_reviewed`.
 
-The existing [QA workflow](qa.md) remains the source of implemented commands.
+The [QA workflow](qa.md) documents offline preparation, validation and the execution
+approval contract. `prepare-qa-assessment` and `check-qa-assessment` make no API calls.
 See [evaluation methodology](evaluation.md) and [project status](status.md) for
 retrieval results and the distinction between implemented features and evidence.
 
@@ -23,7 +24,7 @@ retrieval results and the distinction between implemented features and evidence.
 [`configs/qa-judge-rubric-v1.json`](../configs/qa-judge-rubric-v1.json) contains the
 exact system prompt, three metric definitions, all score anchors, input contract,
 structured output schema, cross-field validation rules, aggregation rules and
-future run-record requirements. This is a project-designed rubric. Freeze its
+run-record requirements. This is a project-designed rubric. Freeze its
 content hash with each run; a substantive change requires a new rubric version and
 rejudging every compared strategy under that version.
 
@@ -65,9 +66,11 @@ The judge receives one answer at a time with:
 The reference set must be identical across strategies for a case. A judge cannot
 measure completeness by looking only at the context selected by a weak retriever.
 The existing `cases.json` provides draft reference points and source targets;
-M7b must bind suitable reference-source evidence before judging. Missing or
-conflicting references produce `unsure` for affected dimensions and a recorded
-reference issue, rather than invented certainty.
+M7b binds every canonical chunk within each exact source target, including nested
+definitions. Each point links to all candidate reference chunks for that case;
+these links do not establish sentence-level support. Missing or conflicting
+references require `unsure` for affected dimensions and a recorded reference issue,
+rather than invented certainty.
 
 Reference points, expected status and reference-source evidence remain excluded
 from generation messages. Judge-only references cannot repair unsupported
@@ -107,7 +110,11 @@ Give conditional mean scores alongside `scored_count / planned_case_count` and
 answer coverage. No scored rows means a null mean. Paired comparisons use the same
 scored case IDs and disclose the paired count; differing coverage must remain
 visible. The current human-review command uses a different schema and does not
-validate or aggregate this proposed LLM judgment format.
+validate or aggregate this LLM judgment format.
+
+The combined runner stores actual assessments under `records.json` rows' `judging`
+field. Nested generation output retains its original `llm_assessment = not_run`
+placeholder. That snapshot does not override the separate judging result.
 
 ## M7b execution records and cost approval
 
@@ -123,8 +130,8 @@ reference version, schema and rubric hashes. Missing provider revision metadata
 remains null. Identical inputs do not guarantee deterministic model output.
 
 The current `prepare-qa` estimate covers **generation only**, including the existing
-60-request plan. It is insufficient approval for generation plus judging. A future
-combined projection must include:
+60-request plan. It is insufficient approval for generation plus judging. The
+implemented combined projection includes:
 
 - Generation prompt/schema/framing input and maximum generation output tokens.
 - Judge prompt/schema/framing, question, packed and reference evidence, and the
@@ -138,8 +145,25 @@ are charged as generation output and again when supplied as judge input. Obtain
 explicit approval of both models and the combined budget before running either
 stage as this experiment. No model or budget is selected by this specification.
 
+The byte-based estimator counts model-visible messages plus serialized schema/settings
+and a framing allowance. It reserves the full 65,536-byte valid-answer ceiling as
+additional judge input, even when typical generated answers are much shorter. The
+generated plan records exact settings, per-stage estimates, combined estimate and a
+fingerprint. Recorded model snapshots and dated prices live in
+[qa-assessment-m7-mini.toml](../configs/qa-assessment-m7-mini.toml); approval must refer to the
+actual prepared fingerprint and both models, not merely to this config filename.
+
 An estimate gate is not a billing hard cap. Report generation and judging usage,
 latency and cost separately and combined, with observed coverage. If any possibly
 billed attempt has unknown usage, keep full usage and cost totals null and label
 known subtotals; unknown is not zero. Preserve failed, skipped and not-run rows. Do not retry
 automatically or add calls outside the explicitly approved scope.
+
+`approval.json` records invocation consent; it does not verify the caller's identity.
+The runner copies frozen inputs into `prepared/`, journals exact request payloads in
+`attempts.jsonl` before calls and stage outcomes in `results.jsonl` after calls, and
+maintains all planned rows in `records.json`. Provider failures preserve bounded raw
+envelopes, partial text and available usage. They stop the run without retry/resume.
+`summary.json` and `report.md` keep per-dimension and per-stage denominators, unknown
+outcomes and known cost subtotals visible. A successful local test run is software
+evidence, not a real answer-quality experiment.

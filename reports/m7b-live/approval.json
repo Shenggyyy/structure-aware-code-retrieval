@@ -1,0 +1,28 @@
+{
+  "plan_fingerprint": "c80718ad8cca0e4da92e1aff2f3696ebf12fcd763191f3af0da858b477e652a5",
+  "generation_model": "gpt-5.4-mini-2026-03-17",
+  "judge_model": "gpt-5.4-mini-2026-03-17",
+  "budget_usd": 5.63,
+  "recorded_at": "2026-09-08T10:46:36.751699+00:00",
+  "execution_mode": "openai",
+  "source": "explicit invocation; not an identity verification",
+  "execution_implementation": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "source_files_sha256": {
+      "cli.py": "47e593f29647a6843533c63bc28cb0ab11c06fe60a63ec876ccb00b22bafbad4",
+      "qa/__init__.py": "927e1c68db5d96ff18226f55ac36ef342c9bc34640523707ece12c5119fed407",
+      "qa/answering.py": "2121137474a273c793f76d52242351f0a670e82af882c72663d9e9d2b93a3acd",
+      "qa/assessment_execution.py": "9a856f01bb7405304c5d803e36e28ccaae7fc34d165c90b49bccecaf9619c88b",
+      "qa/assessment_plan.py": "eade57f55b8b7f0e3ee146fc25d6e4fbbbd3df7c99cfb67d64e86950e7716a26",
+      "qa/assessment_reporting.py": "14253dea626a451a75008093ac11b7e5ab59674b534c99c60cb71982c40441f9",
+      "qa/citations.py": "5492f3eabbdd6a577093dad67989e2d0f39e2cfec741f6c88d05ca6d6adffbf2",
+      "qa/context.py": "4975260bac2b9ef1d2235cd383518cab7fb60f17e9d1406b06234f577da1f033",
+      "qa/execution.py": "5983b31383290981de382e4a05ed54494997a0781a0d7a5c268af9230d030a3e",
+      "qa/judging.py": "99c73e161c5ba1a8673502e66d8dfe623c26a143af7e7b226a43c4b7a6785387",
+      "qa/preparation.py": "2985d964f1dd93eed335d6fd7ca553209290fca8af8a55701383a5d928567ee9",
+      "qa/provider.py": "2c81f9a444d63e6916b3d77a39e228da4c3091e6ec2b6f09d5e18fd34e4a51f7",
+      "qa/review.py": "2b70f206f8f8eadd39098777fda68ec854dc3b5191fdff72c4844abc5fb96c6d"
+    }
+  }
+}

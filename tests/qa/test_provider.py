@@ -16,6 +16,7 @@ from structure_aware_retrieval.qa.provider import (
     MalformedModelResponseError,
     ModelProviderError,
     ModelRefusalError,
+    ModelResponse,
     OpenAIModel,
 )
 
@@ -342,3 +343,222 @@ def test_untrusted_request_id_is_not_retained(transport):
     transport.response.headers = {"x-request-id": "private\nsource"}
     result = OpenAIModel("selected-model").complete(MESSAGES)
     assert result.request_id is None
+
+
+def judgment_schema():
+    return {
+        "type": "object",
+        "properties": {"score": {"type": "integer", "enum": [0, 1, 2, 3]}},
+        "required": ["score"],
+        "additionalProperties": False,
+    }
+
+
+def test_old_positional_constructors_preserve_defaults():
+    model = OpenAIModel("selected-model", "CUSTOM_KEY", 123, 9)
+    assert model.api_key_env == "CUSTOM_KEY"
+    assert model.max_output_tokens == 123
+    assert model.timeout_seconds == 9
+    assert model.output_schema is None
+    assert model.schema_name == "repository_answer"
+    assert model.reasoning_effort is None
+    result = ModelResponse("raw text", "reported-model", {}, "req_1", "completed")
+    assert result.request_id == "req_1"
+    assert result.finish_reason == "completed"
+    assert result.raw_response is None
+    assert result.response_id is None
+    assert result.model_revision is None
+
+
+def test_request_payload_is_offline_detached_and_never_reads_credentials(transport, monkeypatch):
+    environment = Mock()
+    environment.get.side_effect = AssertionError("offline payload read credentials")
+    monkeypatch.setattr(provider.os, "environ", environment)
+    schema = judgment_schema()
+    model = OpenAIModel(
+        "judge-model",
+        output_schema=schema,
+        schema_name="repository_judgment",
+        reasoning_effort="none",
+    )
+    schema["properties"]["score"]["enum"].append(99)
+    messages = deepcopy(MESSAGES)
+    payload = model.request_payload(messages)
+    assert payload["text"]["format"] == {
+        "type": "json_schema",
+        "name": "repository_judgment",
+        "strict": True,
+        "schema": judgment_schema(),
+    }
+    assert payload["reasoning"] == {"effort": "none"}
+    assert set(payload) == {"model", "input", "max_output_tokens", "store", "text", "reasoning"}
+    assert payload["store"] is False
+    payload["input"][0]["content"] = "changed returned payload"
+    payload["text"]["format"]["schema"]["required"].append("another")
+    assert messages == MESSAGES
+    assert model.request_payload(MESSAGES)["text"]["format"]["schema"] == judgment_schema()
+    environment.get.assert_not_called()
+    transport.opener.open.assert_not_called()
+
+
+def test_default_payload_omits_reasoning_and_complete_sends_exact_custom_payload(transport):
+    assert "reasoning" not in OpenAIModel("selected-model").request_payload(MESSAGES)
+    model = OpenAIModel(
+        "judge-model",
+        max_output_tokens=2048,
+        output_schema=judgment_schema(),
+        schema_name="repository_judgment",
+        reasoning_effort="none",
+    )
+    expected = model.request_payload(MESSAGES)
+    model.complete(MESSAGES)
+    request = transport.opener.open.call_args.args[0]
+    assert json.loads(request.data) == expected
+    assert transport.opener.open.call_count == 1
+
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        {"output_schema": []},
+        {"output_schema": {}},
+        {"output_schema": {"value": float("nan")}},
+        {"output_schema": {"value": object()}},
+        {"output_schema": {"value": "\ud800"}},
+        {"schema_name": None},
+        {"schema_name": ""},
+        {"schema_name": "a" * 65},
+        {"schema_name": "private/source"},
+        {"reasoning_effort": True},
+        {"reasoning_effort": "unexpected"},
+    ],
+)
+def test_invalid_schema_settings_fail_before_network(transport, kwargs):
+    with pytest.raises(ModelProviderError):
+        OpenAIModel("selected-model", **kwargs)
+    transport.opener.open.assert_not_called()
+
+
+def test_schema_size_is_bounded_separately_from_response_size(transport, monkeypatch):
+    monkeypatch.setattr(provider, "MAX_SCHEMA_BYTES", 20)
+    with pytest.raises(ModelProviderError, match="schema"):
+        OpenAIModel("selected-model", output_schema=judgment_schema())
+    transport.opener.open.assert_not_called()
+
+
+def test_success_retains_raw_envelope_and_explicit_provider_identifiers(transport):
+    envelope = response_envelope()
+    envelope.update(id="resp_offline_123", model_revision="revision_456")
+    set_envelope(transport, envelope)
+    result = OpenAIModel("selected-model").complete(MESSAGES)
+    assert result.raw_response == envelope
+    assert result.response_id == "resp_offline_123"
+    assert result.model_revision == "revision_456"
+
+
+def test_model_revision_is_never_inferred_from_dated_model_name(transport):
+    result = OpenAIModel("selected-model").complete(MESSAGES)
+    assert result.model == "test-model-2026-01-01"
+    assert result.model_revision is None
+    assert result.response_id is None
+
+
+@pytest.mark.parametrize("failure", ["incomplete", "filter", "refusal", "failed"])
+def test_failed_generation_preserves_known_usage_raw_output_and_metadata(transport, failure):
+    envelope = response_envelope()
+    envelope.update(id="resp_offline_123", model_revision="revision_456")
+    if failure in ("incomplete", "filter"):
+        envelope["status"] = "incomplete"
+        envelope["incomplete_details"] = {
+            "reason": "max_output_tokens" if failure == "incomplete" else "content_filter"
+        }
+    elif failure == "refusal":
+        envelope["output"][1]["content"] = [{"type": "refusal", "refusal": "private refusal text"}]
+    else:
+        envelope.update(status="failed", error={"message": "private service detail"})
+    set_envelope(transport, envelope)
+    with pytest.raises(ModelProviderError) as caught:
+        OpenAIModel("selected-model").complete(MESSAGES)
+    metadata = caught.value.response_metadata
+    assert metadata["raw_response"] == envelope
+    assert metadata["model"] == "test-model-2026-01-01"
+    assert metadata["response_id"] == "resp_offline_123"
+    assert metadata["model_revision"] == "revision_456"
+    assert metadata["request_id"] == "req_offline_123"
+    assert metadata["finish_reason"] == envelope["status"]
+    assert metadata["text"] == (None if failure == "refusal" else ANSWER)
+    assert metadata["usage"] == {
+        "input_tokens": 100,
+        "output_tokens": 25,
+        "total_tokens": 125,
+        "cached_tokens": 30,
+        "reasoning_tokens": 5,
+    }
+    assert "private" not in str(caught.value)
+    assert ANSWER not in str(caught.value)
+    assert "test-key-never-real" not in repr(caught.value)
+
+
+@pytest.mark.parametrize(
+    "usage",
+    [
+        {"input_tokens": 100, "output_tokens": 20, "total_tokens": 110},
+        {"input_tokens": 100, "total_tokens": 90},
+        {"output_tokens": 30, "total_tokens": 20},
+        {"input_tokens": 10, "input_tokens_details": {"cached_tokens": 11}},
+        {"output_tokens": 10, "output_tokens_details": {"reasoning_tokens": 11}},
+        {"input_tokens": True},
+        "invalid usage",
+    ],
+)
+def test_impossible_or_invalid_usage_is_unknown_in_failure_metadata(transport, usage):
+    envelope = response_envelope()
+    envelope["usage"] = usage
+    set_envelope(transport, envelope)
+    with pytest.raises(MalformedModelResponseError, match="usage") as caught:
+        OpenAIModel("selected-model").complete(MESSAGES)
+    assert all(value is None for value in caught.value.response_metadata["usage"].values())
+    assert caught.value.response_metadata["raw_response"] == envelope
+    assert caught.value.response_metadata["text"] == ANSWER
+
+
+@pytest.mark.parametrize(
+    "raw",
+    [b"not JSON", b'{"status":"completed","status":"incomplete"}', b'{"usage": NaN}'],
+)
+def test_invalid_json_has_no_raw_body_or_invented_usage(transport, raw):
+    transport.response.read.return_value = raw
+    with pytest.raises(MalformedModelResponseError) as caught:
+        OpenAIModel("selected-model").complete(MESSAGES)
+    metadata = caught.value.response_metadata
+    assert metadata["raw_response"] is None
+    assert metadata["text"] is None
+    assert metadata["model"] is None
+    assert metadata["request_id"] == "req_offline_123"
+    assert all(value is None for value in metadata["usage"].values())
+
+
+def test_http_failure_preserves_safe_request_id_but_never_error_body(transport):
+    body = io.BytesIO(b'{"private": "test-key-never-real"}')
+    transport.opener.open.side_effect = HTTPError(
+        provider.RESPONSES_URL, 400, "private detail", {"x-request-id": "req_error"}, body
+    )
+    with pytest.raises(ModelProviderError) as caught:
+        OpenAIModel("selected-model").complete(MESSAGES)
+    metadata = caught.value.response_metadata
+    assert metadata["request_id"] == "req_error"
+    assert metadata["raw_response"] is None
+    assert metadata["text"] is None
+    assert all(value is None for value in metadata["usage"].values())
+    assert "private" not in repr(metadata)
+    assert "test-key" not in repr(caught.value)
+    assert body.closed
+
+
+def test_invalid_reported_identifiers_are_unknown_in_archival_metadata(transport):
+    envelope = response_envelope()
+    envelope.update(id="invalid\nresponse", model_revision="invalid revision")
+    set_envelope(transport, envelope)
+    result = OpenAIModel("selected-model").complete(MESSAGES)
+    assert result.response_id is None
+    assert result.model_revision is None

@@ -157,6 +157,12 @@ def complete_question(prepared: dict, model: AnswerModel | None = None) -> dict:
         except ValueError as error:
             result["status"] = "provider_error"
             result["error"] = str(error)
+            metadata = getattr(error, "response_metadata", None)
+            if metadata is not None:
+                result["provider"] = {
+                    key: value for key, value in metadata.items() if key != "text"
+                }
+                result["raw_output"] = metadata.get("text")
         else:
             result["provider"] = asdict(response)
             result["provider"].pop("text")
