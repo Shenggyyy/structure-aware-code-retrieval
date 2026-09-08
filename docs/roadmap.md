@@ -44,7 +44,10 @@ is partial: a local interruption left 12 valid judgments, one unknown attempted
 outcome and 47 requests not started. The planned 60-request comparison is unfinished.
 M7e prepares a [separate follow-up scope](../reports/m7e/README.md) for those 47
 unstarted requests, with offline checking, explicit approval and independent run
-verification. Its implementation and proposal make no new API calls.
+verification. Its implementation and proposal made no new API calls. The separately
+approved [M7e live follow-up](../reports/m7e-live/README.md) completed all 47 attempts:
+46 valid judgments and one protocol failure. Cumulative v2 coverage is 58 valid,
+one invalid and one historical unknown, with zero requests left unstarted.
 M8a supplies CPU Docker delivery; M8b supplies the validated results overview and
 reproduction documentation. Current acceptance uses automatic checks and explicitly
 reported LLM assessment; independent human review is optional. See [status](status.md).
@@ -109,6 +112,12 @@ M7 is delivered in checkpoints:
   The first version allows one follow-up from an original revision run, without
   nested follow-ups or retrying prior attempts. Suggested commit:
   `Add bounded follow-up judging for unstarted requests`.
+- **M7e live — Experiment closeout:** execute the separately approved 47-request
+  scope, archive exact inputs and outputs, verify the saved follow-up offline and
+  report historical/new/cumulative coverage. All 47 attempts produced records:
+  46 valid judgments and one protocol failure. Preserve the historical unknown
+  and unknown full cost. This completes the agreed attempts and evidence delivery,
+  while incomplete score coverage remains a research limitation.
 
 See the [M7b implementation record](../reports/m7b/README.md) and
 [offline preparation commands](qa.md#prepare-and-check-the-combined-experiment).
@@ -117,6 +126,8 @@ The prior 60-request estimate covers generation only; it is not an approved comb
 budget. The later Mini/Mini approval covered one completed US$5.63-budget run.
 The subsequent US$2.20 approval covered at most 60 v2 Mini judgments over existing
 answers; only 13 attempts were journaled before the partial run stopped.
+The separate US$1.80 approval covered the 47 previously unstarted Mini judgments;
+all 47 now have recorded outcomes, without retrying any prior attempt.
 LLM scores must be labeled as model assessments,
 with unknown or failed cases explicit, not verified true correctness rates.
 
@@ -134,11 +145,14 @@ outcome and 47 requests not started. Its known cost subtotal is US$0.08424075; f
 cost remains unknown. Preserve this partial evidence alongside v1. Additional paid
 attempts require an explicitly scoped decision; there is no automatic retry or resume.
 M7e implements that separate decision path for the 47 unstarted requests and leaves
-all 13 prior attempts untouched. No new real judgments have been produced by this
-offline checkpoint. Even if all 47 later yield recorded results, the cumulative
-record retains the original unknown outcome and cannot claim a known full cost.
-The existing combined runner remains v1. Engineering
-delivery must not be presented as proof that Structure improves answer quality.
+all 13 prior attempts untouched. Its live follow-up produced 46 valid judgments and
+one protocol failure, bringing cumulative accepted coverage to 58/60. New-batch
+cost is US$0.35257875 and cumulative known judging cost is US$0.4368195 at frozen
+uncached rates. The historical unknown keeps full cumulative usage/cost unknown.
+The planned engineering and experiment attempts are delivered; a missing historical
+outcome and optional human review do not require indefinite additional milestones.
+The existing combined runner remains v1. Incomplete score coverage and provisional
+labels remain limitations, and delivery does not prove Structure improves answers.
 
 M1–M5 define the implemented retrieval MVP: Python parsing/indexing, five strategies,
 a versioned source-bound benchmark with explicit provisional labels, reproducible

@@ -1,0 +1,1536 @@
+[
+  {
+    "id": "1b0652d21ec0f9ce559537f859727f02314578555fd8529f519d942b46e2b8d2",
+    "case_id": "qa-click-04",
+    "strategy": "bm25",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "ef45c23065b9f30b53e6512fb67a25efef1a51e6a562d0da7545ad8094231871",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "62e7ffb886aef507ef7b5aad5dcb1290f6679f496610ae4228051c49f180f9b6",
+    "error": null
+  },
+  {
+    "id": "9c7d7c0bde8f529de10e7f765f79ae84acdee31d548a38347f1b7cd5275ae82f",
+    "case_id": "qa-click-04",
+    "strategy": "dense",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "16fd614e803928e5b573e49813407e3f7d9dc17c68d728e845923af393c33ae2",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 0
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "386b358e19396c0cee849401fdc57ac29e6ea3368ecc1ea5fbc93a706600f571",
+    "error": null
+  },
+  {
+    "id": "f96f33596eee725ce4c855ff93eba18028d5131a4ca69d97095a283a765a6eaf",
+    "case_id": "qa-click-04",
+    "strategy": "hybrid",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "92c7510a72c9333107451ac2fff87e09c29082423e3b3a1d4da5c223b1ad5a1e",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "7e485036f6cdb4e4978421a41d88d79291380467d38572d355942df2ab66cbea",
+    "error": null
+  },
+  {
+    "id": "7af9ff27277dc6e2b2e841abc81842753387a151b165d3accc80cc642dea25be",
+    "case_id": "qa-click-04",
+    "strategy": "structure",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "32657540b13eadaab42a0678defbff040498e8aac986f31745145bfa1db471ab",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "19a49dcee41ce396562a609a84f523e0ecba8eee8e60f5264da67815ee4b89b4",
+    "error": null
+  },
+  {
+    "id": "17c5c2060e91f13e49866f31df092ccbfc5b6b0445eea099b8dcd6f611223f42",
+    "case_id": "qa-click-04",
+    "strategy": "symbol",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "f048f6c7ea30ddb7e8b9b6afb3a86bd76b82791b7f55a0941faf068616c19494",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "e590c1d66c8deb03798fb5c05af7eef05ac9e44c7c123d246e059cc11d6d56c5",
+    "error": null
+  },
+  {
+    "id": "7eca42733fe2c8bd23d2c581615b9bea0f4398b3cd0c38cc3c58929d0eb59a66",
+    "case_id": "qa-click-08",
+    "strategy": "bm25",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "5f75bc1776a2aa56172db764e814e55379ff33e80f2b65aad71afecbcc085d27",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "2c572580928087668010f94bb8e283815a72f5f18ced8fdaa478b688da670140",
+    "error": null
+  },
+  {
+    "id": "ba8f99e48fd8b112b22657302dcda34d21d1d165fd47e7e23b66a11e33b482aa",
+    "case_id": "qa-click-08",
+    "strategy": "dense",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "9821ad4df1e07dab135cc9e603e319f1f825dd249acfad70223494b8faa6b3e3",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 2
+      }
+    },
+    "judgment_fingerprint": "cd9ff40acfd1e2bad00cb72666bca1706d260603a2bb5cc53e1a83a0ed86f519",
+    "error": null
+  },
+  {
+    "id": "010da7655fe85ed5699262db0d8e3165659a7600994c13cd9f55ea19a37cc7c0",
+    "case_id": "qa-click-08",
+    "strategy": "hybrid",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "c311f6efa229e2152182a9c00181666be8e8b52f394e1a235d9783f8532ef031",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "4430baa0c8d223c6489727326f34514c821cacd3c79489455d473b41e4144a41",
+    "error": null
+  },
+  {
+    "id": "3b8aceab54f1e97989a104b90ad654ad0afa3493a7d999504e646210806f1a7c",
+    "case_id": "qa-click-08",
+    "strategy": "structure",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "2df80a805d253970c82b9de0bb14ff5262d7f21ad5d36d08e14f8716f82811b9",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "7293018e7d296d89cc3d11df7b6c83310f3710b6412cee4750ecb018b31b0fde",
+    "error": null
+  },
+  {
+    "id": "2c85fe6252cb6a2be65977192f981c30579d79cab6cb8429bea6e553bfd27be0",
+    "case_id": "qa-click-08",
+    "strategy": "symbol",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "3032fc26cb955b393201355201a96c01c3c6958eb6cce7df15877547a72b8d91",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "d6591b46fa0073b1a1e670745493ec0556410f4a9d67538f38669562d34a55ef",
+    "error": null
+  },
+  {
+    "id": "b40d35547b2050a088bbbc8a121f347205d66d5bef3b6809ca9647cd17ccfd9c",
+    "case_id": "qa-click-13",
+    "strategy": "bm25",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "0c68f4ee5505b4d31b1e4b7426ee52ba66aec22672b6735823915efd531d1c26",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 2
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 2
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "ceafaf0520aa1fce8aeefb573581802faa83401a6bca8c908025eb0a6107618e",
+    "error": null
+  },
+  {
+    "id": "0515ff91e94ec9fc76a0b0ab96742c54d6b828f792e7c0afa7a0855ee5c44c46",
+    "case_id": "qa-click-13",
+    "strategy": "dense",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "01a803459c66e2278c578fa18d81287a73d9388b3ac12ad60c62cdabe6e4ff21",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "784cccf5080694d0d064c4f6b837659d223a741f177afc92a574b7ee03ae592b",
+    "error": null
+  },
+  {
+    "id": "9510e046d450edfe72754b615fe92d9743bf9dd95e9f75d2b7d817c1dac2b1bc",
+    "case_id": "qa-click-13",
+    "strategy": "hybrid",
+    "repository": "click",
+    "judgment_origin": "prior_run",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "12b7df882ae031aff87aba0c630c3a540262982922006d87c9c1330c2f3a710a",
+    "judge_status": "unknown_outcome",
+    "dimensions": null,
+    "judgment_fingerprint": null,
+    "error": null
+  },
+  {
+    "id": "7f8ae55efb1425b553a567cb5fba9bbff312b53417501d946910cc0a15ae03f4",
+    "case_id": "qa-click-13",
+    "strategy": "structure",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "630dcc9641910e52c02de518b2debf505744fe2db1d12f058b752ee8ec5a9696",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 2
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 2
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "0a0326bfd0536671b1bc36efbb21045befd58522ec0b4fe15cc48fdb385ca18b",
+    "error": null
+  },
+  {
+    "id": "5e61e584780cbc3410b696e4a087b2481ed9b594a71743d6bae62c7603c7e50d",
+    "case_id": "qa-click-13",
+    "strategy": "symbol",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "e06f848bf1e116833e22ab575e254b6b7a29b65b92ee9c86da8d1df792861ec6",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 2
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 2
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 2
+      }
+    },
+    "judgment_fingerprint": "58201095f19fecc6557183ed5f81574d1b01ab9f3bfccab5230f3fb31525218e",
+    "error": null
+  },
+  {
+    "id": "905795d811997ffe84c5d0f03d868f6b4abd8bacfdd9f3b2fc550b624ec4eff6",
+    "case_id": "qa-click-16",
+    "strategy": "bm25",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "ea7f8e428545de66d60127d8e52d32c0429605323fd06459ade0c4d7961e0c8c",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 2
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "6cc7b5461d9c848589e520882cf84af0d7210e7532fd6af7a8ee450b7c09969d",
+    "error": null
+  },
+  {
+    "id": "43e5ac7d438fe42327d6197dca8430ea4ded7b7129b6895cdaffcd90facff9cd",
+    "case_id": "qa-click-16",
+    "strategy": "dense",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "98a36aafba396d036461d499c6bcac2a2a93fd5bd74d07a1fc06583d1fd992e7",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "f6ea2e7659b858f64382413303abd3c483ea706335df76d0e9720927b825c3b6",
+    "error": null
+  },
+  {
+    "id": "eea79f0d9dfe28690718e0cf129da9b33527d7e96594afc1a2f67d3e56e2b4c3",
+    "case_id": "qa-click-16",
+    "strategy": "hybrid",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "b180d0d9af3bd086c4a95ac4995af49feb506c18ced8ff3a9a8bca1328cc289a",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 2
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 2
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 1
+      }
+    },
+    "judgment_fingerprint": "2c05722c3b4f4a37cee1af273c76d9336368ca0a1caa13b85fc4f3e8c1746a78",
+    "error": null
+  },
+  {
+    "id": "5e154fab678a70f751fe6e23458aa7b2f9bfa1888ae3644c243ea746a055ef3e",
+    "case_id": "qa-click-16",
+    "strategy": "structure",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "5284e3eeaf4d84e52ebf951f68ac07aeb75ccfbb36bdf55290750eed7a8c62a5",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "6052699ac8210dcb1e6191c4f9fad2a6cc0299f92d0d56d30f1bf77e8db3e26b",
+    "error": null
+  },
+  {
+    "id": "3f563d765c8ff529211416b524e21a2ea6937e998d63756b38ad47409a9272a2",
+    "case_id": "qa-click-16",
+    "strategy": "symbol",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "19911e0d685fd68837c484e435d350043387b29aaebe967ff6cab34c6d549114",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "96df37a04ea0b02ce3a539eb7f30726cb4658d2144337e8ae3e8797ad70a6fb6",
+    "error": null
+  },
+  {
+    "id": "ba274dd4b9fd09c15423a9910dc3392568d0fdc408e789fcf0b855cd4489b4c8",
+    "case_id": "qa-click-20",
+    "strategy": "bm25",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "14527c7c424291ab526740d920f8c5e6dbafa0e7f65f08e80aa88be8c37c874d",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "b9101a3d0578134ee0223c661491b45d884568f7c60b191e42110ac201999b4a",
+    "error": null
+  },
+  {
+    "id": "bbfb168eab89431370f6ea88d5bab8217802020ee5e4c1c3b1eaf9d12ed16a9a",
+    "case_id": "qa-click-20",
+    "strategy": "dense",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "6dc16946a144947479fbb4b240a1c47c0c37ca6fd57bf2c2a081c26bcf5ecddc",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 0
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "0416274451b5a080338270266e2de860c428acd967b4215e3f2073eab2932103",
+    "error": null
+  },
+  {
+    "id": "1900559fee5c370780930776e01a5b8f93e528f87027628d6c0f442ee9215e98",
+    "case_id": "qa-click-20",
+    "strategy": "hybrid",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "d8086af0f94d69f23814b8d94b7c5219534175ec780f18e76d36952ca67de3d2",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "ba01271978ab0de49a3becef12fea53f7aa10be7d650fa4027e4e68f90d51ebc",
+    "error": null
+  },
+  {
+    "id": "2fa58468cc844b5c0747630a8b42d281d8c8efaaa6da2a8b3d0925c177c7e177",
+    "case_id": "qa-click-20",
+    "strategy": "structure",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "5ca6efb78118761aee64506d0a9bb5d840d2b12ec584bdff762daa9a5e495061",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "a62be7f8099f3eed3baee0f0ebfa0c0e1419050099f94a76ff38f6bb43199318",
+    "error": null
+  },
+  {
+    "id": "ce7ec16cbc55398747ddb8a452fa3a70d5585da4c8e7249dd77b0c3560d81806",
+    "case_id": "qa-click-20",
+    "strategy": "symbol",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "7c1ed08ae9550977bef539b7b3bb9db5556d24b8ea402311896e5d49d0cb7961",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "8996fbb36d1801006f5fd7f853a83ac5efb3397093605bdc852aa4cbb0343995",
+    "error": null
+  },
+  {
+    "id": "d1a70250346d1b2ef4af55868c70bb5819296009c7f72b8606c0282d78c58f50",
+    "case_id": "qa-click-scope-01",
+    "strategy": "bm25",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "aa36e31b475808fe9ae2c7bcbeef882e13161c408782aadd5b5ad33cd80ff412",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "0bd0f4f458b6dc1bf86183c715790c12d6008734a5c191bc93f566f198441e04",
+    "error": null
+  },
+  {
+    "id": "adf68caf399311f442161cd1efa15af05dc975f331f56f9cf6327037b0159cc0",
+    "case_id": "qa-click-scope-01",
+    "strategy": "dense",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "08b2a31b05bca6daf1040c5eaacf54886be846e7a84ba3aa880e8d695e4e0215",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "cb3f2d2a788371733e0ebf2a0acaca0bc7b6d4f887ed9b26481742c76ae158ff",
+    "error": null
+  },
+  {
+    "id": "942ed78d6ba9d5a39e3caf3658e1174962bd40043eb792b15d496381c97d711d",
+    "case_id": "qa-click-scope-01",
+    "strategy": "hybrid",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "04bbeded1da1d479d6cfa622e590e1cc507b0706c70bead93ff0ab56e5745e16",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "8dce73ee3f420ced994bb466f72b30ddbff6aa430b5811c868324aed0f0e634d",
+    "error": null
+  },
+  {
+    "id": "b35fa4b16b4c3ea72e1b78e4887ffc829caa739aa928fa23e154e66c47861699",
+    "case_id": "qa-click-scope-01",
+    "strategy": "structure",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "8e1e6a4166c2a2fdeb05cebad9fa699f5b24e0de6cfa79c2b3d2fef2da67105c",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "d5a7a23f51e71db8413864e07392fb5eb54e987a0c8af5d032b169e1d743097f",
+    "error": null
+  },
+  {
+    "id": "60593870fa221a21bd755e93c36cc4cd2843d6e5d170d6246927ffcd121db407",
+    "case_id": "qa-click-scope-01",
+    "strategy": "symbol",
+    "repository": "click",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "70e59cbf760380cbb9a5d5d8ff2d49da2bb3df2599ed068572113e8d9a76a4bf",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "a0c87137a8d0579b572b990b15d9ea1ad6be0e67a74f8b85298f1c41dba3a6e8",
+    "error": null
+  },
+  {
+    "id": "98e04dcd829b2f3fd52b63cc377787104164a5c346a93fc46575c5afc914b575",
+    "case_id": "qa-requests-01",
+    "strategy": "bm25",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "6c53ae75dfb0ed738e70b6d06420e1d63b152b713440688e1dae47800c8c827b",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "b51a8725ceb9441072958df566cb8f15bbd983a0c39d581ba8b3cc0f6e49f7de",
+    "error": null
+  },
+  {
+    "id": "19ec33d0c5e95f6b795ad24d5fe8ee66e98e5515c72298d1e7f4a0138e20ae04",
+    "case_id": "qa-requests-01",
+    "strategy": "dense",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "064bec7fd47972471006db2945ef6142cceb91bbd1783cd21d661cefd9db09f7",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "4595a48d1083d39f3eb18466d653175756028f59f234316bf8914ef25610e874",
+    "error": null
+  },
+  {
+    "id": "48ed734fe195e5260a67687ce6ff370e584239c1b91c6347f5734f7464170ffa",
+    "case_id": "qa-requests-01",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "df4fb0e0c71707353801ab789f06a063e3713d9a9478c054bd53e6e80c5fc8e3",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "75f1949c073e268407184fb0d71564b079cd5ffcb0945a15072911f54d63483a",
+    "error": null
+  },
+  {
+    "id": "a9dc2206c6a2f52e9b71c1421614b375ca49526a78b5051a34b63023067b79e5",
+    "case_id": "qa-requests-01",
+    "strategy": "structure",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "15b18757c505a729bc7e20443413cc0fd4a55ddcc2a74814ca0c89ed86b783db",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "2dbdef30298eb87d02d069a545f8d7a42c3c9f6bca3424a452d2c1b5d6b278ab",
+    "error": null
+  },
+  {
+    "id": "f4faa38dbec477f8f99eecf73c599ea9726fa7b7e0297525a506d8541558bb12",
+    "case_id": "qa-requests-01",
+    "strategy": "symbol",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "b683e9bd51692870d190f021052af82450ea44d0d92168ba4c1abeeebb980945",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "3c0df75b4dbca1626eb804eea8a7f0d9568854c2e188774e7f8264250c2fc733",
+    "error": null
+  },
+  {
+    "id": "9d8c22d5e1ff7e84d88da93d01299c5e8b1cf0b1d1253081dbb05c8c9854b6f7",
+    "case_id": "qa-requests-06",
+    "strategy": "bm25",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "5c7727e9cd2f5e816d8fba5738aded7a583f1b5014541885010646562965bc3e",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "ad6ce600e5c16c35d1fe51cf5238997161b097c213f51e2c8ae48009525fe2dc",
+    "error": null
+  },
+  {
+    "id": "0c2d553497c5764b9956c24674fe6f57c116947e037fee8550e0d3b487b95613",
+    "case_id": "qa-requests-06",
+    "strategy": "dense",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "f51a81ec6f9eaeeae3c2e1e77e5a4562ed81c0e492ae5e4671c50a163dcfbad7",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "1e704ea1fb4df0ef969025b3c90b11ce003bc0af88b06ac7b12151cd6af129d5",
+    "error": null
+  },
+  {
+    "id": "1e8f17eaa0e9f66fc4d238beff18a3378b0d6ac6ccb4ccafb235ad562b4c2a20",
+    "case_id": "qa-requests-06",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "e5b8d3da063604156b846320b83468473c0895143ed88a8a6d9c9d36e6951a18",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 2
+      }
+    },
+    "judgment_fingerprint": "ce8b6b0247fd5ff43c985e9c49eecededd1d6122ca6fe8a61427db8915e1bcd9",
+    "error": null
+  },
+  {
+    "id": "6c6b9961c7ee9d03b08f7f422bf3a58c171db373f52bb240956748d74f55a7e7",
+    "case_id": "qa-requests-06",
+    "strategy": "structure",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "f40b33bdc438850beecf48714ba3b6de4eb7dea43d7ed9a4c26e2bdb320cf1ee",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "5b4774c3629b235ed7c6201c720f7a6b54cb78af6b90cc0aad697cf6bb2331ed",
+    "error": null
+  },
+  {
+    "id": "d80618e1f52b56f6d34f4c62ea64c459d08ee4915478c6e113d8c53b3326e88b",
+    "case_id": "qa-requests-06",
+    "strategy": "symbol",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "7b2cee6424aaf3f98c05715a5bb6d685c176ff3b4f371f1378afdff7de48c3ad",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "02ba41e80e8850df3bbdfd61c5f6ec134f87559e9021349e506ca015219eadbc",
+    "error": null
+  },
+  {
+    "id": "6a8766f468f9c18db7313446aa4aaf65def6387e5d4417fa83d55351dd1cd7ad",
+    "case_id": "qa-requests-07",
+    "strategy": "bm25",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "b13b9b52db79d538ff7dd2fedb229dc8c97386eb305f007c0859ff485ad79fee",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "7d1ce06aabfadd5c5110259d855a7b49235577d46c3e8615fa0db20cacf87844",
+    "error": null
+  },
+  {
+    "id": "f7e5f2b94f910ce996921243115f0745407dc995c71f4186fdd5588cd146f86d",
+    "case_id": "qa-requests-07",
+    "strategy": "dense",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "da2f088d8e5dc46f4ea682a381e06ec83abafe627c5ab60b44d5b4d13d952387",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "292f077218f4bd47cec21fd67662285e5125bba5e7968c7fe741a6e941bd633d",
+    "error": null
+  },
+  {
+    "id": "1cdb889f89235c085c318e7984ebe2e5bb6da7e8404e732b570d2d2d8cd8c674",
+    "case_id": "qa-requests-07",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "e4096e0188708618162df82547eb4fd11d6163d43269e4e3426067f0cf935b1b",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "3c9f16665d023d8c65d52373ce357512a95c9593b00e1f16d8bf47a6ef859224",
+    "error": null
+  },
+  {
+    "id": "fee2f47890c4a7c3d2df96b1e83a687ad36987064158f50ff396940e6660b11b",
+    "case_id": "qa-requests-07",
+    "strategy": "structure",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "b2a8088de16fa63e0ee5cbe8c09c1da5c7e40983b427ef97e597e82bf7a5c211",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 2
+      }
+    },
+    "judgment_fingerprint": "bcccc25f81349c94d5ee0a442bc24ef6bf03944a6adf15787edb824dfdc4874b",
+    "error": null
+  },
+  {
+    "id": "280af857f00c369de5c76bc9166e5279bae74449052c2650a85c8c90b54f7a54",
+    "case_id": "qa-requests-07",
+    "strategy": "symbol",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "b54aadf9839f1b63590df2c4c64201a6b0ff6f8dcd15a0f9d242131dd1eefa97",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "b02929752c21426e498451a735da3382c4a01d7fb3e07eb33ad4ef575b415b5d",
+    "error": null
+  },
+  {
+    "id": "544a40fd18701a5cc78e70649cfad8d95ff64c7c0a448ab48d16e965439e7839",
+    "case_id": "qa-requests-13",
+    "strategy": "bm25",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "3d189102b6d1513a49102ef43ef85ef32bf596124ef9bb2a58f6add456f60f9c",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "26a73e64e30cd826e847e7ee3fde4c8e30bf0a55bd3d2e5220e4a569ca23a23a",
+    "error": null
+  },
+  {
+    "id": "9b248b43e50a049265f258e1694cae1689bb82f5a54c600348350269adbfcb63",
+    "case_id": "qa-requests-13",
+    "strategy": "dense",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "d03686664f99208f0e37caaf838a2a2d28a25b2a3f3d5b706515088c9f4ae669",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "354ef0c5cd85f806e84b35bf24ca13e7caa3ae7b07c94b2fbe1ebe7b868eb929",
+    "error": null
+  },
+  {
+    "id": "44078b7cc514d3cc8e21da7d4d0f0dbd0a6d53a3d9848500d3e17ac3bb2788a1",
+    "case_id": "qa-requests-13",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "805efe832d90086515484f7f185ac89e5d5fcb6446dbe46c9a5a7fb6d63ee242",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 2
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "762e5bd5a46aa8dac90430a91c82e61aa8972f423dc8dcbd482f0e349e7a6d26",
+    "error": null
+  },
+  {
+    "id": "b80da70f1f2a70b3330407cbfb3e9353707a3e408b02074b604e0f47e0c73528",
+    "case_id": "qa-requests-13",
+    "strategy": "structure",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "e4d858395b9121accdb7425daafbf03f9a177b30c8ee51cd4ba4da3407f47bf5",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "af60805e9624f0f09870bdec1bb53b96aee8e5151122212db8353550d1b3dd68",
+    "error": null
+  },
+  {
+    "id": "f0b6f5bd79a056b8117e0fbea70401371c8ba1cfdbe3928131a7353c30746d92",
+    "case_id": "qa-requests-13",
+    "strategy": "symbol",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "851098c3ccc8ce4421f1af7d9cd30945ac9d554368096b330c224385603878ab",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 2
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 2
+      }
+    },
+    "judgment_fingerprint": "e2df8450239fab6bfd20cb5ec7247b17d9326f358f6a3965288dcad073723d53",
+    "error": null
+  },
+  {
+    "id": "fcc8561e3ce164f01e49f85308959d804115455519f2f6a9b22e16f5e53e78ae",
+    "case_id": "qa-requests-19",
+    "strategy": "bm25",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "7e5aefe427ca0762950f1a033c44385629cfe2528cc756278c5f437ab97cc78d",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "295933cd64ec502333868a0414f3d7b0a9ffcdfc11d207d0ed0f1cf805f8f839",
+    "error": null
+  },
+  {
+    "id": "ca2f441caf7393a8462ebf67f40ff52cbd1d7919cfdf626ad1eb279877ef4d56",
+    "case_id": "qa-requests-19",
+    "strategy": "dense",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "60de4ab20865c7ff6045ca4f4536587bffb7d98ccf525e0e2e32513730cdb969",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "fd6405522e4876ba605c39bf173e5f8c1f370425e59cd2589bd7a25045eae420",
+    "error": null
+  },
+  {
+    "id": "e6679d97c8242586fe51911abae6778fc8281daa60c9a85301a93632d9a12338",
+    "case_id": "qa-requests-19",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "636444c806e154c38eb1b127f45c905b3abbd5ba549e606631ffee8c56ac17f5",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "83fbb4afbcd5d8382cf7c848b30874e35eb4600c48d2e5f85e3b0dbaa5b5b6f1",
+    "error": null
+  },
+  {
+    "id": "0a33f5b127e8baf9bbb7cc6599dcb87834d850fb787c3e29a0a2248b586bd4ae",
+    "case_id": "qa-requests-19",
+    "strategy": "structure",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "ce99c313fd3f32e0b28c2371c1ed595e048fc503fa829b474a8cfb06d647d515",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "d576e82df8309fcccfd7e9667ab7b29236763aab8c0736b1ba8aa2dc12aeb86e",
+    "error": null
+  },
+  {
+    "id": "daeab8070b51fd0078429f439561feb92d311703934598fadca2257d9bed6b54",
+    "case_id": "qa-requests-19",
+    "strategy": "symbol",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "answered",
+    "source_answer_fingerprint": "8b5d289c500b1aeffef0869c446c154e5c890029f1008ba9ccf67450671364af",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "scored",
+        "score": 3
+      },
+      "completeness": {
+        "status": "scored",
+        "score": 3
+      },
+      "citation_support": {
+        "status": "scored",
+        "score": 3
+      }
+    },
+    "judgment_fingerprint": "6ec579c6d32e66b16221b5c407eaae1f91e92edd2328d0257fa65712ec0f81c2",
+    "error": null
+  },
+  {
+    "id": "b2081564a85854aeaf26e1eb7b4e6d99d39d7f9facd3e68d6172ae8552678d33",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "bm25",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "10c02d4696c3e4681b022ac73278700469b47363e36f50d65451d0684b2111eb",
+    "judge_status": "invalid_judgment",
+    "dimensions": null,
+    "judgment_fingerprint": "6d37305b3dcb49e39dbc68edb88041a4701630a14817b6c19fbacc86ff1ac628",
+    "error": "Out-of-scope abstention completeness must be N/A"
+  },
+  {
+    "id": "b6c90bcadc6ee4e21ea50c2e04bdca6d29c00666e9d2daa427c0348cee18ac4e",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "dense",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "6385b9feb35352e4ffa1f3aa2c58b0501e97936375a8d4dedda6cc7cb6b6bd81",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "2266dcfb4770b5b59a077162cce35006e542cdc580e60191ac945a8880c5f5d3",
+    "error": null
+  },
+  {
+    "id": "6a0fad428bcc880495fffccee9cbb81636d333cbfdb0cfdadbec08e78a214d9b",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "f435a03e2953cb151a789d27c90e905dea13e7cf2516ae1c25fdd07adf6b2244",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "60646b7f7e8b34d92069c8a7f71c5fe00db17bc23e1f47da5e9a94593bf8865c",
+    "error": null
+  },
+  {
+    "id": "de11e65036d5e6ff82f9c7084420b55be9ae1582c1b44ceb17c3eb27d424e3be",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "structure",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "93dc40ecf0afe7cf1177b94edfd5fc3a0e67a38d8053f152a0b78988a99808c9",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "1ff640cff86343ad5046ff35e18ee66e395cd23e4bde2faa6e0757afb1a297e7",
+    "error": null
+  },
+  {
+    "id": "50ee2369cbc347a253c7fd3da5b9e7dc0882ecd986d253d59d534b6dd16bc54b",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "symbol",
+    "repository": "requests",
+    "judgment_origin": "new_batch",
+    "source_generation_status": "insufficient_context",
+    "source_answer_fingerprint": "9b8c44396d2c5a220b310bb96f24af7e0501ed1197f77aa889b446056bcf176c",
+    "judge_status": "scored",
+    "dimensions": {
+      "correctness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "completeness": {
+        "status": "not_applicable",
+        "score": null
+      },
+      "citation_support": {
+        "status": "not_applicable",
+        "score": null
+      }
+    },
+    "judgment_fingerprint": "11194684922f1e82d9fca10976e3f89e73741405790e58e232fee2a2d384c473",
+    "error": null
+  }
+]

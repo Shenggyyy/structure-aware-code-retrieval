@@ -18,8 +18,12 @@ judgments, one unknown attempted outcome and 47 requests not started after a loc
 execution interruption. Its cause was not preserved. The planned comparison remains
 incomplete; known output validity is not an answer-accuracy measurement.
 M7e adds a separate follow-up workflow for the 47 unstarted requests. Its
-[implementation and proposal](../reports/m7e/README.md) are offline: no new judgments
-have been generated and the unknown attempt is excluded from the new scope.
+[implementation and proposal](../reports/m7e/README.md) were offline. The separately
+approved [live follow-up](../reports/m7e-live/README.md) now records all 47 requests:
+46 valid judgments and one protocol failure, without retries or new generations.
+Cumulative coverage is 58 valid judgments, one invalid judgment and one historical
+unknown out of 60 planned rows; there are no unstarted requests. Protocol acceptance
+is not answer accuracy, and the historical unknown keeps full cumulative cost unknown.
 
 ## Preview a question
 
@@ -249,7 +253,7 @@ independently verifies the original saved run, freezes that prior evidence and s
 only requests absent from its attempt journal. Neither command needs credentials or
 makes requests. See the [copyable preparation commands](reproduction.md#prepare-an-unstarted-request-follow-up).
 
-The M7e proposal selects 47 requests from the partial live run. All 13 prior attempts,
+The M7e proposal selected 47 requests from the partial live run. All 13 prior attempts,
 including the unknown outcome, are excluded. Saved answers, reference evidence, v2
 rubric, exact model and selected per-answer payloads remain unchanged. Review the
 new bundle's plan fingerprint and estimate before approving this separate scope;
@@ -273,9 +277,17 @@ latency is measured.
 The first version supports one follow-up from an original revision run. Running or
 completed parent runs, empty remaining scopes and nested follow-ups are rejected.
 Existing output paths are rejected; no prior attempt is automatically retried, and
-the new run does not overwrite or resume the old one. This offline milestone leaves
-the observed live totals at 12 valid judgments, one unknown outcome and 47 unstarted
-requests. Local consistency checks and test doubles do not add real model evidence.
+the new run does not overwrite or resume the old one. The implementation checkpoint
+made no live requests; its test doubles establish software behavior only.
+
+The [published live follow-up](../reports/m7e-live/README.md) used the approved
+`gpt-5.4-mini-2026-03-17` snapshot and US$1.80 budget. It finished as
+`complete_with_failures`: 47 attempts and results, 46 valid judgments, one protocol
+failure and no new unknown outcomes. Its usage implies US$0.35257875 at frozen
+uncached rates; cumulative known judging cost is US$0.4368195, with full cost still
+unknown. These are not invoices. The cumulative 58/60 accepted coverage retains
+one invalid judgment and the historical unknown; no prior attempt was retried.
+See the [offline archive check](reproduction.md#verify-the-live-follow-up-archive).
 
 ## Provider configuration and measurements
 

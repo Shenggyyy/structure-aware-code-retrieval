@@ -9,8 +9,11 @@ expanded test candidates.** Reporting this failure is part of the experiment.
 All relevance labels and quality results remain **provisional**. Human review is
 optional, and no human-reviewed labels are claimed. The
 [first live QA experiment](reports/m7b-live/README.md) records 120 real requests,
-including 24 accepted and 36 invalid judgments. Retrieval scores and automatic source checks do not
-establish answer correctness, completeness or semantic citation support.
+including 24 accepted and 36 invalid v1 judgments. The
+[cumulative v2 assessment](reports/m7e-live/README.md) reuses the same 60 generations:
+58 judgments pass its protocol, one fails and one historical outcome is unknown.
+Retrieval scores and automatic source checks do not establish answer correctness,
+completeness or semantic citation support.
 
 ## Evaluation scope
 
@@ -104,7 +107,10 @@ recorded measurements, outside the quality fingerprints.
 
 See the [complete experiment analysis](reports/m6c/README.md),
 [reproduction guide](docs/reproduction.md), and [acceptance status](docs/status.md).
-The [first live QA experiment](reports/m7b-live/README.md) now records 60 real
+
+## Original v1 QA experiment
+
+The [first live QA experiment](reports/m7b-live/README.md) records 60 real
 generations and 60 judgments using `gpt-5.4-mini-2026-03-17` for both stages. Its
 US$5.63 approved budget covered an exact US$5.6289795 preflight estimate; reported
 token usage implies US$0.49021425 at frozen uncached rates, not an invoice.
@@ -121,9 +127,46 @@ cannot establish improvement or equivalence, and the unmatched conditional means
 must not be used to rank QA quality. See the live report for all strategy-specific
 denominators, paired IDs, raw outputs and latency measurements.
 
-The next research improvement is a versioned evaluator-protocol revision tested
-offline against these failures. Any new paid comparison needs separate approval;
-these exposed development outcomes cannot become an untouched test set. Model
-judgments remain model judgments, not human ground truth or verified accuracy.
-Optional manual review is not a completion prerequisite; sparse retrieval labels,
-same-model generator/judge bias and incomplete assessment coverage limit conclusions.
+## Cumulative v2 model-assisted assessment
+
+The separately versioned v2 rubric was tested offline against exposed v1 failures,
+then used for two approved judge-only batches. The first stopped after 13 attempts
+with 12 saved valid results and one unknown outcome. The follow-up attempted only
+the remaining 47 requests, recording 46 valid judgments and one protocol failure.
+All 60 original generations and all prior attempt records remain unchanged.
+
+Cumulative coverage is **58 valid judgments, one invalid judgment and one unknown
+outcome**, with no unattempted requests. The invalid BM25 scope judgment passed
+JSON schema validation but violated a cross-field N/A rule. Neither it nor the
+unknown Hybrid result is repaired, retried or omitted from coverage denominators.
+
+| Dimension | Numeric scores / planned | N/A | Invalid | Unknown | Conditional mean (0–3) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Correctness | 47 / 60 | 11 | 1 | 1 | 2.8936 |
+| Completeness | 49 / 60 | 9 | 1 | 1 | 2.7551 |
+| Citation support | 47 / 60 | 11 | 1 | 1 | 2.8511 |
+
+Structure minus Hybrid has paired mean deltas of +0.2222 correctness, +0.1111
+completeness and +0.2222 citation support on nine shared scored cases. Against
+BM25 on ten shared cases, the deltas are 0, +0.1 and −0.1. These comparisons do not
+show consistent dominance, and the small, exposed development cohort does not
+establish a general QA ranking. High conditional scores with different N/A and
+missing counts must not be presented as a true correctness rate.
+
+The follow-up's 47 calls used 363,899 input and 17,701 output tokens and averaged
+3,413.61 ms for judging plus validation. The frozen uncached price projection is
+US$0.35257875 for the new batch and US$0.4368195 for all known v2 judging usage.
+Full cumulative cost remains unknown because of the historical missing response.
+These subtotals exclude original generation/v1 judging costs; they are not invoices.
+The [live follow-up report](reports/m7e-live/README.md) provides exact per-strategy
+denominators, pair identities, cached usage, raw records and offline verification.
+
+Acceptance improved from 24/60 under v1 to 58/60 under v2 on reused, exposed cases.
+That measures protocol coverage, not a causal improvement in judge correctness.
+The two score revisions remain separate. Provisional references, same-model
+generator/judge bias, ceiling effects and incomplete coverage limit interpretation.
+
+The planned engineering and experiment-attempt scope is delivered. Optional human
+review and recovery of the historical unknown do not gate project completion.
+Future evaluator calibration or benchmark expansion requires a new version and
+untouched cases; any additional paid calls require a separate approved scope.

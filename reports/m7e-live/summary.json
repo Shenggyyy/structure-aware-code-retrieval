@@ -1,0 +1,4123 @@
+{
+  "schema_version": 1,
+  "kind": "qa_judge_followup_summary",
+  "plan_fingerprint": "b69337459f8b22417d0d5e4cc88063c2f8d9f04d1d3571fe00592132e1313ef3",
+  "prior_plan_fingerprint": "28bf7b780982b17d37150c1c4bad1e717769832faddd6e59ce24edbc656324f7",
+  "source_records_fingerprint": "a9f030ad189ddd4cb2b3cbdc8fb92bcda75992cabd72711d26be92e45146d8b7",
+  "source_generation_model": "gpt-5.4-mini-2026-03-17",
+  "rubric_id": "repository-qa-judge-rubric-v2",
+  "status": "complete_with_failures",
+  "cumulative_status": "incomplete",
+  "prior_execution_mode": "openai",
+  "new_generation_calls": 0,
+  "annotation_status": "provisional",
+  "evaluation_kind": "llm_assisted_ordinal",
+  "human_reviewed": false,
+  "estimated_cost": {
+    "new_generation_calls": 0,
+    "maximum_judge_calls": 47,
+    "estimated_input_tokens": 1665265,
+    "maximum_input_tokens_per_call": 50814,
+    "maximum_output_tokens": 96256,
+    "combined_usd": 1.68210075,
+    "method": "Exact unchanged remaining request bytes, framing and maximum output",
+    "prior_generation_cost_included": false,
+    "prior_judging_cost_included": false,
+    "billing_guarantee": false
+  },
+  "prior_judging": {
+    "requested_model": "gpt-5.4-mini-2026-03-17",
+    "pricing": {
+      "input_per_million": 0.75,
+      "output_per_million": 4.5,
+      "as_of": "2026-09-08"
+    },
+    "planned_case_count": 13,
+    "attempted_count": 13,
+    "recorded_count": 12,
+    "completed_count": 12,
+    "failed_count": 0,
+    "skipped_count": 0,
+    "unknown_outcome_count": 1,
+    "not_run_count": 0,
+    "model_calls_observed": 12,
+    "model_calls_with_unknown_outcome": 1,
+    "status_counts": {
+      "scored": 12
+    },
+    "reported_models": {
+      "gpt-5.4-mini-2026-03-17": 12
+    },
+    "latency_ms": {
+      "count": 12,
+      "planned_case_count": 13,
+      "missing_count": 1,
+      "mean": 4074.7075833496638,
+      "observed_total": 48896.491000195965,
+      "total": null
+    },
+    "tokens": {
+      "input_tokens": null,
+      "output_tokens": null,
+      "total_tokens": null,
+      "cached_tokens": null,
+      "reasoning_tokens": null
+    },
+    "observed_token_subtotals": {
+      "input_tokens": 84733,
+      "output_tokens": 4598,
+      "total_tokens": 89331,
+      "cached_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "calls_missing_token_counts": {
+      "input_tokens": 1,
+      "output_tokens": 1,
+      "total_tokens": 1,
+      "cached_tokens": 1,
+      "reasoning_tokens": 1
+    },
+    "cost_usd_at_frozen_uncached_rates": null,
+    "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+    "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.08424075,
+    "per_strategy": {
+      "bm25": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 3,
+        "attempted_count": 3,
+        "recorded_count": 3,
+        "completed_count": 3,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 3,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 3
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 3
+        },
+        "latency_ms": {
+          "count": 3,
+          "planned_case_count": 3,
+          "missing_count": 0,
+          "mean": 5191.462966691081,
+          "observed_total": 15574.388900073245,
+          "total": 15574.388900073245
+        },
+        "tokens": {
+          "input_tokens": 22196,
+          "output_tokens": 1256,
+          "total_tokens": 23452,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 22196,
+          "output_tokens": 1256,
+          "total_tokens": 23452,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.022299,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.022299
+      },
+      "dense": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 3,
+        "attempted_count": 3,
+        "recorded_count": 3,
+        "completed_count": 3,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 3,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 3
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 3
+        },
+        "latency_ms": {
+          "count": 3,
+          "planned_case_count": 3,
+          "missing_count": 0,
+          "mean": 3757.8586000793925,
+          "observed_total": 11273.575800238177,
+          "total": 11273.575800238177
+        },
+        "tokens": {
+          "input_tokens": 21302,
+          "output_tokens": 1078,
+          "total_tokens": 22380,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 21302,
+          "output_tokens": 1078,
+          "total_tokens": 22380,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.0208275,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.0208275
+      },
+      "hybrid": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 3,
+        "attempted_count": 3,
+        "recorded_count": 2,
+        "completed_count": 2,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 1,
+        "not_run_count": 0,
+        "model_calls_observed": 2,
+        "model_calls_with_unknown_outcome": 1,
+        "status_counts": {
+          "scored": 2
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 2
+        },
+        "latency_ms": {
+          "count": 2,
+          "planned_case_count": 3,
+          "missing_count": 1,
+          "mean": 3352.6412999490276,
+          "observed_total": 6705.282599898055,
+          "total": null
+        },
+        "tokens": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null,
+          "cached_tokens": null,
+          "reasoning_tokens": null
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 13831,
+          "output_tokens": 727,
+          "total_tokens": 14558,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 1,
+          "output_tokens": 1,
+          "total_tokens": 1,
+          "cached_tokens": 1,
+          "reasoning_tokens": 1
+        },
+        "cost_usd_at_frozen_uncached_rates": null,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.01364475
+      },
+      "structure": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 2,
+        "attempted_count": 2,
+        "recorded_count": 2,
+        "completed_count": 2,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 2,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 2
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 2
+        },
+        "latency_ms": {
+          "count": 2,
+          "planned_case_count": 2,
+          "missing_count": 0,
+          "mean": 4183.215899975039,
+          "observed_total": 8366.431799950078,
+          "total": 8366.431799950078
+        },
+        "tokens": {
+          "input_tokens": 13720,
+          "output_tokens": 749,
+          "total_tokens": 14469,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 13720,
+          "output_tokens": 749,
+          "total_tokens": 14469,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.0136605,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.0136605
+      },
+      "symbol": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 2,
+        "attempted_count": 2,
+        "recorded_count": 2,
+        "completed_count": 2,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 2,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 2
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 2
+        },
+        "latency_ms": {
+          "count": 2,
+          "planned_case_count": 2,
+          "missing_count": 0,
+          "mean": 3488.4059500182047,
+          "observed_total": 6976.8119000364095,
+          "total": 6976.8119000364095
+        },
+        "tokens": {
+          "input_tokens": 13684,
+          "output_tokens": 788,
+          "total_tokens": 14472,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 13684,
+          "output_tokens": 788,
+          "total_tokens": 14472,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.013809,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.013809
+      }
+    }
+  },
+  "new_judging": {
+    "requested_model": "gpt-5.4-mini-2026-03-17",
+    "pricing": {
+      "input_per_million": 0.75,
+      "output_per_million": 4.5,
+      "as_of": "2026-09-08"
+    },
+    "planned_case_count": 47,
+    "attempted_count": 47,
+    "recorded_count": 47,
+    "completed_count": 46,
+    "failed_count": 1,
+    "skipped_count": 0,
+    "unknown_outcome_count": 0,
+    "not_run_count": 0,
+    "model_calls_observed": 47,
+    "model_calls_with_unknown_outcome": 0,
+    "status_counts": {
+      "invalid_judgment": 1,
+      "scored": 46
+    },
+    "reported_models": {
+      "gpt-5.4-mini-2026-03-17": 47
+    },
+    "latency_ms": {
+      "count": 47,
+      "planned_case_count": 47,
+      "missing_count": 0,
+      "mean": 3413.612697872908,
+      "observed_total": 160439.79680002667,
+      "total": 160439.79680002667
+    },
+    "tokens": {
+      "input_tokens": 363899,
+      "output_tokens": 17701,
+      "total_tokens": 381600,
+      "cached_tokens": 28160,
+      "reasoning_tokens": 0
+    },
+    "observed_token_subtotals": {
+      "input_tokens": 363899,
+      "output_tokens": 17701,
+      "total_tokens": 381600,
+      "cached_tokens": 28160,
+      "reasoning_tokens": 0
+    },
+    "calls_missing_token_counts": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "cached_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "cost_usd_at_frozen_uncached_rates": 0.35257875,
+    "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+    "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.35257875,
+    "per_strategy": {
+      "bm25": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 9,
+        "attempted_count": 9,
+        "recorded_count": 9,
+        "completed_count": 8,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 9,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "invalid_judgment": 1,
+          "scored": 8
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 9
+        },
+        "latency_ms": {
+          "count": 9,
+          "planned_case_count": 9,
+          "missing_count": 0,
+          "mean": 3658.2744222186093,
+          "observed_total": 32924.46979996748,
+          "total": 32924.46979996748
+        },
+        "tokens": {
+          "input_tokens": 71685,
+          "output_tokens": 3297,
+          "total_tokens": 74982,
+          "cached_tokens": 8704,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 71685,
+          "output_tokens": 3297,
+          "total_tokens": 74982,
+          "cached_tokens": 8704,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.06860025,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.06860025
+      },
+      "dense": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 9,
+        "attempted_count": 9,
+        "recorded_count": 9,
+        "completed_count": 9,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 9,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 9
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 9
+        },
+        "latency_ms": {
+          "count": 9,
+          "planned_case_count": 9,
+          "missing_count": 0,
+          "mean": 2913.749777776603,
+          "observed_total": 26223.747999989428,
+          "total": 26223.747999989428
+        },
+        "tokens": {
+          "input_tokens": 65223,
+          "output_tokens": 3205,
+          "total_tokens": 68428,
+          "cached_tokens": 3584,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 65223,
+          "output_tokens": 3205,
+          "total_tokens": 68428,
+          "cached_tokens": 3584,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.06333975,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.06333975
+      },
+      "hybrid": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 9,
+        "attempted_count": 9,
+        "recorded_count": 9,
+        "completed_count": 9,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 9,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 9
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 9
+        },
+        "latency_ms": {
+          "count": 9,
+          "planned_case_count": 9,
+          "missing_count": 0,
+          "mean": 3707.1551666853743,
+          "observed_total": 33364.39650016837,
+          "total": 33364.39650016837
+        },
+        "tokens": {
+          "input_tokens": 69059,
+          "output_tokens": 3531,
+          "total_tokens": 72590,
+          "cached_tokens": 4096,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 69059,
+          "output_tokens": 3531,
+          "total_tokens": 72590,
+          "cached_tokens": 4096,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.06768375,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.06768375
+      },
+      "structure": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 10,
+        "attempted_count": 10,
+        "recorded_count": 10,
+        "completed_count": 10,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 10,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 10
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 10
+        },
+        "latency_ms": {
+          "count": 10,
+          "planned_case_count": 10,
+          "missing_count": 0,
+          "mean": 3564.8541199974716,
+          "observed_total": 35648.541199974716,
+          "total": 35648.541199974716
+        },
+        "tokens": {
+          "input_tokens": 80626,
+          "output_tokens": 3787,
+          "total_tokens": 84413,
+          "cached_tokens": 3584,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 80626,
+          "output_tokens": 3787,
+          "total_tokens": 84413,
+          "cached_tokens": 3584,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.077511,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.077511
+      },
+      "symbol": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 10,
+        "attempted_count": 10,
+        "recorded_count": 10,
+        "completed_count": 10,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 10,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 10
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 10
+        },
+        "latency_ms": {
+          "count": 10,
+          "planned_case_count": 10,
+          "missing_count": 0,
+          "mean": 3227.8641299926676,
+          "observed_total": 32278.641299926676,
+          "total": 32278.641299926676
+        },
+        "tokens": {
+          "input_tokens": 77306,
+          "output_tokens": 3881,
+          "total_tokens": 81187,
+          "cached_tokens": 8192,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 77306,
+          "output_tokens": 3881,
+          "total_tokens": 81187,
+          "cached_tokens": 8192,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.075444,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.075444
+      }
+    }
+  },
+  "cumulative": {
+    "status": "incomplete",
+    "overall": {
+      "planned_case_count": 60,
+      "source_generation": {
+        "historical_only": true,
+        "planned_case_count": 60,
+        "recorded_count": 60,
+        "unavailable_count": 0,
+        "status_counts": {
+          "answered": 48,
+          "insufficient_context": 12
+        },
+        "valid_answer_count": 48,
+        "valid_answer_fraction_planned": 0.8,
+        "valid_generation_count": 60,
+        "valid_generation_fraction_planned": 1.0,
+        "automatic_checks": {
+          "evidence_ids_valid": {
+            "valid_count": 60,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 60,
+            "valid_fraction_checked": 1.0
+          },
+          "paths_valid": {
+            "valid_count": 60,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 60,
+            "valid_fraction_checked": 1.0
+          },
+          "line_ranges_valid": {
+            "valid_count": 60,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 60,
+            "valid_fraction_checked": 1.0
+          },
+          "citation_ids_valid": {
+            "valid_count": 48,
+            "invalid_count": 0,
+            "unavailable_count": 12,
+            "checked_count": 48,
+            "valid_fraction_checked": 1.0
+          }
+        }
+      },
+      "judging": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 60,
+        "attempted_count": 60,
+        "recorded_count": 59,
+        "completed_count": 58,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "unknown_outcome_count": 1,
+        "not_run_count": 0,
+        "model_calls_observed": 59,
+        "model_calls_with_unknown_outcome": 1,
+        "status_counts": {
+          "invalid_judgment": 1,
+          "scored": 58
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 59
+        },
+        "latency_ms": {
+          "count": 59,
+          "planned_case_count": 60,
+          "missing_count": 1,
+          "mean": 3548.072674580045,
+          "observed_total": 209336.28780022264,
+          "total": null
+        },
+        "tokens": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null,
+          "cached_tokens": null,
+          "reasoning_tokens": null
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 448632,
+          "output_tokens": 22299,
+          "total_tokens": 470931,
+          "cached_tokens": 28160,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 1,
+          "output_tokens": 1,
+          "total_tokens": 1,
+          "cached_tokens": 1,
+          "reasoning_tokens": 1
+        },
+        "cost_usd_at_frozen_uncached_rates": null,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.4368195,
+        "eligible_request_count": 60,
+        "omitted_count": 0
+      },
+      "dimensions": {
+        "correctness": {
+          "mean": 2.893617021276596,
+          "scored_count": 47,
+          "unsure_count": 0,
+          "not_applicable_count": 11,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 1,
+          "not_run_count": 0,
+          "unknown_outcome_count": 1,
+          "planned_case_count": 60,
+          "scored_fraction_planned": 0.7833333333333333
+        },
+        "completeness": {
+          "mean": 2.7551020408163267,
+          "scored_count": 49,
+          "unsure_count": 0,
+          "not_applicable_count": 9,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 1,
+          "not_run_count": 0,
+          "unknown_outcome_count": 1,
+          "planned_case_count": 60,
+          "scored_fraction_planned": 0.8166666666666667
+        },
+        "citation_support": {
+          "mean": 2.851063829787234,
+          "scored_count": 47,
+          "unsure_count": 0,
+          "not_applicable_count": 11,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 1,
+          "not_run_count": 0,
+          "unknown_outcome_count": 1,
+          "planned_case_count": 60,
+          "scored_fraction_planned": 0.7833333333333333
+        }
+      },
+      "abstentions": {
+        "source_local_count": 0,
+        "source_model_count": 12,
+        "decisions": {
+          "not_abstained": 47,
+          "appropriate": 9,
+          "unnecessary": 2,
+          "unsure": 0
+        },
+        "judged_count": 58,
+        "unjudged_count": 2,
+        "packed_context_sufficiency": {
+          "insufficient": 9,
+          "sufficient": 49
+        }
+      },
+      "reference_status_counts": {
+        "usable": 58
+      }
+    },
+    "per_strategy": {
+      "bm25": {
+        "planned_case_count": 12,
+        "source_generation": {
+          "historical_only": true,
+          "planned_case_count": 12,
+          "recorded_count": 12,
+          "unavailable_count": 0,
+          "status_counts": {
+            "answered": 10,
+            "insufficient_context": 2
+          },
+          "valid_answer_count": 10,
+          "valid_answer_fraction_planned": 0.8333333333333334,
+          "valid_generation_count": 12,
+          "valid_generation_fraction_planned": 1.0,
+          "automatic_checks": {
+            "evidence_ids_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "paths_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "line_ranges_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "citation_ids_valid": {
+              "valid_count": 10,
+              "invalid_count": 0,
+              "unavailable_count": 2,
+              "checked_count": 10,
+              "valid_fraction_checked": 1.0
+            }
+          }
+        },
+        "judging": {
+          "requested_model": "gpt-5.4-mini-2026-03-17",
+          "pricing": {
+            "input_per_million": 0.75,
+            "output_per_million": 4.5,
+            "as_of": "2026-09-08"
+          },
+          "planned_case_count": 12,
+          "attempted_count": 12,
+          "recorded_count": 12,
+          "completed_count": 11,
+          "failed_count": 1,
+          "skipped_count": 0,
+          "unknown_outcome_count": 0,
+          "not_run_count": 0,
+          "model_calls_observed": 12,
+          "model_calls_with_unknown_outcome": 0,
+          "status_counts": {
+            "invalid_judgment": 1,
+            "scored": 11
+          },
+          "reported_models": {
+            "gpt-5.4-mini-2026-03-17": 12
+          },
+          "latency_ms": {
+            "count": 12,
+            "planned_case_count": 12,
+            "missing_count": 0,
+            "mean": 4041.5715583367273,
+            "observed_total": 48498.85870004073,
+            "total": 48498.85870004073
+          },
+          "tokens": {
+            "input_tokens": 93881,
+            "output_tokens": 4553,
+            "total_tokens": 98434,
+            "cached_tokens": 8704,
+            "reasoning_tokens": 0
+          },
+          "observed_token_subtotals": {
+            "input_tokens": 93881,
+            "output_tokens": 4553,
+            "total_tokens": 98434,
+            "cached_tokens": 8704,
+            "reasoning_tokens": 0
+          },
+          "calls_missing_token_counts": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
+            "cached_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "cost_usd_at_frozen_uncached_rates": 0.09089925,
+          "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+          "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.09089925,
+          "eligible_request_count": 12,
+          "omitted_count": 0
+        },
+        "dimensions": {
+          "correctness": {
+            "mean": 2.9,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 1,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 1,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          },
+          "completeness": {
+            "mean": 2.8,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 1,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 1,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          },
+          "citation_support": {
+            "mean": 3.0,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 1,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 1,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          }
+        },
+        "abstentions": {
+          "source_local_count": 0,
+          "source_model_count": 2,
+          "decisions": {
+            "not_abstained": 10,
+            "appropriate": 1,
+            "unnecessary": 0,
+            "unsure": 0
+          },
+          "judged_count": 11,
+          "unjudged_count": 1,
+          "packed_context_sufficiency": {
+            "insufficient": 1,
+            "sufficient": 10
+          }
+        },
+        "reference_status_counts": {
+          "usable": 11
+        }
+      },
+      "dense": {
+        "planned_case_count": 12,
+        "source_generation": {
+          "historical_only": true,
+          "planned_case_count": 12,
+          "recorded_count": 12,
+          "unavailable_count": 0,
+          "status_counts": {
+            "answered": 8,
+            "insufficient_context": 4
+          },
+          "valid_answer_count": 8,
+          "valid_answer_fraction_planned": 0.6666666666666666,
+          "valid_generation_count": 12,
+          "valid_generation_fraction_planned": 1.0,
+          "automatic_checks": {
+            "evidence_ids_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "paths_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "line_ranges_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "citation_ids_valid": {
+              "valid_count": 8,
+              "invalid_count": 0,
+              "unavailable_count": 4,
+              "checked_count": 8,
+              "valid_fraction_checked": 1.0
+            }
+          }
+        },
+        "judging": {
+          "requested_model": "gpt-5.4-mini-2026-03-17",
+          "pricing": {
+            "input_per_million": 0.75,
+            "output_per_million": 4.5,
+            "as_of": "2026-09-08"
+          },
+          "planned_case_count": 12,
+          "attempted_count": 12,
+          "recorded_count": 12,
+          "completed_count": 12,
+          "failed_count": 0,
+          "skipped_count": 0,
+          "unknown_outcome_count": 0,
+          "not_run_count": 0,
+          "model_calls_observed": 12,
+          "model_calls_with_unknown_outcome": 0,
+          "status_counts": {
+            "scored": 12
+          },
+          "reported_models": {
+            "gpt-5.4-mini-2026-03-17": 12
+          },
+          "latency_ms": {
+            "count": 12,
+            "planned_case_count": 12,
+            "missing_count": 0,
+            "mean": 3124.7769833523002,
+            "observed_total": 37497.323800227605,
+            "total": 37497.323800227605
+          },
+          "tokens": {
+            "input_tokens": 86525,
+            "output_tokens": 4283,
+            "total_tokens": 90808,
+            "cached_tokens": 3584,
+            "reasoning_tokens": 0
+          },
+          "observed_token_subtotals": {
+            "input_tokens": 86525,
+            "output_tokens": 4283,
+            "total_tokens": 90808,
+            "cached_tokens": 3584,
+            "reasoning_tokens": 0
+          },
+          "calls_missing_token_counts": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
+            "cached_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "cost_usd_at_frozen_uncached_rates": 0.08416725,
+          "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+          "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.08416725,
+          "eligible_request_count": 12,
+          "omitted_count": 0
+        },
+        "dimensions": {
+          "correctness": {
+            "mean": 3.0,
+            "scored_count": 8,
+            "unsure_count": 0,
+            "not_applicable_count": 4,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.6666666666666666
+          },
+          "completeness": {
+            "mean": 2.4,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          },
+          "citation_support": {
+            "mean": 2.875,
+            "scored_count": 8,
+            "unsure_count": 0,
+            "not_applicable_count": 4,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.6666666666666666
+          }
+        },
+        "abstentions": {
+          "source_local_count": 0,
+          "source_model_count": 4,
+          "decisions": {
+            "not_abstained": 8,
+            "appropriate": 2,
+            "unnecessary": 2,
+            "unsure": 0
+          },
+          "judged_count": 12,
+          "unjudged_count": 0,
+          "packed_context_sufficiency": {
+            "insufficient": 2,
+            "sufficient": 10
+          }
+        },
+        "reference_status_counts": {
+          "usable": 12
+        }
+      },
+      "hybrid": {
+        "planned_case_count": 12,
+        "source_generation": {
+          "historical_only": true,
+          "planned_case_count": 12,
+          "recorded_count": 12,
+          "unavailable_count": 0,
+          "status_counts": {
+            "answered": 10,
+            "insufficient_context": 2
+          },
+          "valid_answer_count": 10,
+          "valid_answer_fraction_planned": 0.8333333333333334,
+          "valid_generation_count": 12,
+          "valid_generation_fraction_planned": 1.0,
+          "automatic_checks": {
+            "evidence_ids_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "paths_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "line_ranges_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "citation_ids_valid": {
+              "valid_count": 10,
+              "invalid_count": 0,
+              "unavailable_count": 2,
+              "checked_count": 10,
+              "valid_fraction_checked": 1.0
+            }
+          }
+        },
+        "judging": {
+          "requested_model": "gpt-5.4-mini-2026-03-17",
+          "pricing": {
+            "input_per_million": 0.75,
+            "output_per_million": 4.5,
+            "as_of": "2026-09-08"
+          },
+          "planned_case_count": 12,
+          "attempted_count": 12,
+          "recorded_count": 11,
+          "completed_count": 11,
+          "failed_count": 0,
+          "skipped_count": 0,
+          "unknown_outcome_count": 1,
+          "not_run_count": 0,
+          "model_calls_observed": 11,
+          "model_calls_with_unknown_outcome": 1,
+          "status_counts": {
+            "scored": 11
+          },
+          "reported_models": {
+            "gpt-5.4-mini-2026-03-17": 11
+          },
+          "latency_ms": {
+            "count": 11,
+            "planned_case_count": 12,
+            "missing_count": 1,
+            "mean": 3642.6981000060387,
+            "observed_total": 40069.67910006642,
+            "total": null
+          },
+          "tokens": {
+            "input_tokens": null,
+            "output_tokens": null,
+            "total_tokens": null,
+            "cached_tokens": null,
+            "reasoning_tokens": null
+          },
+          "observed_token_subtotals": {
+            "input_tokens": 82890,
+            "output_tokens": 4258,
+            "total_tokens": 87148,
+            "cached_tokens": 4096,
+            "reasoning_tokens": 0
+          },
+          "calls_missing_token_counts": {
+            "input_tokens": 1,
+            "output_tokens": 1,
+            "total_tokens": 1,
+            "cached_tokens": 1,
+            "reasoning_tokens": 1
+          },
+          "cost_usd_at_frozen_uncached_rates": null,
+          "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+          "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.0813285,
+          "eligible_request_count": 12,
+          "omitted_count": 0
+        },
+        "dimensions": {
+          "correctness": {
+            "mean": 2.7777777777777777,
+            "scored_count": 9,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 1,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.75
+          },
+          "completeness": {
+            "mean": 2.888888888888889,
+            "scored_count": 9,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 1,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.75
+          },
+          "citation_support": {
+            "mean": 2.6666666666666665,
+            "scored_count": 9,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 1,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.75
+          }
+        },
+        "abstentions": {
+          "source_local_count": 0,
+          "source_model_count": 2,
+          "decisions": {
+            "not_abstained": 9,
+            "appropriate": 2,
+            "unnecessary": 0,
+            "unsure": 0
+          },
+          "judged_count": 11,
+          "unjudged_count": 1,
+          "packed_context_sufficiency": {
+            "insufficient": 2,
+            "sufficient": 9
+          }
+        },
+        "reference_status_counts": {
+          "usable": 11
+        }
+      },
+      "structure": {
+        "planned_case_count": 12,
+        "source_generation": {
+          "historical_only": true,
+          "planned_case_count": 12,
+          "recorded_count": 12,
+          "unavailable_count": 0,
+          "status_counts": {
+            "answered": 10,
+            "insufficient_context": 2
+          },
+          "valid_answer_count": 10,
+          "valid_answer_fraction_planned": 0.8333333333333334,
+          "valid_generation_count": 12,
+          "valid_generation_fraction_planned": 1.0,
+          "automatic_checks": {
+            "evidence_ids_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "paths_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "line_ranges_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "citation_ids_valid": {
+              "valid_count": 10,
+              "invalid_count": 0,
+              "unavailable_count": 2,
+              "checked_count": 10,
+              "valid_fraction_checked": 1.0
+            }
+          }
+        },
+        "judging": {
+          "requested_model": "gpt-5.4-mini-2026-03-17",
+          "pricing": {
+            "input_per_million": 0.75,
+            "output_per_million": 4.5,
+            "as_of": "2026-09-08"
+          },
+          "planned_case_count": 12,
+          "attempted_count": 12,
+          "recorded_count": 12,
+          "completed_count": 12,
+          "failed_count": 0,
+          "skipped_count": 0,
+          "unknown_outcome_count": 0,
+          "not_run_count": 0,
+          "model_calls_observed": 12,
+          "model_calls_with_unknown_outcome": 0,
+          "status_counts": {
+            "scored": 12
+          },
+          "reported_models": {
+            "gpt-5.4-mini-2026-03-17": 12
+          },
+          "latency_ms": {
+            "count": 12,
+            "planned_case_count": 12,
+            "missing_count": 0,
+            "mean": 3667.9144166603996,
+            "observed_total": 44014.972999924794,
+            "total": 44014.972999924794
+          },
+          "tokens": {
+            "input_tokens": 94346,
+            "output_tokens": 4536,
+            "total_tokens": 98882,
+            "cached_tokens": 3584,
+            "reasoning_tokens": 0
+          },
+          "observed_token_subtotals": {
+            "input_tokens": 94346,
+            "output_tokens": 4536,
+            "total_tokens": 98882,
+            "cached_tokens": 3584,
+            "reasoning_tokens": 0
+          },
+          "calls_missing_token_counts": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
+            "cached_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "cost_usd_at_frozen_uncached_rates": 0.0911715,
+          "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+          "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.0911715,
+          "eligible_request_count": 12,
+          "omitted_count": 0
+        },
+        "dimensions": {
+          "correctness": {
+            "mean": 2.9,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          },
+          "completeness": {
+            "mean": 2.9,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          },
+          "citation_support": {
+            "mean": 2.9,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          }
+        },
+        "abstentions": {
+          "source_local_count": 0,
+          "source_model_count": 2,
+          "decisions": {
+            "not_abstained": 10,
+            "appropriate": 2,
+            "unnecessary": 0,
+            "unsure": 0
+          },
+          "judged_count": 12,
+          "unjudged_count": 0,
+          "packed_context_sufficiency": {
+            "insufficient": 2,
+            "sufficient": 10
+          }
+        },
+        "reference_status_counts": {
+          "usable": 12
+        }
+      },
+      "symbol": {
+        "planned_case_count": 12,
+        "source_generation": {
+          "historical_only": true,
+          "planned_case_count": 12,
+          "recorded_count": 12,
+          "unavailable_count": 0,
+          "status_counts": {
+            "answered": 10,
+            "insufficient_context": 2
+          },
+          "valid_answer_count": 10,
+          "valid_answer_fraction_planned": 0.8333333333333334,
+          "valid_generation_count": 12,
+          "valid_generation_fraction_planned": 1.0,
+          "automatic_checks": {
+            "evidence_ids_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "paths_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "line_ranges_valid": {
+              "valid_count": 12,
+              "invalid_count": 0,
+              "unavailable_count": 0,
+              "checked_count": 12,
+              "valid_fraction_checked": 1.0
+            },
+            "citation_ids_valid": {
+              "valid_count": 10,
+              "invalid_count": 0,
+              "unavailable_count": 2,
+              "checked_count": 10,
+              "valid_fraction_checked": 1.0
+            }
+          }
+        },
+        "judging": {
+          "requested_model": "gpt-5.4-mini-2026-03-17",
+          "pricing": {
+            "input_per_million": 0.75,
+            "output_per_million": 4.5,
+            "as_of": "2026-09-08"
+          },
+          "planned_case_count": 12,
+          "attempted_count": 12,
+          "recorded_count": 12,
+          "completed_count": 12,
+          "failed_count": 0,
+          "skipped_count": 0,
+          "unknown_outcome_count": 0,
+          "not_run_count": 0,
+          "model_calls_observed": 12,
+          "model_calls_with_unknown_outcome": 0,
+          "status_counts": {
+            "scored": 12
+          },
+          "reported_models": {
+            "gpt-5.4-mini-2026-03-17": 12
+          },
+          "latency_ms": {
+            "count": 12,
+            "planned_case_count": 12,
+            "missing_count": 0,
+            "mean": 3271.2877666635904,
+            "observed_total": 39255.453199963085,
+            "total": 39255.453199963085
+          },
+          "tokens": {
+            "input_tokens": 90990,
+            "output_tokens": 4669,
+            "total_tokens": 95659,
+            "cached_tokens": 8192,
+            "reasoning_tokens": 0
+          },
+          "observed_token_subtotals": {
+            "input_tokens": 90990,
+            "output_tokens": 4669,
+            "total_tokens": 95659,
+            "cached_tokens": 8192,
+            "reasoning_tokens": 0
+          },
+          "calls_missing_token_counts": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0,
+            "cached_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "cost_usd_at_frozen_uncached_rates": 0.089253,
+          "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+          "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.089253,
+          "eligible_request_count": 12,
+          "omitted_count": 0
+        },
+        "dimensions": {
+          "correctness": {
+            "mean": 2.9,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          },
+          "completeness": {
+            "mean": 2.8,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          },
+          "citation_support": {
+            "mean": 2.8,
+            "scored_count": 10,
+            "unsure_count": 0,
+            "not_applicable_count": 2,
+            "invalid_generation_count": 0,
+            "invalid_judgment_count": 0,
+            "not_run_count": 0,
+            "unknown_outcome_count": 0,
+            "planned_case_count": 12,
+            "scored_fraction_planned": 0.8333333333333334
+          }
+        },
+        "abstentions": {
+          "source_local_count": 0,
+          "source_model_count": 2,
+          "decisions": {
+            "not_abstained": 10,
+            "appropriate": 2,
+            "unnecessary": 0,
+            "unsure": 0
+          },
+          "judged_count": 12,
+          "unjudged_count": 0,
+          "packed_context_sufficiency": {
+            "insufficient": 2,
+            "sufficient": 10
+          }
+        },
+        "reference_status_counts": {
+          "usable": 12
+        }
+      }
+    },
+    "paired_comparisons": [
+      {
+        "baseline": "bm25",
+        "candidate": "dense",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 8,
+        "baseline_mean": 2.875,
+        "candidate_mean": 3.0,
+        "mean_delta": 0.125,
+        "wins": 1,
+        "ties": 7,
+        "losses": 0
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "dense",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.8,
+        "candidate_mean": 2.4,
+        "mean_delta": -0.4,
+        "wins": 2,
+        "ties": 6,
+        "losses": 2
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "dense",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 8,
+        "baseline_mean": 3.0,
+        "candidate_mean": 2.875,
+        "mean_delta": -0.125,
+        "wins": 0,
+        "ties": 7,
+        "losses": 1
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "hybrid",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 3.0,
+        "candidate_mean": 2.7777777777777777,
+        "mean_delta": -0.2222222222222222,
+        "wins": 0,
+        "ties": 7,
+        "losses": 2
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "hybrid",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 2.888888888888889,
+        "candidate_mean": 2.888888888888889,
+        "mean_delta": 0.0,
+        "wins": 0,
+        "ties": 9,
+        "losses": 0
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "hybrid",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 3.0,
+        "candidate_mean": 2.6666666666666665,
+        "mean_delta": -0.3333333333333333,
+        "wins": 0,
+        "ties": 7,
+        "losses": 2
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "structure",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.9,
+        "candidate_mean": 2.9,
+        "mean_delta": 0.0,
+        "wins": 0,
+        "ties": 10,
+        "losses": 0
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "structure",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.8,
+        "candidate_mean": 2.9,
+        "mean_delta": 0.1,
+        "wins": 1,
+        "ties": 9,
+        "losses": 0
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "structure",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 3.0,
+        "candidate_mean": 2.9,
+        "mean_delta": -0.1,
+        "wins": 0,
+        "ties": 9,
+        "losses": 1
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "symbol",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.9,
+        "candidate_mean": 2.9,
+        "mean_delta": 0.0,
+        "wins": 0,
+        "ties": 10,
+        "losses": 0
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "symbol",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.8,
+        "candidate_mean": 2.8,
+        "mean_delta": 0.0,
+        "wins": 1,
+        "ties": 8,
+        "losses": 1
+      },
+      {
+        "baseline": "bm25",
+        "candidate": "symbol",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 3.0,
+        "candidate_mean": 2.8,
+        "mean_delta": -0.2,
+        "wins": 0,
+        "ties": 8,
+        "losses": 2
+      },
+      {
+        "baseline": "dense",
+        "candidate": "hybrid",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-08",
+          "qa-click-16",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 7,
+        "baseline_mean": 3.0,
+        "candidate_mean": 2.7142857142857144,
+        "mean_delta": -0.2857142857142857,
+        "wins": 0,
+        "ties": 5,
+        "losses": 2
+      },
+      {
+        "baseline": "dense",
+        "candidate": "hybrid",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 2.3333333333333335,
+        "candidate_mean": 2.888888888888889,
+        "mean_delta": 0.5555555555555556,
+        "wins": 2,
+        "ties": 6,
+        "losses": 1
+      },
+      {
+        "baseline": "dense",
+        "candidate": "hybrid",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-08",
+          "qa-click-16",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 7,
+        "baseline_mean": 2.857142857142857,
+        "candidate_mean": 2.5714285714285716,
+        "mean_delta": -0.2857142857142857,
+        "wins": 1,
+        "ties": 4,
+        "losses": 2
+      },
+      {
+        "baseline": "dense",
+        "candidate": "structure",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 8,
+        "baseline_mean": 3.0,
+        "candidate_mean": 2.875,
+        "mean_delta": -0.125,
+        "wins": 0,
+        "ties": 7,
+        "losses": 1
+      },
+      {
+        "baseline": "dense",
+        "candidate": "structure",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.4,
+        "candidate_mean": 2.9,
+        "mean_delta": 0.5,
+        "wins": 2,
+        "ties": 7,
+        "losses": 1
+      },
+      {
+        "baseline": "dense",
+        "candidate": "structure",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 8,
+        "baseline_mean": 2.875,
+        "candidate_mean": 2.875,
+        "mean_delta": 0.0,
+        "wins": 1,
+        "ties": 6,
+        "losses": 1
+      },
+      {
+        "baseline": "dense",
+        "candidate": "symbol",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 8,
+        "baseline_mean": 3.0,
+        "candidate_mean": 2.875,
+        "mean_delta": -0.125,
+        "wins": 0,
+        "ties": 7,
+        "losses": 1
+      },
+      {
+        "baseline": "dense",
+        "candidate": "symbol",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.4,
+        "candidate_mean": 2.8,
+        "mean_delta": 0.4,
+        "wins": 2,
+        "ties": 6,
+        "losses": 2
+      },
+      {
+        "baseline": "dense",
+        "candidate": "symbol",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 8,
+        "baseline_mean": 2.875,
+        "candidate_mean": 2.75,
+        "mean_delta": -0.125,
+        "wins": 1,
+        "ties": 5,
+        "losses": 2
+      },
+      {
+        "baseline": "hybrid",
+        "candidate": "structure",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 2.7777777777777777,
+        "candidate_mean": 3.0,
+        "mean_delta": 0.2222222222222222,
+        "wins": 2,
+        "ties": 7,
+        "losses": 0
+      },
+      {
+        "baseline": "hybrid",
+        "candidate": "structure",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 2.888888888888889,
+        "candidate_mean": 3.0,
+        "mean_delta": 0.1111111111111111,
+        "wins": 1,
+        "ties": 8,
+        "losses": 0
+      },
+      {
+        "baseline": "hybrid",
+        "candidate": "structure",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 2.6666666666666665,
+        "candidate_mean": 2.888888888888889,
+        "mean_delta": 0.2222222222222222,
+        "wins": 2,
+        "ties": 6,
+        "losses": 1
+      },
+      {
+        "baseline": "hybrid",
+        "candidate": "symbol",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 2.7777777777777777,
+        "candidate_mean": 3.0,
+        "mean_delta": 0.2222222222222222,
+        "wins": 2,
+        "ties": 7,
+        "losses": 0
+      },
+      {
+        "baseline": "hybrid",
+        "candidate": "symbol",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 2.888888888888889,
+        "candidate_mean": 2.888888888888889,
+        "mean_delta": 0.0,
+        "wins": 1,
+        "ties": 7,
+        "losses": 1
+      },
+      {
+        "baseline": "hybrid",
+        "candidate": "symbol",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 9,
+        "baseline_mean": 2.6666666666666665,
+        "candidate_mean": 2.888888888888889,
+        "mean_delta": 0.2222222222222222,
+        "wins": 2,
+        "ties": 6,
+        "losses": 1
+      },
+      {
+        "baseline": "structure",
+        "candidate": "symbol",
+        "dimension": "correctness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.9,
+        "candidate_mean": 2.9,
+        "mean_delta": 0.0,
+        "wins": 0,
+        "ties": 10,
+        "losses": 0
+      },
+      {
+        "baseline": "structure",
+        "candidate": "symbol",
+        "dimension": "completeness",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.9,
+        "candidate_mean": 2.8,
+        "mean_delta": -0.1,
+        "wins": 0,
+        "ties": 9,
+        "losses": 1
+      },
+      {
+        "baseline": "structure",
+        "candidate": "symbol",
+        "dimension": "citation_support",
+        "shared_scored_case_ids": [
+          "qa-click-04",
+          "qa-click-08",
+          "qa-click-13",
+          "qa-click-16",
+          "qa-click-20",
+          "qa-requests-01",
+          "qa-requests-06",
+          "qa-requests-07",
+          "qa-requests-13",
+          "qa-requests-19"
+        ],
+        "paired_count": 10,
+        "baseline_mean": 2.9,
+        "candidate_mean": 2.8,
+        "mean_delta": -0.1,
+        "wins": 1,
+        "ties": 7,
+        "losses": 2
+      }
+    ],
+    "judging": {
+      "requested_model": "gpt-5.4-mini-2026-03-17",
+      "pricing": {
+        "input_per_million": 0.75,
+        "output_per_million": 4.5,
+        "as_of": "2026-09-08"
+      },
+      "planned_case_count": 60,
+      "attempted_count": 60,
+      "recorded_count": 59,
+      "completed_count": 58,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "unknown_outcome_count": 1,
+      "not_run_count": 0,
+      "model_calls_observed": 59,
+      "model_calls_with_unknown_outcome": 1,
+      "status_counts": {
+        "invalid_judgment": 1,
+        "scored": 58
+      },
+      "reported_models": {
+        "gpt-5.4-mini-2026-03-17": 59
+      },
+      "latency_ms": {
+        "count": 59,
+        "planned_case_count": 60,
+        "missing_count": 1,
+        "mean": 3548.072674580045,
+        "observed_total": 209336.28780022264,
+        "total": null
+      },
+      "tokens": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_tokens": null,
+        "reasoning_tokens": null
+      },
+      "observed_token_subtotals": {
+        "input_tokens": 448632,
+        "output_tokens": 22299,
+        "total_tokens": 470931,
+        "cached_tokens": 28160,
+        "reasoning_tokens": 0
+      },
+      "calls_missing_token_counts": {
+        "input_tokens": 1,
+        "output_tokens": 1,
+        "total_tokens": 1,
+        "cached_tokens": 1,
+        "reasoning_tokens": 1
+      },
+      "cost_usd_at_frozen_uncached_rates": null,
+      "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+      "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.4368195,
+      "eligible_request_count": 60,
+      "omitted_count": 0
+    }
+  },
+  "overall": {
+    "planned_case_count": 60,
+    "source_generation": {
+      "historical_only": true,
+      "planned_case_count": 60,
+      "recorded_count": 60,
+      "unavailable_count": 0,
+      "status_counts": {
+        "answered": 48,
+        "insufficient_context": 12
+      },
+      "valid_answer_count": 48,
+      "valid_answer_fraction_planned": 0.8,
+      "valid_generation_count": 60,
+      "valid_generation_fraction_planned": 1.0,
+      "automatic_checks": {
+        "evidence_ids_valid": {
+          "valid_count": 60,
+          "invalid_count": 0,
+          "unavailable_count": 0,
+          "checked_count": 60,
+          "valid_fraction_checked": 1.0
+        },
+        "paths_valid": {
+          "valid_count": 60,
+          "invalid_count": 0,
+          "unavailable_count": 0,
+          "checked_count": 60,
+          "valid_fraction_checked": 1.0
+        },
+        "line_ranges_valid": {
+          "valid_count": 60,
+          "invalid_count": 0,
+          "unavailable_count": 0,
+          "checked_count": 60,
+          "valid_fraction_checked": 1.0
+        },
+        "citation_ids_valid": {
+          "valid_count": 48,
+          "invalid_count": 0,
+          "unavailable_count": 12,
+          "checked_count": 48,
+          "valid_fraction_checked": 1.0
+        }
+      }
+    },
+    "judging": {
+      "requested_model": "gpt-5.4-mini-2026-03-17",
+      "pricing": {
+        "input_per_million": 0.75,
+        "output_per_million": 4.5,
+        "as_of": "2026-09-08"
+      },
+      "planned_case_count": 60,
+      "attempted_count": 60,
+      "recorded_count": 59,
+      "completed_count": 58,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "unknown_outcome_count": 1,
+      "not_run_count": 0,
+      "model_calls_observed": 59,
+      "model_calls_with_unknown_outcome": 1,
+      "status_counts": {
+        "invalid_judgment": 1,
+        "scored": 58
+      },
+      "reported_models": {
+        "gpt-5.4-mini-2026-03-17": 59
+      },
+      "latency_ms": {
+        "count": 59,
+        "planned_case_count": 60,
+        "missing_count": 1,
+        "mean": 3548.072674580045,
+        "observed_total": 209336.28780022264,
+        "total": null
+      },
+      "tokens": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_tokens": null,
+        "reasoning_tokens": null
+      },
+      "observed_token_subtotals": {
+        "input_tokens": 448632,
+        "output_tokens": 22299,
+        "total_tokens": 470931,
+        "cached_tokens": 28160,
+        "reasoning_tokens": 0
+      },
+      "calls_missing_token_counts": {
+        "input_tokens": 1,
+        "output_tokens": 1,
+        "total_tokens": 1,
+        "cached_tokens": 1,
+        "reasoning_tokens": 1
+      },
+      "cost_usd_at_frozen_uncached_rates": null,
+      "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+      "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.4368195,
+      "eligible_request_count": 60,
+      "omitted_count": 0
+    },
+    "dimensions": {
+      "correctness": {
+        "mean": 2.893617021276596,
+        "scored_count": 47,
+        "unsure_count": 0,
+        "not_applicable_count": 11,
+        "invalid_generation_count": 0,
+        "invalid_judgment_count": 1,
+        "not_run_count": 0,
+        "unknown_outcome_count": 1,
+        "planned_case_count": 60,
+        "scored_fraction_planned": 0.7833333333333333
+      },
+      "completeness": {
+        "mean": 2.7551020408163267,
+        "scored_count": 49,
+        "unsure_count": 0,
+        "not_applicable_count": 9,
+        "invalid_generation_count": 0,
+        "invalid_judgment_count": 1,
+        "not_run_count": 0,
+        "unknown_outcome_count": 1,
+        "planned_case_count": 60,
+        "scored_fraction_planned": 0.8166666666666667
+      },
+      "citation_support": {
+        "mean": 2.851063829787234,
+        "scored_count": 47,
+        "unsure_count": 0,
+        "not_applicable_count": 11,
+        "invalid_generation_count": 0,
+        "invalid_judgment_count": 1,
+        "not_run_count": 0,
+        "unknown_outcome_count": 1,
+        "planned_case_count": 60,
+        "scored_fraction_planned": 0.7833333333333333
+      }
+    },
+    "abstentions": {
+      "source_local_count": 0,
+      "source_model_count": 12,
+      "decisions": {
+        "not_abstained": 47,
+        "appropriate": 9,
+        "unnecessary": 2,
+        "unsure": 0
+      },
+      "judged_count": 58,
+      "unjudged_count": 2,
+      "packed_context_sufficiency": {
+        "insufficient": 9,
+        "sufficient": 49
+      }
+    },
+    "reference_status_counts": {
+      "usable": 58
+    }
+  },
+  "per_strategy": {
+    "bm25": {
+      "planned_case_count": 12,
+      "source_generation": {
+        "historical_only": true,
+        "planned_case_count": 12,
+        "recorded_count": 12,
+        "unavailable_count": 0,
+        "status_counts": {
+          "answered": 10,
+          "insufficient_context": 2
+        },
+        "valid_answer_count": 10,
+        "valid_answer_fraction_planned": 0.8333333333333334,
+        "valid_generation_count": 12,
+        "valid_generation_fraction_planned": 1.0,
+        "automatic_checks": {
+          "evidence_ids_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "paths_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "line_ranges_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "citation_ids_valid": {
+            "valid_count": 10,
+            "invalid_count": 0,
+            "unavailable_count": 2,
+            "checked_count": 10,
+            "valid_fraction_checked": 1.0
+          }
+        }
+      },
+      "judging": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 12,
+        "attempted_count": 12,
+        "recorded_count": 12,
+        "completed_count": 11,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 12,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "invalid_judgment": 1,
+          "scored": 11
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 12
+        },
+        "latency_ms": {
+          "count": 12,
+          "planned_case_count": 12,
+          "missing_count": 0,
+          "mean": 4041.5715583367273,
+          "observed_total": 48498.85870004073,
+          "total": 48498.85870004073
+        },
+        "tokens": {
+          "input_tokens": 93881,
+          "output_tokens": 4553,
+          "total_tokens": 98434,
+          "cached_tokens": 8704,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 93881,
+          "output_tokens": 4553,
+          "total_tokens": 98434,
+          "cached_tokens": 8704,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.09089925,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.09089925,
+        "eligible_request_count": 12,
+        "omitted_count": 0
+      },
+      "dimensions": {
+        "correctness": {
+          "mean": 2.9,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 1,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 1,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        },
+        "completeness": {
+          "mean": 2.8,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 1,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 1,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        },
+        "citation_support": {
+          "mean": 3.0,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 1,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 1,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        }
+      },
+      "abstentions": {
+        "source_local_count": 0,
+        "source_model_count": 2,
+        "decisions": {
+          "not_abstained": 10,
+          "appropriate": 1,
+          "unnecessary": 0,
+          "unsure": 0
+        },
+        "judged_count": 11,
+        "unjudged_count": 1,
+        "packed_context_sufficiency": {
+          "insufficient": 1,
+          "sufficient": 10
+        }
+      },
+      "reference_status_counts": {
+        "usable": 11
+      }
+    },
+    "dense": {
+      "planned_case_count": 12,
+      "source_generation": {
+        "historical_only": true,
+        "planned_case_count": 12,
+        "recorded_count": 12,
+        "unavailable_count": 0,
+        "status_counts": {
+          "answered": 8,
+          "insufficient_context": 4
+        },
+        "valid_answer_count": 8,
+        "valid_answer_fraction_planned": 0.6666666666666666,
+        "valid_generation_count": 12,
+        "valid_generation_fraction_planned": 1.0,
+        "automatic_checks": {
+          "evidence_ids_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "paths_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "line_ranges_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "citation_ids_valid": {
+            "valid_count": 8,
+            "invalid_count": 0,
+            "unavailable_count": 4,
+            "checked_count": 8,
+            "valid_fraction_checked": 1.0
+          }
+        }
+      },
+      "judging": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 12,
+        "attempted_count": 12,
+        "recorded_count": 12,
+        "completed_count": 12,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 12,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 12
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 12
+        },
+        "latency_ms": {
+          "count": 12,
+          "planned_case_count": 12,
+          "missing_count": 0,
+          "mean": 3124.7769833523002,
+          "observed_total": 37497.323800227605,
+          "total": 37497.323800227605
+        },
+        "tokens": {
+          "input_tokens": 86525,
+          "output_tokens": 4283,
+          "total_tokens": 90808,
+          "cached_tokens": 3584,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 86525,
+          "output_tokens": 4283,
+          "total_tokens": 90808,
+          "cached_tokens": 3584,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.08416725,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.08416725,
+        "eligible_request_count": 12,
+        "omitted_count": 0
+      },
+      "dimensions": {
+        "correctness": {
+          "mean": 3.0,
+          "scored_count": 8,
+          "unsure_count": 0,
+          "not_applicable_count": 4,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.6666666666666666
+        },
+        "completeness": {
+          "mean": 2.4,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        },
+        "citation_support": {
+          "mean": 2.875,
+          "scored_count": 8,
+          "unsure_count": 0,
+          "not_applicable_count": 4,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.6666666666666666
+        }
+      },
+      "abstentions": {
+        "source_local_count": 0,
+        "source_model_count": 4,
+        "decisions": {
+          "not_abstained": 8,
+          "appropriate": 2,
+          "unnecessary": 2,
+          "unsure": 0
+        },
+        "judged_count": 12,
+        "unjudged_count": 0,
+        "packed_context_sufficiency": {
+          "insufficient": 2,
+          "sufficient": 10
+        }
+      },
+      "reference_status_counts": {
+        "usable": 12
+      }
+    },
+    "hybrid": {
+      "planned_case_count": 12,
+      "source_generation": {
+        "historical_only": true,
+        "planned_case_count": 12,
+        "recorded_count": 12,
+        "unavailable_count": 0,
+        "status_counts": {
+          "answered": 10,
+          "insufficient_context": 2
+        },
+        "valid_answer_count": 10,
+        "valid_answer_fraction_planned": 0.8333333333333334,
+        "valid_generation_count": 12,
+        "valid_generation_fraction_planned": 1.0,
+        "automatic_checks": {
+          "evidence_ids_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "paths_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "line_ranges_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "citation_ids_valid": {
+            "valid_count": 10,
+            "invalid_count": 0,
+            "unavailable_count": 2,
+            "checked_count": 10,
+            "valid_fraction_checked": 1.0
+          }
+        }
+      },
+      "judging": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 12,
+        "attempted_count": 12,
+        "recorded_count": 11,
+        "completed_count": 11,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 1,
+        "not_run_count": 0,
+        "model_calls_observed": 11,
+        "model_calls_with_unknown_outcome": 1,
+        "status_counts": {
+          "scored": 11
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 11
+        },
+        "latency_ms": {
+          "count": 11,
+          "planned_case_count": 12,
+          "missing_count": 1,
+          "mean": 3642.6981000060387,
+          "observed_total": 40069.67910006642,
+          "total": null
+        },
+        "tokens": {
+          "input_tokens": null,
+          "output_tokens": null,
+          "total_tokens": null,
+          "cached_tokens": null,
+          "reasoning_tokens": null
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 82890,
+          "output_tokens": 4258,
+          "total_tokens": 87148,
+          "cached_tokens": 4096,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 1,
+          "output_tokens": 1,
+          "total_tokens": 1,
+          "cached_tokens": 1,
+          "reasoning_tokens": 1
+        },
+        "cost_usd_at_frozen_uncached_rates": null,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.0813285,
+        "eligible_request_count": 12,
+        "omitted_count": 0
+      },
+      "dimensions": {
+        "correctness": {
+          "mean": 2.7777777777777777,
+          "scored_count": 9,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 1,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.75
+        },
+        "completeness": {
+          "mean": 2.888888888888889,
+          "scored_count": 9,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 1,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.75
+        },
+        "citation_support": {
+          "mean": 2.6666666666666665,
+          "scored_count": 9,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 1,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.75
+        }
+      },
+      "abstentions": {
+        "source_local_count": 0,
+        "source_model_count": 2,
+        "decisions": {
+          "not_abstained": 9,
+          "appropriate": 2,
+          "unnecessary": 0,
+          "unsure": 0
+        },
+        "judged_count": 11,
+        "unjudged_count": 1,
+        "packed_context_sufficiency": {
+          "insufficient": 2,
+          "sufficient": 9
+        }
+      },
+      "reference_status_counts": {
+        "usable": 11
+      }
+    },
+    "structure": {
+      "planned_case_count": 12,
+      "source_generation": {
+        "historical_only": true,
+        "planned_case_count": 12,
+        "recorded_count": 12,
+        "unavailable_count": 0,
+        "status_counts": {
+          "answered": 10,
+          "insufficient_context": 2
+        },
+        "valid_answer_count": 10,
+        "valid_answer_fraction_planned": 0.8333333333333334,
+        "valid_generation_count": 12,
+        "valid_generation_fraction_planned": 1.0,
+        "automatic_checks": {
+          "evidence_ids_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "paths_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "line_ranges_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "citation_ids_valid": {
+            "valid_count": 10,
+            "invalid_count": 0,
+            "unavailable_count": 2,
+            "checked_count": 10,
+            "valid_fraction_checked": 1.0
+          }
+        }
+      },
+      "judging": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 12,
+        "attempted_count": 12,
+        "recorded_count": 12,
+        "completed_count": 12,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 12,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 12
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 12
+        },
+        "latency_ms": {
+          "count": 12,
+          "planned_case_count": 12,
+          "missing_count": 0,
+          "mean": 3667.9144166603996,
+          "observed_total": 44014.972999924794,
+          "total": 44014.972999924794
+        },
+        "tokens": {
+          "input_tokens": 94346,
+          "output_tokens": 4536,
+          "total_tokens": 98882,
+          "cached_tokens": 3584,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 94346,
+          "output_tokens": 4536,
+          "total_tokens": 98882,
+          "cached_tokens": 3584,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.0911715,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.0911715,
+        "eligible_request_count": 12,
+        "omitted_count": 0
+      },
+      "dimensions": {
+        "correctness": {
+          "mean": 2.9,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        },
+        "completeness": {
+          "mean": 2.9,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        },
+        "citation_support": {
+          "mean": 2.9,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        }
+      },
+      "abstentions": {
+        "source_local_count": 0,
+        "source_model_count": 2,
+        "decisions": {
+          "not_abstained": 10,
+          "appropriate": 2,
+          "unnecessary": 0,
+          "unsure": 0
+        },
+        "judged_count": 12,
+        "unjudged_count": 0,
+        "packed_context_sufficiency": {
+          "insufficient": 2,
+          "sufficient": 10
+        }
+      },
+      "reference_status_counts": {
+        "usable": 12
+      }
+    },
+    "symbol": {
+      "planned_case_count": 12,
+      "source_generation": {
+        "historical_only": true,
+        "planned_case_count": 12,
+        "recorded_count": 12,
+        "unavailable_count": 0,
+        "status_counts": {
+          "answered": 10,
+          "insufficient_context": 2
+        },
+        "valid_answer_count": 10,
+        "valid_answer_fraction_planned": 0.8333333333333334,
+        "valid_generation_count": 12,
+        "valid_generation_fraction_planned": 1.0,
+        "automatic_checks": {
+          "evidence_ids_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "paths_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "line_ranges_valid": {
+            "valid_count": 12,
+            "invalid_count": 0,
+            "unavailable_count": 0,
+            "checked_count": 12,
+            "valid_fraction_checked": 1.0
+          },
+          "citation_ids_valid": {
+            "valid_count": 10,
+            "invalid_count": 0,
+            "unavailable_count": 2,
+            "checked_count": 10,
+            "valid_fraction_checked": 1.0
+          }
+        }
+      },
+      "judging": {
+        "requested_model": "gpt-5.4-mini-2026-03-17",
+        "pricing": {
+          "input_per_million": 0.75,
+          "output_per_million": 4.5,
+          "as_of": "2026-09-08"
+        },
+        "planned_case_count": 12,
+        "attempted_count": 12,
+        "recorded_count": 12,
+        "completed_count": 12,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "unknown_outcome_count": 0,
+        "not_run_count": 0,
+        "model_calls_observed": 12,
+        "model_calls_with_unknown_outcome": 0,
+        "status_counts": {
+          "scored": 12
+        },
+        "reported_models": {
+          "gpt-5.4-mini-2026-03-17": 12
+        },
+        "latency_ms": {
+          "count": 12,
+          "planned_case_count": 12,
+          "missing_count": 0,
+          "mean": 3271.2877666635904,
+          "observed_total": 39255.453199963085,
+          "total": 39255.453199963085
+        },
+        "tokens": {
+          "input_tokens": 90990,
+          "output_tokens": 4669,
+          "total_tokens": 95659,
+          "cached_tokens": 8192,
+          "reasoning_tokens": 0
+        },
+        "observed_token_subtotals": {
+          "input_tokens": 90990,
+          "output_tokens": 4669,
+          "total_tokens": 95659,
+          "cached_tokens": 8192,
+          "reasoning_tokens": 0
+        },
+        "calls_missing_token_counts": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0,
+          "cached_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "cost_usd_at_frozen_uncached_rates": 0.089253,
+        "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable.",
+        "observed_cost_subtotal_usd_at_frozen_uncached_rates": 0.089253,
+        "eligible_request_count": 12,
+        "omitted_count": 0
+      },
+      "dimensions": {
+        "correctness": {
+          "mean": 2.9,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        },
+        "completeness": {
+          "mean": 2.8,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        },
+        "citation_support": {
+          "mean": 2.8,
+          "scored_count": 10,
+          "unsure_count": 0,
+          "not_applicable_count": 2,
+          "invalid_generation_count": 0,
+          "invalid_judgment_count": 0,
+          "not_run_count": 0,
+          "unknown_outcome_count": 0,
+          "planned_case_count": 12,
+          "scored_fraction_planned": 0.8333333333333334
+        }
+      },
+      "abstentions": {
+        "source_local_count": 0,
+        "source_model_count": 2,
+        "decisions": {
+          "not_abstained": 10,
+          "appropriate": 2,
+          "unnecessary": 0,
+          "unsure": 0
+        },
+        "judged_count": 12,
+        "unjudged_count": 0,
+        "packed_context_sufficiency": {
+          "insufficient": 2,
+          "sufficient": 10
+        }
+      },
+      "reference_status_counts": {
+        "usable": 12
+      }
+    }
+  },
+  "paired_comparisons": [
+    {
+      "baseline": "bm25",
+      "candidate": "dense",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 8,
+      "baseline_mean": 2.875,
+      "candidate_mean": 3.0,
+      "mean_delta": 0.125,
+      "wins": 1,
+      "ties": 7,
+      "losses": 0
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "dense",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.8,
+      "candidate_mean": 2.4,
+      "mean_delta": -0.4,
+      "wins": 2,
+      "ties": 6,
+      "losses": 2
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "dense",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 8,
+      "baseline_mean": 3.0,
+      "candidate_mean": 2.875,
+      "mean_delta": -0.125,
+      "wins": 0,
+      "ties": 7,
+      "losses": 1
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "hybrid",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 3.0,
+      "candidate_mean": 2.7777777777777777,
+      "mean_delta": -0.2222222222222222,
+      "wins": 0,
+      "ties": 7,
+      "losses": 2
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "hybrid",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 2.888888888888889,
+      "candidate_mean": 2.888888888888889,
+      "mean_delta": 0.0,
+      "wins": 0,
+      "ties": 9,
+      "losses": 0
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "hybrid",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 3.0,
+      "candidate_mean": 2.6666666666666665,
+      "mean_delta": -0.3333333333333333,
+      "wins": 0,
+      "ties": 7,
+      "losses": 2
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "structure",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.9,
+      "candidate_mean": 2.9,
+      "mean_delta": 0.0,
+      "wins": 0,
+      "ties": 10,
+      "losses": 0
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "structure",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.8,
+      "candidate_mean": 2.9,
+      "mean_delta": 0.1,
+      "wins": 1,
+      "ties": 9,
+      "losses": 0
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "structure",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 3.0,
+      "candidate_mean": 2.9,
+      "mean_delta": -0.1,
+      "wins": 0,
+      "ties": 9,
+      "losses": 1
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "symbol",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.9,
+      "candidate_mean": 2.9,
+      "mean_delta": 0.0,
+      "wins": 0,
+      "ties": 10,
+      "losses": 0
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "symbol",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.8,
+      "candidate_mean": 2.8,
+      "mean_delta": 0.0,
+      "wins": 1,
+      "ties": 8,
+      "losses": 1
+    },
+    {
+      "baseline": "bm25",
+      "candidate": "symbol",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 3.0,
+      "candidate_mean": 2.8,
+      "mean_delta": -0.2,
+      "wins": 0,
+      "ties": 8,
+      "losses": 2
+    },
+    {
+      "baseline": "dense",
+      "candidate": "hybrid",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-08",
+        "qa-click-16",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 7,
+      "baseline_mean": 3.0,
+      "candidate_mean": 2.7142857142857144,
+      "mean_delta": -0.2857142857142857,
+      "wins": 0,
+      "ties": 5,
+      "losses": 2
+    },
+    {
+      "baseline": "dense",
+      "candidate": "hybrid",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 2.3333333333333335,
+      "candidate_mean": 2.888888888888889,
+      "mean_delta": 0.5555555555555556,
+      "wins": 2,
+      "ties": 6,
+      "losses": 1
+    },
+    {
+      "baseline": "dense",
+      "candidate": "hybrid",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-08",
+        "qa-click-16",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 7,
+      "baseline_mean": 2.857142857142857,
+      "candidate_mean": 2.5714285714285716,
+      "mean_delta": -0.2857142857142857,
+      "wins": 1,
+      "ties": 4,
+      "losses": 2
+    },
+    {
+      "baseline": "dense",
+      "candidate": "structure",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 8,
+      "baseline_mean": 3.0,
+      "candidate_mean": 2.875,
+      "mean_delta": -0.125,
+      "wins": 0,
+      "ties": 7,
+      "losses": 1
+    },
+    {
+      "baseline": "dense",
+      "candidate": "structure",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.4,
+      "candidate_mean": 2.9,
+      "mean_delta": 0.5,
+      "wins": 2,
+      "ties": 7,
+      "losses": 1
+    },
+    {
+      "baseline": "dense",
+      "candidate": "structure",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 8,
+      "baseline_mean": 2.875,
+      "candidate_mean": 2.875,
+      "mean_delta": 0.0,
+      "wins": 1,
+      "ties": 6,
+      "losses": 1
+    },
+    {
+      "baseline": "dense",
+      "candidate": "symbol",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 8,
+      "baseline_mean": 3.0,
+      "candidate_mean": 2.875,
+      "mean_delta": -0.125,
+      "wins": 0,
+      "ties": 7,
+      "losses": 1
+    },
+    {
+      "baseline": "dense",
+      "candidate": "symbol",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.4,
+      "candidate_mean": 2.8,
+      "mean_delta": 0.4,
+      "wins": 2,
+      "ties": 6,
+      "losses": 2
+    },
+    {
+      "baseline": "dense",
+      "candidate": "symbol",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 8,
+      "baseline_mean": 2.875,
+      "candidate_mean": 2.75,
+      "mean_delta": -0.125,
+      "wins": 1,
+      "ties": 5,
+      "losses": 2
+    },
+    {
+      "baseline": "hybrid",
+      "candidate": "structure",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 2.7777777777777777,
+      "candidate_mean": 3.0,
+      "mean_delta": 0.2222222222222222,
+      "wins": 2,
+      "ties": 7,
+      "losses": 0
+    },
+    {
+      "baseline": "hybrid",
+      "candidate": "structure",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 2.888888888888889,
+      "candidate_mean": 3.0,
+      "mean_delta": 0.1111111111111111,
+      "wins": 1,
+      "ties": 8,
+      "losses": 0
+    },
+    {
+      "baseline": "hybrid",
+      "candidate": "structure",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 2.6666666666666665,
+      "candidate_mean": 2.888888888888889,
+      "mean_delta": 0.2222222222222222,
+      "wins": 2,
+      "ties": 6,
+      "losses": 1
+    },
+    {
+      "baseline": "hybrid",
+      "candidate": "symbol",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 2.7777777777777777,
+      "candidate_mean": 3.0,
+      "mean_delta": 0.2222222222222222,
+      "wins": 2,
+      "ties": 7,
+      "losses": 0
+    },
+    {
+      "baseline": "hybrid",
+      "candidate": "symbol",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 2.888888888888889,
+      "candidate_mean": 2.888888888888889,
+      "mean_delta": 0.0,
+      "wins": 1,
+      "ties": 7,
+      "losses": 1
+    },
+    {
+      "baseline": "hybrid",
+      "candidate": "symbol",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 9,
+      "baseline_mean": 2.6666666666666665,
+      "candidate_mean": 2.888888888888889,
+      "mean_delta": 0.2222222222222222,
+      "wins": 2,
+      "ties": 6,
+      "losses": 1
+    },
+    {
+      "baseline": "structure",
+      "candidate": "symbol",
+      "dimension": "correctness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.9,
+      "candidate_mean": 2.9,
+      "mean_delta": 0.0,
+      "wins": 0,
+      "ties": 10,
+      "losses": 0
+    },
+    {
+      "baseline": "structure",
+      "candidate": "symbol",
+      "dimension": "completeness",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.9,
+      "candidate_mean": 2.8,
+      "mean_delta": -0.1,
+      "wins": 0,
+      "ties": 9,
+      "losses": 1
+    },
+    {
+      "baseline": "structure",
+      "candidate": "symbol",
+      "dimension": "citation_support",
+      "shared_scored_case_ids": [
+        "qa-click-04",
+        "qa-click-08",
+        "qa-click-13",
+        "qa-click-16",
+        "qa-click-20",
+        "qa-requests-01",
+        "qa-requests-06",
+        "qa-requests-07",
+        "qa-requests-13",
+        "qa-requests-19"
+      ],
+      "paired_count": 10,
+      "baseline_mean": 2.9,
+      "candidate_mean": 2.8,
+      "mean_delta": -0.1,
+      "wins": 1,
+      "ties": 7,
+      "losses": 2
+    }
+  ],
+  "policy": {
+    "scores": "Ordinal 0-3 model assessments, not accuracy, probabilities or human review. Means condition on scored cases; all source cases remain in coverage denominators.",
+    "references": "Reference labels remain provisional; judging may flag them as inadequate or conflicting. Shared generation/judging models can introduce correlated errors. Human calibration remains an optional extension and has not been established.",
+    "source": "Historical answers and automatic citation ID/path/line checks are retained unchanged. Automatic checks do not establish semantic support. Original v1 judge scores and generation costs are excluded.",
+    "scope": "The new batch contains only previously unattempted requests. Prior judgments and unknown outcomes are retained without retry or replacement. Batch completion does not establish complete source-cohort coverage.",
+    "provenance": "Cumulative scores combine the preserved parent and new batch. Read both execution modes: injected-model fixtures, including fixtures mixed with historical live results, do not establish a cumulative live evaluation.",
+    "unknown_outcomes": "An attempt without its result has unknown outcome and may be billed. Missing usage keeps token/cost totals unavailable; subtotals remain explicit. Omitted invalid source generations are distinct from eligible requests not yet run.",
+    "cost": "Prior judging covers only prior attempts; new judging covers only the follow-up request population. Cumulative usage counts each attempt once. Historical generation costs are never included. Known subtotals omit missing components; any missing usage keeps the corresponding cumulative totals unknown. Costs are projections at frozen uncached rates, not invoices or budget guarantees.",
+    "timing": "Latency is judge-call plus validation time. Prior latency uses prior attempts as its denominator; new latency uses follow-up requests; cumulative latency uses all eligible source requests. Missing outcomes stay missing. No combined generation latency or wall-clock service latency is inferred.",
+    "pairing": "Candidate minus baseline on shared scored case IDs for each pair and dimension. Conditional means with different coverage are not matched comparisons. These are within-revision comparisons, not v1 versus v2 causal estimates."
+  },
+  "execution_mode": "openai",
+  "approved_budget_usd": 1.8,
+  "records_fingerprint": "155fb097fb3b933e68c4434651f16fb805ce5382a0214a3d0aec932825444fcc",
+  "attempts_fingerprint": "f2eccf3acdf16207719c707c1a2341ca301d410d1f2357db11799c05e3f977a0"
+}

@@ -340,7 +340,29 @@ The new run retains the prior evidence and reports its historical, new and cumul
 measurements separately. Even if every selected request later has a result, the
 original unknown attempt keeps cumulative full cost unknown. Fresh paths are
 mandatory; this first version rejects running/completed parents, empty remaining
-scopes and follow-ups of follow-ups. The published M7e checkpoint is offline only.
+scopes and follow-ups of follow-ups. The original M7e tooling checkpoint was offline;
+the later live archive below preserves the separately approved execution.
+
+## Verify the live follow-up archive
+
+The [M7e live archive](../reports/m7e-live/README.md) includes the new batch and its
+frozen prior run. All 47 new requests have recorded outcomes: 46 valid judgments
+and one protocol failure. Cumulative coverage is 58 valid judgments, one invalid
+judgment and one historical unknown out of 60 planned rows. Compare the archive
+hash with the report, then extract into a fresh directory in PowerShell:
+
+```powershell
+Get-FileHash reports/m7e-live/run.zip -Algorithm SHA256
+Expand-Archive -LiteralPath reports/m7e-live/run.zip -DestinationPath artifacts/qa/m7e-live-replay-001
+uv run --locked python scripts/verify_qa_judge_revision.py --followup --run artifacts/qa/m7e-live-replay-001/run
+```
+
+Verification checks the saved inputs, approval, historical/new request journals,
+results and recomputed summaries without credentials, network or model calls.
+Inspect the separate historical, new and cumulative measurements in the report.
+The new batch's known cost is US$0.35257875 at frozen uncached rates; cumulative
+known judging cost is US$0.4368195. Full cumulative usage/cost remains unknown,
+and neither archive consistency nor protocol acceptance establishes semantic truth.
 
 ## Development checks
 

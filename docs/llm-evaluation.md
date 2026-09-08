@@ -17,10 +17,13 @@ LLM responses. A subsequent [approved live v2 run](../reports/m7d-live/README.md
 stopped after 13 attempts: 12 valid judgments, one unknown outcome and 47 requests
 not started. It is an ordered prefix, not a complete comparison or evidence of a
 general improvement in judge reliability.
-M7e prepares and validates a follow-up requiring new approval for the 47 unstarted
-requests, with no new calls in the [offline checkpoint](../reports/m7e/README.md).
-All 13 prior attempts remain excluded from that scope; the observed v2 coverage is
-unchanged until actual new results are recorded.
+M7e prepared and validated a separate scope for the 47 unstarted requests, with no
+new calls in the [offline checkpoint](../reports/m7e/README.md). Its separately
+approved [live follow-up](../reports/m7e-live/README.md) recorded all 47 outcomes:
+46 valid judgments and one protocol failure. All 13 prior attempts remain excluded.
+Cumulative v2 coverage is 58 valid judgments, one invalid judgment and one historical
+unknown out of 60 planned rows. This completes the agreed attempts, with incomplete
+score coverage and no claim of a reliable QA ranking or calibrated true accuracy.
 
 Human calibration or spot-checking is optional. Its absence is a limitation to
 report, not a prerequisite for running evaluation or completing an engineering
@@ -281,10 +284,35 @@ journals contain only new attempts/results. Prior judgments remain host-side rec
 not model inputs. The new estimate covers only selected judge requests and zero new
 generation calls, and still requires model/budget approval before execution.
 
-If all 47 requests later produce recorded outcomes, cumulative coverage can reach
-59 recorded outcomes with one historical unknown. Invalid judgments and unscored
-dimensions must still be disclosed; this is not a promise of 59 valid scores. The
+Recording all 47 follow-up outcomes yields 59 recorded outcomes with one historical
+unknown. Invalid judgments and unscored dimensions must still be disclosed;
+59 recorded outcomes do not imply 59 valid scores. The
 historical unknown keeps complete cumulative usage and cost null even when all new
 usage is observed. Keep known subtotals and per-strategy/per-dimension denominators
 visible. Batch timing is not a new end-to-end QA latency measurement. The offline
-M7e proposal adds no real responses and does not change the original 12/60 coverage.
+M7e proposal itself adds no real responses.
+
+### Live follow-up evidence
+
+The owner-approved US$1.80 scope used `gpt-5.4-mini-2026-03-17` for all 47 new
+requests, with zero new generations and no retry of the prior 13 attempts. All 47
+responses report the requested snapshot. The batch finished `complete_with_failures`:
+46 valid judgments and one protocol failure, with no provider errors, new unknown
+outcomes or unstarted requests. Cumulative coverage is 58 accepted judgments, one
+invalid judgment and one historical unknown; cumulative status remains `incomplete`.
+
+New usage totals 363,899 input and 17,701 output tokens (381,600 total), including
+28,160 reported cached input tokens and zero reported reasoning tokens. Applying
+the frozen uncached rates without a cache discount gives US$0.35257875. Cumulative
+known v2 judging cost is US$0.4368195; full usage/cost remains null because the
+historical attempted request has no recorded outcome. These usage-based amounts
+are not invoices. Judge-stage timing must not be described as new end-to-end QA
+latency because the original generations were reused unchanged.
+
+The [live archive](../reports/m7e-live/README.md) preserves the protocol failure,
+all known responses and historical evidence. Report per-dimension scored and
+missing counts, including abstention-related not-applicable scores. Improved
+protocol coverage alone does not establish more accurate semantic judging, and
+the small provisional development set does not support a reliable strategy ranking.
+The planned engineering and experiment attempts are delivered; optional human
+review or recovery of the historical unknown does not gate project completion.

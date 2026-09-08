@@ -1,0 +1,33 @@
+{
+  "plan_fingerprint": "b69337459f8b22417d0d5e4cc88063c2f8d9f04d1d3571fe00592132e1313ef3",
+  "judge_model": "gpt-5.4-mini-2026-03-17",
+  "source_run_plan_fingerprint": "c80718ad8cca0e4da92e1aff2f3696ebf12fcd763191f3af0da858b477e652a5",
+  "budget_usd": 1.8,
+  "recorded_at": "2026-09-08T22:12:55.352921+00:00",
+  "execution_mode": "openai",
+  "source": "explicit invocation; not an identity verification",
+  "execution_implementation": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "source_files_sha256": {
+      "cli.py": "47e593f29647a6843533c63bc28cb0ab11c06fe60a63ec876ccb00b22bafbad4",
+      "qa/__init__.py": "927e1c68db5d96ff18226f55ac36ef342c9bc34640523707ece12c5119fed407",
+      "qa/answering.py": "2121137474a273c793f76d52242351f0a670e82af882c72663d9e9d2b93a3acd",
+      "qa/assessment_execution.py": "9a856f01bb7405304c5d803e36e28ccaae7fc34d165c90b49bccecaf9619c88b",
+      "qa/assessment_plan.py": "d45a727cdf45433c27f17e903c6b8ba441b7c14b50faea239d8d5aa7acc039bb",
+      "qa/assessment_reporting.py": "47db6b2e80c6ec6e98b083e628cda5ad9292c5fb1f80f275b11c58c85d09a451",
+      "qa/citations.py": "5492f3eabbdd6a577093dad67989e2d0f39e2cfec741f6c88d05ca6d6adffbf2",
+      "qa/context.py": "4975260bac2b9ef1d2235cd383518cab7fb60f17e9d1406b06234f577da1f033",
+      "qa/execution.py": "5983b31383290981de382e4a05ed54494997a0781a0d7a5c268af9230d030a3e",
+      "qa/judge_followup_reporting.py": "a35ca6ceb20e7866586868a22113a71a1b513bbe9d4fbbe4db87df8076b776b1",
+      "qa/judge_reporting.py": "652dd03afd12b14f3a4daf09a72ac5043b9fb21048f1a2cfb7fa0e1a71ff2c88",
+      "qa/judging.py": "fdc84321c6ea50a88f7908f4328c02a8bd6dede5f4254cad81af6d5945594ccb",
+      "qa/judgment_schema.py": "68c7e730566c16efb2f43e5e70fdedc2b73d34f69d5c05fdec83ac13ba4dc5c2",
+      "qa/preparation.py": "2985d964f1dd93eed335d6fd7ca553209290fca8af8a55701383a5d928567ee9",
+      "qa/provider.py": "2c81f9a444d63e6916b3d77a39e228da4c3091e6ec2b6f09d5e18fd34e4a51f7",
+      "qa/review.py": "2b70f206f8f8eadd39098777fda68ec854dc3b5191fdff72c4844abc5fb96c6d"
+    },
+    "runner_script_sha256": "56c46e2309a45d5cdcb0776d8e4d98dc1de5fb4c489675dd343f35fa7894dcbb",
+    "preparation_script_sha256": "269b15d10b1709d9940705e24c4d8707a0f8449d0ca60d0b5b5ae0b7976350c1"
+  }
+}

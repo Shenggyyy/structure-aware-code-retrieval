@@ -9,25 +9,22 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M7e — offline preparation and execution tooling for unstarted judgments.**
+**Latest checkpoint: M7e live — the 47-request follow-up is executed and archived.**
 All five retrievers, evaluation, QA tooling and CPU Docker delivery are implemented.
 The retrieval matrix contains 45 runs on eight snapshots and 170 questions. The
-[live QA experiment](reports/m7b-live/README.md) adds 60 real generations and 60
-Mini-model judgments: 24 judgments passed validation and 36 failed the frozen
-protocol. **Labels remain provisional; limited judge coverage prevents a reliable
-QA-quality ranking.** Model assessments are not human review or true accuracy.
-The [v2 protocol checkpoint](reports/m7c/README.md) adds exact-answer schemas,
-explicit evidence catalogs and offline diagnostics against archived failures.
-The [judge-only runtime](reports/m7d/README.md) subsequently ran under a separately
-approved US$2.20 budget. The [partial v2 record](reports/m7d-live/README.md) contains
-13 journaled attempts: 12 valid judgments, one unknown outcome and 47 requests not
-started after a local execution interruption. Its cause was not preserved. The
-known new cost subtotal is US$0.08424075; the full cost is unknown. These 12 results
-are an ordered Click-only prefix, not a completed 60-request comparison.
-The [M7e checkpoint](reports/m7e/README.md) prepares a follow-up scope for separate
-approval: the 47 unstarted requests, excluding all 13 prior attempts. This checkpoint
-makes no API calls; the observed total remains 12 valid v2 judgments and one unknown
-outcome. Original answers, references, v2 payloads and prior records stay unchanged.
+[live QA experiment](reports/m7b-live/README.md) supplies 60 real generations.
+The [latest model-assisted assessment](reports/m7e-live/README.md) retains **58 valid
+v2 judgments, one invalid judgment and one historical unknown out of 60 planned
+rows**. All planned requests have been attempted. Original answers, v1 results and
+the earlier partial v2 run remain archived unchanged.
+
+The follow-up made 47 judge calls with no retries or new generations. Its usage
+implies US$0.35257875 at frozen uncached rates; cumulative known v2 judging cost is
+US$0.4368195, while full cost remains unknown. These are estimates, not invoices.
+The planned engineering and experiment attempts are delivered. **Labels remain
+provisional; the small development set and incomplete score coverage do not
+establish a reliable QA-quality ranking.** Model assessments are not human review
+or true accuracy.
 See [acceptance status](docs/status.md) and the
 [LLM evaluation specification](docs/llm-evaluation.md). Human review is optional.
 
@@ -54,12 +51,21 @@ latency, memory, failure cases and the outstanding research work. The
 [generated overview](reports/overview/report.md) validates and summarizes all 45
 saved runs without loading a model or rerunning retrieval.
 
-On 12 QA development questions across five strategies, the generator returned 48
+In the original v1 experiment on 12 QA questions across five strategies, the generator returned 48
 answers and 12 abstentions. Answer citation IDs passed all 48 applicable checks,
-but only 40% of judge outputs passed the semantic assessment protocol. Reported
+but only 24/60 judge outputs passed the v1 assessment protocol. Reported
 tokens imply **US$0.490214 at frozen uncached rates**, not an invoice. The
 [QA failure analysis and raw archive](reports/m7b-live/README.md) explain the
 evidence-ID/status failures and preserve them without repair or retries.
+
+The later v2 assessment reuses those answers and accepts 58/60 judgments, with
+dimension-specific N/A scores, one invalid judgment and one historical unknown.
+Structure minus Hybrid has mean ordinal deltas of +0.2222/+0.1111/+0.2222 for
+correctness/completeness/citation support on nine shared scored cases; against
+BM25 the deltas are 0/+0.1/−0.1 on ten cases. These small, exposed development
+comparisons do not show a consistent advantage or reverse the retrieval finding.
+See [the cumulative report](reports/m7e-live/README.md) for exact denominators and
+limits. Higher protocol acceptance is not improved true accuracy.
 
 ## Quickstart
 
@@ -112,6 +118,7 @@ behavior on synthetic data, not real retrieval or answer quality.
 | Reassess saved answers after approval and verify the run offline | [M7d checkpoint](reports/m7d/README.md), [judge-only workflow](docs/qa.md#judge-only-v2-execution) |
 | Inspect the partial real v2 run and its unknown outcome | [Partial v2 evidence](reports/m7d-live/README.md), [offline archive check](docs/reproduction.md#verify-the-partial-live-v2-archive) |
 | Prepare only unstarted judgments and inspect the new cost proposal | [M7e checkpoint](reports/m7e/README.md), [follow-up workflow](docs/qa.md#follow-up-for-unstarted-v2-requests) |
+| Inspect all v2 attempts and verify the follow-up archive | [M7e live evidence](reports/m7e-live/README.md), [offline archive check](docs/reproduction.md#verify-the-live-follow-up-archive) |
 
 Dense retrieval uses optional CPU Sentence Transformers dependencies and a pinned
 `all-MiniLM-L6-v2` model. Explicit source/model preparation may download inputs;
@@ -130,12 +137,13 @@ references, frozen settings and combined estimate offline using the
 owner approval before any additional API calls. Saved results can be verified offline.
 The combined runner remains on rubric v1. M7c prepares v2 requests from saved answers;
 M7d adds judge-only execution with explicit model, plan and budget approval. It reuses
-the original answers and makes no generation calls. The approved v2 run stopped after
-13 attempts; its partial results do not establish reliable judge coverage or better
-answer quality. Unknown outcomes are retained without automatic retry or resume.
-M7e adds an explicit follow-up mode with a new frozen plan, approval and output
-directory. It excludes every prior attempted request and reports historical, new
-and cumulative coverage separately; additional calls still require owner approval.
+the original answers and makes no generation calls. Its approved v2 run stopped after
+13 attempts. M7e's separately approved follow-up completed the other 47 attempts,
+excluding all prior attempts. Reports distinguish historical, new and cumulative
+coverage: 58 accepted judgments, one protocol failure and one historical unknown.
+Unknown outcomes retain unknown usage/cost without automatic retry or resume.
+This evidence does not establish better answer quality or a reliable QA ranking;
+additional calls still require owner approval.
 
 ## Docker
 

@@ -1,21 +1,20 @@
 # Project Status and Acceptance
 
-The repository provides an operational retrieval/evaluation system and a two-stage
-QA/LLM-assessment runtime. **The first authorized live experiment finished all 120
-requests with 36 invalid judge outputs.** Core implementation and the first evidence
-set are delivered; judge coverage is insufficient for a reliable QA-quality ranking.
-M7c supplies an offline v2 protocol candidate with per-answer schemas and archived
-failure diagnostics. M7d adds judge-only execution and saved-run verification. Its
-separately approved live run stopped after 13 attempts: 12 valid judgments, one
-unknown outcome and 47 requests not started. The known judging cost subtotal is
-US$0.08424075; the complete cost is unknown. This ordered Click-only prefix does not
-complete the planned comparison or establish improved general judge reliability.
-M7e adds offline preparation, approved execution and verification for a separate
-follow-up covering only the 47 unstarted requests. No new calls were made in this
-checkpoint; the observed v2 results remain 12 valid judgments and one unknown outcome.
-Human or independent review is optional, not a completion prerequisite. Existing
-labels remain provisional; automatic checks and model judgments must be described
-according to what they actually measure.
+The planned retrieval, evaluation, QA and delivery engineering is implemented,
+with reproducible retrieval experiments and archived live LLM assessments.
+**All 60 v2 judge requests have now been attempted across two approved batches:**
+58 judgments passed the protocol, one failed it and one historical outcome is
+unknown. The [M7e live follow-up](../reports/m7e-live/README.md) completed its 47
+requests with 46 valid judgments and one protocol failure, without retries or new
+generations. The earlier M7d archive remains an immutable partial run.
+The new batch's usage-based cost is US$0.35257875 at frozen uncached rates. Cumulative
+known v2 judging cost is US$0.4368195; full usage and cost remain unknown because
+the historical attempt has no saved response. These are estimates, not invoices.
+The v1 experiment retains its 24 accepted judgments and 36 protocol failures.
+Engineering delivery and the planned experiment attempts are complete; score
+coverage is incomplete and the evidence does not establish a reliable QA ranking.
+Human or independent review is optional, not a completion prerequisite. Labels
+remain provisional; model scores are neither human review nor true accuracy.
 
 ## Acceptance matrix
 
@@ -27,8 +26,8 @@ according to what they actually measure.
 | Benchmark breadth | Eight pinned repositories, 170 queries across separate development/test/public roles; source and split audits | Labels remain provisional; exposed test outcomes require a new untouched test version for future tuning |
 | Systems measurements | 45 completed retrieval runs and 24 construction measurements, storage and worker peak memory | Measurements describe one interactive host, not production service guarantees |
 | Repository QA | 60 live generations: 48 answers, 12 abstentions; all source audits and applicable citation ID checks passed | Automatic checks establish location/identity, not semantic truth |
-| QA experiment | Twelve provisional development cases × five strategies; 120 authorized calls, complete raw archive, known usage for every call | Small development scope and same-model generator/judge limit generalization; usage-based cost is not an invoice |
-| LLM evaluation | 24 accepted v1 judgments, 36 protocol failures; v2 runtime and a partial live run with 12 valid judgments, one unknown outcome and 47 not-run requests; follow-up tooling for unstarted requests | The planned comparison remains incomplete; the follow-up requires new approval and is prepared offline, with no new model outcomes or permission to retry the unknown attempt |
+| Initial QA experiment | Twelve provisional development cases × five strategies; 120 authorized v1 calls, complete raw archive, known usage for every call | Small development scope and same-model generator/judge limit generalization; usage-based cost is not an invoice |
+| LLM evaluation | Immutable v1 results; all 60 v2 requests attempted across two batches, yielding 58 valid judgments, one invalid judgment and one historical unknown; raw records and offline verification | Keep incomplete score coverage and unknown full cost visible; model scores are not true accuracy or proof of a reliable strategy ranking |
 | Packaging and testing | Installable package, automated tests, base/CPU Dense Docker targets, offline smoke checks, Windows/Linux CI configuration | Current checkpoint's remote CI runs after the owner commits and pushes |
 | Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline saved-run verification and reproduction instructions | Retain limits and version future protocol/dataset changes |
 
@@ -96,13 +95,23 @@ according to what they actually measure.
   local validation; the partial experiment is not a completed 60-request comparison.
 - The owner reports the partial-live archive and interruption-diagnostics checkpoint
   (`10e9bc2`) was pushed and passed GitHub CI. This confirms that preceding commit,
-  not the current M7e changes.
+  not subsequent uncommitted changes.
 - [M7e offline follow-up](../reports/m7e/README.md) freezes a verified original partial
   run and selects its 47 unstarted requests. It excludes the 12 known results and
   one unknown attempt, preserving their records and all 60 original generations.
   New execution requires separate model/plan/budget approval. The checkpoint supplies
-  software tests and a prepared proposal, with zero new API calls; current remote CI
-  follows the owner's next commit and push.
+  software tests and a prepared proposal, with zero new API calls.
+- The owner reports the M7e tooling checkpoint (`daf6aa4`) was pushed and passed
+  GitHub CI. This confirms that commit, not the current live-evidence changes.
+- [M7e live follow-up](../reports/m7e-live/README.md) records 47 requests under a
+  US$1.80 budget using `gpt-5.4-mini-2026-03-17`: 46 valid judgments, one protocol
+  failure, no provider errors, no new unknown outcomes and no new generations.
+  The batch finished as `complete_with_failures`; cumulative coverage remains
+  `incomplete` because one judgment is invalid and the historical outcome is unknown.
+  The new usage-based cost is US$0.35257875, and cumulative known judging cost is
+  US$0.4368195. Full cumulative usage/cost remains unknown. All original answers
+  and prior attempts are preserved. The report records local validation; current
+  remote CI follows the owner's commit and push.
 
 Historical reports retain their original measurements and completion criteria.
 This page records the current automatic-evaluation acceptance policy; historical
@@ -110,17 +119,14 @@ references to required human review do not override it.
 
 ## Recommended research follow-up
 
-1. Inspect the archived partial v2 run and its unknown outcome. The 12 known results
-   cover all strategies for two Click cases and BM25/Dense for one more Click case;
-   Requests and the later cases have no new recorded judgments. Preserve all v1
-   evidence and keep these partial denominators visible.
-2. Any additional paid attempts need an explicitly scoped decision covering the
-   exact model, requests, plan and budget. The runner has no automatic retry or
-   resume; do not repeat the unknown attempt implicitly. Read-only archive checking
-   needs no new approval. The [M7e proposal](../reports/m7e/README.md) isolates the 47
-   unstarted requests while reusing their exact frozen payloads and saved answers.
-   Even 47 later recorded outcomes would leave one historical unknown outcome and
-   unknown cumulative full usage/cost; accepted-score coverage must also be reported.
+1. Inspect the [cumulative v2 evidence](../reports/m7e-live/README.md), including
+   58 accepted judgments, the protocol failure and the historical unknown. Report
+   dimension-specific and paired-case denominators when comparing strategies;
+   protocol acceptance alone does not demonstrate semantic correctness.
+2. The agreed experiment scope has been attempted; recovering the historical
+   unknown is not a project-completion requirement. Any further paid experiment
+   requires a new model/request/plan/budget decision. Preserve old records and do
+   not implicitly retry unknown attempts. Read-only verification needs no approval.
 3. Improve coverage and external validation before broader answer-quality claims.
    LLM assessment is not human ground truth or a verified true correctness rate.
    Positive Structure improvements are not required; transparent evidence is.

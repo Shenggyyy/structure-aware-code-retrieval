@@ -16,8 +16,11 @@ SQLite persistence, five retrieval strategies, vector/graph artifacts, evaluatio
 and bounded QA. The first live QA/LLM-scoring experiment is archived; M7c adds an
 offline judge-protocol revision and M7d adds judge-only execution. The subsequent
 approved v2 run is archived as partial: 12 valid judgments, one unknown attempted
-outcome and 47 requests not started after interruption. Human review is an optional
-extension. See [acceptance status](status.md).
+outcome and 47 requests not started after interruption. M7e's separate live follow-up
+has now attempted those 47 requests, yielding 46 valid judgments and one protocol
+failure. Cumulative score coverage is 58/60 with one invalid judgment and one
+historical unknown. Engineering delivery is complete; coverage and provisional-label
+limits remain explicit. Human review is optional. See [acceptance status](status.md).
 
 ## Data flow
 
@@ -318,8 +321,14 @@ rejects running/completed parents, empty remaining scopes and nested follow-ups.
 New journals cover only the selected batch; records retain all source rows and
 prior judgments. Reports separate historical, new and cumulative measurements.
 The original unknown outcome remains excluded from new requests and keeps full
-cumulative cost unknown. The [M7e checkpoint](../reports/m7e/README.md) is offline
-implementation and preparation, not additional live evidence or an automatic retry.
+cumulative cost unknown. The [M7e checkpoint](../reports/m7e/README.md) records offline
+implementation and preparation. Its separately approved
+[live follow-up](../reports/m7e-live/README.md) records 47 attempts and 47 outcomes,
+including 46 valid judgments and one protocol failure. It makes no new generation
+calls and does not retry the historical unknown. The batch is `complete_with_failures`;
+cumulative status remains `incomplete` with 58 valid judgments, one invalid judgment
+and one historical unknown. Saved-run verification checks both batches without
+executing either, and cannot establish semantic correctness or recover unknown cost.
 
 `qa/review.py` validates optional human judgments and gates only its own manual
 aggregates on complete submissions. It does not gate project acceptance.

@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-09",
+  "checkpoint": "m7e-live-followup",
+  "source_commit": "daf6aa4",
+  "application_source_changed": false,
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "new_live_api_attempts": 47,
+  "new_generation_calls": 0,
+  "retry_or_resume_performed": false,
+  "new_batch_status": "complete_with_failures",
+  "cumulative_status": "incomplete",
+  "cumulative_case_status_counts": {
+    "scored": 58,
+    "unknown_outcome": 1,
+    "invalid_judgment": 1
+  },
+  "new_cost_usd_at_frozen_uncached_rates": 0.35257875,
+  "cumulative_known_cost_subtotal_usd": 0.4368195,
+  "cumulative_full_cost_usd": null,
+  "new_usage": {
+    "input_tokens": 363899,
+    "output_tokens": 17701,
+    "total_tokens": 381600,
+    "cached_tokens": 28160,
+    "reasoning_tokens": 0
+  },
+  "saved_response_reported_models": {
+    "gpt-5.4-mini-2026-03-17": 59
+  },
+  "pytest": {
+    "command": "uv run --locked pytest tests/qa/test_judge_followup_execution.py tests/qa/test_judge_followup_reporting.py -q --junitxml=artifacts/m7e-live-tests.xml",
+    "scope": "Targeted offline execution and reporting regressions; no new tests added",
+    "tests": 48,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 48,
+    "junit_suite_duration_seconds": 48.036,
+    "api_calls_made_by_tests": 0
+  },
+  "full_suite_rerun_this_checkpoint": false,
+  "previous_full_suite_baseline": {
+    "source": "../m7e/validation.json",
+    "passed": 862,
+    "skipped": 1,
+    "combined_statement_branch_coverage_percent": 91.77462150772593
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed (218 files)",
+  "retrieval_overview": "45 saved runs checked unchanged",
+  "distribution_build": "uv build --offline passed (wheel and source distribution)",
+  "local_document_links": {
+    "existing_targets_checked": 158,
+    "anchors_checked": false
+  },
+  "archive_check": {
+    "api_calls_made": 0,
+    "extracted_run_verifier": {
+      "status": "complete_with_failures",
+      "source_planned_cases": 60,
+      "judge_requests": 47,
+      "attempts": 47,
+      "recorded_results": 47,
+      "execution_mode": "openai",
+      "plan_fingerprint": "b69337459f8b22417d0d5e4cc88063c2f8d9f04d1d3571fe00592132e1313ef3",
+      "new_generation_calls": 0
+    },
+    "archive_sha256": "329f9dfcdc3e70ac923fc02c8b0121b3de1d03d4746c10363025b0a0e8c33385",
+    "member_hashes_verified": 90,
+    "original_generations_and_non_judging_fields_preserved": 60,
+    "prior_records_preserved_in_full": 13,
+    "executing_source_hashes_match_approval": true,
+    "configured_credential_absent_from_archive": true
+  },
+  "historical_archive_sha256_unchanged": {
+    "reports/m7b-live/run.zip": "340a5c7226c453ceabaa2fc277a8942cb80b792750de99c877a7d707dc9a3f7a",
+    "reports/m7d-live/run.zip": "a15ffd0bac05d4735b02ff5ab8b32dc04884e3b38b3a5e3c0ee27803212f48e6",
+    "reports/m7e/prepared.zip": "d3d8cea064f3a658d8875ef22ffdf5c16cf282922cc8063cf7473168a2067327"
+  },
+  "linux_and_container_checks": "Not rerun locally; existing CI matrix retained",
+  "previous_remote_ci": "Owner reports commit daf6aa4 passed",
+  "current_remote_ci": "Pending owner commit and push",
+  "labels": "provisional",
+  "human_reviewed": false
+}
