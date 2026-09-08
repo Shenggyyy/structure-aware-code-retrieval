@@ -1,0 +1,24 @@
+{
+  "status": "prepared_offline",
+  "api_calls_made": 0,
+  "execution_authorized": false,
+  "model": "gpt-5.4-mini-2026-03-17",
+  "plan_fingerprint": "b69337459f8b22417d0d5e4cc88063c2f8d9f04d1d3571fe00592132e1313ef3",
+  "maximum_new_judge_calls": 47,
+  "new_generation_calls": 0,
+  "excluded_prior_attempts": 13,
+  "historical_unknown_preserved": true,
+  "estimated_additional_cost_usd": 1.68210075,
+  "proposed_additional_budget_usd": 1.8,
+  "billing_hard_cap": false,
+  "historical_known_judging_cost_subtotal_usd": 0.08424075,
+  "historical_full_cost_usd": null,
+  "historical_cost_included_in_new_estimate": false,
+  "price_source": "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+  "prices_checked_on": "2026-09-08",
+  "pricing": {
+    "input_per_million": 0.75,
+    "output_per_million": 4.5,
+    "as_of": "2026-09-08"
+  }
+}

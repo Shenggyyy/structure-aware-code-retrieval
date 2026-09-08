@@ -17,6 +17,9 @@ The subsequent [approved v2 run](../reports/m7d-live/README.md) is partial: 12 v
 judgments, one unknown attempted outcome and 47 requests not started after a local
 execution interruption. Its cause was not preserved. The planned comparison remains
 incomplete; known output validity is not an answer-accuracy measurement.
+M7e adds a separate follow-up workflow for the 47 unstarted requests. Its
+[implementation and proposal](../reports/m7e/README.md) are offline: no new judgments
+have been generated and the unknown attempt is excluded from the new scope.
 
 ## Preview a question
 
@@ -237,6 +240,42 @@ software fixtures. The separate live prefix has 12 valid judgments out of 60 pla
 rows, with one unknown outcome and 47 not-run requests. Its US$0.08424075 known cost
 subtotal excludes unknown usage and is not a full-run cost or invoice. See the
 [archive reproduction commands](reproduction.md#verify-the-partial-live-v2-archive).
+
+## Follow-up for unstarted v2 requests
+
+Use `scripts/prepare_qa_judge_followup.py` to prepare and check a new bundle from
+the original saved revision run. Preparation first
+independently verifies the original saved run, freezes that prior evidence and selects
+only requests absent from its attempt journal. Neither command needs credentials or
+makes requests. See the [copyable preparation commands](reproduction.md#prepare-an-unstarted-request-follow-up).
+
+The M7e proposal selects 47 requests from the partial live run. All 13 prior attempts,
+including the unknown outcome, are excluded. Saved answers, reference evidence, v2
+rubric, exact model and selected per-answer payloads remain unchanged. Review the
+new bundle's plan fingerprint and estimate before approving this separate scope;
+the previous run's approval does not authorize its execution.
+
+After approval, replace every uppercase placeholder with its approved value:
+
+```text
+uv run --locked python scripts/run_qa_judge_revision.py --followup --bundle FOLLOWUP_BUNDLE --output NEW_RUN_DIRECTORY --judge-model APPROVED_MODEL --approved-plan APPROVED_PLAN_FINGERPRINT --budget-usd APPROVED_BUDGET_USD --execute
+uv run --locked python scripts/verify_qa_judge_revision.py --followup --run NEW_RUN_DIRECTORY
+```
+
+The new run uses its own approval, journal and results, retaining all 60 source rows
+and the prior judging outcomes. Reports separate historical, new and cumulative
+coverage, usage, cost and latency. Completing this batch could produce at most 59
+recorded outcomes plus the historical unknown outcome; recorded outcomes are not
+necessarily accepted semantic scores. Cumulative full usage/cost stays unknown even
+if the new batch has fully observed usage. No new generation or end-to-end generation
+latency is measured.
+
+The first version supports one follow-up from an original revision run. Running or
+completed parent runs, empty remaining scopes and nested follow-ups are rejected.
+Existing output paths are rejected; no prior attempt is automatically retried, and
+the new run does not overwrite or resume the old one. This offline milestone leaves
+the observed live totals at 12 valid judgments, one unknown outcome and 47 unstarted
+requests. Local consistency checks and test doubles do not add real model evidence.
 
 ## Provider configuration and measurements
 

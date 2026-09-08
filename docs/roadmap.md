@@ -42,6 +42,9 @@ M7d adds a [judge-only execution runtime](../reports/m7d/README.md) and read-onl
 saved-run verification. The separately approved [real v2 run](../reports/m7d-live/README.md)
 is partial: a local interruption left 12 valid judgments, one unknown attempted
 outcome and 47 requests not started. The planned 60-request comparison is unfinished.
+M7e prepares a [separate follow-up scope](../reports/m7e/README.md) for those 47
+unstarted requests, with offline checking, explicit approval and independent run
+verification. Its implementation and proposal make no new API calls.
 M8a supplies CPU Docker delivery; M8b supplies the validated results overview and
 reproduction documentation. Current acceptance uses automatic checks and explicitly
 reported LLM assessment; independent human review is optional. See [status](status.md).
@@ -97,6 +100,15 @@ M7 is delivered in checkpoints:
   unknown attempt and unstarted requests explicit, report known cost subtotals
   without inventing a full total, and verify the archive offline. Archive delivery
   does not complete the 60-request experiment or establish a strategy comparison.
+- **M7e — Unstarted-request follow-up:** independently verify and freeze the original
+  partial v2 run, then select only requests absent from its attempt journal. Preserve
+  known and unknown prior outcomes; retain exact model, rubric and request payloads.
+  Require a new plan fingerprint, approval and output directory for execution. Report
+  historical, new and cumulative measurements separately, keeping unknown usage
+  unknown. Test the workflow offline and publish a cost proposal before any calls.
+  The first version allows one follow-up from an original revision run, without
+  nested follow-ups or retrying prior attempts. Suggested commit:
+  `Add bounded follow-up judging for unstarted requests`.
 
 See the [M7b implementation record](../reports/m7b/README.md) and
 [offline preparation commands](qa.md#prepare-and-check-the-combined-experiment).
@@ -121,6 +133,10 @@ run yielded 12 valid judgments from the ordered prefix, one unknown attempted
 outcome and 47 requests not started. Its known cost subtotal is US$0.08424075; full
 cost remains unknown. Preserve this partial evidence alongside v1. Additional paid
 attempts require an explicitly scoped decision; there is no automatic retry or resume.
+M7e implements that separate decision path for the 47 unstarted requests and leaves
+all 13 prior attempts untouched. No new real judgments have been produced by this
+offline checkpoint. Even if all 47 later yield recorded results, the cumulative
+record retains the original unknown outcome and cannot claim a known full cost.
 The existing combined runner remains v1. Engineering
 delivery must not be presented as proof that Structure improves answer quality.
 

@@ -1,0 +1,17 @@
+{
+  "api_calls_made": 0,
+  "prepared_plan_verified_after_extraction": true,
+  "member_hashes_verified": 29,
+  "plan_fingerprint": "b69337459f8b22417d0d5e4cc88063c2f8d9f04d1d3571fe00592132e1313ef3",
+  "requested_counts_by_strategy": {
+    "bm25": 9,
+    "dense": 9,
+    "hybrid": 9,
+    "structure": 10,
+    "symbol": 10
+  },
+  "requested_counts_by_repository": {
+    "click": 17,
+    "requests": 30
+  }
+}

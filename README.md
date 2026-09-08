@@ -9,7 +9,7 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M7d live — partial judge-only run archived and checked offline.**
+**Latest checkpoint: M7e — offline preparation and execution tooling for unstarted judgments.**
 All five retrievers, evaluation, QA tooling and CPU Docker delivery are implemented.
 The retrieval matrix contains 45 runs on eight snapshots and 170 questions. The
 [live QA experiment](reports/m7b-live/README.md) adds 60 real generations and 60
@@ -24,6 +24,10 @@ approved US$2.20 budget. The [partial v2 record](reports/m7d-live/README.md) con
 started after a local execution interruption. Its cause was not preserved. The
 known new cost subtotal is US$0.08424075; the full cost is unknown. These 12 results
 are an ordered Click-only prefix, not a completed 60-request comparison.
+The [M7e checkpoint](reports/m7e/README.md) prepares a follow-up scope for separate
+approval: the 47 unstarted requests, excluding all 13 prior attempts. This checkpoint
+makes no API calls; the observed total remains 12 valid v2 judgments and one unknown
+outcome. Original answers, references, v2 payloads and prior records stay unchanged.
 See [acceptance status](docs/status.md) and the
 [LLM evaluation specification](docs/llm-evaluation.md). Human review is optional.
 
@@ -107,6 +111,7 @@ behavior on synthetic data, not real retrieval or answer quality.
 | Prepare and verify the revised judge protocol offline | [M7c checkpoint](reports/m7c/README.md), [commands](docs/reproduction.md#prepare-judge-protocol-v2-from-saved-answers) |
 | Reassess saved answers after approval and verify the run offline | [M7d checkpoint](reports/m7d/README.md), [judge-only workflow](docs/qa.md#judge-only-v2-execution) |
 | Inspect the partial real v2 run and its unknown outcome | [Partial v2 evidence](reports/m7d-live/README.md), [offline archive check](docs/reproduction.md#verify-the-partial-live-v2-archive) |
+| Prepare only unstarted judgments and inspect the new cost proposal | [M7e checkpoint](reports/m7e/README.md), [follow-up workflow](docs/qa.md#follow-up-for-unstarted-v2-requests) |
 
 Dense retrieval uses optional CPU Sentence Transformers dependencies and a pinned
 `all-MiniLM-L6-v2` model. Explicit source/model preparation may download inputs;
@@ -128,6 +133,9 @@ M7d adds judge-only execution with explicit model, plan and budget approval. It 
 the original answers and makes no generation calls. The approved v2 run stopped after
 13 attempts; its partial results do not establish reliable judge coverage or better
 answer quality. Unknown outcomes are retained without automatic retry or resume.
+M7e adds an explicit follow-up mode with a new frozen plan, approval and output
+directory. It excludes every prior attempted request and reports historical, new
+and cumulative coverage separately; additional calls still require owner approval.
 
 ## Docker
 

@@ -10,6 +10,9 @@ separately approved live run stopped after 13 attempts: 12 valid judgments, one
 unknown outcome and 47 requests not started. The known judging cost subtotal is
 US$0.08424075; the complete cost is unknown. This ordered Click-only prefix does not
 complete the planned comparison or establish improved general judge reliability.
+M7e adds offline preparation, approved execution and verification for a separate
+follow-up covering only the 47 unstarted requests. No new calls were made in this
+checkpoint; the observed v2 results remain 12 valid judgments and one unknown outcome.
 Human or independent review is optional, not a completion prerequisite. Existing
 labels remain provisional; automatic checks and model judgments must be described
 according to what they actually measure.
@@ -25,7 +28,7 @@ according to what they actually measure.
 | Systems measurements | 45 completed retrieval runs and 24 construction measurements, storage and worker peak memory | Measurements describe one interactive host, not production service guarantees |
 | Repository QA | 60 live generations: 48 answers, 12 abstentions; all source audits and applicable citation ID checks passed | Automatic checks establish location/identity, not semantic truth |
 | QA experiment | Twelve provisional development cases × five strategies; 120 authorized calls, complete raw archive, known usage for every call | Small development scope and same-model generator/judge limit generalization; usage-based cost is not an invoice |
-| LLM evaluation | 24 accepted v1 judgments, 36 protocol failures; v2 schemas and judge-only runtime; partial live v2 run has 12 valid judgments, one unknown attempted outcome and 47 not-run requests | The approved 60-request comparison remains incomplete; the ordered 12-result prefix cannot establish a full strategy ranking or general protocol reliability |
+| LLM evaluation | 24 accepted v1 judgments, 36 protocol failures; v2 runtime and a partial live run with 12 valid judgments, one unknown outcome and 47 not-run requests; follow-up tooling for unstarted requests | The planned comparison remains incomplete; the follow-up requires new approval and is prepared offline, with no new model outcomes or permission to retry the unknown attempt |
 | Packaging and testing | Installable package, automated tests, base/CPU Dense Docker targets, offline smoke checks, Windows/Linux CI configuration | Current checkpoint's remote CI runs after the owner commits and pushes |
 | Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline saved-run verification and reproduction instructions | Retain limits and version future protocol/dataset changes |
 
@@ -91,6 +94,15 @@ according to what they actually measure.
   US$0.08424075 at frozen uncached rates; the unknown attempt prevents a complete
   usage/cost total. No retry or resume was performed. The report records current
   local validation; the partial experiment is not a completed 60-request comparison.
+- The owner reports the partial-live archive and interruption-diagnostics checkpoint
+  (`10e9bc2`) was pushed and passed GitHub CI. This confirms that preceding commit,
+  not the current M7e changes.
+- [M7e offline follow-up](../reports/m7e/README.md) freezes a verified original partial
+  run and selects its 47 unstarted requests. It excludes the 12 known results and
+  one unknown attempt, preserving their records and all 60 original generations.
+  New execution requires separate model/plan/budget approval. The checkpoint supplies
+  software tests and a prepared proposal, with zero new API calls; current remote CI
+  follows the owner's next commit and push.
 
 Historical reports retain their original measurements and completion criteria.
 This page records the current automatic-evaluation acceptance policy; historical
@@ -105,7 +117,10 @@ references to required human review do not override it.
 2. Any additional paid attempts need an explicitly scoped decision covering the
    exact model, requests, plan and budget. The runner has no automatic retry or
    resume; do not repeat the unknown attempt implicitly. Read-only archive checking
-   needs no new approval. Reuse the original saved answers for future comparisons.
+   needs no new approval. The [M7e proposal](../reports/m7e/README.md) isolates the 47
+   unstarted requests while reusing their exact frozen payloads and saved answers.
+   Even 47 later recorded outcomes would leave one historical unknown outcome and
+   unknown cumulative full usage/cost; accepted-score coverage must also be reported.
 3. Improve coverage and external validation before broader answer-quality claims.
    LLM assessment is not human ground truth or a verified true correctness rate.
    Positive Structure improvements are not required; transparent evidence is.

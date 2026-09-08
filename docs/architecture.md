@@ -309,6 +309,18 @@ remain in the planned denominator. Offline verification neither recovers the
 missing provider outcome nor triggers a retry. The prefix of known judgments does
 not establish a completed strategy comparison.
 
+M7e's `scripts/prepare_qa_judge_followup.py` independently verifies and freezes an
+original partial revision run, selecting only requests absent from its attempt
+journal. Selected v2 payloads, model, references and rubric stay unchanged. The
+runner and verifier require explicit `--followup` mode for this distinct bundle,
+with a new plan fingerprint, approval and output directory. This first version
+rejects running/completed parents, empty remaining scopes and nested follow-ups.
+New journals cover only the selected batch; records retain all source rows and
+prior judgments. Reports separate historical, new and cumulative measurements.
+The original unknown outcome remains excluded from new requests and keeps full
+cumulative cost unknown. The [M7e checkpoint](../reports/m7e/README.md) is offline
+implementation and preparation, not additional live evidence or an automatic retry.
+
 `qa/review.py` validates optional human judgments and gates only its own manual
 aggregates on complete submissions. It does not gate project acceptance.
 Model scores remain separately labeled and do not promote provisional labels.

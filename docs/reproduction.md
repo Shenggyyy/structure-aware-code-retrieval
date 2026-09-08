@@ -311,6 +311,37 @@ new judging cost remain unknown; the known subtotal is US$0.08424075. Verificati
 checks the saved evidence's internal consistency, not the missing response or the
 semantic correctness of model judgments.
 
+## Prepare an unstarted-request follow-up
+
+After extracting and checking the partial archive above, prepare a new bundle:
+
+```text
+uv run --locked python scripts/prepare_qa_judge_followup.py prepare --run artifacts/qa/m7d-live-replay-001/run --output artifacts/qa/m7e-followup-prepared-001
+uv run --locked python scripts/prepare_qa_judge_followup.py check --bundle artifacts/qa/m7e-followup-prepared-001
+```
+
+These offline commands freeze the verified prior run and select only its 47 requests
+without attempt-journal entries. The 12 known results and one unknown outcome are
+preserved and excluded from new requests. The exact saved answers, references, model,
+v2 rubric and selected payloads remain unchanged; no source checkout, model weights,
+credentials or network are needed. Inspect the new plan fingerprint and cost estimate
+alongside the [M7e proposal](../reports/m7e/README.md). Preparation is not execution
+approval and does not create new LLM results.
+
+Execution requires a new approved model/plan/budget scope and the explicit `--followup`
+flag; see the [execution contract](qa.md#follow-up-for-unstarted-v2-requests).
+Once that separate run exists, verify it without credentials or requests:
+
+```text
+uv run --locked python scripts/verify_qa_judge_revision.py --followup --run artifacts/qa/m7e-followup-run-001
+```
+
+The new run retains the prior evidence and reports its historical, new and cumulative
+measurements separately. Even if every selected request later has a result, the
+original unknown attempt keeps cumulative full cost unknown. Fresh paths are
+mandatory; this first version rejects running/completed parents, empty remaining
+scopes and follow-ups of follow-ups. The published M7e checkpoint is offline only.
+
 ## Development checks
 
 ```text

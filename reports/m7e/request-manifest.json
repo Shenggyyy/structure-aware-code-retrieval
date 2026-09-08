@@ -1,0 +1,331 @@
+[
+  {
+    "id": "7f8ae55efb1425b553a567cb5fba9bbff312b53417501d946910cc0a15ae03f4",
+    "case_id": "qa-click-13",
+    "strategy": "structure",
+    "repository": "click",
+    "request_payload_sha256": "41b2831dcbe6184a6caacdccd583b382f37fdb0e1a6841712b4c943280ee45e4"
+  },
+  {
+    "id": "5e61e584780cbc3410b696e4a087b2481ed9b594a71743d6bae62c7603c7e50d",
+    "case_id": "qa-click-13",
+    "strategy": "symbol",
+    "repository": "click",
+    "request_payload_sha256": "e3b49b41ad8e7eb69f8addc63ab37ff2d55d3f699a2dd37fe50c327b5b4b29cc"
+  },
+  {
+    "id": "905795d811997ffe84c5d0f03d868f6b4abd8bacfdd9f3b2fc550b624ec4eff6",
+    "case_id": "qa-click-16",
+    "strategy": "bm25",
+    "repository": "click",
+    "request_payload_sha256": "954e28f0947f3356f070238dd91518de86b304da41a6ab5bc9e45ea9cb18c779"
+  },
+  {
+    "id": "43e5ac7d438fe42327d6197dca8430ea4ded7b7129b6895cdaffcd90facff9cd",
+    "case_id": "qa-click-16",
+    "strategy": "dense",
+    "repository": "click",
+    "request_payload_sha256": "1565fefcdd6d801f617c7243706e96f9194809e656132fde7f03581ef98ceb4e"
+  },
+  {
+    "id": "eea79f0d9dfe28690718e0cf129da9b33527d7e96594afc1a2f67d3e56e2b4c3",
+    "case_id": "qa-click-16",
+    "strategy": "hybrid",
+    "repository": "click",
+    "request_payload_sha256": "09d7d97d474b9452f55d1a7f4737b95ab482456e2de4df6981f3af191f48c815"
+  },
+  {
+    "id": "5e154fab678a70f751fe6e23458aa7b2f9bfa1888ae3644c243ea746a055ef3e",
+    "case_id": "qa-click-16",
+    "strategy": "structure",
+    "repository": "click",
+    "request_payload_sha256": "0ef4f455dd7e37ca9ac360be54a20d37bcc989ec8ecfb95d54c15ddb4f0a4515"
+  },
+  {
+    "id": "3f563d765c8ff529211416b524e21a2ea6937e998d63756b38ad47409a9272a2",
+    "case_id": "qa-click-16",
+    "strategy": "symbol",
+    "repository": "click",
+    "request_payload_sha256": "fbe2728063db02fb232ea056ed75573a3994dfed5278b77f06931818b6842c51"
+  },
+  {
+    "id": "ba274dd4b9fd09c15423a9910dc3392568d0fdc408e789fcf0b855cd4489b4c8",
+    "case_id": "qa-click-20",
+    "strategy": "bm25",
+    "repository": "click",
+    "request_payload_sha256": "dd6af1696d58213aeba6384eb409c57eec2d3122139e1a2cd2154b4819db526a"
+  },
+  {
+    "id": "bbfb168eab89431370f6ea88d5bab8217802020ee5e4c1c3b1eaf9d12ed16a9a",
+    "case_id": "qa-click-20",
+    "strategy": "dense",
+    "repository": "click",
+    "request_payload_sha256": "66849b5bff2a0710114d7b6d5276e07b761bebd829f6dddae0423876f084e140"
+  },
+  {
+    "id": "1900559fee5c370780930776e01a5b8f93e528f87027628d6c0f442ee9215e98",
+    "case_id": "qa-click-20",
+    "strategy": "hybrid",
+    "repository": "click",
+    "request_payload_sha256": "fefb0b8a8bb8ec68aaff9d486daf4eb418e21d919f0fbbb4d4e20df1b43a8475"
+  },
+  {
+    "id": "2fa58468cc844b5c0747630a8b42d281d8c8efaaa6da2a8b3d0925c177c7e177",
+    "case_id": "qa-click-20",
+    "strategy": "structure",
+    "repository": "click",
+    "request_payload_sha256": "47c46c86c4b5b288a78895e98e95a1baf7d7ff4d6e9ff99e773cd4c7ae86cc9f"
+  },
+  {
+    "id": "ce7ec16cbc55398747ddb8a452fa3a70d5585da4c8e7249dd77b0c3560d81806",
+    "case_id": "qa-click-20",
+    "strategy": "symbol",
+    "repository": "click",
+    "request_payload_sha256": "7a19913e268c01b440e82c6d93f9d38f8f925d0fa2df4e15fb20ef6a642e4966"
+  },
+  {
+    "id": "d1a70250346d1b2ef4af55868c70bb5819296009c7f72b8606c0282d78c58f50",
+    "case_id": "qa-click-scope-01",
+    "strategy": "bm25",
+    "repository": "click",
+    "request_payload_sha256": "d938e7361217a58198fb4b6f9cb15c0c2f597829000cd8d690977b3499e7444d"
+  },
+  {
+    "id": "adf68caf399311f442161cd1efa15af05dc975f331f56f9cf6327037b0159cc0",
+    "case_id": "qa-click-scope-01",
+    "strategy": "dense",
+    "repository": "click",
+    "request_payload_sha256": "361b2ce30707fcdf051ed23de8cc7f710628be7aa952678b87f0a0ec9d3382c4"
+  },
+  {
+    "id": "942ed78d6ba9d5a39e3caf3658e1174962bd40043eb792b15d496381c97d711d",
+    "case_id": "qa-click-scope-01",
+    "strategy": "hybrid",
+    "repository": "click",
+    "request_payload_sha256": "7c2165031a3bd4883282735360803cd848b377c29686f7d859d48ac408291c15"
+  },
+  {
+    "id": "b35fa4b16b4c3ea72e1b78e4887ffc829caa739aa928fa23e154e66c47861699",
+    "case_id": "qa-click-scope-01",
+    "strategy": "structure",
+    "repository": "click",
+    "request_payload_sha256": "109a18640314063aff5528964f72339cd9b502802189d17ba6540e5c1a2062c7"
+  },
+  {
+    "id": "60593870fa221a21bd755e93c36cc4cd2843d6e5d170d6246927ffcd121db407",
+    "case_id": "qa-click-scope-01",
+    "strategy": "symbol",
+    "repository": "click",
+    "request_payload_sha256": "38a0a9098880529384ab9076826362e8c7d613872829b7c352ba6685cdadbbca"
+  },
+  {
+    "id": "98e04dcd829b2f3fd52b63cc377787104164a5c346a93fc46575c5afc914b575",
+    "case_id": "qa-requests-01",
+    "strategy": "bm25",
+    "repository": "requests",
+    "request_payload_sha256": "8c80f2ee283ba1936665cddaf446a172944d9981f4353aabb17ddd31305beefd"
+  },
+  {
+    "id": "19ec33d0c5e95f6b795ad24d5fe8ee66e98e5515c72298d1e7f4a0138e20ae04",
+    "case_id": "qa-requests-01",
+    "strategy": "dense",
+    "repository": "requests",
+    "request_payload_sha256": "abcce680bebd2641ff5d48adc328c988145ca8d534b4807bde416b16c6110310"
+  },
+  {
+    "id": "48ed734fe195e5260a67687ce6ff370e584239c1b91c6347f5734f7464170ffa",
+    "case_id": "qa-requests-01",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "request_payload_sha256": "3b3a63933c184d79277d08047af7c1719c52195fb24ee222c8bd6b311570e556"
+  },
+  {
+    "id": "a9dc2206c6a2f52e9b71c1421614b375ca49526a78b5051a34b63023067b79e5",
+    "case_id": "qa-requests-01",
+    "strategy": "structure",
+    "repository": "requests",
+    "request_payload_sha256": "8d69717e749243db25cf4346eae769ba4729dbfb4038c2dd797f712a54610807"
+  },
+  {
+    "id": "f4faa38dbec477f8f99eecf73c599ea9726fa7b7e0297525a506d8541558bb12",
+    "case_id": "qa-requests-01",
+    "strategy": "symbol",
+    "repository": "requests",
+    "request_payload_sha256": "67636562c013a3a78ee523cbeee0527396b74773768824b407b0dbf91b0f383f"
+  },
+  {
+    "id": "9d8c22d5e1ff7e84d88da93d01299c5e8b1cf0b1d1253081dbb05c8c9854b6f7",
+    "case_id": "qa-requests-06",
+    "strategy": "bm25",
+    "repository": "requests",
+    "request_payload_sha256": "2af5a6cb4deca7852de6edc3772e69b9b43983db57b00e635d80c92074253858"
+  },
+  {
+    "id": "0c2d553497c5764b9956c24674fe6f57c116947e037fee8550e0d3b487b95613",
+    "case_id": "qa-requests-06",
+    "strategy": "dense",
+    "repository": "requests",
+    "request_payload_sha256": "3d88f58889245099e176543e276dda97e0c86d0e198bc0815be9e821bb9b302b"
+  },
+  {
+    "id": "1e8f17eaa0e9f66fc4d238beff18a3378b0d6ac6ccb4ccafb235ad562b4c2a20",
+    "case_id": "qa-requests-06",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "request_payload_sha256": "da2ab263d3855302c9af4444cd19616f055a9762f437dca56eeae36ee641f381"
+  },
+  {
+    "id": "6c6b9961c7ee9d03b08f7f422bf3a58c171db373f52bb240956748d74f55a7e7",
+    "case_id": "qa-requests-06",
+    "strategy": "structure",
+    "repository": "requests",
+    "request_payload_sha256": "b0e46d9244ee8a9de705f66c3aa78bb93efc25a2044525b842fdf20c261cf7bb"
+  },
+  {
+    "id": "d80618e1f52b56f6d34f4c62ea64c459d08ee4915478c6e113d8c53b3326e88b",
+    "case_id": "qa-requests-06",
+    "strategy": "symbol",
+    "repository": "requests",
+    "request_payload_sha256": "fb81055b6664a9892f32424ff095fbe7d86cc6fcf7d9e300ab3859b8740b7ff9"
+  },
+  {
+    "id": "6a8766f468f9c18db7313446aa4aaf65def6387e5d4417fa83d55351dd1cd7ad",
+    "case_id": "qa-requests-07",
+    "strategy": "bm25",
+    "repository": "requests",
+    "request_payload_sha256": "896fd689286f4169771a81970cb3e4f51ac0e3da29ac14c02159740e988cdb69"
+  },
+  {
+    "id": "f7e5f2b94f910ce996921243115f0745407dc995c71f4186fdd5588cd146f86d",
+    "case_id": "qa-requests-07",
+    "strategy": "dense",
+    "repository": "requests",
+    "request_payload_sha256": "98c7c627033507cb2a7e53c71a1c96cb641e8003a67a72c6c99d2784f833e462"
+  },
+  {
+    "id": "1cdb889f89235c085c318e7984ebe2e5bb6da7e8404e732b570d2d2d8cd8c674",
+    "case_id": "qa-requests-07",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "request_payload_sha256": "784516bdafa30d87beb8683be822cde689ea88a6afd779c49c7d5362a4e38b42"
+  },
+  {
+    "id": "fee2f47890c4a7c3d2df96b1e83a687ad36987064158f50ff396940e6660b11b",
+    "case_id": "qa-requests-07",
+    "strategy": "structure",
+    "repository": "requests",
+    "request_payload_sha256": "a6d32d47f5df2cf643004387f13c0080641dc4c10a8d8876410e014e7b27c8f7"
+  },
+  {
+    "id": "280af857f00c369de5c76bc9166e5279bae74449052c2650a85c8c90b54f7a54",
+    "case_id": "qa-requests-07",
+    "strategy": "symbol",
+    "repository": "requests",
+    "request_payload_sha256": "66d2ee00eb70361e97396625354c304df55481cde2da278d6253764d6753183c"
+  },
+  {
+    "id": "544a40fd18701a5cc78e70649cfad8d95ff64c7c0a448ab48d16e965439e7839",
+    "case_id": "qa-requests-13",
+    "strategy": "bm25",
+    "repository": "requests",
+    "request_payload_sha256": "aeccb77c1fcf769b173940cd93bd9c5adb28749dc9a3d2996cf2ce3f2b262186"
+  },
+  {
+    "id": "9b248b43e50a049265f258e1694cae1689bb82f5a54c600348350269adbfcb63",
+    "case_id": "qa-requests-13",
+    "strategy": "dense",
+    "repository": "requests",
+    "request_payload_sha256": "9ee6422a7664baf530d5e37629d6eb541db58eec2a32edaca5bfdcdd9a83708c"
+  },
+  {
+    "id": "44078b7cc514d3cc8e21da7d4d0f0dbd0a6d53a3d9848500d3e17ac3bb2788a1",
+    "case_id": "qa-requests-13",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "request_payload_sha256": "7410bfd6d1f2150f9780bd06a0757951604820559f1ac8b98bbbb189d8935813"
+  },
+  {
+    "id": "b80da70f1f2a70b3330407cbfb3e9353707a3e408b02074b604e0f47e0c73528",
+    "case_id": "qa-requests-13",
+    "strategy": "structure",
+    "repository": "requests",
+    "request_payload_sha256": "8aa4a8b70218481b3c28dbb915ed5a0fda6bad6c068b8a578d77c6d1d0fe6577"
+  },
+  {
+    "id": "f0b6f5bd79a056b8117e0fbea70401371c8ba1cfdbe3928131a7353c30746d92",
+    "case_id": "qa-requests-13",
+    "strategy": "symbol",
+    "repository": "requests",
+    "request_payload_sha256": "2fb948802337151ea0ee4b22132c06a95fad148ce32a21c4f85bb1811daad4f4"
+  },
+  {
+    "id": "fcc8561e3ce164f01e49f85308959d804115455519f2f6a9b22e16f5e53e78ae",
+    "case_id": "qa-requests-19",
+    "strategy": "bm25",
+    "repository": "requests",
+    "request_payload_sha256": "2a67e08fc68ec672823504da16012318442cce901dc4e36589eb2685c1d62a8c"
+  },
+  {
+    "id": "ca2f441caf7393a8462ebf67f40ff52cbd1d7919cfdf626ad1eb279877ef4d56",
+    "case_id": "qa-requests-19",
+    "strategy": "dense",
+    "repository": "requests",
+    "request_payload_sha256": "85d2cd3ceda9ecaf3247a34bfaeac98378a34059f39f49b9c7af4c9cd6fa83fe"
+  },
+  {
+    "id": "e6679d97c8242586fe51911abae6778fc8281daa60c9a85301a93632d9a12338",
+    "case_id": "qa-requests-19",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "request_payload_sha256": "1c34b5b8c7e2b19525da9dfd776beb3fd0089d5adc9959ebf69afac3ddccad48"
+  },
+  {
+    "id": "0a33f5b127e8baf9bbb7cc6599dcb87834d850fb787c3e29a0a2248b586bd4ae",
+    "case_id": "qa-requests-19",
+    "strategy": "structure",
+    "repository": "requests",
+    "request_payload_sha256": "76fa87f390108c1f83ad48205b186fec6d58c469dced5b2b15e670f915d66083"
+  },
+  {
+    "id": "daeab8070b51fd0078429f439561feb92d311703934598fadca2257d9bed6b54",
+    "case_id": "qa-requests-19",
+    "strategy": "symbol",
+    "repository": "requests",
+    "request_payload_sha256": "0bdee6561e1af8e544d72922fc0ae73e386d5173f6f66faf374c5f6487027bfd"
+  },
+  {
+    "id": "b2081564a85854aeaf26e1eb7b4e6d99d39d7f9facd3e68d6172ae8552678d33",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "bm25",
+    "repository": "requests",
+    "request_payload_sha256": "a40ead846e0cb0164e3a1676b5b2619f9e82f7260323e4c71bbc923bbd1ea3f6"
+  },
+  {
+    "id": "b6c90bcadc6ee4e21ea50c2e04bdca6d29c00666e9d2daa427c0348cee18ac4e",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "dense",
+    "repository": "requests",
+    "request_payload_sha256": "ab4aaac07447d14b5710b454ac4380fd47c03eb678ebf3f0948c611918aec337"
+  },
+  {
+    "id": "6a0fad428bcc880495fffccee9cbb81636d333cbfdb0cfdadbec08e78a214d9b",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "hybrid",
+    "repository": "requests",
+    "request_payload_sha256": "7b9dd397b784dcaa7d5972bc13e6ef2094acf04fe9e8415c94fb792f8ad69385"
+  },
+  {
+    "id": "de11e65036d5e6ff82f9c7084420b55be9ae1582c1b44ceb17c3eb27d424e3be",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "structure",
+    "repository": "requests",
+    "request_payload_sha256": "e49ed1d69199e39f31b4bcb3e41dc49e87ca1cf0c8a9caa2b16e7d4db171c9fc"
+  },
+  {
+    "id": "50ee2369cbc347a253c7fd3da5b9e7dc0882ecd986d253d59d534b6dd16bc54b",
+    "case_id": "qa-requests-scope-01",
+    "strategy": "symbol",
+    "repository": "requests",
+    "request_payload_sha256": "5c2551c78f5d71a83fc15eab61cd389677b81a12eea95925eaa9a8386d32ea3e"
+  }
+]

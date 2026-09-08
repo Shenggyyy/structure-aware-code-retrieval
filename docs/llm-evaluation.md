@@ -17,6 +17,10 @@ LLM responses. A subsequent [approved live v2 run](../reports/m7d-live/README.md
 stopped after 13 attempts: 12 valid judgments, one unknown outcome and 47 requests
 not started. It is an ordered prefix, not a complete comparison or evidence of a
 general improvement in judge reliability.
+M7e prepares and validates a follow-up requiring new approval for the 47 unstarted
+requests, with no new calls in the [offline checkpoint](../reports/m7e/README.md).
+All 13 prior attempts remain excluded from that scope; the observed v2 coverage is
+unchanged until actual new results are recorded.
 
 Human calibration or spot-checking is optional. Its absence is a limitation to
 report, not a prerequisite for running evaluation or completing an engineering
@@ -260,3 +264,27 @@ rates. The 13th attempt may be billable, so complete new usage and cost totals
 remain unknown. The 60 original generations, v1 judgments and provisional labels
 are unchanged. The [partial archive](../reports/m7d-live/README.md) retains these
 boundaries and can be checked offline. There was no automatic retry or resume.
+
+## M7e follow-up measurement boundary
+
+Follow-up preparation verifies and freezes an original partial revision run, then
+selects only requests missing from its attempt journal. The exact model, v2 rubric,
+references and per-answer payloads are retained. The prior 12 known outcomes and one
+unknown attempt are never rejudged by the prepared 47-request scope. A new plan
+fingerprint, approval, output directory and explicit `--followup` mode bind execution
+to that scope. The first version rejects nested follow-ups and parents that are
+running, complete or have no unstarted work.
+
+Retain all 60 source cases and original generations. Reports distinguish historical
+judging, new-batch judging and cumulative coverage, usage, cost and timing; current
+journals contain only new attempts/results. Prior judgments remain host-side records,
+not model inputs. The new estimate covers only selected judge requests and zero new
+generation calls, and still requires model/budget approval before execution.
+
+If all 47 requests later produce recorded outcomes, cumulative coverage can reach
+59 recorded outcomes with one historical unknown. Invalid judgments and unscored
+dimensions must still be disclosed; this is not a promise of 59 valid scores. The
+historical unknown keeps complete cumulative usage and cost null even when all new
+usage is observed. Keep known subtotals and per-strategy/per-dimension denominators
+visible. Batch timing is not a new end-to-end QA latency measurement. The offline
+M7e proposal adds no real responses and does not change the original 12/60 coverage.

@@ -13,11 +13,16 @@ from structure_aware_retrieval.models import stable_id
 from structure_aware_retrieval.qa.assessment_execution import _now, _skipped
 from structure_aware_retrieval.qa.assessment_plan import implementation_record
 from structure_aware_retrieval.qa.execution import _append, _write
+from structure_aware_retrieval.qa.judge_followup_reporting import (
+    render_followup,
+    summarize_followup,
+)
 from structure_aware_retrieval.qa.judge_reporting import render_revision, summarize_revision
 from structure_aware_retrieval.qa.judging import complete_judgment
 from structure_aware_retrieval.qa.provider import OpenAIModel
 
 PREPARATION_SCRIPT = Path(__file__).with_name("prepare_qa_judge_revision.py")
+FOLLOWUP_SCRIPT = Path(__file__).with_name("prepare_qa_judge_followup.py")
 PREPARATION = run_path(str(PREPARATION_SCRIPT))
 check_revision = PREPARATION["check_revision"]
 _model = PREPARATION["_model"]
@@ -40,6 +45,7 @@ def execute_revision(
     approved_plan: str,
     execute: bool = False,
     model_factory=None,
+    followup: bool = False,
 ) -> dict:
     """Freeze exact inputs before calling; inject only offline models for tests.
 
@@ -62,6 +68,7 @@ def execute_revision(
             approved_plan=approved_plan,
             execute=execute,
             model_factory=model_factory,
+            followup=followup,
             progress=progress,
         )
     except BaseException as error:
@@ -116,11 +123,16 @@ def _execute_revision(
     approved_plan,
     execute,
     model_factory,
+    followup,
     progress,
 ):
     if execute is not True:
         raise ValueError("Explicit --execute approval is required; no calls made")
-    plan = check_revision(bundle)
+    if type(followup) is not bool:
+        raise ValueError("Follow-up mode must be an explicit boolean; no calls made")
+    preparation = run_path(str(FOLLOWUP_SCRIPT)) if followup else None
+    check = preparation["check_followup"] if followup else check_revision
+    plan = check(bundle)
     if approved_plan != plan["plan_fingerprint"] or judge_model_id != plan["judge"]["model"]:
         raise ValueError("Confirm the exact revision plan fingerprint and judge model")
     if (
@@ -135,11 +147,12 @@ def _execute_revision(
     output.mkdir(parents=True, exist_ok=False)
     progress["output_created"] = True
     frozen = output / "prepared"
-    for name in BUNDLE_FILES:
+    files = preparation["bundle_files"](bundle) if followup else BUNDLE_FILES
+    for name in files:
         target = frozen / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(bundle / name, target)
-    copied_plan = check_revision(frozen)
+    copied_plan = check(frozen)
     if copied_plan != plan:
         raise ValueError("Revision inputs changed while archiving the approved plan")
     # All subsequent reads and calls use the validated copy, not the caller's bundle.
@@ -181,22 +194,32 @@ def _execute_revision(
         "execution_implementation": {
             **implementation_record(),
             "runner_script_sha256": _hash(Path(__file__)),
-            "preparation_script_sha256": _hash(PREPARATION_SCRIPT),
+            "preparation_script_sha256": _hash(FOLLOWUP_SCRIPT if followup else PREPARATION_SCRIPT),
         },
     }
     _write(output / "approval.json", approval)
-    records = _read(frozen / "source/records.json")
+    records = _read(frozen / ("prior/records.json" if followup else "source/records.json"))
+    prior_records = deepcopy(records) if followup else None
+    prior_plan = _read(frozen / "prior/prepared/plan.json") if followup else None
+    prior_attempts = _read(frozen / "prior/attempts.jsonl", lines=True) if followup else None
     eligible = {row["id"] for row in rows}
-    for record in records:
-        record["judging"] = (
-            None if record["id"] in eligible else _skipped("invalid_source_generation")
-        )
+    if not followup:
+        for record in records:
+            record["judging"] = (
+                None if record["id"] in eligible else _skipped("invalid_source_generation")
+            )
     by_id = {row["id"]: row for row in records}
     attempts = []
     state = "running"
 
     def checkpoint():
-        summary = summarize_revision(plan, records, attempts, status=state)
+        summary = (
+            summarize_followup(
+                plan, prior_plan, prior_records, prior_attempts, records, attempts, status=state
+            )
+            if followup
+            else summarize_revision(plan, records, attempts, status=state)
+        )
         summary.update(
             execution_mode=mode,
             approved_budget_usd=budget_usd,
@@ -205,7 +228,8 @@ def _execute_revision(
         )
         _write(output / "records.json", records)
         _write(output / "summary.json", summary)
-        (output / "report.md").write_text(render_revision(summary), encoding="utf-8", newline="\n")
+        render = render_followup if followup else render_revision
+        (output / "report.md").write_text(render(summary), encoding="utf-8", newline="\n")
         return summary
 
     try:
@@ -248,9 +272,14 @@ def _execute_revision(
                     state = "failed"
                     break
             else:
+                completed_scope = (
+                    [record for record in records if record["id"] in eligible]
+                    if followup
+                    else records
+                )
                 state = (
                     "complete"
-                    if all(r["judging"]["status"] == "scored" for r in records)
+                    if all(r["judging"]["status"] == "scored" for r in completed_scope)
                     else "complete_with_failures"
                 )
     except BaseException:
@@ -278,6 +307,11 @@ def main():
     parser.add_argument("--approved-plan", required=True)
     parser.add_argument("--budget-usd", required=True, type=float)
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument(
+        "--followup",
+        action="store_true",
+        help="Execute a separately approved unattempted-only bundle",
+    )
     args = parser.parse_args()
     try:
         summary = execute_revision(
@@ -287,6 +321,7 @@ def main():
             judge_model_id=args.judge_model,
             approved_plan=args.approved_plan,
             execute=args.execute,
+            followup=args.followup,
         )
     except BaseException as error:
         parser.exit(

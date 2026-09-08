@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-08",
+  "checkpoint": "m7e-offline-followup",
+  "api_calls_made": 0,
+  "new_live_judgments": 0,
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "pytest": {
+    "command": "uv run --locked pytest --cov --cov-report=term-missing --cov-report=xml --cov-report=json:artifacts/m7e-coverage.json --junitxml=artifacts/m7e-tests.xml",
+    "collected": 863,
+    "passed": 862,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1,
+    "skip_reasons": [
+      "Creating symlinks is unavailable on this host"
+    ],
+    "junit_suite_duration_seconds": 552.989,
+    "new_regression_cases": 69,
+    "new_case_groups": {
+      "preparation": 21,
+      "execution_and_verification": 16,
+      "reporting": 32
+    }
+  },
+  "coverage": {
+    "scope": "structure_aware_retrieval package; standalone scripts exercised by integration tests but excluded from coverage denominator",
+    "covered_lines": 4252,
+    "num_statements": 4567,
+    "percent_covered": 91.77462150772593,
+    "percent_covered_display": "92",
+    "missing_lines": 315,
+    "excluded_lines": 13,
+    "percent_statements_covered": 93.1026932340705,
+    "percent_statements_covered_display": "93",
+    "num_branches": 1840,
+    "num_partial_branches": 200,
+    "covered_branches": 1628,
+    "missing_branches": 212,
+    "percent_branches_covered": 88.47826086956522,
+    "percent_branches_covered_display": "88"
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed (215 files)",
+  "retrieval_overview": "45 saved runs checked unchanged",
+  "prior_revision_archive": "Original M7d partial run verifies unchanged under current code",
+  "archive_check": {
+    "api_calls_made": 0,
+    "prepared_plan_verified_after_extraction": true,
+    "member_hashes_verified": 29,
+    "plan_fingerprint": "b69337459f8b22417d0d5e4cc88063c2f8d9f04d1d3571fe00592132e1313ef3",
+    "requested_counts_by_strategy": {
+      "bm25": 9,
+      "dense": 9,
+      "hybrid": 9,
+      "structure": 10,
+      "symbol": 10
+    },
+    "requested_counts_by_repository": {
+      "click": 17,
+      "requests": 30
+    }
+  },
+  "synthetic_transport_check": {
+    "api_calls_made": 0,
+    "synthetic_transport_responses": 47,
+    "source_payloads_checked": 47,
+    "semantic_results": "not_measured",
+    "prior_unknown_preserved": true,
+    "new_cost_excludes_prior_usage": true,
+    "cumulative_full_cost": null,
+    "verification": {
+      "status": "complete",
+      "source_planned_cases": 60,
+      "judge_requests": 47,
+      "attempts": 47,
+      "recorded_results": 47,
+      "execution_mode": "injected_models",
+      "plan_fingerprint": "b69337459f8b22417d0d5e4cc88063c2f8d9f04d1d3571fe00592132e1313ef3",
+      "new_generation_calls": 0
+    }
+  },
+  "historical_archive_sha256_unchanged": {
+    "reports/m7b-live/run.zip": "340a5c7226c453ceabaa2fc277a8942cb80b792750de99c877a7d707dc9a3f7a",
+    "reports/m7d-live/run.zip": "a15ffd0bac05d4735b02ff5ab8b32dc04884e3b38b3a5e3c0ee27803212f48e6"
+  },
+  "linux_and_container_checks": "Not rerun locally; existing CI matrix retained",
+  "previous_remote_ci": "Owner reports commit 10e9bc2 passed",
+  "current_remote_ci": "Pending owner commit and push"
+}

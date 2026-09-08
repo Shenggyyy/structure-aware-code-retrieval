@@ -7,6 +7,10 @@ from pathlib import Path
 from runpy import run_path
 
 from structure_aware_retrieval.models import stable_id
+from structure_aware_retrieval.qa.judge_followup_reporting import (
+    render_followup,
+    summarize_followup,
+)
 from structure_aware_retrieval.qa.judge_reporting import render_revision, summarize_revision
 
 HERE = Path(__file__).resolve().parent
@@ -16,9 +20,17 @@ LEGACY = run_path(str(HERE / "verify_qa_assessment.py"))
 _read, _require, _same = (LEGACY[name] for name in ("_read", "_require", "_same"))
 
 
-def _verify(run: Path) -> dict:
-    plan = check_revision(run / "prepared")
-    source = _read(run / "prepared/source/records.json")
+def _verify(run: Path, *, followup: bool = False) -> dict:
+    if type(followup) is not bool:
+        raise ValueError("Follow-up mode must be an explicit boolean")
+    check = (
+        run_path(str(HERE / "prepare_qa_judge_followup.py"))["check_followup"]
+        if followup
+        else check_revision
+    )
+    plan = check(run / "prepared")
+    source_path = "prior/records.json" if followup else "source/records.json"
+    source = _read(run / "prepared" / source_path)
     requests = _read(run / "prepared/requests.jsonl", lines=True)
     approval = _read(run / "approval.json")
     records = _read(run / "records.json")
@@ -65,6 +77,9 @@ def _verify(run: Path) -> dict:
         )
         by_id[record["id"]] = record
         if record["id"] not in requested:
+            if followup:
+                _same(record, original, "Previously attempted or omitted source record changed")
+                continue
             result = record["judging"]
             _require(
                 isinstance(result, dict)
@@ -138,12 +153,13 @@ def _verify(run: Path) -> dict:
         status in {"running", "interrupted", "failed", "complete", "complete_with_failures"},
         "Unsupported run status",
     )
+    scope = [record for record in records if record["id"] in requested] if followup else records
     all_scored = all(
-        record["judging"] and record["judging"]["status"] == "scored" for record in records
+        record["judging"] and record["judging"]["status"] == "scored" for record in scope
     )
-    all_finished = all(record["judging"] is not None for record in records)
+    all_finished = all(record["judging"] is not None for record in scope)
     has_provider_error = any(
-        (record["judging"] or {}).get("status") == "provider_error" for record in records
+        (record["judging"] or {}).get("status") == "provider_error" for record in scope
     )
     if status == "complete":
         _require(all_scored, "Complete status has missing or invalid outcomes")
@@ -154,7 +170,19 @@ def _verify(run: Path) -> dict:
         )
     elif status == "failed":
         _require(has_provider_error, "Failed status has no provider failure")
-    expected = summarize_revision(plan, records, attempts, status=status)
+    expected = (
+        summarize_followup(
+            plan,
+            _read(run / "prepared/prior/prepared/plan.json"),
+            source,
+            _read(run / "prepared/prior/attempts.jsonl", lines=True),
+            records,
+            attempts,
+            status=status,
+        )
+        if followup
+        else summarize_revision(plan, records, attempts, status=status)
+    )
     expected.update(
         execution_mode=mode,
         approved_budget_usd=budget,
@@ -164,7 +192,7 @@ def _verify(run: Path) -> dict:
     _same(summary, expected, "Summary differs from independently recomputed records")
     _same(
         (run / "report.md").read_text(encoding="utf-8"),
-        render_revision(summary),
+        (render_followup if followup else render_revision)(summary),
         "Report differs from recomputed summary",
     )
     return {
@@ -179,10 +207,10 @@ def _verify(run: Path) -> dict:
     }
 
 
-def verify_run(run: Path) -> dict:
+def verify_run(run: Path, *, followup: bool = False) -> dict:
     """Read only archived inputs and outputs, without credentials or provider requests."""
     try:
-        return _verify(Path(run))
+        return _verify(Path(run), followup=followup)
     except (KeyError, TypeError, AttributeError, RecursionError, UnicodeError) as error:
         raise ValueError("Malformed judge revision archive") from error
 
@@ -190,9 +218,12 @@ def verify_run(run: Path) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", required=True, type=Path)
+    parser.add_argument(
+        "--followup", action="store_true", help="Verify a follow-up run and its prior"
+    )
     args = parser.parse_args()
     try:
-        result = verify_run(args.run)
+        result = verify_run(args.run, followup=args.followup)
     except (OSError, ValueError):
         parser.exit(
             1, "Judge revision archive verification failed; inspect local archive integrity.\n"
