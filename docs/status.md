@@ -15,6 +15,11 @@ Engineering delivery and the planned experiment attempts are complete; score
 coverage is incomplete and the evidence does not establish a reliable QA ranking.
 Human or independent review is optional, not a completion prerequisite. Labels
 remain provisional; model scores are neither human review nor true accuracy.
+The [M8c presentation checkpoint](../reports/m8c/README.md) provides a
+[project brief and bilingual CV wording](project-brief.md) plus a
+[verified offline demonstration](demo.md). It adds no new inference or research
+scores. Engineering delivery, recorded experiments and presentation materials are
+available; additional research and detailed teaching are separate follow-up work.
 
 ## Acceptance matrix
 
@@ -29,7 +34,7 @@ remain provisional; model scores are neither human review nor true accuracy.
 | Initial QA experiment | Twelve provisional development cases × five strategies; 120 authorized v1 calls, complete raw archive, known usage for every call | Small development scope and same-model generator/judge limit generalization; usage-based cost is not an invoice |
 | LLM evaluation | Immutable v1 results; all 60 v2 requests attempted across two batches, yielding 58 valid judgments, one invalid judgment and one historical unknown; raw records and offline verification | Keep incomplete score coverage and unknown full cost visible; model scores are not true accuracy or proof of a reliable strategy ranking |
 | Packaging and testing | Installable package, automated tests, base/CPU Dense Docker targets, offline smoke checks, Windows/Linux CI configuration | Current checkpoint's remote CI runs after the owner commits and pushes |
-| Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline saved-run verification and reproduction instructions | Retain limits and version future protocol/dataset changes |
+| Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline verification, project brief, bilingual CV wording and verified demo | Retain limits and version future protocol/dataset changes; use CV templates according to actual contributions |
 
 ## Verified checkpoints
 
@@ -112,6 +117,16 @@ remain provisional; model scores are neither human review nor true accuracy.
   US$0.4368195. Full cumulative usage/cost remains unknown. All original answers
   and prior attempts are preserved. The report records local validation; current
   remote CI follows the owner's commit and push.
+
+- The owner reports the M7e live-evidence checkpoint (`61e246e`) was pushed and
+  passed GitHub CI. This confirms that commit, not later documentation changes.
+- [M8c presentation closeout](../reports/m8c/README.md) supplies an evidence-linked
+  project brief and demonstration. All five final PowerShell blocks were executed
+  offline, including the 17-command fixture smoke, live searches, QA preview,
+  45-run overview verification and saved live-answer inspection. No API calls or
+  model downloads were made. Two earlier rehearsal attempts encountered Windows
+  directory-rename errors; the record retains them and the successful final run.
+  Current remote CI follows the owner's next commit and push.
 
 Historical reports retain their original measurements and completion criteria.
 This page records the current automatic-evaluation acceptance policy; historical

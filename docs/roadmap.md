@@ -49,7 +49,10 @@ approved [M7e live follow-up](../reports/m7e-live/README.md) completed all 47 at
 46 valid judgments and one protocol failure. Cumulative v2 coverage is 58 valid,
 one invalid and one historical unknown, with zero requests left unstarted.
 M8a supplies CPU Docker delivery; M8b supplies the validated results overview and
-reproduction documentation. Current acceptance uses automatic checks and explicitly
+reproduction documentation. M8c adds the [project brief](project-brief.md), bilingual
+CV wording and a [verified demonstration](demo.md) using the existing offline CLI
+and saved live evidence. It adds no new model calls or retrieval-quality experiments.
+Current acceptance uses automatic checks and explicitly
 reported LLM assessment; independent human review is optional. See [status](status.md).
 Remote CI runs after the owner pushes; local checks do not establish remote CI status.
 
@@ -170,6 +173,25 @@ Contextualize hardware-dependent latency. Include strategy and relationship abla
 source-grounded QA, automated tests, CI, Docker, and full documentation. Conclusions
 must include failures and costs; a positive improvement is not required, but
 defensible evidence is.
+
+## M8c — Presentation closeout
+
+The engineering and planned experiment scope is complete. This final presentation
+checkpoint connects it to the original application-portfolio goal: a concise
+project brief, English/Chinese CV templates with evidence links, and a five-minute
+PowerShell walkthrough. The demonstration separates synthetic software checks from
+saved real retrieval results and model assessments; it does not turn fixture
+scores or protocol acceptance into accuracy claims.
+
+Acceptance: execute the documented offline commands, inspect the archived answer
+and citations, check local document links, and retain the provisional-label and
+negative-result limits. Record successful and failed rehearsals in the
+[M8c validation record](../reports/m8c/README.md). No new service, dependency, model
+call or benchmark version is required. Suggested commit:
+`Add project brief and verified offline demonstration`.
+
+Further research, features or detailed architecture teaching are separate follow-up
+work, rather than automatic additional milestones needed to declare completion.
 
 ## Deferred decisions
 

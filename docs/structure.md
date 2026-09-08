@@ -99,5 +99,6 @@ seed config are included in run provenance; changes require new experiment outpu
 Reports contain per-query source traces, quality, warm latency, graph-work counts and
 returned-context size. Lexical token counts are a size proxy, not actual LLM usage.
 Use [M5 observations](../reports/m5/README.md) to assess successes and regressions.
-The seed benchmark still needs human relevance review; graph edges also have no
-independent precision/recall annotation yet. A quality improvement is not assumed.
+The seed benchmark retains provisional relevance labels; human review is optional.
+Graph edges also have no independent precision/recall annotation yet. A quality
+improvement is not assumed.

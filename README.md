@@ -9,7 +9,9 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M7e live — the 47-request follow-up is executed and archived.**
+**Latest checkpoint: M8c — project brief, bilingual CV wording and a verified offline demo.**
+Start with the [project brief](docs/project-brief.md) or follow the
+[five-minute demonstration](docs/demo.md) to inspect the system and saved evidence.
 All five retrievers, evaluation, QA tooling and CPU Docker delivery are implemented.
 The retrieval matrix contains 45 runs on eight snapshots and 170 questions. The
 [live QA experiment](reports/m7b-live/README.md) supplies 60 real generations.
@@ -106,6 +108,7 @@ behavior on synthetic data, not real retrieval or answer quality.
 
 | Task | Guide |
 | --- | --- |
+| Present the project and its defensible findings | [Project brief and CV wording](docs/project-brief.md), [offline demonstration](docs/demo.md) |
 | Index your repository and compare five strategies | [Commands and preparation](docs/reproduction.md) |
 | Inspect model, tokenization and fusion settings | [Baseline definitions](docs/baselines.md) |
 | Understand typed edges, expansion and ablations | [Structure retrieval](docs/structure.md) |

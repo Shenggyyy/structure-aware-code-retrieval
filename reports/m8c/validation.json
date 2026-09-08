@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-09",
+  "checkpoint": "m8c-presentation-closeout",
+  "source_commit": "61e246e",
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "scope": "Documentation and rehearsal evidence only; no application, test, dependency or benchmark changes",
+  "new_api_calls": 0,
+  "new_model_downloads": 0,
+  "new_research_experiments": 0,
+  "full_pytest_rerun": false,
+  "docker_builds_rerun": false,
+  "final_document_rehearsal": {
+    "status": "passed",
+    "execution": "All five PowerShell blocks extracted verbatim from docs/demo.md; install block not rerun",
+    "powershell_block_sha256": "5a1b6f62021f1995c87b8469ad83827e7ea1587ef85dcee19be976ee5480dafe",
+    "artifact_directory": "artifacts\\demo-8615fbcf",
+    "source_files": 3,
+    "smoke_command_count": 17,
+    "quality_fingerprint": "0788f1869f84c370926272f1e7e305a47e5f7e4743c98550de4b9168dbc5dda2",
+    "repeated_quality_matches": true,
+    "bm25_and_structure_order_equal": true,
+    "context_used_bytes": 608,
+    "qa_preview_model_called": false,
+    "empty_context_status": "insufficient_context",
+    "graph_edge_counts": {
+      "containment": 6,
+      "import": 1,
+      "test": 1
+    },
+    "live_archive_status": "complete_with_failures",
+    "cumulative_cohort_status": "incomplete",
+    "archived_rows": 60,
+    "api_calls_made": 0,
+    "model_downloads": 0,
+    "dependency_installation_rerun": false
+  },
+  "smoke_invocations": {
+    "total": 5,
+    "passed": 3,
+    "failed": 2,
+    "attempts_in_order": [
+      {
+        "artifact_directory": "artifacts/demo-m8c-001",
+        "original_summary_sha256": "06773424ea077969c7cb61b2d222729597b23a36dc983a1c102f93761e6ff0ae",
+        "command_count": 17,
+        "summary_with_workspace_prefix_redacted": {
+          "schema_version": 1,
+          "status": "passed",
+          "synthetic_fixture_only": true,
+          "fixture_commit": "32ca1ed87210e7c56759aa07ecca2059d49d6b27",
+          "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+          "source_files": 3,
+          "quality_fingerprint": "0788f1869f84c370926272f1e7e305a47e5f7e4743c98550de4b9168dbc5dda2",
+          "repeat_quality_matches": true,
+          "qa_status": "preview",
+          "empty_context_status": "insufficient_context",
+          "api_calls": 0,
+          "model_downloads": 0,
+          "review_status": "pending",
+          "command_count": 17
+        }
+      },
+      {
+        "artifact_directory": "artifacts/demo-adfa678b1c4344f1a89bd2481b9344cf",
+        "original_summary_sha256": "597ba07620632c25432cdbc978b0b8b4e672ac53d8b228c21e7fdc452c56232a",
+        "command_count": 16,
+        "summary_with_workspace_prefix_redacted": {
+          "schema_version": 1,
+          "status": "failed",
+          "error": "Smoke command failed (<repository>\\.venv\\Scripts\\python.exe): Error: [WinError 5] \ufffd\u073e\ufffd\ufffd\ufffd\ufffd\u02a1\ufffd: '<repository>\\\\artifacts\\\\demo-adfa678b1c4344f1a89bd2481b9344cf\\\\.sacr-comparison-3e141g_s' -> 'comparison'\n"
+        }
+      },
+      {
+        "artifact_directory": "artifacts/demo-5fc5b85cca6843eab7a9415aef0d243a",
+        "original_summary_sha256": "67f9655a64adf7ce78304a9137bdf6b88edb9712d1cf3f6c7898d83ffb50ccd7",
+        "command_count": 17,
+        "summary_with_workspace_prefix_redacted": {
+          "schema_version": 1,
+          "status": "failed",
+          "error": "Smoke command failed (<repository>\\.venv\\Scripts\\python.exe): Error: [WinError 5] \ufffd\u073e\ufffd\ufffd\ufffd\ufffd\u02a1\ufffd: '<repository>\\\\artifacts\\\\demo-5fc5b85cca6843eab7a9415aef0d243a\\\\.sacr-review-faa4xqgp' -> 'review'\n"
+        }
+      },
+      {
+        "artifact_directory": "artifacts/demo-m8c-002",
+        "original_summary_sha256": "06773424ea077969c7cb61b2d222729597b23a36dc983a1c102f93761e6ff0ae",
+        "command_count": 17,
+        "summary_with_workspace_prefix_redacted": {
+          "schema_version": 1,
+          "status": "passed",
+          "synthetic_fixture_only": true,
+          "fixture_commit": "32ca1ed87210e7c56759aa07ecca2059d49d6b27",
+          "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+          "source_files": 3,
+          "quality_fingerprint": "0788f1869f84c370926272f1e7e305a47e5f7e4743c98550de4b9168dbc5dda2",
+          "repeat_quality_matches": true,
+          "qa_status": "preview",
+          "empty_context_status": "insufficient_context",
+          "api_calls": 0,
+          "model_downloads": 0,
+          "review_status": "pending",
+          "command_count": 17
+        }
+      },
+      {
+        "artifact_directory": "artifacts/demo-8615fbcf",
+        "original_summary_sha256": "06773424ea077969c7cb61b2d222729597b23a36dc983a1c102f93761e6ff0ae",
+        "command_count": 17,
+        "summary_with_workspace_prefix_redacted": {
+          "schema_version": 1,
+          "status": "passed",
+          "synthetic_fixture_only": true,
+          "fixture_commit": "32ca1ed87210e7c56759aa07ecca2059d49d6b27",
+          "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+          "source_files": 3,
+          "quality_fingerprint": "0788f1869f84c370926272f1e7e305a47e5f7e4743c98550de4b9168dbc5dda2",
+          "repeat_quality_matches": true,
+          "qa_status": "preview",
+          "empty_context_status": "insufficient_context",
+          "api_calls": 0,
+          "model_downloads": 0,
+          "review_status": "pending",
+          "command_count": 17
+        }
+      }
+    ]
+  },
+  "windows_failure_analysis": {
+    "observed_error": "WinError 5 during temporary-directory rename to comparison or review",
+    "cause": "Not established",
+    "shorter_paths_proven_fix": false,
+    "application_retry_or_publication_code_changed": false,
+    "handling": "Failed artifacts preserved; final five-block walkthrough passed in a fresh shorter directory"
+  },
+  "local_links": {
+    "existing_targets_checked": 98,
+    "anchors_checked": false
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "passed (221 files)",
+  "distribution_build": "uv build --offline passed (wheel and source distribution)",
+  "retrieval_overview": "45 saved runs checked unchanged during final rehearsal",
+  "immutable_live_archive_sha256": {
+    "reports/m7b-live/run.zip": "340a5c7226c453ceabaa2fc277a8942cb80b792750de99c877a7d707dc9a3f7a",
+    "reports/m7d-live/run.zip": "a15ffd0bac05d4735b02ff5ab8b32dc04884e3b38b3a5e3c0ee27803212f48e6",
+    "reports/m7e-live/run.zip": "329f9dfcdc3e70ac923fc02c8b0121b3de1d03d4746c10363025b0a0e8c33385"
+  },
+  "previous_full_suite_baseline": "../m7e/validation.json; not rerun or relabeled as this checkpoint's result",
+  "previous_remote_ci": "Owner reports commit 61e246e passed",
+  "current_remote_ci": "Pending owner commit and push"
+}
