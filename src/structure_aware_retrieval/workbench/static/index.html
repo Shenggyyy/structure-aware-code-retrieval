@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Repository Workbench · SACR</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到工作区</a>
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-mark">S</span><span>SACR<span class="brand-sub">REPOSITORY WORKBENCH</span></span></a>
+    <p class="sidebar-label">工作空间</p>
+    <nav aria-label="主导航">
+      <button id="nav-workbench" class="nav-button active" type="button" aria-current="page"><span>◫</span> 检索对比</button>
+      <button id="nav-history" class="nav-button" type="button"><span>◷</span> 历史记录 <span id="history-count" class="count">0</span></button>
+    </nav>
+    <div class="sidebar-note"><span class="live-dot"></span> 本机运行
+      <p>静态读取 Python 源码。<br>当前仅预览上下文，不调用回答模型。</p>
+    </div>
+    <a class="research-link" href="https://github.com/Shenggyyy/structure-aware-code-retrieval/blob/main/RESULTS.md" target="_blank" rel="noopener noreferrer">查看独立实验结果 ↗</a>
+    <span class="sidebar-foot">BM25 · DENSE · HYBRID<br>SYMBOL · STRUCTURE</span>
+  </aside>
+
+  <main id="main">
+    <header class="page-header">
+      <div><p class="eyebrow">CODE RETRIEVAL / LOCAL WORKBENCH</p><h1>同一问题，五种检索结果。</h1><p class="subtitle">从仓库源码出发，并排查看证据、结构来源与运行信息。</p></div>
+      <span class="pill offline">上下文预览 · 无 API 调用</span>
+    </header>
+    <div id="notice" class="notice" role="alert" hidden></div>
+
+    <section id="workbench-view" aria-label="检索工作台">
+      <section class="panel repository-panel" aria-labelledby="repository-heading">
+        <div class="section-heading"><div><span class="step">01</span><h2 id="repository-heading">选择源码版本</h2></div><button id="refresh-repositories" class="button text-button" type="button">刷新仓库</button></div>
+        <label for="repository-select" class="field-label">已导入仓库</label>
+        <select id="repository-select"><option value="">尚未导入仓库</option></select>
+        <div id="repository-info" class="repository-info"><p class="muted">导入仓库后，这里会显示实际源码版本和资源状态。</p></div>
+        <button id="prepare-button" class="button secondary" type="button" hidden>重新准备资源</button>
+        <details id="import-details" class="import-details" open>
+          <summary>＋ 导入一个仓库</summary>
+          <form id="import-form">
+            <div class="import-fields">
+              <div><label for="source" class="field-label">公开 HTTPS Git URL 或本地目录</label><input id="source" name="source" required maxlength="4096" placeholder="https://github.com/owner/repo.git 或 C:\projects\repo" autocomplete="off" spellcheck="false"></div>
+              <div><label for="ref" class="field-label">Git ref / commit</label><input id="ref" name="ref" value="HEAD" maxlength="200" autocomplete="off" spellcheck="false"></div>
+              <button id="import-button" class="button primary" type="submit">导入并准备 <span aria-hidden="true">↗</span></button>
+            </div>
+            <p class="field-help">本地目录填写服务所在机器的路径，ref 保持 HEAD。仅静态读取源码；向量模型需先在本机准备。</p>
+          </form>
+        </details>
+      </section>
+
+      <section id="job-panel" class="panel job-panel" aria-labelledby="job-heading" hidden>
+        <div class="section-heading"><div><span id="job-indicator" class="live-dot"></span><h2 id="job-heading">任务进度</h2></div><span id="job-status" class="pill"></span></div>
+        <div id="job-stages" class="stage-list" aria-live="polite"></div>
+        <p id="job-error" class="error-text" hidden></p>
+        <p id="job-id" class="small muted mono"></p>
+      </section>
+
+      <section class="panel question-panel" aria-labelledby="question-heading">
+        <div class="section-heading"><div><span class="step">02</span><h2 id="question-heading">向这个仓库提问</h2></div><span class="small muted">五种策略 · 相同问题与上下文预算</span></div>
+        <form id="question-form">
+          <label class="visually-hidden" for="question">仓库问题</label>
+          <textarea id="question" required rows="3" placeholder="例如：请求 URL 在哪里被校验和编码？哪些测试覆盖了这个流程？" maxlength="4000"></textarea>
+          <div class="question-actions">
+            <details class="settings"><summary>检索设置</summary><div class="settings-fields"><label for="top-k">最多上下文符号数<input id="top-k" type="number" min="1" max="100" value="10" required></label><label for="context-bytes">上下文预算（UTF-8 字节）<input id="context-bytes" type="number" min="2" max="1000000" value="16000" required></label></div></details>
+            <button id="preview-button" class="button primary" type="submit" disabled>运行五策略预览 <span aria-hidden="true">→</span></button>
+          </div>
+        </form>
+      </section>
+
+      <section id="empty-results" class="empty-state"><span class="empty-icon" aria-hidden="true">⌘</span><h2>让问题找到对应的代码</h2><p>导入并准备仓库后，输入问题。五种策略的结果将在这里并排显示并自动保存。</p><div class="strategy-chips"><span>BM25</span><span>Dense</span><span>Hybrid</span><span>Symbol-aware</span><span>Structure-aware</span></div></section>
+      <section id="results-section" aria-labelledby="results-heading" hidden>
+        <div class="result-heading"><div><p class="eyebrow">STRATEGY COMPARISON</p><h2 id="results-heading">五策略对比</h2></div><span id="run-mode" class="pill offline"></span></div>
+        <p id="run-question" class="run-question"></p>
+        <div id="run-meta" class="run-meta"></div>
+        <p class="comparison-note">当前显示检索上下文，没有生成回答。新问题没有相关性标签，因此不显示 Recall、NDCG 或回答正确率。不同策略的原始分数不能直接比较。</p>
+        <div id="strategy-grid" class="strategy-grid" tabindex="0" aria-label="五策略结果，可横向滚动"></div>
+        <details class="panel config-panel"><summary>查看本次实际配置与源码版本</summary><pre id="run-config"></pre></details>
+      </section>
+    </section>
+
+    <section id="history-view" aria-labelledby="history-heading" hidden>
+      <div class="result-heading"><div><p class="eyebrow">SAVED COMPARISONS</p><h2 id="history-heading">历史记录</h2></div><button id="refresh-history" class="button secondary" type="button">刷新记录</button></div>
+      <p class="subtitle">重新打开已保存的源码证据和运行信息，不会再次检索或调用模型。</p>
+      <label for="history-search" class="field-label">查找问题或记录 ID</label><input id="history-search" type="search" placeholder="搜索历史问题…">
+      <div id="history-list" class="history-list"></div>
+    </section>
+    <footer class="page-footer">Structure-Aware Code Retrieval <span>·</span> 上下文预览不是生成回答，源码位置检查不是语义正确性评分。</footer>
+  </main>
+
+  <dialog id="source-dialog" aria-labelledby="source-heading">
+    <div class="dialog-header"><div><p id="source-caption" class="eyebrow">SOURCE EVIDENCE</p><h2 id="source-heading">源码</h2></div><button id="close-source" class="button secondary" type="button" aria-label="关闭源码">关闭 ×</button></div>
+    <div class="dialog-body"><p id="source-name" class="mono small"></p><p id="source-range" class="muted small"></p><div id="source-code" class="source-code" role="region" aria-label="带行号的源码" tabindex="0"></div><details id="source-details"><summary>分数组成与结构来源</summary><pre id="source-provenance"></pre></details></div>
+  </dialog>
+</body>
+</html>

@@ -22,7 +22,8 @@ failure. Cumulative score coverage is 58/60 with one invalid judgment and one
 historical unknown. That research delivery is complete; coverage and provisional-label
 limits remain explicit. Human review is optional. M9 extends the user workflow:
 M9a implements import, prepared resources and saved five-strategy context previews;
-browser comparison and new real answers remain pending. See [acceptance status](status.md).
+M9b exposes them through a local browser. New same-model answers remain M9c.
+See [acceptance status](status.md).
 
 ## Data flow
 
@@ -71,6 +72,7 @@ flowchart TD
 | `workbench.importing` | Bounded local/HTTPS capture, source identity and import stage journal |
 | `workbench.preparation` | Reuse snapshot-bound index/vector/graph builders with independent stage state |
 | `workbench.comparison` / `workbench.storage` | Five-strategy previews, incremental saves and self-contained history |
+| `workbench.server` / packaged browser assets | Loopback HTTP boundary, background jobs, repository controls, evidence comparison and saved-run views |
 
 Keep the CLI thin and library logic independent of the user interface. Shared data
 contracts carry these identities and provenance:
@@ -139,14 +141,36 @@ flowchart LR
     Q[One question and shared settings] --> R
     R --> C[Existing context builder and source checks]
     C --> H[Saved comparison with code evidence]
-    H --> V[CLI history and reopen]
+    H --> V[CLI or browser history and reopen]
 ```
 
 M9a is a Python service layer plus a thin Typer command group. It introduces no
-second parser, retriever, vector store or database service. M9b will use a local
-Python HTTP layer and simple browser assets over the same services, keeping this
-single-user application small. Loopback binding, request-origin checks and escaped
-repository text belong to that next HTTP boundary; no HTTP endpoint exists yet.
+second parser, retriever, vector store or database service. M9b adds Python's
+standard-library HTTP server and packaged HTML/CSS/JavaScript over those services.
+This keeps the local single-user workflow in one Python process without a frontend
+toolchain, external database or service deployment. The CLI remains available.
+
+The HTTP listener binds only `127.0.0.1`. Strict Host/Origin checks, a per-process
+request token, local-only asset policy and text-based source rendering protect its
+boundary against unrelated browser origins and executable repository content.
+There is no arbitrary-file-serving or paid-generation endpoint. Only one background
+import/preparation/preview job runs at a time; readers can poll saved job progress
+and reopen history without blocking on encoding. Startup marks unfinished server
+jobs interrupted and never automatically resumes work. A browser import combines
+the existing import and preparation services, retaining their separate stage errors.
+
+An OS file lock prevents two browser servers from sharing a workspace, and an
+in-process lock prevents Windows polling reads from blocking atomic JSON replacement.
+Shutdown keeps the workspace lock until the worker stops. Restart recovery reconciles
+only validated run/resource/import records explicitly linked by a saved web job;
+completed records and invalid archive bytes are preserved. Interrupted work is not
+automatically resubmitted.
+
+The browser shows imported source/commit state, common query settings, five strategy
+columns, saved source lines, scores and structure provenance. It labels a newly
+completed context preview separately from reopened saved results. Empty or failed
+rows retain their actual states, and unavailable generation time, provider tokens
+and costs remain unknown. No API key enters the browser or HTTP interface.
 
 Imports read source statically. Public Git imports isolate ambient configuration,
 credentials, hooks, filters and proxy settings, reject redirects and non-public

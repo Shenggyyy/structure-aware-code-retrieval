@@ -1,9 +1,10 @@
 # Repository Workbench
 
 The workbench adds a user workflow around the existing parser, five retrievers and
-QA context builder. **M9a supports repository import, resource preparation, five
-offline context previews and saved history through the CLI.** Browser comparison
-and real answer generation are planned for M9b/M9c; they are not implemented here.
+QA context builder. **M9b supports repository import, resource preparation, five
+offline context previews and saved history in a local browser.** The M9a CLI remains
+available. Real answer generation is planned for M9c and is not implemented in the
+workbench yet; this interface never starts a paid request.
 
 ## Install and prepare the embedding model
 
@@ -21,7 +22,64 @@ Other preparation and query commands only load local weights. The optional Dense
 dependencies are needed for all five strategies; BM25 alone can still produce a
 result when vectors are unavailable. No API key is required in this milestone.
 
-## Import one repository
+## Start and use the browser
+
+```powershell
+uv run --locked --extra dense sacr workbench serve --workspace $workspace --model-cache artifacts/models --port 8765
+```
+
+Leave this PowerShell process running and open [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
+The command prints its local URL. Use a different `--port` if 8765 is occupied.
+Stop the server with Ctrl+C when finished. Starting the server does not download a
+repository, prepare model weights, run retrieval or call an answering model.
+
+1. Enter a **public HTTPS Git URL** or a **local directory path**. Local paths refer
+   to the server's filesystem; relative paths resolve from the project directory
+   where the server was launched. For HTTPS, set an exact commit in the ref field
+   for repeatable source selection, or keep `HEAD` to resolve its current version.
+2. Choose **导入并准备** (import and prepare). Download/capture, parsing, vector and graph state
+   remain visible, including failures. Only one background job runs at a time;
+   reload the page to reconnect rather than starting duplicate jobs. Existing
+   snapshots and valid resources are reused under the same M9a rules.
+3. Select an imported repository. Inspect the saved commit/source information and
+   resource state, then enter a question. The shared `top_k` and context byte limit
+   apply to all five retrieval strategies.
+4. Choose **运行五策略预览** (run five previews). Five columns display separate outcomes, ranked hits,
+   source evidence, score details and available structure provenance. Expand code
+   evidence to see its saved path and one-based line numbers. Evidence IDs refer to
+   packed context; there is no generated answer or answer citation yet.
+5. Open a run from **历史记录** (history). The saved comparison and its source evidence are loaded
+   without retrieval, encoding or access to the original source. The UI distinguishes
+   this saved view from a preview just completed in the current browser session.
+
+Every preview is saved automatically. Browser history uses the same workspace and
+records as `workbench history`/`show`, including previews created through the CLI.
+Reloading or restarting the server does not repeat work. Unfinished server jobs are
+marked interrupted at restart; resource stages or saved strategy results already
+written remain available. Explicitly prepare or preview again when a fresh attempt
+is needed. An abrupt termination cannot recover work that was never saved.
+
+One browser server owns each workspace. Use a different workspace for a second
+server, and wait for the active browser job to finish before writing to the same
+workspace through CLI commands. The browser's read-only history access remains
+available while a task runs.
+
+Missing Dense dependencies or weights leave vector preparation failed; unaffected
+resources and strategy outcomes stay visible. Install the optional dependencies and
+run `prepare-model` in PowerShell, then explicitly prepare the repository again.
+Do not use a preview's missing generation time, tokens or cost as a zero-cost model
+measurement: those values remain unknown and the model API call count is zero.
+
+The server binds **only `127.0.0.1`**. It uses local packaged HTML/CSS/JavaScript, no
+external assets or web framework. Host/origin checks and a per-process request token
+protect the local API; this token is unrelated to an OpenAI key. Keep the page on
+the printed origin rather than placing it behind a proxy or exposing it to a LAN.
+The server has no credentials form, answer-generation endpoint, user accounts or
+automatic LLM judge. Repository content is rendered as text rather than executable
+HTML. Existing benchmark findings remain in [RESULTS](../RESULTS.md), separate from
+unlabeled interactive questions.
+
+## CLI: import one repository
 
 Choose **one** source. For a local Python directory or Git working tree:
 
@@ -59,7 +117,7 @@ tree is never imported, checked out into an executable workspace, or installed.
 Do not change the local tree during import if a consistent working-tree capture is
 needed. The stored snapshot is independent of subsequent changes to the original.
 
-## Prepare resources and preview a question
+## CLI: prepare resources and preview a question
 
 ```powershell
 uv run --locked --extra dense sacr workbench prepare $repository.repository_id --workspace $workspace
@@ -96,7 +154,7 @@ policy; `ranked_candidates` records the full ranking size. The context uses up t
 `top_k` distinct symbols and the exact UTF-8 byte budget. Scores from different
 retrieval methods are not calibrated against each other.
 
-## Inspect and reopen history
+## CLI: inspect and reopen history
 
 ```powershell
 $run.results[0].hits | Select-Object rank, qualified_name, path, start_line, end_line
@@ -115,12 +173,14 @@ The workspace contains:
 
 ```text
 jobs/<job-id>.json                    Import stages and errors
+web-jobs/<job-id>.json                Browser jobs and persisted progress
 repositories/<repository-id>/       Immutable source bytes and manifest
 resources/<repository-id>/          Index, vectors, graph and preparation status
 runs/<run-id>/run.json               Self-contained five-strategy comparison
 ```
 
-Inspect `jobs` for import errors and the resource manifest for preparation errors.
+Inspect `web-jobs` for browser task progress, `jobs` for import errors and the
+resource manifest for preparation errors.
 Caches bind source identity, parser configuration, encoder/model package versions
 and relation settings. Mismatched or damaged cache files fail validation and are
 not silently overwritten. Preserve the affected workspace for diagnosis and import
@@ -161,13 +221,17 @@ The existing CPU Dense Docker image already contains the required CLI and Git.
 Use [Docker preparation and persistent volumes](docker.md); mount local sources
 read-only and prepare weights explicitly before running previews. The base image
 can run import/index/graph operations but needs Dense dependencies for all five
-strategies. No new Docker port or web dependency is needed for M9a. Existing CI
-collects the new offline tests on Windows and Linux.
+strategies. M9b's browser server is intended to run on the host; container port
+exposure is not added in this checkpoint. Container CI now also checks that the
+installed package contains all three browser assets. Existing CI collects the new offline
+tests on Windows and Linux, and package builds include the local browser assets
+without a frontend build.
 
-M9b will expose these services through a local Python HTTP layer and simple browser
-assets: import status, question entry, side-by-side contexts, source expansion and
-history. M9c will add one shared answering model and an explicit preflight/approval
+M9b exposes the existing services through Python's standard-library HTTP server and
+simple browser assets: import status, question entry, side-by-side contexts, source
+expansion and history. See [M9b validation](../reports/m9b/README.md) for observed
+checks and limits. M9c will add one shared answering model and an explicit preflight/approval
 step for the maximum five generation requests. Any proposed judge requests must
 also be included in that new estimate. Earlier experiment budgets do not authorize
-these calls; no judge is planned by default. Final browser workflow acceptance
-remains outstanding until those stages are implemented and exercised.
+these calls; no judge is planned by default. Final browser **answer-comparison**
+acceptance remains outstanding until M9c is implemented and exercised.

@@ -9,12 +9,13 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M9a — repository import and five-strategy context previews.**
+**Latest checkpoint: M9b — local browser workbench.**
 The new [repository workbench](docs/workbench.md) imports local Python directories
 or public HTTPS Git repositories, freezes source versions, prepares existing indexes,
-vectors and graphs, and saves five-strategy previews and history. Browser comparison
-and new real answers are the next milestones; that expanded user workflow is not
-yet complete. No LLM API calls are made by the current workbench.
+vectors and graphs, and compares five-strategy contexts in a browser. Inspect code
+and source locations, watch preparation state, and reopen saved history. Same-model
+generated answers remain M9c; the complete answer-comparison workflow is not yet
+finished. No LLM API calls are made by the current workbench.
 
 Start with the [project brief](docs/project-brief.md) or follow the
 [five-minute demonstration](docs/demo.md) to inspect the system and saved evidence.
@@ -83,20 +84,18 @@ run from this project root in PowerShell:
 ```powershell
 uv sync --locked --dev --extra dense
 uv run --locked --extra dense sacr prepare-model --cache artifacts/models
-$workspace = "artifacts/workbench"
-$repository = uv run --locked --extra dense sacr workbench import "." --workspace $workspace --json | ConvertFrom-Json
-if ($LASTEXITCODE -ne 0) { throw "Repository import failed." }
-uv run --locked --extra dense sacr workbench prepare $repository.repository_id --workspace $workspace
-if ($LASTEXITCODE -ne 0) { throw "Inspect resource preparation errors before continuing." }
-uv run --locked --extra dense sacr workbench preview $repository.repository_id "How is reciprocal rank fusion implemented?" --workspace $workspace
-uv run --locked --extra dense sacr workbench history --workspace $workspace
+uv run --locked --extra dense sacr workbench serve --workspace artifacts/workbench --model-cache artifacts/models --port 8765
 ```
 
 Dependency/model installation may download files. Subsequent previews load local
 weights and require no API key. They show retrieved evidence, not generated answers.
-The [startup guide](docs/workbench.md) covers pinned public Git URLs, full JSON
-results, stage failures and reopening a saved run with `workbench show RUN_ID`.
-See [M9a validation](reports/m9a/README.md) for the actual local/HTTPS checks.
+Open [the local workbench](http://127.0.0.1:8765/) while the command is running. Enter
+a public HTTPS Git URL or a local path, import and prepare it, select the repository,
+then submit a question. Compare the five columns and expand evidence to inspect
+source lines; use history to reopen a saved comparison without rerunning it.
+The [startup guide](docs/workbench.md) covers browser controls, pinned versions,
+failure recovery and the retained CLI commands. See [M9b validation](reports/m9b/README.md)
+for observed checks; earlier import/preview validation remains in [M9a](reports/m9a/README.md).
 
 ## Minimal fixture quickstart
 
@@ -137,7 +136,7 @@ behavior on synthetic data, not real retrieval or answer quality.
 
 | Task | Guide |
 | --- | --- |
-| Import a repository, preview all five strategies and reopen history | [Workbench startup](docs/workbench.md) |
+| Import a repository, compare five contexts in a browser and reopen history | [Workbench startup](docs/workbench.md) |
 | Present the project and its defensible findings | [Project brief and CV wording](docs/project-brief.md), [offline demonstration](docs/demo.md) |
 | Index your repository and compare five strategies | [Commands and preparation](docs/reproduction.md) |
 | Inspect model, tokenization and fusion settings | [Baseline definitions](docs/baselines.md) |
@@ -213,7 +212,7 @@ flowchart LR
 
 ```text
 src/structure_aware_retrieval/  Parser, indexes, retrievers, evaluation/ and qa/
-  workbench/                  Import, resource preparation, previews and history
+  workbench/                  Import, resources, previews, local server and browser assets
 tests/                        Offline unit/integration tests and small fixtures
 benchmarks/                   Versioned manifests, questions, judgments, provenance
 configs/                      Fixed strategy, ablation and QA configurations

@@ -30,6 +30,26 @@ fixture are included. Runtime UID/GID is **10001:10001**. `/app/artifacts` store
 indexes, source checkouts, model caches and generated reports; always mount it to
 retain outputs. A new Docker named volume inherits the directory's ownership.
 
+## Workbench browser and CLI
+
+M9b's browser workflow is intended to run on the host. Follow the
+[workbench startup guide](workbench.md) and use `sacr workbench serve`; its listener
+binds only `127.0.0.1`, with strict request-origin checks. This checkpoint does not
+add container port publishing, LAN access or a `--host` option. Publishing a Docker
+port alone does not make the loopback listener reachable from a host browser.
+
+The images retain all workbench CLI commands. Rebuild the chosen target after
+source changes, use the Dense image for all five strategies, and mount the same
+artifact volume for import, preparation, preview and history. Prepare model weights
+explicitly with `prepare-model` before a preview. Public HTTPS imports require
+network access; local repository mounts can be read-only. The CLI workflow is in
+[the workbench guide](workbench.md#cli-import-one-repository).
+
+Browser assets ship inside the Python package and need no Node build or dependency
+change. Existing image source copying and offline CI collection include the M9b
+code/tests. [M9b validation](../reports/m9b/README.md) records checks actually run;
+historical container measurements below retain their original checkpoint scope.
+
 ## Offline smoke
 
 ```text

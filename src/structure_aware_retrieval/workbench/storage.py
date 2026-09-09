@@ -3,7 +3,10 @@
 import json
 import os
 import tempfile
+import threading
 from pathlib import Path, PurePosixPath
+
+_STATE_LOCK = threading.RLock()
 
 
 def _reject_links(path: Path) -> None:
@@ -37,6 +40,13 @@ def safe_path(workspace: Path, relative: str) -> Path:
 
 
 def write_json(workspace: Path, relative: str, value: object) -> None:
+    # Windows readers hold handles that prevent os.replace. Serialize the local
+    # service's reads and atomic publications without retrying any operation.
+    with _STATE_LOCK:
+        _write_json(workspace, relative, value)
+
+
+def _write_json(workspace: Path, relative: str, value: object) -> None:
     target = safe_path(workspace, relative)
     data = json.dumps(value, indent=2, ensure_ascii=True, allow_nan=False) + "\n"
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -57,6 +67,11 @@ def write_json(workspace: Path, relative: str, value: object) -> None:
 
 
 def read_json(workspace: Path, relative: str) -> dict:
+    with _STATE_LOCK:
+        return _read_json(workspace, relative)
+
+
+def _read_json(workspace: Path, relative: str) -> dict:
     target = safe_path(workspace, relative)
     with target.open("rb") as handle:
         data = handle.read(128 * 1024 * 1024 + 1)

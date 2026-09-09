@@ -17,6 +17,8 @@ import subprocess
 import tempfile
 import time
 import uuid
+from collections.abc import Callable
+from copy import deepcopy
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from urllib.parse import urlsplit
@@ -566,7 +568,13 @@ def load_repository(workspace: Path, repository_id: str) -> dict:
     return manifest
 
 
-def import_repository(source: str, workspace: Path, *, ref: str = "HEAD") -> dict:
+def import_repository(
+    source: str,
+    workspace: Path,
+    *,
+    ref: str = "HEAD",
+    on_progress: Callable[[dict], None] | None = None,
+) -> dict:
     """Import once, retaining progress/errors and never replacing a cached snapshot."""
     workspace = workspace_root(workspace, create=True)
     job_id = uuid.uuid4().hex
@@ -574,13 +582,15 @@ def import_repository(source: str, workspace: Path, *, ref: str = "HEAD") -> dic
     staging = _inside(workspace, f".staging/{job_id}")
     job = {"schema_version": 1, "job_id": job_id, "status": "created", "events": []}
 
-    def progress(status: str, **fields: object) -> None:
+    def progress(status: str, *, notify: bool = True, **fields: object) -> None:
         job.update(status=status, **fields)
         job["events"].append({"status": status, "at": datetime.now(UTC).isoformat()})
         _write_json(job_path, job)
+        if notify and on_progress is not None:
+            on_progress(deepcopy(job))
 
-    progress("validating")
     try:
+        progress("validating")
         _validate_ref(ref)
         if not isinstance(source, str) or not source or any(ord(char) < 32 for char in source):
             raise ValueError("Repository source must be a local directory or public HTTPS Git URL")
@@ -664,7 +674,11 @@ def import_repository(source: str, workspace: Path, *, ref: str = "HEAD") -> dic
         progress("failed", error=message)
         raise ValueError(message) from error
     except BaseException:
-        progress("interrupted", error="Repository import was interrupted before completion")
+        progress(
+            "interrupted",
+            notify=False,
+            error="Repository import was interrupted before completion",
+        )
         raise
     finally:
         # This owned staging tree is the only recursive removal target. Validate

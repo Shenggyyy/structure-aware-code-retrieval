@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-09",
+  "checkpoint": "m9b-browser-workbench",
+  "source_base_commit": "3c65dfe9ade7e0816536d58c52c1ace38111e120",
+  "changes_committed": false,
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "new_llm_api_calls": 0,
+  "new_model_downloads": 0,
+  "new_benchmark_experiments": 0,
+  "full_suite": {
+    "tests": 1093,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "passed": 1091,
+    "elapsed_seconds": 569.224,
+    "command": "uv run --locked --offline pytest --cov --cov-report=term-missing --cov-report=json:artifacts/m9b-validation/coverage.json --junitxml=artifacts/m9b-validation/tests.xml",
+    "note": "Collected before final recovery-detail synchronization fix; that final backend was separately verified by all 60 HTTP tests below. The two skips require Windows symlink privileges."
+  },
+  "final_http_regression": {
+    "tests": 60,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 60,
+    "elapsed_seconds": 14.856,
+    "command": "uv run --locked --offline pytest tests/workbench/test_server.py --junitxml=artifacts/m9b-validation/http-final.xml -q",
+    "note": "Includes two additional cases added after broad-suite collection; broad and targeted counts overlap and must not be added as unique tests."
+  },
+  "validation_output_sha256": {
+    "tests.xml": "e80cba38b30f3fbe4a0bc63a9e96bfa73bb5e980e382cc03964d730cecc30c16",
+    "http-final.xml": "b604a3e7343c3757c0c778e1968eeae9d696588a238fb8fc0fe3a954f7f41675",
+    "coverage.json": "40a1224bda360fe1afd13831b9f6dead93b1e550f6c5c919986c5ca0e58ffea7"
+  },
+  "lint": "Ruff passed",
+  "format": "Ruff passed; 239 files in the final check",
+  "javascript_syntax": "node --check passed",
+  "distribution_build": "uv build --offline passed; packaged server.py and all three browser assets match source bytes",
+  "published_overview": "45 saved retrieval runs validated with --check; reports unchanged",
+  "docker_builds_rerun": false,
+  "container_ci_change": "Verify installed HTML/CSS/JavaScript assets for both image targets",
+  "remote_ci": "Pending owner commit and push",
+  "browser_observations": {
+    "public_https_import_and_auto_preparation": true,
+    "refresh_restores_running_preparation": true,
+    "five_real_encoder_previews": true,
+    "source_path_and_lines_295_to_310_visible": true,
+    "structure_call_provenance_line_297_visible": true,
+    "history_filter_and_reopen": true,
+    "same_run_after_server_restart": true,
+    "reopened_mode_labels_saved_history": true,
+    "local_source_with_top_level_exception_not_executed": true,
+    "question_markup_rendered_as_text_without_img_node": true,
+    "source_markup_rendered_as_text_without_script_node": true,
+    "no_injected_javascript_dialog": true,
+    "missing_model_retains_bm25_and_four_failed_strategies": true
+  },
+  "browser_runs": [
+    {
+      "case": "public_requests",
+      "run_id": "cc4c1c7c20ad48558b06af28d89ece64",
+      "repository_id": "33a3542ceea8914fccb5da7ca453076854640649a5b9db82c2ec86fae2dd4dd1",
+      "source_kind": "https",
+      "source_commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+      "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+      "question": "How are request URLs prepared?",
+      "mode": "context_preview",
+      "status": "preview_complete",
+      "encoder_mode": "real_encoder",
+      "model_spec": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "context_top_k": 10,
+      "max_context_bytes": 16000,
+      "strategy_statuses": {
+        "bm25": "preview",
+        "dense": "preview",
+        "hybrid": "preview",
+        "symbol": "preview",
+        "structure": "preview"
+      },
+      "saved_evidence_counts": {
+        "bm25": 10,
+        "dense": 10,
+        "hybrid": 10,
+        "symbol": 10,
+        "structure": 10
+      },
+      "api_calls": 0,
+      "benchmark_metrics": null,
+      "run_file_sha256": "b6082a21b9e81235ed3955c36a459f3d033df61622d850a288b4d8095ce045b8"
+    },
+    {
+      "case": "local_markup_fixture",
+      "run_id": "e10a90b254fb4b5aaa311603974756ee",
+      "repository_id": "0249f20f65e67839157a9f7b9e5cf22aa60105ca6021610eae472f91c89bec01",
+      "source_kind": "local",
+      "source_commit": "3c65dfe9ade7e0816536d58c52c1ace38111e120",
+      "snapshot_id": "36b419c8e528ac4adb0db627def332d5ba56adf884d7ac24d4528faf35afb297",
+      "question": "How does calculate_checksum work? <img src=x onerror=alert('question-markup')>",
+      "mode": "context_preview",
+      "status": "preview_complete",
+      "encoder_mode": "real_encoder",
+      "model_spec": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "context_top_k": 10,
+      "max_context_bytes": 16000,
+      "strategy_statuses": {
+        "bm25": "preview",
+        "dense": "preview",
+        "hybrid": "preview",
+        "symbol": "preview",
+        "structure": "preview"
+      },
+      "saved_evidence_counts": {
+        "bm25": 2,
+        "dense": 2,
+        "hybrid": 2,
+        "symbol": 2,
+        "structure": 2
+      },
+      "api_calls": 0,
+      "benchmark_metrics": null,
+      "run_file_sha256": "f9a41f089e0d2128613d7af82029118e77cdd8409f4364cde8b6ac703fa80b50"
+    },
+    {
+      "case": "missing_model",
+      "run_id": "ad59aec087a943faa4e4d3995c564bd9",
+      "repository_id": "5cc71ccbf2dc439071adf0a181cde0ab183c02e3227e00dc9c37b33b88262ad0",
+      "source_kind": "local",
+      "source_commit": "3c65dfe9ade7e0816536d58c52c1ace38111e120",
+      "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+      "question": "How is calculate_checksum implemented?",
+      "mode": "context_preview",
+      "status": "partial",
+      "encoder_mode": "real_encoder",
+      "model_spec": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1"
+      },
+      "context_top_k": 10,
+      "max_context_bytes": 16000,
+      "strategy_statuses": {
+        "bm25": "preview",
+        "dense": "failed",
+        "hybrid": "failed",
+        "symbol": "failed",
+        "structure": "failed"
+      },
+      "saved_evidence_counts": {
+        "bm25": 3,
+        "dense": 0,
+        "hybrid": 0,
+        "symbol": 0,
+        "structure": 0
+      },
+      "api_calls": 0,
+      "benchmark_metrics": null,
+      "run_file_sha256": "6cc81a72e662bb367bfc15d528941dcb25e32ed2c805832f9a66bfa756939833"
+    }
+  ],
+  "fixed_validation_failures": [
+    "Windows atomic JSON replacement collided with service polling readers; serialize local state reads/writes.",
+    "Windows early rejected POST could reset the connection with unread data; use bounded discard.",
+    "Initial progress callbacks and shutdown could leave running markers or release the workspace early; guard interruptions and retain lock until worker exit.",
+    "Already interrupted/finished linked archive progress could remain stale on restart; synchronize detail without rewriting completed archive bytes."
+  ],
+  "acceptance": {
+    "browser_import_prepare_five_contexts_source_history": "passed",
+    "same_model_generated_answers": "pending M9c and new model/request/budget approval",
+    "semantic_judge_enabled": false
+  },
+  "interpretation": "Workflow checks on unlabeled inputs, not new retrieval quality or LLM accuracy evidence. Synthetic fixture and missing-model checks are separate from public Requests source. Provider tokens, generation latency, and costs remain unknown."
+}

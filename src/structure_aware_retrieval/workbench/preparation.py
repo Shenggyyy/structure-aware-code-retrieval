@@ -106,6 +106,7 @@ def prepare_repository(
     *,
     model_cache: Path = Path("artifacts/models"),
     encoder: Encoder | None = None,
+    on_progress: Callable[[dict], None] | None = None,
 ) -> dict:
     """Prepare each resource independently; unavailable local weights yield a partial result.
 
@@ -138,7 +139,7 @@ def prepare_repository(
         },
     }
 
-    def save() -> None:
+    def save(*, notify: bool = True) -> None:
         record["resource_id"] = stable_id(
             repository_id,
             record["index_config"],
@@ -149,6 +150,8 @@ def prepare_repository(
         )
         record["fingerprint"] = _fingerprint(record)
         write_json(root, relative_manifest, record)
+        if notify and on_progress is not None:
+            on_progress(deepcopy(record))
 
     def run_stage(stage: str, operation: Callable[[], tuple[str, str, str]]) -> None:
         record["stages"][stage]["status"] = "running"
@@ -166,7 +169,7 @@ def prepare_repository(
             )
         finally:
             record["stages"][stage]["elapsed_ms"] = (time.perf_counter() - start) * 1000
-            save()
+        save()
 
     index = None
 
@@ -244,8 +247,8 @@ def prepare_repository(
         )
         return status, relative, checksum
 
-    save()
     try:
+        save()
         run_stage("index", prepare_index)
         run_stage("vectors", prepare_vectors)
         run_stage("graph", prepare_graph)
@@ -259,7 +262,7 @@ def prepare_repository(
                     error=f"{type(error).__name__}: Resource preparation interrupted",
                 )
         record["status"] = "interrupted"
-        save()
+        save(notify=False)
         raise
     ready = sum(record["stages"][stage]["status"] in _READY for stage in _STAGES)
     record["status"] = "ready" if ready == len(_STAGES) else "partial" if ready else "failed"

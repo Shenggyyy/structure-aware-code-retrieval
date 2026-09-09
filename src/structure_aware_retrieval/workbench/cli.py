@@ -8,7 +8,7 @@ from typing import Annotated
 import typer
 
 app = typer.Typer(
-    help="Import a Python repository and compare five retrieval contexts; no model API calls.",
+    help="Import repositories and compare five contexts in the CLI or browser; no model API calls.",
     add_completion=False,
     rich_markup_mode=None,
     no_args_is_help=True,
@@ -41,6 +41,25 @@ def _comparison(record: dict, workspace: Path) -> None:
         suffix = f"; {message}" if message else ""
         typer.echo(f"{row['strategy']}: {row['status']}; {len(row['hits'])} saved hits{suffix}")
     typer.echo(f"Saved comparison: {workspace.resolve() / 'runs' / record['run_id'] / 'run.json'}")
+
+
+@app.command("serve")
+def serve_browser(
+    workspace: Annotated[Path, typer.Option(help="Local workbench directory")] = Path(
+        "artifacts/workbench"
+    ),
+    model_cache: Annotated[
+        Path, typer.Option(help="Already prepared local embedding model")
+    ] = Path("artifacts/models"),
+    port: Annotated[int, typer.Option(min=1, max=65535, help="Local HTTP port")] = 8765,
+) -> None:
+    """Open a local-only browser workflow for import, context comparison and history."""
+    from structure_aware_retrieval.workbench.server import serve
+
+    try:
+        serve(workspace, model_cache=model_cache, port=port)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        _failure(error)
 
 
 @app.command("import")

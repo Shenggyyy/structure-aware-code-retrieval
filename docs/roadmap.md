@@ -57,11 +57,12 @@ Current acceptance uses automatic checks and explicitly
 reported LLM assessment; independent human review is optional. See [status](status.md).
 Remote CI runs after the owner pushes; local checks do not establish remote CI status.
 
-The owner subsequently requested a complete interactive workflow. M9a now supplies
+The owner subsequently requested a complete interactive workflow. M9a supplies
 the CLI foundation: source import, reusable resources, five context previews and
-saved history. Browser operation and same-model generated answers remain M9b/M9c.
+saved history. M9b adds local browser operation; same-model generated answers remain M9c.
 This new product scope does not revise the completed research evidence or treat
-context previews as generated answers. See [M9a validation](../reports/m9a/README.md).
+context previews as generated answers. See [M9a validation](../reports/m9a/README.md)
+and [M9b validation](../reports/m9b/README.md).
 
 ### M6 delivery sequence
 
@@ -221,11 +222,15 @@ unlabeled unless separately included in a versioned evaluation dataset.
   Acceptance checks and observed runs are in the
   [M9a record](../reports/m9a/README.md). Suggested commit:
   `Add repository workbench imports and five-strategy previews`.
-- **M9b — Browser workflow, pending:** expose the same services through a local
-  browser interface. Show repository/preparation state, accept a question, compare
-  the five strategy contexts side by side, surface failures and reopen saved
-  history. Exercise the complete browser flow on a real imported repository and
-  retain the CLI path. This checkpoint does not require paid generation.
+- **M9b — Browser workflow, implemented:** expose the same services through a
+  loopback-only standard-library HTTP server and local HTML/CSS/JavaScript. Show
+  import/preparation state, accept a question, compare the five strategy contexts
+  side by side, expand source lines, surface failures and reopen saved history.
+  Run one background job at a time and retain state without automatic resume.
+  Keep the CLI path and avoid model downloads or API calls from the browser.
+  Acceptance covers the browser flow, offline server tests, packaged assets and
+  existing checks; observed outcomes are in [M9b validation](../reports/m9b/README.md).
+  Suggested commit: `Add local browser workflow for five-strategy context comparison`.
 - **M9c — Same-model answer comparison, pending:** freeze one answer-model
   configuration and shared generation limits across the five retrieval contexts.
   Produce a reviewable estimate for generation and any planned judging, with a
@@ -236,7 +241,7 @@ unlabeled unless separately included in a versioned evaluation dataset.
   never infer true accuracy from model scores or valid citation locations.
 
 The original research deliverables remain complete. The new full product workflow
-requires M9b and M9c as well as the delivered M9a foundation; a CLI preview alone
+requires M9c as well as the delivered M9a/M9b foundation; a browser context preview
 does not satisfy browser-based answer comparison. Complete each checkpoint,
 validate existing behavior and stop for the owner's commit/push before proceeding.
 

@@ -3,6 +3,8 @@
 import hashlib
 import re
 import time
+from collections.abc import Callable
+from copy import deepcopy
 from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
@@ -81,6 +83,7 @@ def preview_question(
     top_k: int = 10,
     max_context_bytes: int = 16000,
     encoder: Encoder | None = None,
+    on_progress: Callable[[dict], None] | None = None,
 ) -> dict:
     """Persist all five outcomes; an injected encoder is explicitly labeled as a fixture."""
     if not isinstance(question, str) or not question.strip():
@@ -149,8 +152,14 @@ def preview_question(
             for strategy in STRATEGIES
         ],
     }
-    _save(root, record)
+
+    def save(*, notify: bool = True) -> None:
+        _save(root, record)
+        if notify and on_progress is not None:
+            on_progress(deepcopy(record))
+
     try:
+        save()
         if encoder is None and resources.get("vectors") is not None:
             load_started = time.perf_counter()
             try:
@@ -161,10 +170,10 @@ def preview_question(
                 record["shared_setup"]["encoder_load_ms"] = (
                     time.perf_counter() - load_started
                 ) * 1000
-            _save(root, record)
+            save()
         for row in record["results"]:
             row["status"] = "running"
-            _save(root, record)
+            save()
             row_started = time.perf_counter()
             try:
                 index = load_index(_artifact(root, resources, "index"))
@@ -209,7 +218,7 @@ def preview_question(
                 row["status"] = "failed"
                 row["error"] = _error(error)
             row["timing_ms"]["strategy_total"] = (time.perf_counter() - row_started) * 1000
-            _save(root, record)
+            save()
     except BaseException:
         for row in record["results"]:
             if row["status"] == "running":
@@ -217,13 +226,13 @@ def preview_question(
         record["status"] = "interrupted"
         record["finished_at"] = _now()
         record["elapsed_ms"] = (time.perf_counter() - started) * 1000
-        _save(root, record)
+        save(notify=False)
         raise
     failures = sum(row["status"] == "failed" for row in record["results"])
     record["status"] = "failed" if failures == 5 else "partial" if failures else "preview_complete"
     record["elapsed_ms"] = (time.perf_counter() - started) * 1000
     record["finished_at"] = _now()
-    _save(root, record)
+    save()
     return record
 
 

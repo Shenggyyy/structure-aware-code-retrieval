@@ -10,7 +10,9 @@ For the new end-user flow, start with [Repository Workbench](workbench.md): impo
 local directory or pinned public HTTPS Git repository, prepare existing resources,
 run five offline context previews and reopen saved comparisons. Its workspace
 reuses validated resources; the experiment commands below retain their separate
-output-preservation rules. Browser interaction and new real answers are later stages.
+output-preservation rules. Run `uv run --locked --extra dense sacr workbench serve`
+and open the printed loopback URL for the browser interface. Real answer generation
+remains a later stage requiring a new model and budget approval.
 
 ## Install and verify locally
 
