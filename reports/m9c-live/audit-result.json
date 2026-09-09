@@ -1,0 +1,132 @@
+{
+  "audit_status": "passed",
+  "scope": "offline integrity, citation identity, accounting; no semantic grading",
+  "plan_id": "e74fbce9735446779c6917e42059da57",
+  "run_id": "46384c67593d438ea2009bf537f36667",
+  "run_status": "generation_complete",
+  "source_commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "api_calls": 5,
+  "judge_calls": 0,
+  "approved_budget_usd": 0.1,
+  "plan_estimated_cost_usd": 0.08499975,
+  "usage": {
+    "tokens": {
+      "input_tokens": 15046,
+      "output_tokens": 1131,
+      "total_tokens": 16177,
+      "cached_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "observed_token_subtotals": {
+      "input_tokens": 15046,
+      "output_tokens": 1131,
+      "total_tokens": 16177,
+      "cached_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "calls_missing_token_counts": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "cached_tokens": 0,
+      "reasoning_tokens": 0
+    },
+    "cost_usd_at_frozen_uncached_rates": 0.016374,
+    "cost_note": "Projection from reported usage at frozen uncached rates; not an invoice. Unknown usage makes total cost unavailable."
+  },
+  "results": [
+    {
+      "strategy": "bm25",
+      "status": "answered",
+      "execution_state": "returned",
+      "tokens": {
+        "input": 2365,
+        "output": 170,
+        "total": 2535,
+        "cached": 0,
+        "reasoning": 0
+      },
+      "estimated_cost_usd": 0.00253875,
+      "generation_ms": 3676.1806999566033,
+      "citation_ids_valid": true,
+      "provider_model": "gpt-5.4-mini-2026-03-17",
+      "raw_response_saved": true
+    },
+    {
+      "strategy": "dense",
+      "status": "answered",
+      "execution_state": "returned",
+      "tokens": {
+        "input": 3876,
+        "output": 249,
+        "total": 4125,
+        "cached": 0,
+        "reasoning": 0
+      },
+      "estimated_cost_usd": 0.0040275,
+      "generation_ms": 2912.523999926634,
+      "citation_ids_valid": true,
+      "provider_model": "gpt-5.4-mini-2026-03-17",
+      "raw_response_saved": true
+    },
+    {
+      "strategy": "hybrid",
+      "status": "answered",
+      "execution_state": "returned",
+      "tokens": {
+        "input": 2735,
+        "output": 237,
+        "total": 2972,
+        "cached": 0,
+        "reasoning": 0
+      },
+      "estimated_cost_usd": 0.00311775,
+      "generation_ms": 2713.2624000078067,
+      "citation_ids_valid": true,
+      "provider_model": "gpt-5.4-mini-2026-03-17",
+      "raw_response_saved": true
+    },
+    {
+      "strategy": "symbol",
+      "status": "answered",
+      "execution_state": "returned",
+      "tokens": {
+        "input": 3335,
+        "output": 203,
+        "total": 3538,
+        "cached": 0,
+        "reasoning": 0
+      },
+      "estimated_cost_usd": 0.00341475,
+      "generation_ms": 2949.235500069335,
+      "citation_ids_valid": true,
+      "provider_model": "gpt-5.4-mini-2026-03-17",
+      "raw_response_saved": true
+    },
+    {
+      "strategy": "structure",
+      "status": "answered",
+      "execution_state": "returned",
+      "tokens": {
+        "input": 2735,
+        "output": 272,
+        "total": 3007,
+        "cached": 0,
+        "reasoning": 0
+      },
+      "estimated_cost_usd": 0.00327525,
+      "generation_ms": 3247.540600015782,
+      "citation_ids_valid": true,
+      "provider_model": "gpt-5.4-mini-2026-03-17",
+      "raw_response_saved": true
+    }
+  ],
+  "original_preview_fingerprint": "ca995a60afcd062829404e7920419bf0eff982b775b5fe37bda61c9cd68ac69c",
+  "run_file_sha256": "5b7ab03ae392d8c72dcfba90c917d57205edc91b70404642e7f9abe3dbb79d3e",
+  "limitations": [
+    "No semantic answer correctness measured",
+    "Frozen uncached-rate usage projection is not an invoice",
+    "One question is a workflow validation, not a strategy benchmark"
+  ]
+}

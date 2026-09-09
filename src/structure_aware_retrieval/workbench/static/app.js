@@ -234,6 +234,7 @@ function renderPlan(plan) {
   $("plan-note").textContent = `方案 ${plan.plan_id} · 预览 ${plan.preview_run_id}。UTF-8 字节与请求格式开销用于保守估算，输出按上限计费；这不是精确 token 计数或账单。没有安排 LLM 评审。`;
   $("key-status").textContent = state.generation?.key_ready ? "服务端已检测到 OPENAI_API_KEY；密钥不会发送到浏览器。" : "服务端尚未检测到 OPENAI_API_KEY。请在启动服务的终端配置环境变量后重启服务；不要在页面或聊天中填写密钥。";
   $("generation-confirm-label").textContent = `确认使用 ${plan.model}，最多 ${plan.request_limit} 次生成、${plan.judge_calls} 次评审，并按填写的预算执行本方案。`;
+  history.replaceState(null, "", `#plan=${plan.plan_id}`);
   updateGenerationButton();
 }
 async function prepareGenerationPlan() {
@@ -415,6 +416,17 @@ async function openRun(id, current = false) {
   $("question").value = run.question;
   $("results-section").scrollIntoView({ behavior: "smooth", block: "start" });
 }
+async function openPlan(id) {
+  if (!/^[0-9a-f]{32}$/.test(id)) throw new Error("无效的生成方案 ID");
+  const plan = await api(`/api/generation-plans/${id}`);
+  await openRun(plan.preview_run_id);
+  renderPlan(plan);
+  $("generation-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+async function openSavedLocation() {
+  const match = location.hash.match(/^#(run|plan)=([0-9a-f]{32})$/);
+  if (match) await (match[1] === "plan" ? openPlan(match[2]) : openRun(match[2]));
+}
 function renderHistory() {
   const query = $("history-search").value.toLowerCase();
   const records = state.history.filter((row) => `${row.question || ""} ${row.run_id}`.toLowerCase().includes(query));
@@ -478,8 +490,7 @@ $("question-form").addEventListener("submit", (event) => {
   if (!state.busy) submit("/api/preview", { repository_id: $("repository-select").value, question: $("question").value, top_k: Number($("top-k").value), max_context_bytes: Number($("context-bytes").value) });
 });
 window.addEventListener("hashchange", () => {
-  const match = location.hash.match(/^#run=([0-9a-f]{32})$/);
-  if (match) openRun(match[1]).catch((error) => notice(error.message));
+  openSavedLocation().catch((error) => notice(error.message));
 });
 async function start() {
   setBusy(true);
@@ -492,8 +503,7 @@ async function start() {
     const active = jobs.find((job) => !finished(job.status));
     if (active) { setBusy(true); pollJob(active.job_id); }
     else { setBusy(false); if (jobs.length) renderJob(jobs[0]); }
-    const match = location.hash.match(/^#run=([0-9a-f]{32})$/);
-    if (match) await openRun(match[1]);
+    await openSavedLocation();
   } catch (error) { notice(`工作台连接失败：${error.message}。请确认本机服务仍在运行，然后刷新页面。`); }
 }
 start();

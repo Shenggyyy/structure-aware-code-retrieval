@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-09",
+  "checkpoint": "m9c-live-workbench-acceptance",
+  "source_base_commit": "d36d7cf75aa09ac297130a9bb7e4e67cf475c7dc",
+  "changes_committed": false,
+  "scope": "One owner-approved Requests question; five real answers; no semantic assessment",
+  "new_generation_api_calls": 5,
+  "new_judge_api_calls": 0,
+  "automatic_retries": 0,
+  "unknown_outcomes": 0,
+  "new_benchmark_experiments": 0,
+  "approval_record": "approval.json",
+  "archive_manifest": "manifest.json",
+  "offline_audit": "audit-result.json",
+  "plan_id": "e74fbce9735446779c6917e42059da57",
+  "preview_run_id": "cc4c1c7c20ad48558b06af28d89ece64",
+  "run_id": "46384c67593d438ea2009bf537f36667",
+  "tokens": {
+    "input": 15046,
+    "output": 1131,
+    "total": 16177
+  },
+  "usage_cost_estimate_usd": 0.016374,
+  "cost_is_invoice": false,
+  "budget_usd": 0.1,
+  "focused_tests": [
+    {
+      "command": "uv run --locked --offline pytest tests/workbench/test_server_generation.py -q",
+      "passed": 32,
+      "failed": 0,
+      "elapsed_seconds": 17.62
+    },
+    {
+      "command": "uv run --locked --offline pytest tests/workbench/test_live_archive.py -q",
+      "passed": 2,
+      "failed": 0,
+      "elapsed_seconds": 0.77
+    }
+  ],
+  "full_suite_this_follow_up": "not_repeated; prior implementation baseline is reports/m9c/validation.json",
+  "checks": {
+    "ruff": "passed",
+    "ruff_format": "passed; 246 files",
+    "javascript_syntax": "passed",
+    "retrieval_overview": "passed; 45 validated saved runs unchanged",
+    "wheel_and_sdist": "passed",
+    "wheel_generation_module_and_static_assets": "passed; packaged app.js byte-identical",
+    "portable_replay_cli_and_read_only_audit": "passed without source resources or model calls",
+    "docker_rebuild": "not_run_locally",
+    "remote_ci": "pending_owner_push"
+  },
+  "browser": {
+    "provider": "actual OpenAI Responses API; no injected answers",
+    "single_paid_submission": true,
+    "checks": [
+      "Reopen exact saved #plan URL, including reload; paid consent resets",
+      "Five answered strategy cards with real usage, timings and costs",
+      "Representative citation from every strategy opens saved code and line numbers",
+      "Filter history by run ID and reopen as saved historical answers",
+      "Restart service and reload: same five outcomes and historical call count",
+      "Fresh archive-only workspace: all five historical answers and Dense S2 source lines 409-481 visible without source checkout or model resources"
+    ],
+    "citation_examples": {
+      "bm25": "S8 src/requests/models.py:313-333",
+      "dense": "S2 src/requests/models.py:409-481",
+      "hybrid": "S7 src/requests/models.py:295-310",
+      "symbol": "S1 src/requests/models.py:313-333",
+      "structure": "S1 src/requests/models.py:295-310"
+    }
+  },
+  "limitations": [
+    "One unlabeled question is user-workflow acceptance, not a retrieval or answer-quality benchmark",
+    "Automatic citation identity and source-location checks do not measure semantic support",
+    "Retrieval timings are preserved from the parent preview, not rerun during generation",
+    "No new paid questions are authorized by this completed scope"
+  ]
+}

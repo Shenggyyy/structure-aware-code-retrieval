@@ -9,15 +9,23 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M9c — explicitly approved same-model answer workflow.**
+**Latest checkpoint: M9c — real same-model answers in the repository workbench.**
 The new [repository workbench](docs/workbench.md) imports local Python directories
 or public HTTPS Git repositories, freezes source versions, prepares existing indexes,
 vectors and graphs, and compares five-strategy contexts in a browser. Inspect code
 and source locations, watch preparation state, and reopen saved history. The
 workbench now prepares a frozen generation plan and total estimate, then requires
 explicit model and budget confirmation before answering from the five contexts.
-This implementation checkpoint uses offline tests, with **no new LLM API calls**.
-The separately approved M9c live acceptance follow-up has not been completed.
+The [separately approved live run](reports/m9c-live/README.md) returned five answers
+from five generation requests, with zero judge calls, retries or unknown outcomes.
+Reported usage was 15,046 input and 1,131 output tokens, implying **US$0.016374** at
+the plan's frozen uncached rates, under the approved US$0.10 budget. This is a cost
+estimate, not an invoice. Browser checks verified all five answers, representative
+citations for each strategy, history reopening and unchanged results after server
+restart. **The scoped local import-to-answer-comparison workflow is implemented and
+observed.** One unlabeled question establishes no strategy-quality ranking or
+answer-correctness rate. See [acceptance status](docs/status.md) and
+[M9c implementation](reports/m9c/README.md) for the preceding offline checkpoint.
 
 Start with the [project brief](docs/project-brief.md) or follow the
 [five-minute demonstration](docs/demo.md) to inspect the system and saved evidence.
@@ -102,7 +110,8 @@ The server reads `OPENAI_API_KEY` only from its local environment when executing
 approved plan. Do not paste keys into the browser or commit them.
 The [startup guide](docs/workbench.md) covers browser controls, pinned versions,
 generation approval, failure recovery and the retained CLI commands. See
-[M9c validation](reports/m9c/README.md) for the current offline implementation checks;
+[M9c live evidence](reports/m9c-live/README.md) for the approved generation run and
+[M9c validation](reports/m9c/README.md) for the preceding offline implementation checks;
 earlier browser/import validation remains in [M9b](reports/m9b/README.md) and
 [M9a](reports/m9a/README.md).
 

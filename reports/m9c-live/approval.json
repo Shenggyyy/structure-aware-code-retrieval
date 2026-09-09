@@ -1,0 +1,16 @@
+{
+  "approved_on": "2026-09-09",
+  "approved_by": "repository owner in this conversation",
+  "plan_id": "e74fbce9735446779c6917e42059da57",
+  "plan_fingerprint": "aaca5e28861cfa28179cbcdbea8b6574e9a6db72169299d3744f96ff803dd7f4",
+  "question": "How are request URLs prepared?",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "generation_request_limit": 5,
+  "judge_request_limit": 0,
+  "max_output_tokens_per_request": 1024,
+  "budget_usd": 0.1,
+  "conservative_estimate_usd": 0.08499975,
+  "consent": "Explicit owner approval before the single browser submission",
+  "retry_policy": "No automatic retry; no unknown outcome was retried",
+  "web_job_id": "d23f460ded9c49c1a5089f301874672a"
+}

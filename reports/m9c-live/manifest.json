@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "workbench_live_acceptance_archive",
+  "plan_id": "e74fbce9735446779c6917e42059da57",
+  "run_id": "46384c67593d438ea2009bf537f36667",
+  "preview_run_id": "cc4c1c7c20ad48558b06af28d89ece64",
+  "source_base_commit": "d36d7cf75aa09ac297130a9bb7e4e67cf475c7dc",
+  "source": {
+    "kind": "https",
+    "location": "https://github.com/psf/requests.git",
+    "requested_ref": "0e322af87745eff34caffe4df68456ebc20d9068",
+    "commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+    "working_tree": false,
+    "dirty": false
+  },
+  "plan_fingerprint": "aaca5e28861cfa28179cbcdbea8b6574e9a6db72169299d3744f96ff803dd7f4",
+  "archive": {
+    "path": "run.zip",
+    "bytes": 155301,
+    "sha256": "323c0e5db15e3ff64c46034bf11c297d55c71820bd2ead82f69cbe16b2b75e9c"
+  },
+  "members": {
+    "generation-plans/e74fbce9735446779c6917e42059da57/execution/claim.json": {
+      "bytes": 334,
+      "sha256": "07f89f6442b32c12f6d65b9afa9d471303798e677a4840b0c78398d0e45a4e47"
+    },
+    "generation-plans/e74fbce9735446779c6917e42059da57/plan.json": {
+      "bytes": 388612,
+      "sha256": "8a56578cc52d195713b8a50a23ef9abd55ad4856b7eccd1c7c22f48f8637e95d"
+    },
+    "runs/46384c67593d438ea2009bf537f36667/run.json": {
+      "bytes": 356779,
+      "sha256": "5b7ab03ae392d8c72dcfba90c917d57205edc91b70404642e7f9abe3dbb79d3e"
+    },
+    "runs/cc4c1c7c20ad48558b06af28d89ece64/run.json": {
+      "bytes": 309848,
+      "sha256": "b6082a21b9e81235ed3955c36a459f3d033df61622d850a288b4d8095ce045b8"
+    },
+    "upstream-licenses/requests-LICENSE": {
+      "bytes": 10317,
+      "sha256": "88046bf22d5b4f4b8cc85079ae6aae5424a3a1999db952ed152828ff325b2c6d"
+    },
+    "upstream-licenses/requests-NOTICE": {
+      "bytes": 40,
+      "sha256": "8c7a3a90f8ca49f813f75e75ceb20aa4b488c57f4aa72c872771f22558c837d9"
+    }
+  },
+  "replay": "Reopen the saved run offline; no generation or retrieval replay is required.",
+  "execution_claim_preserved": true,
+  "upstream_license_source": "Requests at the exact source commit; unchanged LICENSE and NOTICE"
+}

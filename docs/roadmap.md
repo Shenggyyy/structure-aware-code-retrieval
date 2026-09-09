@@ -60,11 +60,14 @@ Remote CI runs after the owner pushes; local checks do not establish remote CI s
 The owner subsequently requested a complete interactive workflow. M9a supplies
 the CLI foundation: source import, reusable resources, five context previews and
 saved history. M9b adds local browser operation; M9c implements explicit approval
-and same-model answers with offline validation. M9c live acceptance remains pending.
+and same-model answers with offline validation. The separately approved M9c live run
+returned five answers and passed browser citation, history and restart acceptance.
 This new product scope does not revise the completed research evidence or treat
 context previews as generated answers. See [M9a validation](../reports/m9a/README.md)
 and [M9b validation](../reports/m9b/README.md). The
 [M9c record](../reports/m9c/README.md) covers implementation without new API calls.
+The [M9c live record](../reports/m9c-live/README.md) preserves the five approved
+generations separately, without altering earlier experiments.
 
 ### M6 delivery sequence
 
@@ -244,20 +247,23 @@ unlabeled unless separately included in a versioned evaluation dataset.
   actions remain previews. Tests use offline providers with explicit test labels;
   they do not establish live model performance. See [M9c](../reports/m9c/README.md).
   Suggested commit: `Add approved same-model answers to the repository workbench`.
-- **M9c live acceptance follow-up, pending:** prepare a concrete saved
-  question/context plan, present its model, maximum request count and combined
-  generation/judging estimate, and obtain new approval before calls. Exercise actual
-  answers, citation expansion, timing/token/cost display, saved history and restart.
-  Archive real outcomes and any failures without rewriting prior experiments or
-  retrying unknown requests. No judge is proposed by default; any later judging
-  requires its own explicit scope. Keep location checks separate from semantic
-  correctness and retain provisional benchmark labels. This validates the user
-  workflow; it does not establish an answer-quality ranking from one question.
+- **M9c live acceptance follow-up, completed:** the owner approved one frozen
+  `gpt-5.4-mini-2026-03-17` plan, at most five generation requests, zero judge requests
+  and US$0.10. All five requests returned `answered`, with no retries or unknown
+  outcomes. Reported tokens imply US$0.016374 at frozen uncached rates, not an invoice.
+  Browser checks displayed the five answers and their measurements, opened a
+  representative citation for each strategy, reopened the exact history record and
+  retained its outcomes after server restart. See [live evidence](../reports/m9c-live/README.md).
+  The original preview and historical experiments remain unchanged. One unlabeled
+  question verifies the workflow without establishing a strategy ranking or true
+  answer accuracy. Any new generation or optional judging needs its own reviewed
+  scope and explicit approval.
 
-The original research deliverables remain complete. The new full product workflow
-requires the separately approved live exercise of the M9a–M9c implementation; offline
-test responses do not satisfy actual browser-based answer comparison. Complete each checkpoint,
-validate existing behavior and stop for the owner's commit/push before proceeding.
+The research deliverables and agreed local product workflow are now implemented
+and observed. No further engineering milestone is automatically required. Stop for
+the owner's review, commit and push; preserve the ordinary CI checks. Further
+features, research experiments or new paid questions are separate user-directed
+work, with fresh plan/budget approval for model calls.
 
 ## Deferred decisions
 

@@ -4,8 +4,13 @@ The workbench adds a user workflow around the existing parser, five retrievers a
 QA context builder. Repository import, resource preparation, five offline context
 previews and saved history are available in the browser and CLI. **M9c adds frozen
 generation plans, total estimates and explicitly approved same-model answers.**
-Default actions remain offline previews. This checkpoint validates implementation
-without new API calls; M9c's separately approved real browser acceptance is pending.
+Default actions remain offline previews. The
+[implementation checkpoint](../reports/m9c/README.md) used offline providers; the
+[separately approved live run](../reports/m9c-live/README.md) now contains five actual
+answers, with no judge calls or retries. Browser answer/citation comparison, history
+reopening and server restart passed, completing the scoped local workflow. Its one
+unlabeled question is user-workflow evidence, not a retrieval benchmark or an
+answer-correctness measurement.
 
 ## Install and prepare the embedding model
 
@@ -86,7 +91,16 @@ unlabeled interactive questions.
 
 First save a context preview. In the browser, prepare its generation plan and review
 the model, per-strategy eligibility, exact request count and combined estimate.
-Planning does not call OpenAI. The preset is shared by every eligible strategy:
+Planning does not call OpenAI.
+
+Preparing a plan updates the browser URL to `#plan=PLAN_ID`. Bookmark or copy that
+URL to reopen the same frozen plan after closing or refreshing the tab, while the
+server uses the same workspace. Reopening reads the saved plan and original preview;
+it creates no new plan and makes no model request. Paid consent is reset to unchecked
+each time the plan opens. An already consumed plan remains single-use; use history
+to open its saved answers rather than attempting generation again.
+
+The preset is shared by every eligible strategy:
 
 | Setting | Frozen value |
 | --- | --- |
@@ -159,8 +173,13 @@ uv run --locked --extra dense sacr workbench generate $plan.plan_id --workspace 
 
 CLI approval errors fail before calls; non-complete execution prints its saved
 outcomes and returns a nonzero exit code. Use `workbench history` and `show RUN_ID`
-to inspect them rather than repeating `generate`. This implementation checkpoint's
-[M9c record](../reports/m9c/README.md) describes offline checks, not a completed live run.
+to inspect them rather than repeating `generate`. The
+[M9c implementation record](../reports/m9c/README.md) preserves the offline checks;
+the [separate live record](../reports/m9c-live/README.md) contains the approved five
+requests and raw outcomes. All five returned `answered`; reported usage was 15,046
+input and 1,131 output tokens, with a US$0.016374 frozen-rate estimate against the
+US$0.10 approved budget. No judge, retry or unknown response was recorded. Valid
+source/citation checks do not establish semantic correctness.
 
 ## CLI: import one repository
 
@@ -306,7 +325,7 @@ bounded, but this version has no hard disk quota on the downloaded Git pack. Kee
 workspaces on a local writable filesystem under the user's control. The service
 does not sandbox unrelated processes concurrently modifying local files.
 
-## Delivery and next stages
+## Delivery and acceptance
 
 The existing CPU Dense Docker image already contains the required CLI and Git.
 Use [Docker preparation and persistent volumes](docker.md); mount local sources
@@ -323,8 +342,14 @@ simple browser assets: import status, question entry, side-by-side contexts, sou
 expansion and history. See [M9b validation](../reports/m9b/README.md) for observed
 checks and limits. M9c implements shared-model plans and explicit approval for at
 most five generation requests, without adding a judge. Its offline tests validate
-software behavior, not model correctness or real billing. Earlier experiment
-budgets do not authorize these calls. M9c's remaining live acceptance follow-up
-requires separate approval: freeze a concrete question/preview,
-present its model/request/total estimate, obtain approval, then inspect actual
-answers, citations, measurements and history. No live acceptance result is claimed yet.
+software behavior, not model correctness or real billing. The separately approved
+[M9c live acceptance](../reports/m9c-live/README.md) verified five actual answers,
+representative citations for all five strategies, token/cost display, saved-history
+reopening and unchanged results after server restart. The agreed local workflow is
+complete; no additional engineering stage is required automatically.
+
+Existing experiment approvals, including this completed US$0.10 run, do not
+authorize new questions or retries. Prepare and review a new plan before any new
+paid generation. Offline previews, source inspection, saved-plan reopening and
+answer history remain available without model calls. Keep all earlier raw evidence,
+provisional labels and negative research results unchanged.

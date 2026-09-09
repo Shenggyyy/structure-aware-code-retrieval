@@ -23,8 +23,11 @@ historical unknown. That research delivery is complete; coverage and provisional
 limits remain explicit. Human review is optional. M9 extends the user workflow:
 M9a implements import, prepared resources and saved five-strategy context previews;
 M9b exposes them through a local browser. M9c adds fixed-model planning, explicit
-paid approval and durable answer comparison, validated offline in this checkpoint.
-M9c's separately approved real browser acceptance follow-up remains pending.
+paid approval and durable answer comparison, first validated offline. The
+[separately approved M9c live run](../reports/m9c-live/README.md) returned five
+same-model answers with no judge calls, retries or unknown outcomes. Browser
+comparison, representative citations, history reopening and server restart passed.
+Its one unlabeled question does not establish answer correctness or a strategy ranking.
 See [acceptance status](status.md).
 
 ## Data flow
@@ -236,8 +239,12 @@ The browser and CLI use the same planning/execution services and saved-run contr
 Answer citations navigate to saved evidence instead of reading arbitrary local paths.
 Offline providers are explicitly labeled test execution, not real generations.
 Semantic LLM scoring remains optional and separate from automatic identity/location
-checks; this workflow invokes no judge. M9c verifies these paths offline; its live
-acceptance follow-up requires a separately approved actual model/browser run.
+checks; this workflow invokes no judge. M9c's offline checks and separately approved
+live acceptance verify the scoped implementation. The live run retained all five
+answers and measurements through browser history and server restart. New paid
+questions require new plan/model/budget approval; completion grants no recurring
+authorization. A saved `#plan=PLAN_ID` browser URL reopens the exact frozen plan
+without creating another one or making a request, and resets paid consent.
 See [workbench startup](workbench.md).
 
 ## M2 implementation details
