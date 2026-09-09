@@ -181,9 +181,11 @@ function renderJob(job) {
   const box = $("job-stages");
   box.replaceChildren();
   if (progress.phase === "import") {
-    const seen = new Set((detail.events || []).map((event) => event.status));
+    const phases = (detail.events || []).map((event) => event.status).filter(status => ["validating", "downloading", "snapshotting"].includes(status));
+    const seen = new Set(phases);
+    const terminal = ["failed", "interrupted"].includes(detail.status) ? detail.status : ["failed", "interrupted"].includes(job.status) ? job.status : null;
     for (const [key, name] of [["validating", t("app.validateSource")], ["downloading", t("app.downloadSource")], ["snapshotting", t("app.saveSnapshot")]]) {
-      if (seen.has(key)) box.append(stage(name, detail.status === key ? "running" : "completed"));
+      if (seen.has(key)) box.append(stage(name, terminal && key === phases.at(-1) ? terminal : detail.status === key ? "running" : "completed"));
     }
     if (detail.cache_hit) box.append(stage(t("app.sourceCache"), "reused"));
   } else if (progress.phase === "prepare") {

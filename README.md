@@ -7,11 +7,11 @@ This Python CS / AI Systems project compares BM25, Dense, Hybrid, Symbol-aware a
 Structure-aware retrieval, then uses the retrieved evidence for cited repository QA.
 It combines a local browser workbench with reproducible experiments and saved results.
 
-The core system, experiment pipeline and M9 browser workflow are implemented and
-validated. Final delivery preparation is in progress: the English/Chinese homepages
-are complete, and the shared bilingual interface is the current implementation and
-validation checkpoint. Final review remains pending. See [status](docs/status.md)
-and the [delivery record](docs/delivery.md).
+The agreed scope is delivered: the core system, experiment pipeline, M9 browser
+workflow, bilingual homepages and bilingual interface. Final review and local
+verification are complete; research limitations remain explicit. Further features
+or experiments are optional, separately requested work. See [status](docs/status.md)
+and the [delivery record](docs/delivery.md) for checks and remaining limitations.
 
 ## What you can do
 

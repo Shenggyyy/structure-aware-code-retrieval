@@ -369,10 +369,10 @@ representative citations for all five strategies, token/cost display, saved-hist
 reopening and unchanged results after server restart. The agreed local workflow is
 complete; no additional engineering stage is required automatically.
 
-Final handover Stage 2 adds the shared English/Chinese interface and its preference
-behavior. Implementation and checkpoint validation are the current stage; the
-separate Stage 3 final review remains pending. See [delivery](delivery.md) for actual
-validation evidence. Localization does not change or add research measurements.
+Final handover is complete: the shared English/Chinese interface, preference
+behavior and final workflow review have passed local validation. See
+[delivery](delivery.md) for actual checks, fixes and remaining limitations.
+Localization does not change or add research measurements.
 
 Existing experiment approvals, including this completed US$0.10 run, do not
 authorize new questions or retries. Prepare and review a new plan before any new

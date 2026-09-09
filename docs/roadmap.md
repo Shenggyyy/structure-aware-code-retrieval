@@ -2,9 +2,9 @@
 
 ## Working agreement
 
-The original research system and M9 interactive workflow are delivered. Finish the
-three handover stages below, then stop within the agreed scope. Do not add feature
-or research milestones automatically.
+The original research system, M9 interactive workflow and three final handover
+stages are delivered. Stop within the agreed scope. Do not add feature or research
+milestones automatically; further work requires a separate request.
 
 Develop one agreed stage at a time. Keep existing functionality and historical
 result reading compatible, add meaningful checks, and update relevant documents.
@@ -24,7 +24,7 @@ handover validation inputs.
 | --- | --- | --- |
 | 1 — Audit, cleanup and bilingual GitHub presentation | Check actual code/document references before removal; consolidate current explanations; align English `README.md` and Chinese `README.zh-CN.md` with working startup/navigation and unchanged evidence | Complete; local checks recorded |
 | 2 — Bilingual browser interface | One shared interface/business flow with centralized English/Chinese messages, visible switching, persisted preference and documented fallback; translate important states and payment/error wording without modifying user content or making model calls | Complete; local tests and bilingual browser checks recorded |
-| 3 — Final review and delivery | Review import → preparation → preview → approval → answers → citations → history in both languages; fix findings and record full tests, lint, formatting, build, result validation and browser checks; execute container checks when available and state actual limits | Pending |
+| 3 — Final review and delivery | Review import → preparation → preview → approval → answers → citations → history in both languages; fix findings and record full tests, lint, formatting, build, result validation and browser checks; execute container checks when available and state actual limits | Complete; full local validation and remaining limits recorded |
 
 Completion requires clear repository navigation, consistent bilingual homepages and
 UI, preserved core behavior and experimental evidence, and a recorded final review.

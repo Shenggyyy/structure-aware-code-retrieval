@@ -11,11 +11,12 @@ features, datasets or paid experiments require a separate request.
 | --- | --- | --- |
 | 1 | Repository audit, justified cleanup and English/Chinese GitHub homepages | Complete; local validation recorded below |
 | 2 | One shared browser interface with persistent Chinese/English selection | Complete; local validation recorded below |
-| 3 | Targeted final review, fixes, full verification and delivery acceptance | Pending |
+| 3 | Targeted final review, fixes, full verification and delivery acceptance | Complete; local validation and remaining limits recorded below |
 
-The homepages and browser interface now support English and Chinese. The separate
-Stage 3 final review remains pending. Current accepted capabilities and historical
-evidence remain in [status](status.md) and [roadmap](roadmap.md).
+The agreed scope is formally delivered. The homepages and browser interface support
+English and Chinese, and final local review is complete. Accepted capabilities and
+historical evidence remain in [status](status.md) and [roadmap](roadmap.md). The owner
+performs the final commit/push; no remote CI result is inferred for these changes.
 
 ## Stage 1 audit and decisions
 
@@ -153,22 +154,83 @@ running them. An already-running Python server must be restarted to register the
 new asset; existing histories remain readable. Full-suite and container execution
 are deferred to Stage 3; no remote CI result is claimed for this uncommitted stage.
 
-## Remaining review and acceptance
+## Stage 3 review and findings
 
-Stage 3 will review import and static source handling, five-strategy previews,
-frozen plans and paid confirmation, unknown-request handling, answer/citation
-display, history reopening, and both interface languages. It must record issues
-found and fixes, not just state that no problems were found.
+Review started from a clean `main` at `94cab19`. It covered public HTTPS and local
+imports, static source capture, version/cache bindings, five-strategy previews,
+generation plans and explicit approval, unknown attempts, safe browser rendering,
+citations, history/restart, bilingual behavior, packaging and experiment evidence.
+The implementation was inspected alongside tests, CLI entrypoints, Docker/CI and
+current guides. Independent backend and documentation reviews informed this record.
 
-Final verification includes the full offline test suite, lint/format, builds,
-published-result checks and browser checks in both languages. Container checks
-run locally when possible; otherwise record the limitation and the existing CI
-coverage (`CPU container / base` and `CPU container / dense`, including installed
-runtime and network-disabled smoke checks). Neither remote CI nor unavailable
-local container execution may be reported as passed without evidence.
+| Finding | Resolution and evidence |
+| --- | --- |
+| Failed or interrupted import steps could appear completed | The browser now retains the terminal status on the last attempted import phase. A regression test failed before the fix and passed afterward in both languages; the browser confirmed that rejected HTTP sources show validation failure. |
+| Reproduction guide described implemented browser generation as future work | Updated the current guide to describe saved cost plans and explicit model/request/budget approval. |
+| Architecture called 58/60 cumulative score coverage | Corrected this to protocol acceptance; numeric score coverage differs by assessment dimension. Original records and scores were not edited. |
+| Completion statements described Stage 2 as current | Final homepages, workbench guide, status and roadmap are reconciled with the bounded handover after final validation. Optional extensions remain separate. |
+| One local browser import encountered a filesystem error | The failure stayed visible and no retry happened automatically. Direct diagnostic imports, an explicit UI re-import and eight isolated imports with concurrent progress reads succeeded. The original cause remains unknown. |
+
+No backend change was justified by the review. Public addresses are validated and
+pinned for Git; credentials, redirects, hooks and target-code execution stay
+disabled. Source/resource integrity checks, single-use plans, durable request
+journals and unknown-outcome recovery remain in place. These inspections and tests
+are bounded evidence, not a guarantee that all defects have been found.
+
+The filesystem diagnostic confirmed that service reads/writes share a process
+lock. A deliberately held external file handle can block atomic replacement on
+Windows, but this does not identify the cause of the observed browser failure.
+No speculative storage retry, background model retry or broad refactor was added.
+
+## Stage 3 validation
+
+Recorded on 2026-09-09; remote CI is not inferred from local checks.
+
+| Check | Actual result |
+| --- | --- |
+| Full offline suite | `uv run --locked --offline pytest --cov --cov-report=term-missing --cov-report=xml`: 1178 passed, two skipped in 668.75 seconds; reported Python coverage 91%; all 11 Node contract subtests passed |
+| Skip reasons | `tests/test_ingestion.py:60` and `tests/workbench/test_importing.py:149` require symlink creation unavailable on this Windows host; the existing Ubuntu CI runs the same suite on Linux |
+| Backend regression | Import/storage/preparation/comparison/generation tests: 155 passed, one Windows symlink-creation test skipped because the host could not create that link; mocked junction/path guards passed |
+| Published evidence | Retrieval overview verified all 45 saved runs; M7b assessment, M7d revision, M7e follow-up and M9c workbench archive validators passed without changing records |
+| Archive integrity | Four ZIP checksums and all 235 member sizes/hashes matched their manifests; failure, invalid and unknown outcomes remained present |
+| Container execution | Base and CPU Dense images built locally; both installed-runtime checks passed as UID 10001 with read-only filesystems and networking disabled; both 17-command CLI smokes passed, with no model download or API call |
+| Browser workflow | Bilingual import/preparation, five previews, plan/budget/consent, synthetic answers, citations and history/reload completed; reopening cleared consent, and trying a consumed plan was rejected without another generation |
+| Browser boundaries | Failed import status, bilingual required-field errors, safe literal rendering, missing usage/costs and unknown/unstarted outcomes were checked; switching preserved raw question/answer/configuration and left server counts unchanged at 39 GETs and five POSTs |
+| Browser layout | Both languages checked at 1440×1000 and 390×844, including citations from all five archived strategies; narrow source blocks scroll locally, with no page-wide horizontal overflow or browser warning/error logs |
+| Restart and history | Restarted the isolated server, reopened the saved five-answer run and compared question/claims/configuration; all five saved run-file hashes remained unchanged |
+| Lint, format and syntax | Ruff check/format and both browser JavaScript syntax checks passed |
+| Distributions | Final offline wheel and source distribution built; all four static assets matched source, both homepages and Node contracts were included in the source distribution, and runtime data was excluded |
+| Documentation | 289 local links and 20 heading anchors across 20 current documents passed; homepage four code blocks and 34 link targets matched; no personal Windows directory or credential pattern was found |
+
+Browser validation uses isolated fixture workspaces, a synthetic encoder and an
+injected answer model; the real provider method is disabled. Published live answers
+are read only as saved history. This stage authorizes no paid experiment. Synthetic
+outputs remain labeled `offline_test`; they cannot establish answer correctness or
+retrieval quality. User workspaces, caches and API configuration remain untouched.
+
+## Delivery boundary and remaining limitations
+
+Local Docker checks cover the same installed-runtime and offline CLI smoke boundaries
+as `CPU container / base` and `CPU container / dense` in CI. The Dense check validates
+CPU dependencies, not a new embedding experiment. After the static-only progress fix,
+both images were rebuilt and their restricted runtime checks repeated; installed
+script and README hashes matched the final working tree. The earlier 17-command
+smokes were retained without repeating unrelated CLI tests. No paid calls or model
+downloads were made. Browser automation covered the local Chromium interface; this does not
+claim exhaustive browser, operating-system or accessibility coverage.
+
+The observed unreproduced file error remains a known limitation of this validation.
+Use a writable local workspace; file-locking or concurrent external changes can
+still prevent an operation. The service records errors, and retries require an
+explicit user action; unknown model requests must never be retried automatically.
+Git downloads have time limits but no hard downloaded-pack disk quota.
 
 Known research limitations remain: provisional labels, heuristic static edges,
 small exposed evaluation sets, negative retrieval results, incomplete semantic
 score coverage and historical unknown costs. Model opinions and automatic source
 checks do not establish human-reviewed correctness. These limitations do not add
 new required research work to this delivery.
+
+No further development milestone is scheduled. Additional datasets, methods,
+manual assessment, broader deployment or paid experiments are optional extensions,
+not missing requirements of this handover.

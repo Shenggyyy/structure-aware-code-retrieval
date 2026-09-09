@@ -288,6 +288,23 @@ test("the application repaints archived plans and answers without fetching or al
   assert.equal(vm.runInContext("modeText('toString')", loaded.context), loaded.api.t("app.unknownMode"));
   const get = id => loaded.document.getElementById(id);
   const flatten = element => [element.textContent, ...element.children.map(flatten)].join(" ");
+  for (const status of ["failed", "interrupted"]) {
+    loaded.context.failedImport = {
+      kind: "import", job_id: "offline-import", status,
+      progress: { phase: "import", detail: {
+        status, events: [{ status: "validating" }, { status: "downloading" }, { status }]
+      } }
+    };
+    vm.runInContext("renderJob(failedImport);", loaded.context);
+    for (const language of ["zh-CN", "en"]) {
+      loaded.api.setLanguage(language);
+      const stages = get("job-stages").children.map(element => element.textContent);
+      assert.deepEqual(stages, [
+        `${loaded.api.t("app.validateSource")} · ${loaded.api.t("app.status_completed")}`,
+        `${loaded.api.t("app.downloadSource")} · ${loaded.api.t(`app.status_${status}`)}`
+      ], "The last attempted import phase must retain its terminal failure");
+    }
+  }
   loaded.context.archivedRun = run;
   loaded.context.archivedPreview = preview;
   loaded.context.archivedPlan = plan;

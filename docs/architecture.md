@@ -18,7 +18,7 @@ offline judge-protocol revision and M7d adds judge-only execution. The subsequen
 approved v2 run is archived as partial: 12 valid judgments, one unknown attempted
 outcome and 47 requests not started after interruption. M7e's separate live follow-up
 has now attempted those 47 requests, yielding 46 valid judgments and one protocol
-failure. Cumulative score coverage is 58/60 with one invalid judgment and one
+failure. Cumulative protocol acceptance is 58/60 with one invalid judgment and one
 historical unknown. That research delivery is complete; coverage and provisional-label
 limits remain explicit. Human review is optional. M9 extends the user workflow:
 M9a implements import, prepared resources and saved five-strategy context previews;

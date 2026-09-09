@@ -1,10 +1,10 @@
 # Project Status and Acceptance
 
-The core research system, planned experiment attempts and M9 local browser workflow
-are complete. The owner has requested a final three-stage handover: repository
-cleanup and bilingual homepages, a bilingual browser interface, then final review
-and validation. **Stages 1 and 2 are locally complete; final review remains pending.**
-It adds no new research or feature milestone.
+**The agreed project scope and final three-stage handover are complete.** This
+includes the core research system, planned experiment attempts, M9 local browser
+workflow, repository cleanup, bilingual homepages/interface and final local review.
+Remaining research and platform limitations are recorded, not hidden. No new
+research or feature milestone is required; Git publication remains the owner's step.
 
 Use [RESULTS](../RESULTS.md) for experimental findings and their limitations,
 [the workbench guide](workbench.md) for current operation, and [the roadmap](roadmap.md)
@@ -25,7 +25,7 @@ checkpoint-specific validation.
 | M9 local workflow | Import a local repository or public HTTPS Git snapshot, prepare resources, preview five strategies, explicitly approve same-model answers, inspect citations and reopen history | Loopback-only, single user, one background job at a time; no automatic model downloads or paid calls |
 | M9 live acceptance | Five approved requests returned five answers; browser citations, history, restart and archived replay checked | One unlabeled question establishes workflow operation, not answer quality or a strategy ranking |
 | Packaging and automation | Installable package, automated tests, Windows/Linux CI, base/CPU Dense Docker targets and offline smoke checks | Local checkpoint evidence and remote CI are separate; neither is inferred for uncommitted changes |
-| Project presentation | Evidence-linked findings, reproduction guide, architecture, project brief, bilingual CV wording and offline demonstration | Final bilingual homepages and browser localization belong to the handover below |
+| Project presentation | Evidence-linked findings, reproduction guide, architecture, project brief, bilingual homepages/interface, bilingual CV wording and offline demonstration | Detailed technical guides and historical reports remain English where indicated |
 
 ## Final handover
 
@@ -33,12 +33,13 @@ checkpoint-specific validation.
 | --- | --- | --- |
 | 1 — Repository audit and GitHub presentation | Audit references and entry points; make evidence-backed cleanup; provide aligned English and Chinese homepages; consolidate current status/navigation | Complete; local checks in the delivery record |
 | 2 — Bilingual browser interface | Shared English/Chinese catalog, visible switch, saved preference and documented fallback; preserve source/questions/answers, raw records and all paid-call safeguards | Complete; local tests and bilingual browser checks in the delivery record |
-| 3 — Final review and delivery | Review the complete workflow and boundaries, fix findings, run full tests/lint/format/build/result checks and browser checks; record container checks or their limits | Pending |
+| 3 — Final review and delivery | Review the complete workflow and boundaries, fix findings, run full tests/lint/format/build/result checks and browser checks; record container checks or their limits | Complete; local full-suite, archive, browser and both CPU container checks recorded |
 
-The owner reviews, commits and pushes each stage. Final handover is complete only
-after these stages are verified and their remaining limits are recorded in
-[the delivery record](delivery.md). At that point, stop within the agreed scope:
-further features, research or paid experiments are optional, separately requested work.
+All three stages have been verified with remaining limits recorded in
+[the delivery record](delivery.md). The owner reviews, commits and pushes the final
+changes; remote CI for that commit is distinct from recorded local validation.
+Stop within the agreed scope: further features, research or paid experiments are
+optional, separately requested work.
 
 Stage 2 uses a single page with an **Interface language / 界面语言** selector. Valid saved choices
 take priority; the first browser language selects Chinese for a `zh` prefix and
