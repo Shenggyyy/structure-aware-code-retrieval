@@ -72,7 +72,7 @@ function. Docstrings remain part of indexed code, and questions/labels were writ
 with source access. Sparse, correlated, agent-authored development labels do not support
 generalization or significance claims. Do not change labels to make a strategy win.
 
-Use [recorded results and regressions](../reports/m4/README.md) to guide M5 ablations.
-M5's [graph support and ablations](structure.md) extend these baselines without
-changing their definitions. Code-specialized model comparisons, ANN and large-scale
-profiling remain future work.
+The [recorded results and regressions](../reports/m4/README.md) motivated M5's
+[graph support and ablations](structure.md), which preserve these baseline definitions.
+Later [scale measurements](../RESULTS.md#cost-and-measurement-limits) are recorded
+separately. Code-specialized models, ANN and broader profiling are optional extensions.

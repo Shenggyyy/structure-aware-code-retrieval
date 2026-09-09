@@ -158,8 +158,11 @@ at `/app/reports`, because prior results are deliberately omitted from images.
 Real QA requires network access, an explicit model/budget and credentials supplied
 at runtime. Pass a locally configured key with `-e OPENAI_API_KEY`; never put its
 value in a Dockerfile, build argument or command history. Follow [the QA protocol](qa.md)
-to inspect requests and use `run-qa --execute`. The current M8a stage performs no paid
-API calls. Container validation does not complete M7b or independent human review.
+to inspect requests before an explicitly approved `run-qa --execute` invocation.
+Container smoke checks make no paid API calls and do not establish semantic answer
+correctness. The research and M9 acceptance records are linked from [status](status.md);
+human review remains optional. Final handover checks are recorded separately in
+[the delivery record](delivery.md).
 
 References: [uv in Docker](https://docs.astral.sh/uv/guides/integration/docker/),
 [Python official image](https://hub.docker.com/_/python),

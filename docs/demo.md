@@ -6,6 +6,13 @@ retrieval and LLM results are inspected from saved archives. No model download,
 GPU, Docker or API key is needed after installation. No command below generates a
 new LLM answer or judgment.
 
+For the interactive product demonstration, follow [the workbench guide](workbench.md).
+It covers repository import, five-strategy previews, explicit paid plans and browser
+history. To display existing real answers without an API key or a new request, use
+[the M9 archive replay instructions](../reports/m9c-live/README.md). The walkthrough
+below remains the verified offline research presentation; its commands and historical
+validation record are preserved.
+
 ## Prepare before presenting
 
 Use PowerShell from the repository root with Git and uv installed. Install the

@@ -4,7 +4,7 @@
 
 Manual review is an optional extension, not a project completion requirement. The
 current evaluation route combines reproducible retrieval/source checks with the
-planned [LLM-assisted QA assessment](llm-evaluation.md). It leaves existing relevance
+implemented [LLM-assisted QA assessment](llm-evaluation.md). It leaves existing relevance
 labels provisional and does not claim human-reviewed ground truth.
 
 M6a adds an audit workflow before broader formal experiments. It uses the existing

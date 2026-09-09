@@ -4,8 +4,10 @@
 
 An applied CS / AI Systems project combining information retrieval, static program
 analysis, reproducible evaluation and evidence-grounded LLM question answering.
-Start with the [offline demonstration](demo.md); inspect [results](../RESULTS.md)
-and the [architecture](architecture.md) for supporting evidence.
+Start with the [browser workbench](workbench.md) to import a repository and compare
+five strategies, or use the [offline demonstration](demo.md) for a short research
+presentation. Inspect [results](../RESULTS.md) and the [architecture](architecture.md)
+for supporting evidence.
 
 ## Research question and scope
 
@@ -32,6 +34,9 @@ model training and distributed serving are outside its scope.
   check source identities and locations automatically, and separately record LLM
   assessments. Frozen plans, attempt journals, raw responses and archive verification
   preserve failures and missing outcomes alongside successful results.
+- **Local user workflow:** import public HTTPS Git snapshots or local Python source,
+  prepare reusable resources, compare five context previews and explicitly approved
+  same-model answers, inspect citations and reopen self-contained browser history.
 
 The CLI, automated tests, Windows/Linux CI, CPU Docker targets and offline smoke
 workflow support reproducible use. See [evaluation](evaluation.md),
@@ -59,21 +64,14 @@ full-corpus search sublinear. See [baseline definitions](baselines.md) and
 ## Recorded experimental evidence
 
 The [frozen retrieval matrix](../reports/m6c/README.md) contains **45 runs on eight
-snapshots**, covering 1,130 indexed Python files and 20,003 chunks. The 170 questions
-have separate roles; they are not one held-out test set:
-
-| Role | Repositories | Questions |
-| --- | ---: | ---: |
-| Development | 2 | 40 |
-| Expanded test candidates | 5 | 120 |
-| Public RepoQA adaptation | 1 | 10 |
-
-On the **120 expanded test-candidate questions**, query-macro symbol-level scores
-show Hybrid Recall@10 / NDCG@10 of **0.7944 / 0.5947**, versus **0.7917 / 0.5109**
-for full Structure. On the **40 cross-file questions** within that split, Structure
-raises Recall@10 from **0.7083 to 0.7500**, while NDCG@10 falls from **0.5268 to
-0.4995**. The result supports a coverage-versus-ranking tradeoff, not a general
-structure-aware improvement. [Metrics and limitations](../RESULTS.md)
+snapshots and 170 questions** in separate development, expanded test-candidate and
+public-adaptation roles. These questions are not one held-out test set. On the
+expanded test-candidate split, the full Structure heuristic lowers aggregate ranking
+quality relative to Hybrid; on its cross-file questions, recall increases while
+NDCG decreases. This supports a
+coverage-versus-ranking tradeoff, not general superiority. Exact metrics, dataset
+counts, uncertainty and hardware measurements are maintained in
+[RESULTS](../RESULTS.md).
 
 The [live QA experiment](../reports/m7b-live/README.md) generated **60 responses:
 12 development questions across five strategies**, yielding 48 answers and 12
@@ -82,10 +80,13 @@ checks passed; these establish source validity, not semantic correctness.
 
 The [cumulative v2 assessment](../reports/m7e-live/README.md) reuses those generations:
 **58 of 60 judgments pass the protocol, one is invalid and one historical outcome
-is unknown**. Correctness has 47 numeric scores, completeness 49 and citation support
-47; remaining accepted dimensions are N/A. The final 47-call batch has a usage-based
-cost estimate of **US$0.3526** at frozen uncached rates, not an invoice. Full cumulative
-v2 cost remains unknown because one attempted request has no saved response.
+is unknown**. Numeric-score denominators differ by dimension; see the linked report
+for those denominators and usage-based cost estimates. Full cumulative v2 cost
+remains unknown because one attempted request has no saved response.
+
+The separately approved [M9 live acceptance](../reports/m9c-live/README.md) checks
+the end-user browser flow with five actual answers and replayable history. This
+single unlabeled question is workflow evidence, not an additional QA benchmark.
 
 ## Limits and extensions
 
