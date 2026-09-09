@@ -6,6 +6,12 @@ bundle; tools preserve existing artifacts rather than silently replacing them.
 See [current findings and acceptance](../RESULTS.md) and the
 [recorded results overview](../reports/overview/report.md) before interpreting scores.
 
+For the new end-user flow, start with [Repository Workbench](workbench.md): import a
+local directory or pinned public HTTPS Git repository, prepare existing resources,
+run five offline context previews and reopen saved comparisons. Its workspace
+reuses validated resources; the experiment commands below retain their separate
+output-preservation rules. Browser interaction and new real answers are later stages.
+
 ## Install and verify locally
 
 Install Git and [uv](https://docs.astral.sh/uv/getting-started/installation/), then:

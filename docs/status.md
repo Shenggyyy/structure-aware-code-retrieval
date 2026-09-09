@@ -1,7 +1,12 @@
 # Project Status and Acceptance
 
-The planned retrieval, evaluation, QA and delivery engineering is implemented,
-with reproducible retrieval experiments and archived live LLM assessments.
+The original research and engineering scope is delivered, with reproducible
+retrieval experiments and archived live LLM assessments. **The newly requested
+interactive workflow is in progress:** M9a supplies repository import, resource
+preparation, five-strategy context previews and saved history through the CLI.
+M9b's browser interface and M9c's same-model answer comparison remain pending.
+See [the M9a validation record](../reports/m9a/README.md) for this checkpoint's
+observed checks. M9a adds no LLM API calls or new benchmark-quality scores.
 **All 60 v2 judge requests have now been attempted across two approved batches:**
 58 judgments passed the protocol, one failed it and one historical outcome is
 unknown. The [M7e live follow-up](../reports/m7e-live/README.md) completed its 47
@@ -11,15 +16,15 @@ The new batch's usage-based cost is US$0.35257875 at frozen uncached rates. Cumu
 known v2 judging cost is US$0.4368195; full usage and cost remain unknown because
 the historical attempt has no saved response. These are estimates, not invoices.
 The v1 experiment retains its 24 accepted judgments and 36 protocol failures.
-Engineering delivery and the planned experiment attempts are complete; score
+The original engineering delivery and planned experiment attempts are complete; score
 coverage is incomplete and the evidence does not establish a reliable QA ranking.
 Human or independent review is optional, not a completion prerequisite. Labels
 remain provisional; model scores are neither human review nor true accuracy.
 The [M8c presentation checkpoint](../reports/m8c/README.md) provides a
 [project brief and bilingual CV wording](project-brief.md) plus a
 [verified offline demonstration](demo.md). It adds no new inference or research
-scores. Engineering delivery, recorded experiments and presentation materials are
-available; additional research and detailed teaching are separate follow-up work.
+scores. Those research artifacts and presentation materials remain available;
+M9 extends the product workflow without changing their results or limitations.
 
 ## Acceptance matrix
 
@@ -35,9 +40,18 @@ available; additional research and detailed teaching are separate follow-up work
 | LLM evaluation | Immutable v1 results; all 60 v2 requests attempted across two batches, yielding 58 valid judgments, one invalid judgment and one historical unknown; raw records and offline verification | Keep incomplete score coverage and unknown full cost visible; model scores are not true accuracy or proof of a reliable strategy ranking |
 | Packaging and testing | Installable package, automated tests, base/CPU Dense Docker targets, offline smoke checks, Windows/Linux CI configuration | Current checkpoint's remote CI runs after the owner commits and pushes |
 | Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline verification, project brief, bilingual CV wording and verified demo | Retain limits and version future protocol/dataset changes; use CV templates according to actual contributions |
+| M9a workbench foundation | Local-directory/public-HTTPS snapshots; reusable index/vector/graph preparation; five context previews, per-strategy failures and self-contained history | Context previews do not contain generated answers; public imports need network and Dense needs explicitly prepared local weights |
+| M9b browser workflow | Pending; M9a provides the underlying reusable services | Repository import/preparation feedback, question entry, side-by-side strategy evidence and reopening history in a browser |
+| M9c same-model answers | Pending; the existing QA adapter is available, but M9a never invokes it with a model | Freeze one answer-model configuration across strategies, estimate generation and any judging cost, obtain approval before paid calls, preserve answers/citations/usage/failures |
 
 ## Verified checkpoints
 
+- [M9a](../reports/m9a/README.md): 1,019 tests passed, two Windows symlink-privilege
+  tests skipped, 91.43% combined statement/branch coverage. Ruff, distribution build
+  and the 45-run overview check passed. Local and pinned public HTTPS imports both
+  completed real-MiniLM five-strategy previews, cache reuse and history reopening.
+  No LLM API call or model download was made; browser/real-answer acceptance remains
+  pending the subsequent M9 checkpoints.
 - [M6c](../reports/m6c/README.md) records the frozen experiment matrix, negative and
   positive observations, construction costs, and repeatability checks. The primary
   Structure heuristic lowers aggregate NDCG@10 on expanded test candidates.
@@ -127,10 +141,34 @@ available; additional research and detailed teaching are separate follow-up work
   model downloads were made. Two earlier rehearsal attempts encountered Windows
   directory-rename errors; the record retains them and the successful final run.
   Current remote CI follows the owner's next commit and push.
+- [M9a workbench foundation](../reports/m9a/README.md) adds a reusable application
+  layer and `sacr workbench import`, `prepare`, `preview`, `history` and `show`.
+  Imports capture Python source and provenance without executing target code;
+  preparation reuses version-bound resources and retains independent stage failures.
+  Each question saves all five retrieval outcomes, source context, timing and
+  errors. History can reopen the saved comparison without rerunning retrieval.
+  The mode is explicitly `context_preview`, with zero model API calls, no generated
+  answers, null generation usage/cost and no invented relevance metrics. Local
+  validation is recorded in the linked report; current remote CI follows the
+  owner's commit and push.
 
 Historical reports retain their original measurements and completion criteria.
 This page records the current automatic-evaluation acceptance policy; historical
 references to required human review do not override it.
+
+## Interactive workflow acceptance
+
+M9a completes the reusable CLI foundation for the new workflow. The full interactive
+product is not yet complete: browser operation is M9b, and comparing actual answers
+from one fixed model across all five retrieval strategies is M9c. Both build on the
+existing parser, retrievers, context packing and QA components. Preserve source
+identity, per-strategy failures and saved history throughout the workflow.
+
+M9c requires a concrete model configuration, request scope and combined generation
+plus any judging estimate before paid execution. Existing experiment approvals
+do not automatically authorize this new workflow's calls. Unlabeled imported
+repositories do not acquire Recall/NDCG or answer-accuracy scores from previews;
+automatic source checks and future model assessments remain separate.
 
 ## Recommended research follow-up
 

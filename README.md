@@ -9,7 +9,13 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M8c — project brief, bilingual CV wording and a verified offline demo.**
+**Latest checkpoint: M9a — repository import and five-strategy context previews.**
+The new [repository workbench](docs/workbench.md) imports local Python directories
+or public HTTPS Git repositories, freezes source versions, prepares existing indexes,
+vectors and graphs, and saves five-strategy previews and history. Browser comparison
+and new real answers are the next milestones; that expanded user workflow is not
+yet complete. No LLM API calls are made by the current workbench.
+
 Start with the [project brief](docs/project-brief.md) or follow the
 [five-minute demonstration](docs/demo.md) to inspect the system and saved evidence.
 All five retrievers, evaluation, QA tooling and CPU Docker delivery are implemented.
@@ -23,7 +29,7 @@ the earlier partial v2 run remain archived unchanged.
 The follow-up made 47 judge calls with no retries or new generations. Its usage
 implies US$0.35257875 at frozen uncached rates; cumulative known v2 judging cost is
 US$0.4368195, while full cost remains unknown. These are estimates, not invoices.
-The planned engineering and experiment attempts are delivered. **Labels remain
+The earlier research engineering and experiment attempts are delivered. **Labels remain
 provisional; the small development set and incomplete score coverage do not
 establish a reliable QA-quality ranking.** Model assessments are not human review
 or true accuracy.
@@ -69,7 +75,30 @@ comparisons do not show a consistent advantage or reverse the retrieval finding.
 See [the cumulative report](reports/m7e-live/README.md) for exact denominators and
 limits. Higher protocol acceptance is not improved true accuracy.
 
-## Quickstart
+## Workbench quickstart
+
+Install Git and [uv](https://docs.astral.sh/uv/getting-started/installation/), then
+run from this project root in PowerShell:
+
+```powershell
+uv sync --locked --dev --extra dense
+uv run --locked --extra dense sacr prepare-model --cache artifacts/models
+$workspace = "artifacts/workbench"
+$repository = uv run --locked --extra dense sacr workbench import "." --workspace $workspace --json | ConvertFrom-Json
+if ($LASTEXITCODE -ne 0) { throw "Repository import failed." }
+uv run --locked --extra dense sacr workbench prepare $repository.repository_id --workspace $workspace
+if ($LASTEXITCODE -ne 0) { throw "Inspect resource preparation errors before continuing." }
+uv run --locked --extra dense sacr workbench preview $repository.repository_id "How is reciprocal rank fusion implemented?" --workspace $workspace
+uv run --locked --extra dense sacr workbench history --workspace $workspace
+```
+
+Dependency/model installation may download files. Subsequent previews load local
+weights and require no API key. They show retrieved evidence, not generated answers.
+The [startup guide](docs/workbench.md) covers pinned public Git URLs, full JSON
+results, stage failures and reopening a saved run with `workbench show RUN_ID`.
+See [M9a validation](reports/m9a/README.md) for the actual local/HTTPS checks.
+
+## Minimal fixture quickstart
 
 Install Git and [uv](https://docs.astral.sh/uv/getting-started/installation/), then
 run these commands in PowerShell or a POSIX shell:
@@ -108,6 +137,7 @@ behavior on synthetic data, not real retrieval or answer quality.
 
 | Task | Guide |
 | --- | --- |
+| Import a repository, preview all five strategies and reopen history | [Workbench startup](docs/workbench.md) |
 | Present the project and its defensible findings | [Project brief and CV wording](docs/project-brief.md), [offline demonstration](docs/demo.md) |
 | Index your repository and compare five strategies | [Commands and preparation](docs/reproduction.md) |
 | Inspect model, tokenization and fusion settings | [Baseline definitions](docs/baselines.md) |
@@ -183,6 +213,7 @@ flowchart LR
 
 ```text
 src/structure_aware_retrieval/  Parser, indexes, retrievers, evaluation/ and qa/
+  workbench/                  Import, resource preparation, previews and history
 tests/                        Offline unit/integration tests and small fixtures
 benchmarks/                   Versioned manifests, questions, judgments, provenance
 configs/                      Fixed strategy, ablation and QA configurations

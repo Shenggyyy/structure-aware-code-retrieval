@@ -23,6 +23,7 @@ writing the push command; the owner executes these commands.
 | M6 — Formal experiments | Aim for 5–8 repositories and 150–250 source-bound questions plus one public subset. Freeze data/configuration and label provenance; report paired differences, uncertainty, category breakdowns and costs. | `Expand benchmarks and report retrieval tradeoffs` |
 | M7 — QA | Bounded context, cited answers, automatic citation checks and LLM-assisted correctness/completeness/support evaluation. Freeze generation/judge settings and report real quality, failures and costs. | `Add repository QA with source citations` |
 | M8 — Delivery | CPU Docker path, final docs, reports or dashboard, clean-environment reproduction. A reader can run indexing, search, QA with configured credentials, and evaluation. | `Package reproducible experiments and project documentation` |
+| M9 — Interactive workbench | Extend the delivered research system into repository import, preparation, question comparison, saved history and a browser workflow; add same-model answer generation only after scoped approval. | Deliver in the M9a–M9c checkpoints below |
 
 M1–M6 engineering and retrieval experiments are implemented: five strategies, eight
 pinned repositories, 170 questions, 45 fixed runs, paired analyses, source traces
@@ -55,6 +56,12 @@ and saved live evidence. It adds no new model calls or retrieval-quality experim
 Current acceptance uses automatic checks and explicitly
 reported LLM assessment; independent human review is optional. See [status](status.md).
 Remote CI runs after the owner pushes; local checks do not establish remote CI status.
+
+The owner subsequently requested a complete interactive workflow. M9a now supplies
+the CLI foundation: source import, reusable resources, five context previews and
+saved history. Browser operation and same-model generated answers remain M9b/M9c.
+This new product scope does not revise the completed research evidence or treat
+context previews as generated answers. See [M9a validation](../reports/m9a/README.md).
 
 ### M6 delivery sequence
 
@@ -152,7 +159,7 @@ all 13 prior attempts untouched. Its live follow-up produced 46 valid judgments 
 one protocol failure, bringing cumulative accepted coverage to 58/60. New-batch
 cost is US$0.35257875 and cumulative known judging cost is US$0.4368195 at frozen
 uncached rates. The historical unknown keeps full cumulative usage/cost unknown.
-The planned engineering and experiment attempts are delivered; a missing historical
+The original engineering and experiment attempts are delivered; a missing historical
 outcome and optional human review do not require indefinite additional milestones.
 The existing combined runner remains v1. Incomplete score coverage and provisional
 labels remain limitations, and delivery does not prove Structure improves answers.
@@ -163,9 +170,10 @@ evaluation, CLI, tests, CI and result tables. QA, broader experiments and Docker
 also required for the full project. Optional manual review may improve future data;
 it is not a prerequisite for either MVP or final acceptance.
 
-The MVP excludes web dashboards, embedding training, learned/cross-encoder rerankers,
+The original retrieval MVP excludes web dashboards, embedding training, learned/cross-encoder rerankers,
 graph neural networks, multiple languages, exact whole-program analysis, incremental indexing, and
-distributed services. Add complexity only for a demonstrated need.
+distributed services. The later M9 scope explicitly adds a browser interface;
+the other exclusions remain in place. Add complexity only for a demonstrated need.
 
 The final project must allow a reader to install it, retrieve source evidence, and
 reproduce the main quality metrics using fixed data/model/configuration versions.
@@ -176,7 +184,7 @@ defensible evidence is.
 
 ## M8c — Presentation closeout
 
-The engineering and planned experiment scope is complete. This final presentation
+The original engineering and planned experiment scope is complete. This presentation
 checkpoint connects it to the original application-portfolio goal: a concise
 project brief, English/Chinese CV templates with evidence links, and a five-minute
 PowerShell walkthrough. The demonstration separates synthetic software checks from
@@ -192,6 +200,45 @@ call or benchmark version is required. Suggested commit:
 
 Further research, features or detailed architecture teaching are separate follow-up
 work, rather than automatic additional milestones needed to declare completion.
+
+## M9 — Interactive repository workbench
+
+The owner requested this extension after research and presentation delivery.
+Reuse the existing parser, indexes, retrieval strategies, context packing and QA
+adapter. A user should import a repository, prepare its resources, ask a question,
+compare strategies and reopen the same saved results. Preserve the fixed research
+benchmarks and historical experiment artifacts; ad hoc repository questions are
+unlabeled unless separately included in a versioned evaluation dataset.
+
+- **M9a — CLI foundation, implemented:** import current local Python files or a
+  public HTTPS Git snapshot with recorded source identity. Prepare and reuse
+  version-bound indexes, vectors and relations. Save all five context previews
+  under common question/context settings, keeping each strategy's failures and
+  timings visible. Reopen self-contained history without repeating retrieval.
+  No target code, dependency installation or model API call is executed. Public
+  imports need network; model weights must already be prepared locally. Context
+  previews contain source evidence, not generated answers or measured relevance.
+  Acceptance checks and observed runs are in the
+  [M9a record](../reports/m9a/README.md). Suggested commit:
+  `Add repository workbench imports and five-strategy previews`.
+- **M9b — Browser workflow, pending:** expose the same services through a local
+  browser interface. Show repository/preparation state, accept a question, compare
+  the five strategy contexts side by side, surface failures and reopen saved
+  history. Exercise the complete browser flow on a real imported repository and
+  retain the CLI path. This checkpoint does not require paid generation.
+- **M9c — Same-model answer comparison, pending:** freeze one answer-model
+  configuration and shared generation limits across the five retrieval contexts.
+  Produce a reviewable estimate for generation and any planned judging, with a
+  bounded request scope before paid execution. Execute only after model/budget
+  approval. Save actual answers,
+  automatic citation checks, token usage, estimated cost, latency and failures.
+  Keep LLM-assisted semantic scores separately labeled if judging is included;
+  never infer true accuracy from model scores or valid citation locations.
+
+The original research deliverables remain complete. The new full product workflow
+requires M9b and M9c as well as the delivered M9a foundation; a CLI preview alone
+does not satisfy browser-based answer comparison. Complete each checkpoint,
+validate existing behavior and stop for the owner's commit/push before proceeding.
 
 ## Deferred decisions
 

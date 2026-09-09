@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-09",
+  "checkpoint": "m9a-offline-workbench",
+  "source_base_commit": "b92de24b9c642c2bb17b5ef5bb7a66c87ef3107f",
+  "changes_committed": false,
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "new_llm_api_calls": 0,
+  "new_model_downloads": 0,
+  "new_benchmark_experiments": 0,
+  "network_use": "Public HTTPS Git source import only; tests and context previews offline",
+  "pytest": {
+    "tests": 1021,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "passed": 1019,
+    "elapsed_seconds": 533.197,
+    "new_workbench_tests_collected": 158,
+    "new_workbench_tests_passed": 157,
+    "new_workbench_tests_skipped": 1,
+    "skip_reason": "Two Windows symlink-creation privilege tests unavailable on this host",
+    "command": "uv run --locked --offline pytest --cov --cov-report=term-missing --cov-report=json:artifacts/m9a-validation/coverage.json --junitxml=artifacts/m9a-validation/tests.xml"
+  },
+  "coverage_totals": {
+    "covered_lines": 5075,
+    "num_statements": 5460,
+    "percent_covered": 91.4323258869908,
+    "percent_covered_display": "91",
+    "missing_lines": 385,
+    "excluded_lines": 13,
+    "percent_statements_covered": 92.94871794871794,
+    "percent_statements_covered_display": "93",
+    "num_branches": 2150,
+    "num_partial_branches": 255,
+    "covered_branches": 1883,
+    "missing_branches": 267,
+    "percent_branches_covered": 87.5813953488372,
+    "percent_branches_covered_display": "88"
+  },
+  "validation_output_sha256": {
+    "tests.xml": "dd1a607c48273b9039bddf07bbd90f6b608306715c3d3d31f9d6cbb547398262",
+    "coverage.json": "c91dbedec0a3366db9341817de4644801a003562ca1cd2d221e3d7287e073b0e"
+  },
+  "ruff_lint": "passed",
+  "ruff_format": "passed; 234 files already formatted",
+  "distribution_build": "uv build --offline passed; wheel and source distribution",
+  "published_overview": "45 validated saved runs; --check passed",
+  "docker_builds_rerun": false,
+  "remote_ci": "Pending owner commit and push for this checkpoint",
+  "real_encoder_cli_checks": [
+    {
+      "source_kind": "local",
+      "source_commit": "b92de24b9c642c2bb17b5ef5bb7a66c87ef3107f",
+      "repository_id": "c93499386a5cc97003bc1f32abbcddc5209586b98fcdb2afdf0171bd283daf05",
+      "resource_id": "9c44ae90cddf44382bb1c38d104262a3fb4c93356cd92f1729346a2c00062cfa",
+      "snapshot_id": "41d744583ad9b0eee7a2bafd45cbe64ff8ae6e2f6e0defa97b4e8b5dc1790d69",
+      "run_id": "4846d29cd7364bcf8d43d809a67f37ec",
+      "strategies": [
+        "bm25",
+        "dense",
+        "hybrid",
+        "symbol",
+        "structure"
+      ],
+      "strategy_statuses": [
+        "preview",
+        "preview",
+        "preview",
+        "preview",
+        "preview"
+      ],
+      "encoder_mode": "real_encoder",
+      "encoder_spec": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "all_resources_reused": true,
+      "resource_hashes_unchanged": true,
+      "saved_comparison_matches": true,
+      "api_calls": 0,
+      "benchmark_metrics": null,
+      "source": "tests/fixtures/sample_repo",
+      "question": "calculate_checksum payload bytes",
+      "command_sequence": [
+        "import",
+        "prepare",
+        "prepare again",
+        "preview",
+        "history",
+        "show"
+      ],
+      "all_six_cli_commands_passed": true,
+      "index_summary": {
+        "files_scanned": 3,
+        "files_indexed": 3,
+        "symbol_count": 9,
+        "chunk_count": 9,
+        "import_count": 2,
+        "diagnostics": []
+      },
+      "context_limits": {
+        "top_k": 10,
+        "max_context_bytes": 16000
+      },
+      "preview_sha256": "65b83c36ac387da8cf1cb9915b10226af6611df0c3a14d5c0f03fec6da5e41a9"
+    },
+    {
+      "source_kind": "https",
+      "source_commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+      "repository_id": "33a3542ceea8914fccb5da7ca453076854640649a5b9db82c2ec86fae2dd4dd1",
+      "resource_id": "4d7368ccdabcd18a3c458fd6f9d315e69710ceb58b5e7ae2aa3f56920760f47f",
+      "snapshot_id": "499a5f339815488b5c73c765bd010179843c887f8045d9b1640e236dad7051ca",
+      "run_id": "675db6ba721c40aa8ecae68384f68b40",
+      "strategies": [
+        "bm25",
+        "dense",
+        "hybrid",
+        "symbol",
+        "structure"
+      ],
+      "strategy_statuses": [
+        "preview",
+        "preview",
+        "preview",
+        "preview",
+        "preview"
+      ],
+      "encoder_mode": "real_encoder",
+      "encoder_spec": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+        "dimensions": 384,
+        "max_seq_length": 256,
+        "normalize": true,
+        "dtype": "float32",
+        "device": "cpu",
+        "threads": 4,
+        "batch_size": 32,
+        "query_prompt": "",
+        "document_prompt": "",
+        "text_policy": "path-qualified_name-signature-code-v1",
+        "packages": {
+          "sentence-transformers": "5.7.0",
+          "transformers": "5.16.1",
+          "torch": "2.14.0+cpu",
+          "tokenizers": "0.23.2"
+        }
+      },
+      "all_resources_reused": true,
+      "resource_hashes_unchanged": true,
+      "saved_comparison_matches": true,
+      "api_calls": 0,
+      "benchmark_metrics": null,
+      "source": "https://github.com/psf/requests.git",
+      "question": "How are request URLs prepared?",
+      "command_sequence": [
+        "import",
+        "prepare",
+        "prepare again",
+        "preview",
+        "history",
+        "show"
+      ],
+      "all_six_cli_commands_passed": true,
+      "index_summary": {
+        "files_scanned": 36,
+        "files_indexed": 36,
+        "symbol_count": 789,
+        "chunk_count": 867,
+        "import_count": 471,
+        "diagnostics": []
+      },
+      "context_limits": {
+        "top_k": 10,
+        "max_context_bytes": 16000
+      },
+      "preview_sha256": "e4e7fa63547c65f54936c17b37947d929c3cede58911c790ba9a81e24e4c6fa5"
+    }
+  ],
+  "initial_https_failure": {
+    "stage": "Owned staging cleanup after source snapshot was saved",
+    "platform_error": "WinError 5 on read-only Git pack files",
+    "resolution": "Confined cleanup handles read-only owned paths and preserves the original outcome; fresh HTTPS import and complete CLI sequence passed",
+    "prior_staging_retained_locally": true
+  },
+  "acceptance": {
+    "cli_import_prepare_five_previews_history": "passed",
+    "browser_workflow": "pending M9b",
+    "same_model_real_answers": "pending M9c and new scope/model/budget approval",
+    "semantic_judging_enabled": false
+  },
+  "interpretation": "Software workflow validation only. Preview answers, generation time, provider tokens and monetary estimates are absent/unknown. Ad hoc queries are unlabeled; historical provisional labels and research results are unchanged."
+}

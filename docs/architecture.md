@@ -19,8 +19,10 @@ approved v2 run is archived as partial: 12 valid judgments, one unknown attempte
 outcome and 47 requests not started after interruption. M7e's separate live follow-up
 has now attempted those 47 requests, yielding 46 valid judgments and one protocol
 failure. Cumulative score coverage is 58/60 with one invalid judgment and one
-historical unknown. Engineering delivery is complete; coverage and provisional-label
-limits remain explicit. Human review is optional. See [acceptance status](status.md).
+historical unknown. That research delivery is complete; coverage and provisional-label
+limits remain explicit. Human review is optional. M9 extends the user workflow:
+M9a implements import, prepared resources and saved five-strategy context previews;
+browser comparison and new real answers remain pending. See [acceptance status](status.md).
 
 ## Data flow
 
@@ -66,6 +68,9 @@ flowchart TD
 | `qa.judgment_schema` | Build v2 per-answer response catalogs and strict schemas from actual claim and evidence IDs |
 | `qa.judge_reporting` | Report new judge-only outcomes and costs separately from preserved generation measurements |
 | `evaluation` | Dataset validation, experiments, metrics, reports |
+| `workbench.importing` | Bounded local/HTTPS capture, source identity and import stage journal |
+| `workbench.preparation` | Reuse snapshot-bound index/vector/graph builders with independent stage state |
+| `workbench.comparison` / `workbench.storage` | Five-strategy previews, incremental saves and self-contained history |
 
 Keep the CLI thin and library logic independent of the user interface. Shared data
 contracts carry these identities and provenance:
@@ -123,6 +128,64 @@ chunking separately from graph features.
 `pathspec` handles nested ignore rules; `rank-bm25` (with NumPy) handles lexical
 search. Model dependencies are optional. No external database service, web service,
 or orchestration framework is required.
+
+## M9 workbench boundary
+
+```mermaid
+flowchart LR
+    S[Local tree or public HTTPS Git URL] --> F[Frozen Python source and commit provenance]
+    F --> P[Existing index, vector and graph builders]
+    P --> R[Five existing retrievers]
+    Q[One question and shared settings] --> R
+    R --> C[Existing context builder and source checks]
+    C --> H[Saved comparison with code evidence]
+    H --> V[CLI history and reopen]
+```
+
+M9a is a Python service layer plus a thin Typer command group. It introduces no
+second parser, retriever, vector store or database service. M9b will use a local
+Python HTTP layer and simple browser assets over the same services, keeping this
+single-user application small. Loopback binding, request-origin checks and escaped
+repository text belong to that next HTTP boundary; no HTTP endpoint exists yet.
+
+Imports read source statically. Public Git imports isolate ambient configuration,
+credentials, hooks, filters and proxy settings, reject redirects and non-public
+addresses, and pin a validated DNS result for Git's HTTPS transport. They fetch into
+a temporary bare repository and read blobs without checkout, submodules or target
+dependencies. Selection, byte, entry, depth and time limits bound capture; Git pack
+disk usage does not yet have a hard quota. Owned staging cleanup handles Windows
+read-only pack files without following links or masking the original outcome.
+
+Local imports freeze current file bytes and retain HEAD only as an optional anchor;
+working-tree cleanliness remains unknown. A content manifest identifies the actual
+source. The indexer's explicit provenance argument prevents copied source from
+inheriting this project's parent Git metadata. Imported paths and manifests reject
+traversal, symlinks and junctions. Workspaces must remain under the local user's
+control; checksums detect corruption, not an attacker rewriting trusted storage.
+
+Preparation records index, vector and relation stages independently. Cache keys bind
+source identity, parser/selection settings, encoder specification and package
+versions, and graph resolver settings. Short artifact filenames avoid unnecessary
+Windows path depth; sidecars retain full bindings and byte hashes. Existing weights
+are loaded offline. A failed vector stage leaves index/graph results available;
+explicit preparation can later reuse successful stages. Caught interrupts save
+their state before propagating; an abrupt process kill may leave a running marker.
+
+One preview fixes the question, context limits and actual strategy parameters.
+`create_retriever`, `prepare_question` and the existing preview/source-check path do
+the retrieval and packing. Each strategy validates only its required artifacts,
+then saves success, insufficient context or failure without erasing other outcomes.
+Shared encoder initialization and per-strategy resource/retrieval/context/check
+timings remain distinct. Generation time, provider tokens and cost are null; no
+answer model is called. Unlabeled questions have no invented benchmark scores.
+
+Atomic, fingerprinted run records include source/commit information, ranked code,
+score components, available relation provenance and packed evidence. History can
+be reopened without the original repository, resource files or embedding model.
+M9c will reuse model adapters and durable execution conventions for same-model
+answers after a new combined cost estimate and approval; historical budgets do not
+authorize these requests. Semantic LLM scoring stays optional and separate from
+automatic identity/location checks. See [workbench startup](workbench.md).
 
 ## M2 implementation details
 

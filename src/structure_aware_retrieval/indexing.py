@@ -3,6 +3,7 @@
 import json
 import os
 import platform
+import re
 import sqlite3
 import subprocess
 import tempfile
@@ -89,10 +90,26 @@ def build_index(
     max_file_bytes: int = 1_048_576,
     exclude: tuple[str, ...] = (),
     overwrite: bool = False,
+    source_provenance: dict[str, str | bool | None] | None = None,
 ) -> dict:
-    """Create a snapshot; an explicit overwrite replaces only an existing SACR index."""
+    """Create a snapshot; optionally use already captured provenance without running Git."""
     if max_chunk_lines < 1 or max_file_bytes < 1:
         raise ValueError("Chunk and file size limits must be positive")
+    if source_provenance is not None:
+        if not isinstance(source_provenance, dict) or set(source_provenance) != {
+            "commit",
+            "dirty",
+        }:
+            raise ValueError("Source provenance must contain commit and dirty")
+        commit = source_provenance["commit"]
+        dirty = source_provenance["dirty"]
+        if commit is not None and (
+            not isinstance(commit, str)
+            or re.fullmatch(r"(?:[0-9a-f]{40}|[0-9a-f]{64})", commit) is None
+        ):
+            raise ValueError("Source commit must be a full lowercase Git object ID or null")
+        if dirty is not None and type(dirty) is not bool:
+            raise ValueError("Source dirty status must be boolean or null")
     repository = repository.resolve(strict=True)
     if output.is_symlink():
         raise ValueError("Index output must not be a symbolic link")
@@ -108,7 +125,9 @@ def build_index(
         except sqlite3.Error as error:
             raise ValueError(f"Cannot replace a non-SACR database: {output}") from error
 
-    git_provenance = _git_provenance(repository)
+    git_provenance = (
+        _git_provenance(repository) if source_provenance is None else dict(source_provenance)
+    )
     scan = scan_repository(repository, max_file_bytes=max_file_bytes, exclude=exclude)
     config = {
         "schema_version": SCHEMA_VERSION,

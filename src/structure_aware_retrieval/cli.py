@@ -9,12 +9,15 @@ from typing import Annotated
 
 import typer
 
+from structure_aware_retrieval.workbench.cli import app as workbench_app
+
 app = typer.Typer(
     help="Code retrieval and evaluation for repository-level LLM applications.",
     add_completion=False,
     rich_markup_mode=None,
     invoke_without_command=True,
 )
+app.add_typer(workbench_app, name="workbench")
 
 
 @app.command("ask")
