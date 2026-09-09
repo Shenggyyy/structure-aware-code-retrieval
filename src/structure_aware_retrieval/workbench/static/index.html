@@ -1,115 +1,117 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>Repository Workbench · SACR</title>
   <link rel="stylesheet" href="/app.css">
+  <script src="/i18n.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">跳到工作区</a>
+  <a class="skip-link" href="#main" data-i18n="ui.skip"></a>
   <aside class="sidebar">
-    <a class="brand" href="#"><span class="brand-mark">S</span><span>SACR<span class="brand-sub">REPOSITORY WORKBENCH</span></span></a>
-    <p class="sidebar-label">工作空间</p>
-    <nav aria-label="主导航">
-      <button id="nav-workbench" class="nav-button active" type="button" aria-current="page"><span>◫</span> 检索对比</button>
-      <button id="nav-history" class="nav-button" type="button"><span>◷</span> 历史记录 <span id="history-count" class="count">0</span></button>
+    <a class="brand" href="#"><span class="brand-mark">S</span><span>SACR<span class="brand-sub" data-i18n="ui.brand_subtitle"></span></span></a>
+    <div class="language-control"><label for="language-select" data-i18n="ui.language"></label><select id="language-select" aria-label="Language / 语言"><option value="en">English</option><option value="zh-CN">简体中文</option></select></div>
+    <p class="sidebar-label" data-i18n="ui.workspace"></p>
+    <nav data-i18n-aria-label="ui.main_navigation">
+      <button id="nav-workbench" class="nav-button active" type="button" aria-current="page"><span aria-hidden="true">◫</span><span data-i18n="ui.navigation_compare"></span></button>
+      <button id="nav-history" class="nav-button" type="button"><span aria-hidden="true">◷</span><span data-i18n="ui.history"></span><span id="history-count" class="count">0</span></button>
     </nav>
-    <div class="sidebar-note"><span class="live-dot"></span> 本机运行
-      <p>静态读取 Python 源码。<br>先预览上下文，确认费用后才生成回答。</p>
+    <div class="sidebar-note"><span class="live-dot"></span><span data-i18n="ui.local_running"></span>
+      <p data-i18n="ui.local_note"></p>
     </div>
-    <a class="research-link" href="https://github.com/Shenggyyy/structure-aware-code-retrieval/blob/main/RESULTS.md" target="_blank" rel="noopener noreferrer">查看独立实验结果 ↗</a>
+    <a class="research-link" href="https://github.com/Shenggyyy/structure-aware-code-retrieval/blob/main/RESULTS.md" target="_blank" rel="noopener noreferrer" data-i18n="ui.research_results"></a>
     <span class="sidebar-foot">BM25 · DENSE · HYBRID<br>SYMBOL · STRUCTURE</span>
   </aside>
 
   <main id="main">
     <header class="page-header">
-      <div><p class="eyebrow">CODE RETRIEVAL / LOCAL WORKBENCH</p><h1>同一问题，五种检索结果。</h1><p class="subtitle">从仓库源码出发，并排查看证据、结构来源与运行信息。</p></div>
-      <span class="pill offline">默认预览 · 生成需确认</span>
+      <div><p class="eyebrow" data-i18n="ui.workbench_eyebrow"></p><h1 data-i18n="ui.title"></h1><p class="subtitle" data-i18n="ui.subtitle"></p></div>
+      <span class="pill offline" data-i18n="ui.preview_default"></span>
     </header>
     <div id="notice" class="notice" role="alert" hidden></div>
 
-    <section id="workbench-view" aria-label="检索工作台">
+    <section id="workbench-view" data-i18n-aria-label="ui.workbench_region">
       <section class="panel repository-panel" aria-labelledby="repository-heading">
-        <div class="section-heading"><div><span class="step">01</span><h2 id="repository-heading">选择源码版本</h2></div><button id="refresh-repositories" class="button text-button" type="button">刷新仓库</button></div>
-        <label for="repository-select" class="field-label">已导入仓库</label>
-        <select id="repository-select"><option value="">尚未导入仓库</option></select>
-        <div id="repository-info" class="repository-info"><p class="muted">导入仓库后，这里会显示实际源码版本和资源状态。</p></div>
-        <button id="prepare-button" class="button secondary" type="button" hidden>重新准备资源</button>
+        <div class="section-heading"><div><span class="step">01</span><h2 id="repository-heading" data-i18n="ui.select_source"></h2></div><button id="refresh-repositories" class="button text-button" type="button" data-i18n="ui.refresh_repositories"></button></div>
+        <label for="repository-select" class="field-label" data-i18n="ui.imported_repositories"></label>
+        <select id="repository-select"></select>
+        <div id="repository-info" class="repository-info"></div>
+        <button id="prepare-button" class="button secondary" type="button" hidden data-i18n="ui.prepare_again"></button>
         <details id="import-details" class="import-details" open>
-          <summary>＋ 导入一个仓库</summary>
+          <summary data-i18n="ui.import_repository"></summary>
           <form id="import-form">
             <div class="import-fields">
-              <div><label for="source" class="field-label">公开 HTTPS Git URL 或本地目录</label><input id="source" name="source" required maxlength="4096" placeholder="https://github.com/owner/repo.git 或 C:\projects\repo" autocomplete="off" spellcheck="false"></div>
+              <div><label for="source" class="field-label" data-i18n="ui.source"></label><input id="source" name="source" required maxlength="4096" data-i18n-placeholder="ui.source_placeholder" autocomplete="off" spellcheck="false"></div>
               <div><label for="ref" class="field-label">Git ref / commit</label><input id="ref" name="ref" value="HEAD" maxlength="200" autocomplete="off" spellcheck="false"></div>
-              <button id="import-button" class="button primary" type="submit">导入并准备 <span aria-hidden="true">↗</span></button>
+              <button id="import-button" class="button primary" type="submit"><span data-i18n="ui.import_prepare"></span><span aria-hidden="true">↗</span></button>
             </div>
-            <p class="field-help">本地目录填写服务所在机器的路径，ref 保持 HEAD。仅静态读取源码；向量模型需先在本机准备。</p>
+            <p class="field-help" data-i18n="ui.import_help"></p>
           </form>
         </details>
       </section>
 
       <section id="job-panel" class="panel job-panel" aria-labelledby="job-heading" hidden>
-        <div class="section-heading"><div><span id="job-indicator" class="live-dot"></span><h2 id="job-heading">任务进度</h2></div><span id="job-status" class="pill"></span></div>
+        <div class="section-heading"><div><span id="job-indicator" class="live-dot"></span><h2 id="job-heading" data-i18n="ui.job_progress"></h2></div><span id="job-status" class="pill"></span></div>
         <div id="job-stages" class="stage-list" aria-live="polite"></div>
         <p id="job-error" class="error-text" hidden></p>
         <p id="job-id" class="small muted mono"></p>
       </section>
 
       <section class="panel question-panel" aria-labelledby="question-heading">
-        <div class="section-heading"><div><span class="step">02</span><h2 id="question-heading">向这个仓库提问</h2></div><span class="small muted">五种策略 · 相同问题与上下文预算</span></div>
+        <div class="section-heading"><div><span class="step">02</span><h2 id="question-heading" data-i18n="ui.ask_repository"></h2></div><span class="small muted" data-i18n="ui.shared_settings"></span></div>
         <form id="question-form">
-          <label class="visually-hidden" for="question">仓库问题</label>
-          <textarea id="question" required rows="3" placeholder="例如：请求 URL 在哪里被校验和编码？哪些测试覆盖了这个流程？" maxlength="4000"></textarea>
+          <label class="visually-hidden" for="question" data-i18n="ui.question"></label>
+          <textarea id="question" required rows="3" data-i18n-placeholder="ui.question_placeholder" maxlength="4000"></textarea>
           <div class="question-actions">
-            <details class="settings"><summary>检索设置</summary><div class="settings-fields"><label for="top-k">最多上下文符号数<input id="top-k" type="number" min="1" max="100" value="10" required></label><label for="context-bytes">上下文预算（UTF-8 字节）<input id="context-bytes" type="number" min="2" max="1000000" value="16000" required></label></div></details>
-            <button id="preview-button" class="button primary" type="submit" disabled>运行五策略预览 <span aria-hidden="true">→</span></button>
+            <details class="settings"><summary data-i18n="ui.retrieval_settings"></summary><div class="settings-fields"><label for="top-k"><span data-i18n="ui.max_symbols"></span><input id="top-k" type="number" min="1" max="100" value="10" required></label><label for="context-bytes"><span data-i18n="ui.context_budget"></span><input id="context-bytes" type="number" min="2" max="1000000" value="16000" required></label></div></details>
+            <button id="preview-button" class="button primary" type="submit" disabled><span data-i18n="ui.run_preview"></span><span aria-hidden="true">→</span></button>
           </div>
         </form>
       </section>
 
-      <section id="empty-results" class="empty-state"><span class="empty-icon" aria-hidden="true">⌘</span><h2>让问题找到对应的代码</h2><p>导入并准备仓库后，输入问题。五种策略的结果将在这里并排显示并自动保存。</p><div class="strategy-chips"><span>BM25</span><span>Dense</span><span>Hybrid</span><span>Symbol-aware</span><span>Structure-aware</span></div></section>
+      <section id="empty-results" class="empty-state"><span class="empty-icon" aria-hidden="true">⌘</span><h2 data-i18n="ui.empty_title"></h2><p data-i18n="ui.empty_description"></p><div class="strategy-chips"><span>BM25</span><span>Dense</span><span>Hybrid</span><span>Symbol-aware</span><span>Structure-aware</span></div></section>
       <section id="results-section" aria-labelledby="results-heading" hidden>
-        <div class="result-heading"><div><p class="eyebrow">STRATEGY COMPARISON</p><h2 id="results-heading">五策略对比</h2></div><span id="run-mode" class="pill offline"></span></div>
+        <div class="result-heading"><div><p class="eyebrow" data-i18n="ui.comparison_eyebrow"></p><h2 id="results-heading" data-i18n="ui.comparison_title"></h2></div><span id="run-mode" class="pill offline"></span></div>
         <p id="run-question" class="run-question"></p>
         <div id="run-meta" class="run-meta"></div>
         <p id="comparison-note" class="comparison-note"></p>
         <section id="generation-panel" class="panel generation-panel" aria-labelledby="generation-heading" hidden>
-          <div class="section-heading"><div><span class="step">03</span><h2 id="generation-heading">使用同一模型生成回答</h2></div><button id="plan-button" class="button secondary" type="button">查看本次费用方案</button></div>
-          <p class="field-help">固定这份预览中的问题和五份上下文。查看方案不调用模型；确认后才将问题与选中的代码发送给 OpenAI。</p>
+          <div class="section-heading"><div><span class="step">03</span><h2 id="generation-heading" data-i18n="ui.generation_title"></h2></div><button id="plan-button" class="button secondary" type="button" data-i18n="ui.view_plan"></button></div>
+          <p class="field-help" data-i18n="ui.generation_help"></p>
           <div id="plan-content" hidden>
             <dl id="plan-summary" class="plan-summary"></dl>
-            <div class="plan-table-wrap"><table class="plan-table"><caption>逐策略请求范围与费用估算</caption><thead><tr><th>策略</th><th>状态</th><th>输入 token 估算</th><th>输出上限</th><th>估算费用</th></tr></thead><tbody id="plan-rows"></tbody></table></div>
+            <div class="plan-table-wrap"><table class="plan-table"><caption data-i18n="ui.plan_caption"></caption><thead><tr><th data-i18n="ui.table_strategy"></th><th data-i18n="ui.table_status"></th><th data-i18n="ui.table_input_tokens"></th><th data-i18n="ui.table_output_limit"></th><th data-i18n="ui.table_cost"></th></tr></thead><tbody id="plan-rows"></tbody></table></div>
             <p id="plan-note" class="field-help"></p>
             <p id="key-status" class="field-help"></p>
             <form id="generation-form" class="generation-form">
-              <div><label for="generation-budget" class="field-label">本方案预算（USD）</label><input id="generation-budget" type="number" min="0" step="0.01" required></div>
-              <label class="confirm-label"><input id="generation-confirm" type="checkbox" required><span id="generation-confirm-label">确认模型和本次请求范围，并同意按上述预算执行。</span></label>
-              <button id="generate-button" class="button primary" type="submit" disabled>确认并生成回答</button>
+              <div><label for="generation-budget" class="field-label" data-i18n="ui.plan_budget"></label><input id="generation-budget" type="number" min="0" step="0.01" required></div>
+              <label class="confirm-label"><input id="generation-confirm" type="checkbox" required><span id="generation-confirm-label"></span></label>
+              <button id="generate-button" class="button primary" type="submit" disabled data-i18n="ui.approve_generate"></button>
             </form>
-            <p class="field-help">预算用于执行前校验，不是服务商账单硬上限。每份方案只能执行一次；结果未知的请求不会自动重试。</p>
+            <p class="field-help" data-i18n="ui.budget_help"></p>
           </div>
         </section>
-        <section id="generation-summary" class="panel" hidden aria-label="回答生成记录"></section>
-        <div id="strategy-grid" class="strategy-grid" tabindex="0" aria-label="五策略结果，可横向滚动"></div>
-        <details class="panel config-panel"><summary>查看本次实际配置与源码版本</summary><pre id="run-config"></pre></details>
+        <section id="generation-summary" class="panel" hidden data-i18n-aria-label="ui.generation_record"></section>
+        <div id="strategy-grid" class="strategy-grid" tabindex="0" data-i18n-aria-label="ui.comparison_region"></div>
+        <details class="panel config-panel"><summary data-i18n="ui.run_configuration"></summary><pre id="run-config"></pre></details>
       </section>
     </section>
 
     <section id="history-view" aria-labelledby="history-heading" hidden>
-      <div class="result-heading"><div><p class="eyebrow">SAVED COMPARISONS</p><h2 id="history-heading">历史记录</h2></div><button id="refresh-history" class="button secondary" type="button">刷新记录</button></div>
-      <p class="subtitle">重新打开已保存的源码证据和运行信息，不会再次检索或调用模型。</p>
-      <label for="history-search" class="field-label">查找问题或记录 ID</label><input id="history-search" type="search" placeholder="搜索历史问题…">
+      <div class="result-heading"><div><p class="eyebrow" data-i18n="ui.history_eyebrow"></p><h2 id="history-heading" data-i18n="ui.history"></h2></div><button id="refresh-history" class="button secondary" type="button" data-i18n="ui.refresh_history"></button></div>
+      <p class="subtitle" data-i18n="ui.history_help"></p>
+      <label for="history-search" class="field-label" data-i18n="ui.history_search"></label><input id="history-search" type="search" data-i18n-placeholder="ui.history_placeholder">
       <div id="history-list" class="history-list"></div>
     </section>
-    <footer class="page-footer">Structure-Aware Code Retrieval <span>·</span> 上下文预览不是生成回答，源码位置检查不是语义正确性评分。</footer>
+    <footer class="page-footer">Structure-Aware Code Retrieval <span class="footer-separator">·</span><span data-i18n="ui.footer_note"></span></footer>
   </main>
 
   <dialog id="source-dialog" aria-labelledby="source-heading">
-    <div class="dialog-header"><div><p id="source-caption" class="eyebrow">SOURCE EVIDENCE</p><h2 id="source-heading">源码</h2></div><button id="close-source" class="button secondary" type="button" aria-label="关闭源码">关闭 ×</button></div>
-    <div class="dialog-body"><p id="source-name" class="mono small"></p><p id="source-range" class="muted small"></p><div id="source-code" class="source-code" role="region" aria-label="带行号的源码" tabindex="0"></div><details id="source-details"><summary>分数组成与结构来源</summary><pre id="source-provenance"></pre></details></div>
+    <div class="dialog-header"><div><p id="source-caption" class="eyebrow"></p><h2 id="source-heading"></h2></div><button id="close-source" class="button secondary" type="button" data-i18n-aria-label="ui.close_source"><span data-i18n="ui.close"></span><span aria-hidden="true">×</span></button></div>
+    <div class="dialog-body"><p id="source-name" class="mono small"></p><p id="source-range" class="muted small"></p><div id="source-code" class="source-code" role="region" data-i18n-aria-label="ui.numbered_source" tabindex="0"></div><details id="source-details"><summary data-i18n="ui.source_provenance"></summary><pre id="source-provenance"></pre></details></div>
   </dialog>
 </body>
 </html>

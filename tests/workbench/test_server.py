@@ -492,7 +492,12 @@ def test_restart_preserves_corrupt_linked_archive_and_reports_warning(tmp_path):
 
 @pytest.mark.parametrize(
     ("path", "content_type"),
-    [("/", "text/html"), ("/app.js", "text/javascript"), ("/app.css", "text/css")],
+    [
+        ("/", "text/html"),
+        ("/app.js", "text/javascript"),
+        ("/i18n.js", "text/javascript"),
+        ("/app.css", "text/css"),
+    ],
 )
 def test_only_packaged_browser_assets_are_served(tmp_path, path, content_type):
     with running(tmp_path / "w") as instance:

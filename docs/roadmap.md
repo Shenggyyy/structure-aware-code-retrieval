@@ -23,7 +23,7 @@ handover validation inputs.
 | Stage | Deliverable and acceptance | Status |
 | --- | --- | --- |
 | 1 — Audit, cleanup and bilingual GitHub presentation | Check actual code/document references before removal; consolidate current explanations; align English `README.md` and Chinese `README.zh-CN.md` with working startup/navigation and unchanged evidence | Complete; local checks recorded |
-| 2 — Bilingual browser interface | One shared interface/business flow with centralized English/Chinese messages, visible switching, persisted preference and documented fallback; translate important states and payment/error wording without modifying user content or making model calls | Pending |
+| 2 — Bilingual browser interface | One shared interface/business flow with centralized English/Chinese messages, visible switching, persisted preference and documented fallback; translate important states and payment/error wording without modifying user content or making model calls | Complete; local tests and bilingual browser checks recorded |
 | 3 — Final review and delivery | Review import → preparation → preview → approval → answers → citations → history in both languages; fix findings and record full tests, lint, formatting, build, result validation and browser checks; execute container checks when available and state actual limits | Pending |
 
 Completion requires clear repository navigation, consistent bilingual homepages and
@@ -33,6 +33,14 @@ Do not declare localization or final review complete before its checks run. Pres
 user snapshots, caches, API configuration and workbench history throughout cleanup.
 Frozen benchmarks, configurations, raw responses, source information, licenses and
 reproduction files are evidence, not ordinary unused content.
+
+Stage 2 centralizes messages in one packaged `i18n.js` catalog. Its acceptance
+covers saved-choice priority, browser-language default, invalid-preference and
+storage-failure handling, English/key fallback, and translated operational states.
+Switching must only redraw local state: questions, source, answers and raw records
+stay intact, as do edited budgets and current consent. It cannot trigger a request
+or supply approval. The existing consent reset when reopening a plan remains.
+These interface checks do not replace the separate Stage 3 final workflow review.
 
 ## Milestones and acceptance criteria
 

@@ -8,10 +8,10 @@ Structure-aware retrieval, then uses the retrieved evidence for cited repository
 It combines a local browser workbench with reproducible experiments and saved results.
 
 The core system, experiment pipeline and M9 browser workflow are implemented and
-validated. Final delivery preparation is in progress: bilingual repository pages,
-then interface translation and a final review. See [status](docs/status.md) and the
-[delivery record](docs/delivery.md). The current browser interface is Chinese;
-English interface support is the next delivery stage.
+validated. Final delivery preparation is in progress: the English/Chinese homepages
+are complete, and the shared bilingual interface is the current implementation and
+validation checkpoint. Final review remains pending. See [status](docs/status.md)
+and the [delivery record](docs/delivery.md).
 
 ## What you can do
 
@@ -33,7 +33,9 @@ English interface support is the next delivery stage.
 Actual browser view of the [archived Requests run](reports/m9c-live/README.md).
 This is a saved result, not a new generation or a correctness score. The original
 question and model answers remain unchanged. Evidence controls open the saved code
-and line numbers; narrower screens can scroll the five columns horizontally.
+and line numbers; narrower screens can scroll the five columns horizontally. This
+Stage 1 screenshot retains the Chinese interface from that checkpoint. The current
+page offers **Interface language / 界面语言** selection between English and 简体中文.
 
 ## Workbench quickstart
 
@@ -53,19 +55,25 @@ access. Previews use local CPU model weights and require no API key or GPU. Keep
 this terminal running and open [the local workbench](http://127.0.0.1:8765/).
 Stop it with Ctrl+C; choose another `--port` if needed.
 
+Use **Interface language / 界面语言** to switch the shared interface. A saved choice takes priority;
+otherwise the first browser language selects Chinese when it starts with `zh`, and
+English in other cases. The choice persists when browser storage is available.
+Switching changes interface wording only: questions, code, answers and raw records
+keep their original text, with no network request or paid action from the switch.
+
 1. Enter a public HTTPS Git URL or local directory. For a remote source, an exact
    commit in the ref field makes the version reproducible; `HEAD` resolves the
    current version. Local paths refer to the server's filesystem.
-2. Select **导入并准备** (import and prepare), then inspect source identity and
+2. Select **Import and prepare / 导入并准备**, then inspect source identity and
    parsing, vector and graph status. Imported repository code is read statically;
    its dependencies, install scripts and tests are not executed.
-3. Enter a question and select **运行五策略预览** (run five previews). Compare code
+3. Enter a question and select **Preview all five strategies / 运行五策略预览**. Compare code
    evidence; missing or failed strategies remain visible rather than being invented.
 4. For optional answers, prepare a plan and review its model, request limit and total
    estimate. Explicitly confirm paid generation and budget. Configure
    `OPENAI_API_KEY` only in the server's local environment before starting it;
    restart the server after environment changes. Never enter the key in the page.
-5. Open answer citations to inspect source. Use **历史记录** (history) to reopen
+5. Open answer citations to inspect source. Use **History / 历史记录** to reopen
    the saved comparison. Reopening or refreshing does not repeat paid requests.
 
 Starting the server, importing, previewing, planning and viewing history do not
@@ -86,7 +94,7 @@ Expand-Archive -LiteralPath reports/m9c-live/run.zip -DestinationPath $replay
 uv run --locked --offline sacr workbench serve --workspace "$replay" --port 8765
 ```
 
-Open the local workbench, choose **历史记录**, and open **How are request URLs
+Open the local workbench, choose **History / 历史记录**, and open **How are request URLs
 prepared?** The displayed API call count belongs to the historical run; viewing it
 makes no new request. The [archive guide](reports/m9c-live/README.md#portable-offline-replay)
 includes integrity verification. For a model-free indexing/search/evaluation example,
@@ -168,6 +176,11 @@ classes and `test_*.py` tests. Ruff uses a 100-character limit; format with
 optional Dense dependencies. Tests are offline after installation; coverage is
 reported without a percentage gate. CI also builds both CPU container targets and
 runs their installed-runtime smoke checks without networking.
+
+Browser localization tests use Node.js on `PATH`, without npm dependencies. Run
+`uv run --locked pytest tests/workbench/test_i18n.py` for those contracts; pytest
+skips them locally if Node is unavailable. CI explicitly checks Node availability
+before testing. Serving the workbench does not require Node.
 
 Keep code, tests and documentation aligned; commit `uv.lock` with dependency changes.
 Preserve historical results, licenses and provenance. Keep user data in ignored

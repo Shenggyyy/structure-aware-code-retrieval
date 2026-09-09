@@ -10,12 +10,12 @@ features, datasets or paid experiments require a separate request.
 | Stage | Scope | Status |
 | --- | --- | --- |
 | 1 | Repository audit, justified cleanup and English/Chinese GitHub homepages | Complete; local validation recorded below |
-| 2 | One shared browser interface with persistent Chinese/English selection | Pending |
+| 2 | One shared browser interface with persistent Chinese/English selection | Complete; local validation recorded below |
 | 3 | Targeted final review, fixes, full verification and delivery acceptance | Pending |
 
-The current interface is Chinese. Bilingual homepages do not imply that interface
-translation or the final review has already passed. Current accepted capabilities
-and historical evidence remain in [status](status.md) and [roadmap](roadmap.md).
+The homepages and browser interface now support English and Chinese. The separate
+Stage 3 final review remains pending. Current accepted capabilities and historical
+evidence remain in [status](status.md) and [roadmap](roadmap.md).
 
 ## Stage 1 audit and decisions
 
@@ -92,13 +92,68 @@ this documentation checkpoint. No new container build or remote CI run was execu
 the existing CI covers both CPU container targets after the owner pushes. Historical
 full-suite and live-acceptance records remain evidence of their own checkpoints.
 
-## Remaining review and acceptance
+## Stage 2 implementation and findings
 
-Stage 2 must centralize translations while preserving question/code/answer text,
-paths, identifiers, model settings, monetary values and raw historical records.
-Review static asset registration in `workbench/server.py`, package contents and
-the corresponding tests/CI when adding translation assets. Language switching must
-not call a model or implicitly approve generation.
+This stage starts from `845c370` on `main`. One `i18n.js` catalog serves the existing
+HTML and application logic. It covers navigation, forms, progress, previews,
+generation plans, consent, saved answers, citations, history and errors. No core
+retrieval, generation or archive protocol was redesigned or deleted.
+
+The visible language selector stores `en` or `zh-CN` locally. A valid saved choice
+takes priority; otherwise the first browser language selects Chinese for a `zh`
+prefix and English for other languages. Blocked storage still permits switching
+within the page. Missing translations fall back to English, then the message key.
+
+Switching redraws cached data without fetching or translating user content. Questions,
+code, answers, identifiers and raw JSON stay unchanged; edited budgets and current
+consent survive a switch. Reopening a plan retains the existing consent reset.
+Text and substituted values use safe DOM text operations. Known operational errors
+have bilingual explanations; unmapped technical diagnostics retain their original
+text with a localized wrapper.
+
+Review found and fixed three issues: redrawing repository choices initially selected
+a repository after the user had deliberately cleared the selection, and some fixed
+generation approval errors lacked Chinese explanations; a few dictionary lookups
+also treated prototype-named unknown fields as messages. Regression checks now
+cover empty selection preservation, important budget/model/key/plan errors and
+safe fallback for unusual status/check names.
+Responsive rules allow longer English labels and local scrolling for tables,
+comparison cards and source code. The new asset is registered with the server,
+checked in the package and included in the CI container asset assertion.
+
+## Stage 2 validation
+
+Recorded on 2026-09-09, before the owner's commit/push:
+
+| Check | Actual result |
+| --- | --- |
+| Workbench regression | `test_server.py`, `test_server_generation.py` and `test_live_archive.py`: 95 tests passed, including the new static asset route |
+| Translation contracts | `test_i18n.py` passed all 11 Node subtests: defaults/storage/fallback, catalog and placeholder parity, DOM safety, critical errors, and application redraw preserving data, consent, source details and empty repository selection |
+| Browser behavior | Existing published Requests archive opened in both languages; Dense S2 showed unchanged source at `src/requests/models.py:409–481`; language persisted after reload |
+| No-request switch | Instrumented server request counts remained at nine GETs and zero POSTs across a language switch; original question, answer claims and actual configuration matched exactly |
+| Offline workflow | Isolated test workspace: local fixture import, resource preparation/reuse, five previews, cost planning, insufficient-budget rejection, explicit consent, five synthetic answers, citation viewing and history search/reopen worked |
+| Failure and rendering | An offline unknown-outcome fixture retained unknown usage/costs, one unknown attempt and three unstarted strategies in both languages; invalid HTTP repository URL showed a translated rejection; HTML-shaped answer text rendered literally with no injected image |
+| Responsive browser check | 1440×1000 and 390×844: reviewed both languages, long confirmation text, buttons and citation dialogs; narrow layouts use local scrolling without page-wide horizontal overflow; no browser warning/error logs observed |
+| Homepage and navigation | Four command/layout blocks and 34 link targets match across the two homepages; 290 local links and 20 heading anchors across 20 current top-level documents passed |
+| Delivery regression | `test_delivery.py`: three tests passed; the final combined run with `test_i18n.py` passed four pytest tests |
+| Lint and formatting | Ruff check and format check passed; Node syntax checks passed for both application and translation scripts |
+| Build and assets | `uv build --offline` succeeded; wheel contains the four exact static assets, and source distribution includes the same assets, bilingual homepages and Node contract tests |
+| Published results | Existing overview validator passed for all 45 saved runs; no report artifacts were rewritten |
+
+Browser generation used an injected test model and fixture encoder, with the real
+OpenAI call method disabled. Synthetic answers are explicitly marked as offline
+tests and report zero real API calls. This is software validation, not a new model
+experiment or retrieval-quality measurement. Published archives were read without
+modification; validation data stayed under ignored `artifacts/`, apart from source
+tests. User workspaces, model caches and API configuration were not overwritten.
+
+Node is needed for the frontend contract tests, not for serving the workbench.
+Local pytest skips these tests if Node is absent; CI explicitly checks Node before
+running them. An already-running Python server must be restarted to register the
+new asset; existing histories remain readable. Full-suite and container execution
+are deferred to Stage 3; no remote CI result is claimed for this uncommitted stage.
+
+## Remaining review and acceptance
 
 Stage 3 will review import and static source handling, five-strategy previews,
 frozen plans and paid confirmation, unknown-request handling, answer/citation

@@ -79,6 +79,7 @@ flowchart TD
 | `workbench.comparison` / `workbench.storage` | Five-strategy previews, incremental saves and self-contained history |
 | `workbench.generation` | Freeze saved contexts and one model into a priced plan, enforce explicit approval, journal requests and preserve answer outcomes |
 | `workbench.server` / packaged browser assets | Loopback HTTP boundary, background jobs, repository controls, evidence comparison and saved-run views |
+| `workbench/static/i18n.js` | Shared English/Chinese interface messages, language selection and fallback; no model or retrieval logic |
 
 Keep the CLI thin and library logic independent of the user interface. Shared data
 contracts carry these identities and provenance:
@@ -182,6 +183,24 @@ columns, saved source lines, scores and structure provenance. It labels context
 previews, current generation and reopened saved results separately. Empty or failed
 rows retain their actual states, and unavailable generation time, provider tokens
 and costs remain unknown. No API key enters the browser or HTTP interface.
+
+One page and one application flow serve English and Simplified Chinese. The
+packaged `i18n.js` catalog centralizes interface messages; a visible language
+selector redraws the existing local state instead of requesting fresh data.
+The browser preference is stored under `sacr.workbench.language`. A valid `en` or
+`zh-CN` value takes priority; otherwise the first value in `navigator.languages`
+(or `navigator.language`) selects Chinese for a `zh` prefix and English otherwise.
+Invalid saved values are ignored. If storage is unavailable, switching still works
+in memory but persistence is not guaranteed. A missing translation falls back to
+the English message, then to the message key.
+
+Localization covers controls, status explanations, consent wording and accessible
+labels. Questions, source code, generated answers, identifiers, paths, model/API
+fields, numerical measurements and raw technical errors/JSON retain their original
+content. Changing language preserves current form values and consent state; it
+cannot authorize or issue a paid request. Opening or refreshing a frozen plan
+retains the existing unchecked-consent rule. This adds one local asset without a
+frontend framework, duplicate language-specific pages or a server locale endpoint.
 
 Imports read source statically. Public Git imports isolate ambient configuration,
 credentials, hooks, filters and proxy settings, reject redirects and non-public

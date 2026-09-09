@@ -3,8 +3,8 @@
 The core research system, planned experiment attempts and M9 local browser workflow
 are complete. The owner has requested a final three-stage handover: repository
 cleanup and bilingual homepages, a bilingual browser interface, then final review
-and validation. **That handover is in progress; the interface translation and final
-review are not yet complete.** It adds no new research or feature milestone.
+and validation. **Stages 1 and 2 are locally complete; final review remains pending.**
+It adds no new research or feature milestone.
 
 Use [RESULTS](../RESULTS.md) for experimental findings and their limitations,
 [the workbench guide](workbench.md) for current operation, and [the roadmap](roadmap.md)
@@ -32,13 +32,21 @@ checkpoint-specific validation.
 | Stage | Scope | Current state |
 | --- | --- | --- |
 | 1 — Repository audit and GitHub presentation | Audit references and entry points; make evidence-backed cleanup; provide aligned English and Chinese homepages; consolidate current status/navigation | Complete; local checks in the delivery record |
-| 2 — Bilingual browser interface | Shared UI translation catalog, visible language switch and persisted preference; preserve source/questions/answers and all paid-call safeguards | Pending |
+| 2 — Bilingual browser interface | Shared English/Chinese catalog, visible switch, saved preference and documented fallback; preserve source/questions/answers, raw records and all paid-call safeguards | Complete; local tests and bilingual browser checks in the delivery record |
 | 3 — Final review and delivery | Review the complete workflow and boundaries, fix findings, run full tests/lint/format/build/result checks and browser checks; record container checks or their limits | Pending |
 
 The owner reviews, commits and pushes each stage. Final handover is complete only
 after these stages are verified and their remaining limits are recorded in
 [the delivery record](delivery.md). At that point, stop within the agreed scope:
 further features, research or paid experiments are optional, separately requested work.
+
+Stage 2 uses a single page with an **Interface language / 界面语言** selector. Valid saved choices
+take priority; the first browser language selects Chinese for a `zh` prefix and
+English otherwise. Storage failure does not prevent switching within the page.
+The switch performs a local redraw, preserving raw content, edited budgets and
+current consent without issuing requests. Reopening a plan still resets consent.
+Missing messages fall back to English, then their key. See [the workbench guide](workbench.md)
+for operation and [the delivery record](delivery.md) for checkpoint-specific checks.
 
 ## Verified checkpoints
 

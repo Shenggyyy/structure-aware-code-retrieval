@@ -40,22 +40,35 @@ The command prints its local URL. Use a different `--port` if 8765 is occupied.
 Stop the server with Ctrl+C when finished. Starting the server does not download a
 repository, prepare model weights, run retrieval or call an answering model.
 
+The visible **Interface language / 界面语言** selector offers **English** and **简体中文** on the
+same page. An existing valid saved preference takes priority. Otherwise the first
+browser language selects Chinese when it begins with `zh`; other languages use
+English. Invalid saved values are ignored. A browser that blocks storage still
+allows switching for the open page, but the choice may not survive a refresh.
+
+Language switching redraws local interface wording without fetching data, running
+retrieval or calling a model. It preserves question input, source code, model
+answers, paths, IDs, monetary values and raw JSON. Technical error details remain
+in their original language beside translated user-facing explanations. An edited
+generation budget and current paid-consent checkbox are not reset or approved by
+switching language; reopening or refreshing a plan still resets paid consent.
+
 1. Enter a **public HTTPS Git URL** or a **local directory path**. Local paths refer
    to the server's filesystem; relative paths resolve from the project directory
    where the server was launched. For HTTPS, set an exact commit in the ref field
    for repeatable source selection, or keep `HEAD` to resolve its current version.
-2. Choose **导入并准备** (import and prepare). Download/capture, parsing, vector and graph state
+2. Choose **Import and prepare / 导入并准备**. Download/capture, parsing, vector and graph state
    remain visible, including failures. Only one background job runs at a time;
    reload the page to reconnect rather than starting duplicate jobs. Existing
    snapshots and valid resources are reused under the same M9a rules.
 3. Select an imported repository. Inspect the saved commit/source information and
    resource state, then enter a question. The shared `top_k` and context byte limit
    apply to all five retrieval strategies.
-4. Choose **运行五策略预览** (run five previews). Five columns display separate outcomes, ranked hits,
+4. Choose **Preview all five strategies / 运行五策略预览**. Five columns display separate outcomes, ranked hits,
    source evidence, score details and available structure provenance. Expand code
    evidence to see its saved path and one-based line numbers. Evidence IDs refer to
    packed context; a preview has no generated answer or answer citation.
-5. Open a run from **历史记录** (history). The saved comparison and its source evidence are loaded
+5. Open a run from **History / 历史记录**. The saved comparison and its source evidence are loaded
    without retrieval, encoding or access to the original source. The UI distinguishes
    this saved view from a preview just completed in the current browser session.
 
@@ -89,9 +102,9 @@ unlabeled interactive questions.
 
 ## Optional answers: review before paid execution
 
-First save a context preview. In the browser, prepare its generation plan and review
-the model, per-strategy eligibility, exact request count and combined estimate.
-Planning does not call OpenAI.
+First save a context preview. In the browser, choose **Review this cost plan /
+查看本次费用方案** and review the model, per-strategy eligibility, exact request
+count and combined estimate. Planning does not call OpenAI.
 
 Preparing a plan updates the browser URL to `#plan=PLAN_ID`. Bookmark or copy that
 URL to reopen the same frozen plan after closing or refreshing the tab, while the
@@ -124,9 +137,10 @@ budget check cannot guarantee the eventual bill. Existing research budgets do no
 authorize this new plan.
 
 To execute, explicitly confirm the exact model ID and a positive US-dollar budget
-covering the displayed estimate, and acknowledge paid generation. No preselected
-consent or automatic execution follows planning. The server must inherit a locally
-configured `OPENAI_API_KEY`; configure it before starting the server and restart
+covering the displayed estimate, acknowledge paid generation, then choose
+**Approve and generate answers / 确认并生成回答**. No preselected consent or automatic execution
+follows planning. The server must inherit a locally configured `OPENAI_API_KEY`;
+configure it before starting the server and restart
 the server if its environment changes. The key is never submitted to the browser,
 saved with the plan or written to the archive. Approved requests send the question
 and frozen code context to OpenAI, including source copied from a local directory.
@@ -333,9 +347,16 @@ read-only and prepare weights explicitly before running previews. The base image
 can run import/index/graph operations but needs Dense dependencies for all five
 strategies. M9b's browser server is intended to run on the host; container port
 exposure is not added in this checkpoint. Container CI now also checks that the
-installed package contains all three browser assets. Existing CI collects the new offline
+installed package contains all four browser assets, including the shared `i18n.js`
+translation catalog. Existing CI collects the offline
 tests on Windows and Linux, and package builds include the local browser assets
 without a frontend build.
+
+The browser localization contract tests use Node.js on `PATH` with no npm packages.
+Run `uv run --locked pytest tests/workbench/test_i18n.py` to check them locally;
+pytest skips this test when Node is unavailable. CI runs `node --version` and
+JavaScript syntax checks before pytest, so missing Node fails CI rather than
+silently skipping this coverage. The workbench server itself does not need Node.
 
 M9b exposes the existing services through Python's standard-library HTTP server and
 simple browser assets: import status, question entry, side-by-side contexts, source
@@ -347,6 +368,11 @@ software behavior, not model correctness or real billing. The separately approve
 representative citations for all five strategies, token/cost display, saved-history
 reopening and unchanged results after server restart. The agreed local workflow is
 complete; no additional engineering stage is required automatically.
+
+Final handover Stage 2 adds the shared English/Chinese interface and its preference
+behavior. Implementation and checkpoint validation are the current stage; the
+separate Stage 3 final review remains pending. See [delivery](delivery.md) for actual
+validation evidence. Localization does not change or add research measurements.
 
 Existing experiment approvals, including this completed US$0.10 run, do not
 authorize new questions or retries. Prepare and review a new plan before any new

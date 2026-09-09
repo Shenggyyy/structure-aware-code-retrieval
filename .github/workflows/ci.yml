@@ -28,6 +28,11 @@ jobs:
         run: uv run --locked ruff check .
       - name: Check formatting
         run: uv run --locked ruff format --check .
+      - name: Check browser JavaScript runtime and syntax
+        run: |
+          node --version
+          node --check src/structure_aware_retrieval/workbench/static/i18n.js
+          node --check src/structure_aware_retrieval/workbench/static/app.js
       - name: Test
         run: uv run --locked pytest --cov --cov-report=term-missing --cov-report=xml
       - name: Validate published retrieval overview
@@ -63,7 +68,7 @@ jobs:
           assert str(Path(structure_aware_retrieval.__file__).resolve()).startswith("/opt/venv/")
           assert importlib.util.find_spec("pytest") is None
           static = files("structure_aware_retrieval.workbench").joinpath("static")
-          assert all(static.joinpath(name).is_file() for name in ("index.html", "app.js", "app.css"))
+          assert all(static.joinpath(name).is_file() for name in ("index.html", "app.js", "i18n.js", "app.css"))
           if os.environ["IMAGE_TARGET"] == "dense":
               import torch, sentence_transformers
               assert torch.version.cuda is None
