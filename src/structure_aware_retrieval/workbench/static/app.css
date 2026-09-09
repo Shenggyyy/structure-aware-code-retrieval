@@ -91,6 +91,23 @@ summary { font-size:12px; color:var(--accent); font-weight:600; padding:3px 0; }
 .card-body { padding:14px; }
 .card-status { margin-top:11px; font-size:10px; }
 .card-status.failed,.card-status.interrupted { color:var(--error); background:#ffeded; }
+.card-status.outcome_unknown,.card-status.provider_error,.card-status.invalid_answer { color:var(--error); background:#ffeded; }
+.generation-panel { border-color:#b3ccbb; }
+.plan-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 24px; margin:20px 0; }
+.plan-summary dt { font-size:11px; color:var(--muted); }
+.plan-summary dd { margin:6px 0 0; font-size:13px; overflow-wrap:anywhere; line-height:1.7; }
+.plan-table-wrap { overflow:auto; }
+.plan-table { border-collapse:collapse; width:100%; text-align:left; font-size:12px; }
+.plan-table caption { text-align:left; margin:10px 0; font-weight:600; }
+.plan-table th,.plan-table td { border-bottom:1px solid var(--line); padding:10px 12px 10px 0; white-space:nowrap; }
+.plan-table th { color:var(--muted); font-size:11px; }
+.generation-form { display:flex; flex-wrap:wrap; align-items:end; gap:18px; margin:20px 0; }
+.generation-form > div { flex:0 0 150px; }
+.confirm-label { display:flex; gap:10px; align-items:flex-start; flex:1 1 250px; font-size:12px; line-height:1.8; }
+.confirm-label input { width:16px; height:16px; flex:0 0 16px; margin:3px 0; }
+.answer-claims { margin:0; padding-left:18px; font-size:12px; line-height:1.8; }
+.answer-claims li { padding:0 0 16px 2px; }
+.claim-text { white-space:pre-wrap; overflow-wrap:anywhere; margin-bottom:8px; }
 .preview-label { background:#f5f7f3; border-radius:6px; padding:10px; font-size:11px; line-height:1.8; color:var(--muted); }
 .metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 8px; margin:16px 0; }
 .metric-grid dt { font-size:10px; color:var(--muted); }

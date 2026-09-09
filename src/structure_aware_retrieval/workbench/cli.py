@@ -1,6 +1,7 @@
 """Local workbench commands over the existing import and retrieval services."""
 
 import json
+import math
 import sqlite3
 from pathlib import Path
 from typing import Annotated
@@ -8,7 +9,7 @@ from typing import Annotated
 import typer
 
 app = typer.Typer(
-    help="Import repositories and compare five contexts in the CLI or browser; no model API calls.",
+    help="Compare repository contexts offline; plan and explicitly approve same-model answers.",
     add_completion=False,
     rich_markup_mode=None,
     no_args_is_help=True,
@@ -163,6 +164,80 @@ def preview(
     else:
         _comparison(record, workspace)
     if record["status"] != "preview_complete":
+        raise typer.Exit(1)
+
+
+@app.command("plan")
+def plan_answers(
+    run_id: Annotated[str, typer.Argument(help="Saved context-preview run ID")],
+    workspace: Annotated[Path, typer.Option()] = Path("artifacts/workbench"),
+    as_json: Annotated[
+        bool, typer.Option("--json", help="Print the frozen plan and exact request payloads")
+    ] = False,
+) -> None:
+    """Freeze one model and the total generation estimate; make no API calls."""
+    from structure_aware_retrieval.workbench.generation import create_generation_plan
+
+    try:
+        record = create_generation_plan(workspace, run_id)
+    except (OSError, ValueError, sqlite3.Error) as error:
+        _failure(error)
+    if as_json:
+        _json(record)
+        return
+    typer.echo(f"Plan: {record['plan_id']}; preview: {record['preview_run_id']}")
+    typer.echo(f"Model: {record['model']}")
+    typer.echo(
+        f"Maximum generation requests: {record['request_limit']}; "
+        f"judge requests: {record['judge_calls']}"
+    )
+    typer.echo(f"Total estimated cost: US${record['estimated_cost_usd']:.6f}")
+    for row in record["strategies"]:
+        typer.echo(f"{row['strategy']}: {row['status']}")
+    typer.echo("API calls: 0. Review the plan before explicitly confirming model and budget.")
+    typer.echo("The estimate is not an invoice or a provider-enforced billing cap.")
+
+
+@app.command("generate")
+def generate_answers(
+    plan_id: Annotated[str, typer.Argument(help="Frozen generation plan ID")],
+    budget_usd: Annotated[
+        float, typer.Option("--budget-usd", min=0, help="Explicit total budget in US dollars")
+    ],
+    confirm_model: Annotated[
+        str, typer.Option("--confirm-model", help="Exact model ID from the reviewed plan")
+    ],
+    workspace: Annotated[Path, typer.Option()] = Path("artifacts/workbench"),
+    confirm_paid: Annotated[
+        bool, typer.Option("--confirm-paid", help="Authorize this plan's paid generation requests")
+    ] = False,
+    as_json: Annotated[
+        bool, typer.Option("--json", help="Print all saved generation outcomes and measurements")
+    ] = False,
+) -> None:
+    """Execute one reviewed plan once; never retry attempted or unknown requests."""
+    if not confirm_paid:
+        _failure(ValueError("Paid generation requires explicit --confirm-paid"))
+    if not math.isfinite(budget_usd) or budget_usd <= 0:
+        _failure(ValueError("Budget must be a finite positive amount in US dollars"))
+    from structure_aware_retrieval.workbench.generation import execute_generation_plan
+
+    try:
+        record = execute_generation_plan(
+            workspace, plan_id, budget_usd=budget_usd, confirmed_model=confirm_model
+        )
+    except (OSError, ValueError, sqlite3.Error) as error:
+        _failure(error)
+    if as_json:
+        _json(record)
+    else:
+        _comparison(record, workspace)
+        cost = record["generation"]["summary"]["usage"]["cost_usd_at_frozen_uncached_rates"]
+        typer.echo(
+            "Usage-based cost estimate: " + ("unknown" if cost is None else f"US${cost:.6f}")
+        )
+        typer.echo("Saved outcomes are preserved; attempted requests cannot be retried.")
+    if record["status"] != "generation_complete":
         raise typer.Exit(1)
 
 

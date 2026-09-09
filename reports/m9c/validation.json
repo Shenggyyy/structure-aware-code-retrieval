@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-09",
+  "checkpoint": "m9c-same-model-workbench-implementation",
+  "source_base_commit": "33ebf487c291c55427421af688649220d9f881e7",
+  "changes_committed": false,
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "new_llm_api_calls": 0,
+  "new_model_downloads": 0,
+  "new_benchmark_experiments": 0,
+  "full_suite": {
+    "tests": 1176,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "passed": 1174,
+    "elapsed_seconds": 568.387,
+    "command": "uv run --locked --offline pytest --cov --cov-report=term-missing --cov-report=json:artifacts/m9c-validation/coverage.json --junitxml=artifacts/m9c-validation/tests.xml"
+  },
+  "new_test_files": {
+    "tests.workbench.test_generation": 30,
+    "tests.workbench.test_generation_cli": 19,
+    "tests.workbench.test_server_generation": 32
+  },
+  "coverage": {
+    "percent_covered": 91.46186685127495,
+    "covered_lines": 5793,
+    "num_statements": 6235,
+    "covered_branches": 2134,
+    "num_branches": 2432
+  },
+  "checks": {
+    "ruff": "passed",
+    "ruff_format": "passed",
+    "javascript_syntax": "passed",
+    "retrieval_overview": "45 validated saved runs; unchanged",
+    "wheel_and_sdist": "passed",
+    "wheel_assets_and_generation_module": "passed",
+    "docker_rebuild": "not_run_locally",
+    "remote_ci": "pending_owner_push"
+  },
+  "browser": {
+    "provider": "injected synthetic fixture; OpenAIModel.complete disabled",
+    "source_preview_run_id": "cc4c1c7c20ad48558b06af28d89ece64",
+    "source_commit": "0e322af87745eff34caffe4df68456ebc20d9068",
+    "final_success_run_id": "c0816efa3509430680a2ce25744b0076",
+    "unknown_outcome_run_id": "d3756dbc547341aa86a1139134eab36d",
+    "checks": [
+      "plan displayed before consent; insufficient budget disabled",
+      "five identical synthetic answers retained",
+      "answer citation opens src/requests/models.py:295-310; call relation at297",
+      "markup remains text; zero injected image nodes or JS dialogs",
+      "missing tokens/cost unknown; one answer plus one unknown plus three unstarted",
+      "history and restart preserve saved outcomes; no replay",
+      "actual-workspace plan created but never executed"
+    ]
+  },
+  "pending_live_proposal": {
+    "plan_id": "e74fbce9735446779c6917e42059da57",
+    "fingerprint": "aaca5e28861cfa28179cbcdbea8b6574e9a6db72169299d3744f96ff803dd7f4",
+    "preview_run_id": "cc4c1c7c20ad48558b06af28d89ece64",
+    "question": "How are request URLs prepared?",
+    "model": "gpt-5.4-mini-2026-03-17",
+    "settings": {
+      "model": "gpt-5.4-mini-2026-03-17",
+      "max_output_tokens": 1024,
+      "reasoning_effort": "none",
+      "api_key_env": "OPENAI_API_KEY",
+      "timeout_seconds": 60
+    },
+    "pricing": {
+      "input_per_million": 0.75,
+      "output_per_million": 4.5,
+      "source_url": "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+      "as_of": "2026-09-09"
+    },
+    "request_limit": 5,
+    "judge_calls": 0,
+    "estimated_cost_usd": 0.08499975,
+    "proposed_budget_usd": 0.1,
+    "approved": false,
+    "executed": false
+  }
+}

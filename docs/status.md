@@ -4,10 +4,13 @@ The original research and engineering scope is delivered, with reproducible
 retrieval experiments and archived live LLM assessments. **The newly requested
 interactive workflow is in progress:** M9a supplies repository import, resource
 preparation, five-strategy context previews and saved history; M9b adds the local
-browser interface. M9c's same-model answer comparison remains pending.
-See [the M9b validation record](../reports/m9b/README.md) for this checkpoint's
-observed checks and [M9a](../reports/m9a/README.md) for the underlying CLI delivery.
-Neither workbench checkpoint adds LLM API calls or new benchmark-quality scores.
+browser interface. M9c implements frozen generation plans, explicit model/budget
+approval and same-model answer comparison with offline tests. The separately
+approved M9c live browser acceptance follow-up remains pending.
+See [the M9c validation record](../reports/m9c/README.md) for this checkpoint's
+observed checks, [M9b](../reports/m9b/README.md) for the browser foundation and
+[M9a](../reports/m9a/README.md) for the underlying CLI delivery. This implementation
+checkpoint makes no new LLM API calls or benchmark-quality measurements.
 **All 60 v2 judge requests have now been attempted across two approved batches:**
 58 judgments passed the protocol, one failed it and one historical outcome is
 unknown. The [M7e live follow-up](../reports/m7e-live/README.md) completed its 47
@@ -43,10 +46,16 @@ M9 extends the product workflow without changing their results or limitations.
 | Project presentation | Retrieval analysis, live QA failure analysis, raw evidence, offline verification, project brief, bilingual CV wording and verified demo | Retain limits and version future protocol/dataset changes; use CV templates according to actual contributions |
 | M9a workbench foundation | Local-directory/public-HTTPS snapshots; reusable index/vector/graph preparation; five context previews, per-strategy failures and self-contained history | Context previews do not contain generated answers; public imports need network and Dense needs explicitly prepared local weights |
 | M9b browser workflow | Local HTTP server; import/preparation feedback, question entry, side-by-side strategy evidence, source expansion and saved history | Context previews are not generated answers; host loopback use only, one background job at a time |
-| M9c same-model answers | Pending; the existing QA adapter is available, but the workbench never invokes it with a model | Freeze one answer-model configuration across strategies, estimate generation and any judging cost, obtain approval before paid calls, preserve answers/citations/usage/failures |
+| M9c same-model answers | Frozen model/request plans and total estimates; explicit approval; existing adapter reuse; separate answer archives, citations, usage and failures; offline provider tests | Tests establish software behavior, not actual model answers or real billing; every paid plan needs fresh scoped approval |
+| M9c live workflow acceptance | Pending; no new workbench API calls have been made in this implementation checkpoint | Approve one concrete model/request/budget scope, exercise real browser generation and history reopening, preserve actual measurements and any unknown outcomes |
 
 ## Verified checkpoints
 
+- [M9c](../reports/m9c/README.md) adds offline planning, explicit paid approval and
+  durable same-model answer execution over saved contexts, with browser citations
+  and history. Its implementation checks use offline providers and make no API
+  calls. The linked report records actual software validation; live user-workflow
+  acceptance remains pending, and current remote CI follows the owner's commit/push.
 - [M9b](../reports/m9b/README.md): broad offline regression passed 1,091 tests with
   two Windows symlink-privilege skips; the final recovery-progress refinement passed
   all 60 HTTP tests separately. Browser checks completed public/local imports, real
@@ -173,12 +182,14 @@ references to required human review do not override it.
 
 M9a completes the reusable CLI foundation and M9b supplies browser import, resource
 preparation, question entry, evidence comparison and history. The full interactive
-product is not yet complete: comparing actual answers from one fixed model across
-all five retrieval strategies remains M9c. These stages reuse the existing parser,
-retrievers, context packing and QA components. Preserve source
+product still needs the separately approved M9c live acceptance run. M9c implements
+one fixed model across five saved retrieval contexts, total estimates, explicit
+approval, answer/citation display and persistent outcomes; its offline tests are
+not real model results. These stages reuse the existing parser, retrievers, context
+packing and QA components. Preserve source
 identity, per-strategy failures and saved history throughout the workflow.
 
-M9c requires a concrete model configuration, request scope and combined generation
+M9c live acceptance requires a concrete model configuration, request scope and combined generation
 plus any judging estimate before paid execution. Existing experiment approvals
 do not automatically authorize this new workflow's calls. Unlabeled imported
 repositories do not acquire Recall/NDCG or answer-accuracy scores from previews;

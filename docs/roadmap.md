@@ -59,10 +59,12 @@ Remote CI runs after the owner pushes; local checks do not establish remote CI s
 
 The owner subsequently requested a complete interactive workflow. M9a supplies
 the CLI foundation: source import, reusable resources, five context previews and
-saved history. M9b adds local browser operation; same-model generated answers remain M9c.
+saved history. M9b adds local browser operation; M9c implements explicit approval
+and same-model answers with offline validation. M9c live acceptance remains pending.
 This new product scope does not revise the completed research evidence or treat
 context previews as generated answers. See [M9a validation](../reports/m9a/README.md)
-and [M9b validation](../reports/m9b/README.md).
+and [M9b validation](../reports/m9b/README.md). The
+[M9c record](../reports/m9c/README.md) covers implementation without new API calls.
 
 ### M6 delivery sequence
 
@@ -231,18 +233,30 @@ unlabeled unless separately included in a versioned evaluation dataset.
   Acceptance covers the browser flow, offline server tests, packaged assets and
   existing checks; observed outcomes are in [M9b validation](../reports/m9b/README.md).
   Suggested commit: `Add local browser workflow for five-strategy context comparison`.
-- **M9c — Same-model answer comparison, pending:** freeze one answer-model
-  configuration and shared generation limits across the five retrieval contexts.
-  Produce a reviewable estimate for generation and any planned judging, with a
-  bounded request scope before paid execution. Execute only after model/budget
-  approval. Save actual answers,
-  automatic citation checks, token usage, estimated cost, latency and failures.
-  Keep LLM-assisted semantic scores separately labeled if judging is included;
-  never infer true accuracy from model scores or valid citation locations.
+- **M9c — Same-model answer implementation, offline checkpoint:** freeze one
+  answer-model configuration and exact requests from saved retrieval contexts.
+  Expose the total estimate and at most five generation requests, with zero judge
+  requests. Require exact model, sufficient budget and explicit paid confirmation.
+  Reuse the existing model adapter; save answers, automatic citation checks, provider
+  usage, cost estimates, latency and failures in a separate comparison. Execute each
+  plan once, journal attempts, preserve unknown outcomes and never retry automatically.
+  Browser citations reopen saved code; history never triggers paid work. Default
+  actions remain previews. Tests use offline providers with explicit test labels;
+  they do not establish live model performance. See [M9c](../reports/m9c/README.md).
+  Suggested commit: `Add approved same-model answers to the repository workbench`.
+- **M9c live acceptance follow-up, pending:** prepare a concrete saved
+  question/context plan, present its model, maximum request count and combined
+  generation/judging estimate, and obtain new approval before calls. Exercise actual
+  answers, citation expansion, timing/token/cost display, saved history and restart.
+  Archive real outcomes and any failures without rewriting prior experiments or
+  retrying unknown requests. No judge is proposed by default; any later judging
+  requires its own explicit scope. Keep location checks separate from semantic
+  correctness and retain provisional benchmark labels. This validates the user
+  workflow; it does not establish an answer-quality ranking from one question.
 
 The original research deliverables remain complete. The new full product workflow
-requires M9c as well as the delivered M9a/M9b foundation; a browser context preview
-does not satisfy browser-based answer comparison. Complete each checkpoint,
+requires the separately approved live exercise of the M9a–M9c implementation; offline
+test responses do not satisfy actual browser-based answer comparison. Complete each checkpoint,
 validate existing behavior and stop for the owner's commit/push before proceeding.
 
 ## Deferred decisions

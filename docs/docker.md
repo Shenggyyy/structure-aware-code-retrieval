@@ -32,7 +32,7 @@ retain outputs. A new Docker named volume inherits the directory's ownership.
 
 ## Workbench browser and CLI
 
-M9b's browser workflow is intended to run on the host. Follow the
+The M9b/M9c browser workflow is intended to run on the host. Follow the
 [workbench startup guide](workbench.md) and use `sacr workbench serve`; its listener
 binds only `127.0.0.1`, with strict request-origin checks. This checkpoint does not
 add container port publishing, LAN access or a `--host` option. Publishing a Docker
@@ -49,6 +49,16 @@ Browser assets ship inside the Python package and need no Node build or dependen
 change. Existing image source copying and offline CI collection include the M9b
 code/tests. [M9b validation](../reports/m9b/README.md) records checks actually run;
 historical container measurements below retain their original checkpoint scope.
+
+M9c adds `workbench plan` and explicitly approved `workbench generate` to the same
+CLI. Planning and history are offline; generation needs provider access and an API
+key passed only at runtime with `-e OPENAI_API_KEY`. Review the frozen model/request
+scope and total estimate first, then supply `--confirm-model`, `--budget-usd` and
+`--confirm-paid`. Never put credentials in the image, command text or artifacts.
+The [generation guide](workbench.md#optional-answers-review-before-paid-execution)
+describes consent, local-source transmission and preserved unknown outcomes.
+[M9c validation](../reports/m9c/README.md) uses offline providers, not a new live or
+container acceptance claim. Host browser operation remains the recommended path.
 
 ## Offline smoke
 

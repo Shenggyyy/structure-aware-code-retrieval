@@ -9,13 +9,15 @@ The system reads local Python snapshots statically. Each query targets one repos
 It does not execute or edit the indexed code. The focus is retrieval and evaluation;
 coding-agent loops, model training and distributed serving are outside its scope.
 
-**Latest checkpoint: M9b — local browser workbench.**
+**Latest checkpoint: M9c — explicitly approved same-model answer workflow.**
 The new [repository workbench](docs/workbench.md) imports local Python directories
 or public HTTPS Git repositories, freezes source versions, prepares existing indexes,
 vectors and graphs, and compares five-strategy contexts in a browser. Inspect code
-and source locations, watch preparation state, and reopen saved history. Same-model
-generated answers remain M9c; the complete answer-comparison workflow is not yet
-finished. No LLM API calls are made by the current workbench.
+and source locations, watch preparation state, and reopen saved history. The
+workbench now prepares a frozen generation plan and total estimate, then requires
+explicit model and budget confirmation before answering from the five contexts.
+This implementation checkpoint uses offline tests, with **no new LLM API calls**.
+The separately approved M9c live acceptance follow-up has not been completed.
 
 Start with the [project brief](docs/project-brief.md) or follow the
 [five-minute demonstration](docs/demo.md) to inspect the system and saved evidence.
@@ -93,9 +95,16 @@ Open [the local workbench](http://127.0.0.1:8765/) while the command is running.
 a public HTTPS Git URL or a local path, import and prepare it, select the repository,
 then submit a question. Compare the five columns and expand evidence to inspect
 source lines; use history to reopen a saved comparison without rerunning it.
+For optional answers, first inspect the generated plan's model, request limit and
+total estimate. Paid execution requires separate confirmation; starting the server,
+previewing contexts and opening history never generate answers automatically.
+The server reads `OPENAI_API_KEY` only from its local environment when executing an
+approved plan. Do not paste keys into the browser or commit them.
 The [startup guide](docs/workbench.md) covers browser controls, pinned versions,
-failure recovery and the retained CLI commands. See [M9b validation](reports/m9b/README.md)
-for observed checks; earlier import/preview validation remains in [M9a](reports/m9a/README.md).
+generation approval, failure recovery and the retained CLI commands. See
+[M9c validation](reports/m9c/README.md) for the current offline implementation checks;
+earlier browser/import validation remains in [M9b](reports/m9b/README.md) and
+[M9a](reports/m9a/README.md).
 
 ## Minimal fixture quickstart
 
@@ -137,6 +146,7 @@ behavior on synthetic data, not real retrieval or answer quality.
 | Task | Guide |
 | --- | --- |
 | Import a repository, compare five contexts in a browser and reopen history | [Workbench startup](docs/workbench.md) |
+| Estimate and explicitly approve five same-model answers from saved contexts | [Workbench generation](docs/workbench.md#optional-answers-review-before-paid-execution) |
 | Present the project and its defensible findings | [Project brief and CV wording](docs/project-brief.md), [offline demonstration](docs/demo.md) |
 | Index your repository and compare five strategies | [Commands and preparation](docs/reproduction.md) |
 | Inspect model, tokenization and fusion settings | [Baseline definitions](docs/baselines.md) |

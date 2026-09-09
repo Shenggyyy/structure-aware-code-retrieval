@@ -22,7 +22,9 @@ failure. Cumulative score coverage is 58/60 with one invalid judgment and one
 historical unknown. That research delivery is complete; coverage and provisional-label
 limits remain explicit. Human review is optional. M9 extends the user workflow:
 M9a implements import, prepared resources and saved five-strategy context previews;
-M9b exposes them through a local browser. New same-model answers remain M9c.
+M9b exposes them through a local browser. M9c adds fixed-model planning, explicit
+paid approval and durable answer comparison, validated offline in this checkpoint.
+M9c's separately approved real browser acceptance follow-up remains pending.
 See [acceptance status](status.md).
 
 ## Data flow
@@ -72,6 +74,7 @@ flowchart TD
 | `workbench.importing` | Bounded local/HTTPS capture, source identity and import stage journal |
 | `workbench.preparation` | Reuse snapshot-bound index/vector/graph builders with independent stage state |
 | `workbench.comparison` / `workbench.storage` | Five-strategy previews, incremental saves and self-contained history |
+| `workbench.generation` | Freeze saved contexts and one model into a priced plan, enforce explicit approval, journal requests and preserve answer outcomes |
 | `workbench.server` / packaged browser assets | Loopback HTTP boundary, background jobs, repository controls, evidence comparison and saved-run views |
 
 Keep the CLI thin and library logic independent of the user interface. Shared data
@@ -142,6 +145,10 @@ flowchart LR
     R --> C[Existing context builder and source checks]
     C --> H[Saved comparison with code evidence]
     H --> V[CLI or browser history and reopen]
+    H --> G[Frozen generation plan and total estimate]
+    G --> A[Explicit model and budget approval]
+    A --> L[Existing answer adapter with the same model]
+    L --> V
 ```
 
 M9a is a Python service layer plus a thin Typer command group. It introduces no
@@ -153,8 +160,9 @@ toolchain, external database or service deployment. The CLI remains available.
 The HTTP listener binds only `127.0.0.1`. Strict Host/Origin checks, a per-process
 request token, local-only asset policy and text-based source rendering protect its
 boundary against unrelated browser origins and executable repository content.
-There is no arbitrary-file-serving or paid-generation endpoint. Only one background
-import/preparation/preview job runs at a time; readers can poll saved job progress
+There is no arbitrary-file-serving endpoint. Paid generation has a separate frozen
+plan and explicit model/budget approval boundary. Only one background
+import/preparation/preview/generation job runs at a time; readers can poll saved job progress
 and reopen history without blocking on encoding. Startup marks unfinished server
 jobs interrupted and never automatically resumes work. A browser import combines
 the existing import and preparation services, retaining their separate stage errors.
@@ -167,8 +175,8 @@ completed records and invalid archive bytes are preserved. Interrupted work is n
 automatically resubmitted.
 
 The browser shows imported source/commit state, common query settings, five strategy
-columns, saved source lines, scores and structure provenance. It labels a newly
-completed context preview separately from reopened saved results. Empty or failed
+columns, saved source lines, scores and structure provenance. It labels context
+previews, current generation and reopened saved results separately. Empty or failed
 rows retain their actual states, and unavailable generation time, provider tokens
 and costs remain unknown. No API key enters the browser or HTTP interface.
 
@@ -206,10 +214,31 @@ answer model is called. Unlabeled questions have no invented benchmark scores.
 Atomic, fingerprinted run records include source/commit information, ranked code,
 score components, available relation provenance and packed evidence. History can
 be reopened without the original repository, resource files or embedding model.
-M9c will reuse model adapters and durable execution conventions for same-model
-answers after a new combined cost estimate and approval; historical budgets do not
-authorize these requests. Semantic LLM scoring stays optional and separate from
-automatic identity/location checks. See [workbench startup](workbench.md).
+M9c reuses `complete_question` and the existing OpenAI adapter for answer generation.
+Planning copies checked saved contexts and exact requests, freezing the model preset,
+generation settings, pricing and request limit without retrieving again. All eligible
+rows use `gpt-5.4-mini-2026-03-17`, reasoning `none` and a 1,024-output-token cap.
+The total estimate covers at most five generation requests and zero judge requests;
+the plan stores its rates and source date. Model ID, budget and paid consent must be
+explicitly confirmed before execution. Historical budgets grant no new approval.
+
+Execution creates a separate comparison, records each attempt before its request
+and saves raw provider responses and normalized outcomes afterward. Original
+previews and known outcomes remain unchanged. Plans execute once, with no automatic
+retry or resumption; attempted requests lacking durable responses retain unknown
+usage/cost. Generation latency and provider tokens stay separate from retrieval
+timings copied from the preview. Conditional known subtotals do not become complete
+totals. The server reads credentials only from its local environment; approved
+requests send the frozen question/source evidence to the provider. Neither secrets
+nor arbitrary repository HTML enter frontend execution or archive metadata.
+
+The browser and CLI use the same planning/execution services and saved-run contract.
+Answer citations navigate to saved evidence instead of reading arbitrary local paths.
+Offline providers are explicitly labeled test execution, not real generations.
+Semantic LLM scoring remains optional and separate from automatic identity/location
+checks; this workflow invokes no judge. M9c verifies these paths offline; its live
+acceptance follow-up requires a separately approved actual model/browser run.
+See [workbench startup](workbench.md).
 
 ## M2 implementation details
 

@@ -1,4 +1,4 @@
-"""Loopback-only, offline browser workbench using existing repository services."""
+"""Loopback workbench with offline previews and explicitly approved generation."""
 
 import json
 import os
@@ -19,6 +19,15 @@ from structure_aware_retrieval.workbench.comparison import (
     list_comparisons,
     load_comparison,
     preview_question,
+)
+from structure_aware_retrieval.workbench.generation import (
+    GENERATION_MODEL,
+    create_generation_plan,
+    execute_generation_plan,
+    load_generation_execution,
+    load_generation_plan,
+    recover_generation,
+    validate_generation_approval,
 )
 from structure_aware_retrieval.workbench.importing import import_repository, load_repository
 from structure_aware_retrieval.workbench.preparation import load_preparation, prepare_repository
@@ -66,7 +75,7 @@ def _read_job(workspace: Path, job_id: str) -> dict:
     if (
         record.get("schema_version") != 1
         or record.get("job_id") != job_id
-        or record.get("kind") not in {"import", "prepare", "preview"}
+        or record.get("kind") not in {"import", "prepare", "preview", "generation"}
         or record.get("status") not in _TERMINAL | {"queued", "running"}
     ):
         raise ValueError("Invalid browser job record")
@@ -83,6 +92,9 @@ class _Jobs:
         self.active: str | None = None
         self.closed = False
         self.on_stopped = None
+        # Paid attempts have their own durable journal. Its recovery preserves
+        # unknown billing outcomes and never resubmits a model request.
+        recover_generation(workspace)
         directory = safe_path(workspace, "web-jobs")
         if directory.exists():
             for path in sorted(directory.glob("*.json")):
@@ -112,8 +124,23 @@ class _Jobs:
         detail = progress.get("detail", {})
         phase = progress.get("phase")
         try:
-            if phase == "preview" and _JOB_ID.fullmatch(str(detail.get("run_id", ""))):
+            if phase == "generation":
+                plan_id = detail.get("plan_id")
+                if not isinstance(plan_id, str) or not _JOB_ID.fullmatch(plan_id):
+                    raise ValueError("Invalid linked generation plan")
+                run = load_generation_execution(self.workspace, plan_id)
+                if run is None:
+                    return
+                if detail.get("run_id", run["run_id"]) != run["run_id"]:
+                    raise ValueError("Invalid linked generation run")
+                # Only the generation journal may classify paid attempts.
+                # In particular, a running attempt can have an unknown cost.
+                detail.update(self._run_progress(run, phase))
+                record["api_calls"] = run.get("api_calls", 0)
+            elif phase == "preview" and _JOB_ID.fullmatch(str(detail.get("run_id", ""))):
                 run = load_comparison(self.workspace, detail["run_id"])
+                if run.get("mode") != "context_preview":
+                    raise ValueError("Invalid linked preview run")
                 if run["status"] == "running":
                     run.update(status="interrupted", finished_at=_now())
                     for row in run["results"]:
@@ -199,6 +226,13 @@ class _Jobs:
                 raise _RequestError(503, "Workbench is closing")
             if self.active is not None:
                 raise _RequestError(409, "Another task is running", job_id=self.active)
+            if kind == "generation":
+                validate_generation_approval(
+                    self.workspace,
+                    payload["plan_id"],
+                    budget_usd=payload["budget_usd"],
+                    confirmed_model=payload["confirmed_model"],
+                )
             record = {
                 "schema_version": 1,
                 "job_id": uuid4().hex,
@@ -206,7 +240,10 @@ class _Jobs:
                 "status": "queued",
                 "created_at": _now(),
                 "finished_at": None,
-                "progress": {"phase": kind, "detail": {}},
+                "progress": {
+                    "phase": kind,
+                    "detail": {"plan_id": payload["plan_id"]} if kind == "generation" else {},
+                },
                 "result": None,
                 "error": None,
                 "api_calls": 0,
@@ -217,19 +254,28 @@ class _Jobs:
             worker.start()
             return deepcopy(record)
 
+    @staticmethod
+    def _run_progress(detail: dict, phase: str) -> dict:
+        result = {
+            "run_id": detail["run_id"],
+            "status": detail["status"],
+            "results": [
+                {"strategy": row["strategy"], "status": row["status"]} for row in detail["results"]
+            ],
+        }
+        if phase == "generation":
+            result["plan_id"] = detail["generation"]["plan_id"]
+            result["api_calls"] = detail.get("api_calls", 0)
+        return result
+
     def _progress(self, record: dict, phase: str, detail: dict) -> None:
         with self.lock:
             if self.closed:
                 raise _Stopped
-            if phase == "preview":
-                detail = {
-                    "run_id": detail["run_id"],
-                    "status": detail["status"],
-                    "results": [
-                        {"strategy": row["strategy"], "status": row["status"]}
-                        for row in detail["results"]
-                    ],
-                }
+            if phase in {"preview", "generation"}:
+                detail = self._run_progress(detail, phase)
+                if phase == "generation":
+                    record["api_calls"] = detail["api_calls"]
             record["progress"] = {"phase": phase, "detail": detail}
             self._save(record)
 
@@ -250,7 +296,7 @@ class _Jobs:
                 )
                 repository_id = repository["repository_id"]
                 record["result"] = {"repository_id": repository_id}
-            else:
+            elif kind != "generation":
                 repository_id = payload["repository_id"]
             if kind in {"import", "prepare"}:
                 preparation = prepare_repository(
@@ -260,7 +306,7 @@ class _Jobs:
                     on_progress=lambda detail: self._progress(record, "prepare", detail),
                 )
                 record["result"] = {"repository_id": repository_id, "preparation": preparation}
-            else:
+            elif kind == "preview":
                 run = preview_question(
                     self.workspace,
                     repository_id,
@@ -275,6 +321,20 @@ class _Jobs:
                     "repository_id": repository_id,
                     "status": run["status"],
                 }
+            elif kind == "generation":
+                run = execute_generation_plan(
+                    self.workspace,
+                    payload["plan_id"],
+                    budget_usd=payload["budget_usd"],
+                    confirmed_model=payload["confirmed_model"],
+                    on_progress=lambda detail: self._progress(record, "generation", detail),
+                )
+                record["result"] = {
+                    "run_id": run["run_id"],
+                    "repository_id": run["repository_id"],
+                    "status": run["status"],
+                }
+                record["api_calls"] = run.get("api_calls", 0)
             record["status"] = "completed"
         except Exception as error:
             record["status"] = "failed"
@@ -494,6 +554,12 @@ class _Handler(BaseHTTPRequestHandler):
                     "csrf_token": self.server.csrf_token,
                     "mode": "context_preview",
                     "api_calls": 0,
+                    "generation": {
+                        "model": GENERATION_MODEL,
+                        "key_ready": bool(os.environ.get("OPENAI_API_KEY", "").strip()),
+                        "request_limit": 5,
+                        "judge_calls": 0,
+                    },
                 }
             elif self.path == "/api/repositories":
                 result = _repositories(self.server.workspace)
@@ -506,6 +572,10 @@ class _Handler(BaseHTTPRequestHandler):
             elif self.path.startswith("/api/runs/"):
                 result = load_comparison(
                     self.server.workspace, _identifier(self.path[10:], _JOB_ID)
+                )
+            elif self.path.startswith("/api/generation-plans/"):
+                result = load_generation_plan(
+                    self.server.workspace, _identifier(self.path[22:], _JOB_ID)
                 )
             else:
                 raise _RequestError(404, "Route not found")
@@ -560,7 +630,13 @@ class _Handler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:
         try:
             self._guard(mutation=True)
-            if self.path not in {"/api/import", "/api/prepare", "/api/preview"}:
+            if self.path not in {
+                "/api/import",
+                "/api/prepare",
+                "/api/preview",
+                "/api/generation-plan",
+                "/api/generate",
+            }:
                 raise _RequestError(404, "Route not found")
             kind = self.path.removeprefix("/api/")
             payload = self._body()
@@ -568,9 +644,26 @@ class _Handler(BaseHTTPRequestHandler):
                 "import": {"source", "ref"},
                 "prepare": {"repository_id"},
                 "preview": {"repository_id", "question", "top_k", "max_context_bytes"},
+                "generation-plan": {"run_id"},
+                "generate": {"plan_id", "confirmed_model", "budget_usd", "confirm"},
             }[kind]
             if payload.keys() - allowed:
                 raise _RequestError(400, "Unexpected request fields")
+            if kind == "generation-plan":
+                run_id = _identifier(payload.get("run_id"), _JOB_ID)
+                plan = create_generation_plan(self.server.workspace, run_id)
+                self._json(201, plan)
+                return
+            if kind == "generate":
+                _identifier(payload.get("plan_id"), _JOB_ID)
+                if payload.get("confirm") is not True:
+                    raise _RequestError(400, "Explicit generation confirmation is required")
+                if not isinstance(payload.get("confirmed_model"), str):
+                    raise _RequestError(400, "Confirm the model from the generation plan")
+                if type(payload.get("budget_usd")) not in {int, float}:
+                    raise _RequestError(400, "A numeric generation budget is required")
+                self._json(202, self.server.jobs.submit("generation", payload))
+                return
             if kind == "import":
                 for key, limit in (("source", 4096), ("ref", 200)):
                     value = payload.get(key, "HEAD" if key == "ref" else None)
@@ -601,10 +694,16 @@ class _Handler(BaseHTTPRequestHandler):
             self._json(202, self.server.jobs.submit(kind, payload))
         except _RequestError as error:
             self._json(error.status, error.payload)
+        except FileExistsError:
+            self._json(409, {"error": "This generation plan was already started; no retry"})
+        except FileNotFoundError:
+            self._json(404, {"error": "Saved generation plan or preview not found"})
         except TimeoutError:
             self._json(408, {"error": "Request body timed out"})
         except UnicodeError:
             self._json(400, {"error": "Request text must be valid UTF-8"})
+        except ValueError as error:
+            self._json(400, {"error": str(error)[:2000]})
         except Exception:
             self._json(500, {"error": "Cannot submit workbench task"})
 
@@ -627,7 +726,7 @@ def serve(
     model_cache: Path = Path("artifacts/models"),
     port: int = 8765,
 ) -> None:
-    """Serve local context previews until interrupted, without opening a browser."""
+    """Serve the local workbench without opening a browser or calling a model."""
     with create_server(workspace, model_cache=model_cache, port=port) as server:
         print(f"Workbench: {server.origin}/", flush=True)
         try:
