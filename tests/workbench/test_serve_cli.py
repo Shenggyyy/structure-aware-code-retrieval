@@ -1,7 +1,13 @@
 """Browser startup stays local, lazy and free of paid execution flags."""
 
+import http.client
+import json
+import os
+import signal
+import socket
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -86,10 +92,72 @@ for flag in ('--host', '--execute', '--api-key', '--answer-model', '--budget-usd
 for module in ('structure_aware_retrieval.workbench.server',
                'structure_aware_retrieval.workbench.comparison',
                'structure_aware_retrieval.workbench.preparation',
-               'torch', 'sentence_transformers'):
+               'fastapi', 'uvicorn', 'torch', 'sentence_transformers'):
     assert module not in sys.modules
 """
     result = subprocess.run(
         [sys.executable, "-c", script], capture_output=True, text=True, timeout=30
     )
     assert result.returncode == 0, result.stderr
+
+
+@pytest.mark.skipif(
+    sys.platform == "win32", reason="POSIX SIGTERM lifecycle is covered on Linux CI"
+)
+def test_cli_process_starts_from_another_directory_and_handles_sigterm(tmp_path):
+    from structure_aware_retrieval.workbench.server import create_server
+
+    with socket.socket() as reservation:
+        reservation.bind(("127.0.0.1", 0))
+        port = reservation.getsockname()[1]
+    workspace = tmp_path / "workspace"
+    environment = {key: value for key, value in os.environ.items() if key != "OPENAI_API_KEY"}
+    process = subprocess.Popen(
+        [
+            sys.executable,
+            "-m",
+            "structure_aware_retrieval",
+            "workbench",
+            "serve",
+            "--workspace",
+            str(workspace),
+            "--model-cache",
+            str(tmp_path / "unused-model-cache"),
+            "--port",
+            str(port),
+        ],
+        cwd=tmp_path,
+        env=environment,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    ready = False
+    try:
+        deadline = time.monotonic() + 15
+        while time.monotonic() < deadline and process.poll() is None:
+            connection = http.client.HTTPConnection("127.0.0.1", port, timeout=0.5)
+            try:
+                connection.request("GET", "/api/session")
+                response = connection.getresponse()
+                session = json.loads(response.read())
+                ready = response.status == 200 and session["api_calls"] == 0
+                if ready:
+                    assert session["generation"]["key_ready"] is False
+                    break
+            except (OSError, http.client.HTTPException):
+                time.sleep(0.05)
+            finally:
+                connection.close()
+        assert ready, "Workbench CLI did not start its loopback HTTP listener"
+        process.send_signal(signal.SIGTERM)
+        stdout, stderr = process.communicate(timeout=10)
+        assert process.returncode in {0, -signal.SIGTERM}
+        assert f"Workbench: http://127.0.0.1:{port}/" in stdout
+        assert "Traceback" not in stdout + stderr
+        with create_server(workspace) as restarted:
+            assert restarted.jobs.list() == []
+    finally:
+        if process.poll() is None:
+            process.kill()
+            process.communicate(timeout=5)

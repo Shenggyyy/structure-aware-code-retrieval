@@ -64,6 +64,7 @@ jobs:
           from importlib.resources import files
           from pathlib import Path
           import structure_aware_retrieval
+          import fastapi, uvicorn
           assert os.getuid() == 10001
           assert str(Path(structure_aware_retrieval.__file__).resolve()).startswith("/opt/venv/")
           assert importlib.util.find_spec("pytest") is None
@@ -77,6 +78,11 @@ jobs:
               assert importlib.util.find_spec("torch") is None
               assert importlib.util.find_spec("sentence_transformers") is None
           '
+      - name: Check installed workbench HTTP routes and packaged assets
+        run: |
+          docker run --rm --network none --read-only \
+            --tmpfs /tmp:rw,nosuid,size=64m \
+            --entrypoint python sacr:ci scripts/smoke_workbench.py --require-installed
       - name: Exercise the installed CLI with networking disabled
         run: |
           docker run --rm --network none --read-only \

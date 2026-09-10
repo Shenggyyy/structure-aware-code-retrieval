@@ -38,16 +38,23 @@ binds only `127.0.0.1`, with strict request-origin checks. This checkpoint does 
 add container port publishing, LAN access or a `--host` option. Publishing a Docker
 port alone does not make the loopback listener reachable from a host browser.
 
-The images retain all workbench CLI commands. Rebuild the chosen target after
+Both images install FastAPI and Uvicorn from the lockfile and retain all workbench
+CLI commands. The HTTP migration changes no container listener or data-volume
+rules. Rebuild the chosen target after
 source changes, use the Dense image for all five strategies, and mount the same
 artifact volume for import, preparation, preview and history. Prepare model weights
 explicitly with `prepare-model` before a preview. Public HTTPS imports require
 network access; local repository mounts can be read-only. The CLI workflow is in
 [the workbench guide](workbench.md#cli-import-one-repository).
 
-Browser assets ship inside the Python package and need no Node build or dependency
-change. Existing image source copying and offline CI collection include the M9b
-code/tests. [M9b validation](../reports/m9b/README.md) records checks actually run;
+Browser assets ship inside the Python package and need no Node build. Existing
+image source copying and locked environment installation include the new HTTP
+dependencies without Dockerfile changes. Container CI also runs
+`scripts/smoke_workbench.py --require-installed`: an isolated child process starts
+the installed FastAPI/Uvicorn service, requests all four assets over loopback,
+checks access restrictions and history, then closes and reopens the workspace.
+The container uses `--network none`; the check downloads nothing and makes no
+model request. [M9b validation](../reports/m9b/README.md) records checks actually run;
 historical container measurements below retain their original checkpoint scope.
 
 M9c adds `workbench plan` and explicitly approved `workbench generate` to the same

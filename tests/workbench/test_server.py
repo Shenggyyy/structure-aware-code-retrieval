@@ -2,6 +2,7 @@
 
 import http.client
 import json
+import socket
 import threading
 import time
 from contextlib import contextmanager
@@ -10,7 +11,7 @@ import numpy as np
 import pytest
 
 from structure_aware_retrieval.strategies import STRATEGIES
-from structure_aware_retrieval.workbench import comparison, preparation, server, storage
+from structure_aware_retrieval.workbench import comparison, jobs, preparation, server, storage
 from structure_aware_retrieval.workbench.storage import read_json, write_json
 
 
@@ -64,7 +65,7 @@ def request(instance, path, *, method="GET", payload=None, headers=None, body=No
             if "application/json" in response.getheader("Content-Type", "")
             else data
         )
-        return response.status, value, dict(response.getheaders())
+        return response.status, value, response.headers
     finally:
         connection.close()
 
@@ -103,8 +104,8 @@ def injected(monkeypatch):
 
         return comparison.preview_question(*args, encoder=encoder, on_progress=progress, **kwargs)
 
-    monkeypatch.setattr(server, "prepare_repository", prepare)
-    monkeypatch.setattr(server, "preview_question", preview)
+    monkeypatch.setattr(jobs, "prepare_repository", prepare)
+    monkeypatch.setattr(jobs, "preview_question", preview)
     return events
 
 
@@ -305,7 +306,7 @@ def test_only_one_task_can_run_and_refresh_observes_progress(tmp_path, monkeypat
         assert release.wait(timeout=10)
         raise ValueError("Synthetic download failed")
 
-    monkeypatch.setattr(server, "import_repository", blocked)
+    monkeypatch.setattr(jobs, "import_repository", blocked)
     with running(tmp_path / "w") as instance:
         first = request(instance, "/api/import", method="POST", payload={"source": "."})[1]
         assert entered.wait(timeout=5)
@@ -526,7 +527,7 @@ def test_close_retains_workspace_lock_until_background_worker_stops(tmp_path, mo
         on_progress({"status": "snapshotting"})
         pytest.fail("A stopped server must interrupt the next saved checkpoint")
 
-    monkeypatch.setattr(server, "import_repository", blocked)
+    monkeypatch.setattr(jobs, "import_repository", blocked)
     instance = server.create_server(workspace)
     submitted = instance.jobs.submit("import", {"source": "."})
     try:
@@ -642,3 +643,284 @@ def test_security_headers_and_no_request_content_logging(tmp_path, capsys):
 def test_invalid_port_is_rejected(tmp_path, port):
     with pytest.raises(ValueError, match="Port"):
         server.create_server(tmp_path / "w", port=port)
+
+
+def raw_request(instance, path, *, method="POST", headers=None, body=b"{}", omit=()):
+    """Send exact header fields without a client's duplicate/framing normalization."""
+    selected = [
+        ("Host", instance.origin.removeprefix("http://")),
+        ("Origin", instance.origin),
+        ("X-Workbench-Token", instance.csrf_token),
+        ("Content-Type", "application/json"),
+        ("Content-Length", str(len(body))),
+    ]
+    selected = [(name, value) for name, value in selected if name not in omit]
+    selected.extend(headers or [])
+    head = f"{method} {path} HTTP/1.1\r\n" + "".join(
+        f"{name}: {value}\r\n" for name, value in selected
+    )
+    with socket.create_connection(("127.0.0.1", instance.server_port), timeout=10) as connection:
+        connection.sendall(head.encode("ascii") + b"\r\n" + body)
+        response = http.client.HTTPResponse(connection, method=method)
+        response.begin()
+        data = response.read()
+        return response.status, data, response.headers
+
+
+def assert_response_protection(headers):
+    assert headers["Cache-Control"] == "no-store"
+    assert headers["X-Content-Type-Options"] == "nosniff"
+    assert headers["X-Frame-Options"] == "DENY"
+    assert headers["Referrer-Policy"] == "no-referrer"
+    assert headers["Cross-Origin-Resource-Policy"] == "same-origin"
+    assert "frame-ancestors 'none'" in headers["Content-Security-Policy"]
+    assert "Access-Control-Allow-Origin" not in headers
+
+
+@pytest.mark.parametrize(
+    ("name", "value", "status"),
+    [
+        ("Host", "foreign.example", 403),
+        ("Host", "same", 403),
+        ("Origin", "https://foreign.example", 403),
+        ("Origin", "same", 403),
+        ("X-Workbench-Token", "other", 403),
+        ("X-Workbench-Token", "same", 403),
+        ("Content-Type", "application/json", 415),
+        ("Content-Length", "2", 400),
+        ("Content-Length", "3", 400),
+        ("Transfer-Encoding", "chunked", 400),
+    ],
+)
+def test_duplicate_headers_and_body_framing_are_not_normalized_away(tmp_path, name, value, status):
+    with running(tmp_path / "w") as instance:
+        if value == "same":
+            value = {
+                "Host": instance.origin.removeprefix("http://"),
+                "Origin": instance.origin,
+                "X-Workbench-Token": instance.csrf_token,
+            }[name]
+        received, data, headers = raw_request(instance, "/api/import", headers=[(name, value)])
+        assert received == status, data
+        assert_response_protection(headers)
+        assert headers["Content-Type"].startswith("application/json")
+        assert set(json.loads(data)) == {"error"}
+        assert instance.csrf_token.encode() not in data
+        assert request(instance, "/api/jobs")[1] == []
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/docs",
+        "/redoc",
+        "/openapi.json",
+        "/api/session/",
+        "/api/session?anything=1",
+        "/api/session?",
+        "/app.js?",
+        "/?anything=1",
+        "/%61pi/session",
+        "/api/%73ession",
+        "/api//session",
+        "/api/import",
+    ],
+)
+def test_framework_defaults_do_not_add_routes_or_redirects(tmp_path, path):
+    with running(tmp_path / "w") as instance:
+        status, value, headers = request(instance, path)
+        assert status == 404 and value == {"error": "Route not found"}
+        assert "Location" not in headers
+        assert_response_protection(headers)
+
+
+@pytest.mark.parametrize("suffix", ["/", "?x=1", "?", "/more", "%61", "%2f", ".."])
+def test_saved_ids_are_validated_before_decoding_or_path_normalization(tmp_path, suffix):
+    with running(tmp_path / "w") as instance:
+        status, value, _ = request(instance, "/api/runs/" + "a" * 32 + suffix)
+        assert status == 400
+        assert value == {"error": "Invalid repository, run, or job identifier"}
+
+
+@pytest.mark.parametrize("method", ["HEAD", "OPTIONS", "PUT", "DELETE", "PATCH", "TRACE"])
+def test_unsupported_methods_do_not_gain_fastapi_or_cors_behavior(tmp_path, method):
+    with running(tmp_path / "w") as instance:
+        status, data, headers = raw_request(instance, "/api/session", method=method, body=b"")
+        assert status == 501
+        assert_response_protection(headers)
+        if method == "HEAD":
+            assert data == b""
+        else:
+            assert json.loads(data) == {"error": "Invalid HTTP request"}
+        assert request(instance, "/api/jobs")[1] == []
+
+
+def test_proxy_headers_cannot_override_local_origin(tmp_path):
+    with running(tmp_path / "w") as instance:
+        status, value, _ = request(
+            instance,
+            "/api/session",
+            headers={
+                "Host": "foreign.example",
+                "X-Forwarded-Host": instance.origin.removeprefix("http://"),
+                "X-Forwarded-For": "127.0.0.1",
+                "X-Forwarded-Proto": "http",
+                "Forwarded": "for=127.0.0.1;host=" + instance.origin.removeprefix("http://"),
+            },
+        )
+        assert status == 403 and "csrf_token" not in value
+
+
+def test_internal_read_failure_is_sanitized_and_does_not_break_the_server(
+    tmp_path, monkeypatch, capsys, caplog
+):
+    def failed(*args):
+        raise RuntimeError("private-repository-or-request-marker")
+
+    monkeypatch.setattr(server, "load_comparison", failed)
+    with running(tmp_path / "w") as instance:
+        status, value, headers = request(instance, "/api/runs/" + "a" * 32)
+        assert status == 500 and value == {"error": "Cannot read workbench data"}
+        assert_response_protection(headers)
+        assert request(instance, "/api/session")[0] == 200
+    captured = capsys.readouterr()
+    assert "private-repository-or-request-marker" not in captured.out + captured.err + caplog.text
+
+
+def test_failed_socket_bind_releases_the_new_workspaces_lock(tmp_path):
+    with server.create_server(tmp_path / "first") as first:
+        with pytest.raises(OSError):
+            server.create_server(tmp_path / "second", port=first.server_port)
+        with server.create_server(tmp_path / "second") as recovered:
+            assert recovered.server_port > 0
+
+
+def test_shutdown_is_idempotent_and_closes_the_listener_and_workspace(tmp_path, monkeypatch):
+    monkeypatch.setenv("WEB_CONCURRENCY", "3")
+    workspace = tmp_path / "w"
+    instance = server.create_server(workspace)
+    assert instance._uvicorn.config.workers == 1
+    thread = threading.Thread(target=instance.serve_forever)
+    thread.start()
+    try:
+        assert request(instance, "/api/session")[0] == 200
+    finally:
+        instance.shutdown()
+        instance.server_close()
+        thread.join(timeout=5)
+    assert not thread.is_alive()
+    instance.shutdown()
+    instance.server_close()
+    with pytest.raises(OSError):
+        socket.create_connection(("127.0.0.1", instance.server_port), timeout=0.2)
+    with server.create_server(workspace) as restarted:
+        assert restarted.jobs.list() == []
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "/api/session",
+        "/api/import/",
+        "/api/import?x=1",
+        "/api/import?",
+        "/api/%69mport",
+        "/not-a-route",
+    ],
+)
+def test_unknown_post_routes_stay_404_before_body_validation(tmp_path, path):
+    with running(tmp_path / "w") as instance:
+        status, data, headers = raw_request(instance, path, body=b"not JSON")
+        assert status == 404 and json.loads(data) == {"error": "Route not found"}
+        assert "Location" not in headers
+        assert_response_protection(headers)
+        assert request(instance, "/api/jobs")[1] == []
+
+
+@pytest.mark.parametrize(
+    ("headers", "status"),
+    [
+        ([], 400),
+        ([("Content-Length", "+2")], 400),
+        ([("Content-Length", "0")], 413),
+        ([("Content-Length", "9" * 100)], 413),
+    ],
+)
+def test_raw_invalid_lengths_are_bounded_with_json_errors(tmp_path, headers, status):
+    with running(tmp_path / "w") as instance:
+        received, data, response_headers = raw_request(
+            instance, "/api/import", headers=headers, omit=("Content-Length",)
+        )
+        assert received == status and set(json.loads(data)) == {"error"}
+        assert_response_protection(response_headers)
+        assert request(instance, "/api/jobs")[1] == []
+
+
+@pytest.mark.parametrize(
+    "headers",
+    [
+        [],
+        [("Content-Type", "text/plain"), ("Content-Length", "2")],
+        [("Content-Type", "application/json"), ("Content-Length", "999999")],
+    ],
+)
+def test_unknown_post_route_precedes_json_header_validation(tmp_path, headers):
+    with running(tmp_path / "w") as instance:
+        status, data, response_headers = raw_request(
+            instance,
+            "/not-a-route",
+            headers=headers,
+            omit=("Content-Type", "Content-Length"),
+        )
+        assert status == 404 and json.loads(data) == {"error": "Route not found"}
+        assert_response_protection(response_headers)
+
+
+def test_direct_close_stops_a_running_uvicorn_listener(tmp_path):
+    workspace = tmp_path / "w"
+    instance = server.create_server(workspace)
+    thread = threading.Thread(target=instance.serve_forever)
+    thread.start()
+    try:
+        assert request(instance, "/api/session")[0] == 200
+        instance.server_close()
+        thread.join(timeout=5)
+        assert not thread.is_alive()
+        with pytest.raises(OSError):
+            socket.create_connection(("127.0.0.1", instance.server_port), timeout=0.2)
+        with server.create_server(workspace) as restarted:
+            assert restarted.jobs.list() == []
+    finally:
+        instance.shutdown()
+        instance.server_close()
+        thread.join(timeout=5)
+
+
+@pytest.mark.parametrize(
+    ("name", "status", "message"),
+    [
+        ("Host", 403, "Only this loopback origin is allowed"),
+        ("Origin", 403, "Foreign origins are not allowed"),
+        ("X-Workbench-Token", 403, "Invalid workbench session token"),
+        ("Content-Type", 415, "Use application/json with UTF-8"),
+        ("Content-Length", 400, "One valid Content-Length is required"),
+    ],
+)
+@pytest.mark.parametrize("suffix", [" ", "\t"])
+def test_trailing_header_whitespace_does_not_weaken_exact_validation(
+    tmp_path, name, status, message, suffix
+):
+    with running(tmp_path / "w") as instance:
+        original = {
+            "Host": instance.origin.removeprefix("http://"),
+            "Origin": instance.origin,
+            "X-Workbench-Token": instance.csrf_token,
+            "Content-Type": "application/json",
+            "Content-Length": "2",
+        }[name]
+        received, data, headers = raw_request(
+            instance, "/api/import", headers=[(name, original + suffix)], omit=(name,)
+        )
+        assert received == status and json.loads(data) == {"error": message}
+        assert_response_protection(headers)
+        assert request(instance, "/api/jobs")[1] == []

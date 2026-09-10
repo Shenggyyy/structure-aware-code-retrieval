@@ -14,6 +14,9 @@ output-preservation rules. Run `uv run --locked --extra dense sacr workbench ser
 and open the printed loopback URL for the bilingual browser interface. Optional
 answer generation uses a saved cost plan and requires explicit approval of its
 model, request limit and budget before any model request.
+The current local HTTP adapter uses FastAPI/Uvicorn through the same CLI. This
+[HTTP migration](http-migration.md) changes no retrieval configuration, artifact
+format or recorded experiment; older experiment reports remain historical evidence.
 
 ## Install and verify locally
 

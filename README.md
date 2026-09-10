@@ -55,6 +55,11 @@ access. Previews use local CPU model weights and require no API key or GPU. Keep
 this terminal running and open [the local workbench](http://127.0.0.1:8765/).
 Stop it with Ctrl+C; choose another `--port` if needed.
 
+The Python HTTP layer uses FastAPI routes and Uvicorn; the packaged HTML/CSS/JS
+interface and `sacr workbench serve` options remain unchanged. After updating,
+run `uv sync --locked --dev --extra dense` and restart with the same workspace.
+See the [HTTP migration notes](docs/http-migration.md) for code navigation and checks.
+
 Use **Interface language / 界面语言** to switch the shared interface. A saved choice takes priority;
 otherwise the first browser language selects Chinese when it starts with `zh`, and
 English in other cases. The choice persists when browser storage is available.

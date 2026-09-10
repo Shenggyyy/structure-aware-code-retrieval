@@ -44,6 +44,10 @@ uv run --locked --extra dense sacr workbench serve --workspace artifacts/workben
 首次安装依赖、下载模型以及导入公开仓库需要联网。上下文预览使用本地 CPU 模型权重，无需 API key 或 GPU。
 保持终端运行，并打开[本地工作台](http://127.0.0.1:8765/)。按 Ctrl+C 停止服务；端口被占用时可修改 `--port`。
 
+Python HTTP 层使用 FastAPI 定义路由、Uvicorn 运行服务，现有 HTML/CSS/JS 界面和
+`sacr workbench serve` 参数保持不变。更新代码后，执行 `uv sync --locked --dev --extra dense`，
+再使用原工作区重启即可。[HTTP 迁移说明](docs/http-migration.md)提供代码阅读入口和验证记录（英文）。
+
 通过 **Interface language / 界面语言** 切换同一套界面。优先使用已保存的选择；没有有效保存值时，浏览器首选语言
 以 `zh` 开头则使用中文，否则使用英文。浏览器允许本地存储时会记住选择。切换仅改变界面文案，
 问题、源码、回答和原始记录保留原文，切换动作不会发起网络请求或付费操作。

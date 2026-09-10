@@ -6,6 +6,12 @@ The original research system, M9 interactive workflow and three final handover
 stages are delivered. Stop within the agreed scope. Do not add feature or research
 milestones automatically; further work requires a separate request.
 
+The separately requested [FastAPI/Uvicorn HTTP migration](http-migration.md)
+replaces browser routing and server transport for readability, preserving CLI,
+service logic, safeguards and stored records. It is bounded maintenance after
+delivery, not a new research or paid-experiment milestone. Historical M9 and
+handover records below retain their original implementation and checks.
+
 Develop one agreed stage at a time. Keep existing functionality and historical
 result reading compatible, add meaningful checks, and update relevant documents.
 At each checkpoint, report changes and reasons, principal files, validation,

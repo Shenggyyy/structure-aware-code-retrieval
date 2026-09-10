@@ -12,6 +12,11 @@ for delivered stages. [Final delivery](delivery.md) records the handover audit a
 actual checks. Historical reports retain their original measurements, decisions and
 checkpoint-specific validation.
 
+The owner subsequently requested a bounded HTTP-layer migration to FastAPI and
+Uvicorn. This maintenance change preserves the delivered workflow and data
+formats; it does not reopen research milestones or authorize paid requests.
+[HTTP migration](http-migration.md) records its implementation and separate checks.
+
 ## Acceptance matrix
 
 | Area | Delivered and observed | Boundaries retained |

@@ -39,6 +39,12 @@ Leave this PowerShell process running and open [http://127.0.0.1:8765/](http://1
 The command prints its local URL. Use a different `--port` if 8765 is occupied.
 Stop the server with Ctrl+C when finished. Starting the server does not download a
 repository, prepare model weights, run retrieval or call an answering model.
+FastAPI defines the HTTP routes and Uvicorn runs the local server inside this
+command. Keep using `sacr workbench serve` to retain its workspace ownership and
+shutdown setup; do not substitute a generic reload/multi-worker server command.
+After updating dependencies, stop an older server, run the locked installation
+above and restart with the same `--workspace` and `--model-cache` paths. No saved
+record or cache migration is required. See [HTTP migration](http-migration.md).
 
 The visible **Interface language / 界面语言** selector offers **English** and **简体中文** on the
 same page. An existing valid saved preference takes priority. Otherwise the first
@@ -90,8 +96,8 @@ run `prepare-model` in PowerShell, then explicitly prepare the repository again.
 Do not use a preview's missing generation time, tokens or cost as a zero-cost model
 measurement: those values remain unknown and the model API call count is zero.
 
-The server binds **only `127.0.0.1`**. It uses local packaged HTML/CSS/JavaScript, no
-external assets or web framework. Host/origin checks and a per-process request token
+The server binds **only `127.0.0.1`**. FastAPI/Uvicorn serves local packaged
+HTML/CSS/JavaScript, with no external assets or frontend framework. Host/origin checks and a per-process request token
 protect the local API; this token is unrelated to an OpenAI key. Keep the page on
 the printed origin rather than placing it behind a proxy or exposing it to a LAN.
 The server has no credentials form, user accounts or automatic LLM judge. Generation
@@ -358,10 +364,12 @@ pytest skips this test when Node is unavailable. CI runs `node --version` and
 JavaScript syntax checks before pytest, so missing Node fails CI rather than
 silently skipping this coverage. The workbench server itself does not need Node.
 
-M9b exposes the existing services through Python's standard-library HTTP server and
-simple browser assets: import status, question entry, side-by-side contexts, source
-expansion and history. See [M9b validation](../reports/m9b/README.md) for observed
-checks and limits. M9c implements shared-model plans and explicit approval for at
+M9b originally exposed the existing services through Python's standard-library
+HTTP server and simple browser assets. The separately requested
+[FastAPI migration](http-migration.md) replaces that HTTP layer while preserving
+import status, question entry, side-by-side contexts, source expansion and history.
+See [M9b validation](../reports/m9b/README.md) for its historical checks and limits.
+M9c implements shared-model plans and explicit approval for at
 most five generation requests, without adding a judge. Its offline tests validate
 software behavior, not model correctness or real billing. The separately approved
 [M9c live acceptance](../reports/m9c-live/README.md) verified five actual answers,

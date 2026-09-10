@@ -10,7 +10,7 @@ import numpy as np
 import pytest
 
 from structure_aware_retrieval.qa.provider import ModelProviderError, ModelResponse
-from structure_aware_retrieval.workbench import generation, server
+from structure_aware_retrieval.workbench import generation, jobs, server
 from structure_aware_retrieval.workbench.comparison import preview_question
 from structure_aware_retrieval.workbench.importing import import_repository
 from structure_aware_retrieval.workbench.preparation import prepare_repository
@@ -130,7 +130,7 @@ def fake_model(monkeypatch):
     def execute(*args, **kwargs):
         return generation.execute_generation_plan(*args, model=model, **kwargs)
 
-    monkeypatch.setattr(server, "execute_generation_plan", execute)
+    monkeypatch.setattr(jobs, "execute_generation_plan", execute)
     return model
 
 
@@ -156,7 +156,7 @@ def test_plan_and_read_routes_are_offline_without_a_key(preview, monkeypatch):
     def forbidden(*args, **kwargs):
         pytest.fail("Planning and reading cannot invoke a model")
 
-    monkeypatch.setattr(server, "execute_generation_plan", forbidden)
+    monkeypatch.setattr(jobs, "execute_generation_plan", forbidden)
     with running(workspace) as instance:
         status, session = request(instance, "/api/session")
         assert status == 200 and session["api_calls"] == 0

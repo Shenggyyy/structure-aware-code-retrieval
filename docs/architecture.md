@@ -78,7 +78,8 @@ flowchart TD
 | `workbench.preparation` | Reuse snapshot-bound index/vector/graph builders with independent stage state |
 | `workbench.comparison` / `workbench.storage` | Five-strategy previews, incremental saves and self-contained history |
 | `workbench.generation` | Freeze saved contexts and one model into a priced plan, enforce explicit approval, journal requests and preserve answer outcomes |
-| `workbench.server` / packaged browser assets | Loopback HTTP boundary, background jobs, repository controls, evidence comparison and saved-run views |
+| `workbench.server` / packaged browser assets | FastAPI routes and Uvicorn lifecycle, loopback HTTP boundary, repository controls, evidence comparison and saved-run views |
+| `workbench.jobs` / `workbench.security` | Durable single-job worker and recovery; shared request guards, bounded HTTP parsing and response headers |
 | `workbench/static/i18n.js` | Shared English/Chinese interface messages, language selection and fallback; no model or retrieval logic |
 
 Keep the CLI thin and library logic independent of the user interface. Shared data
@@ -156,10 +157,13 @@ flowchart LR
 ```
 
 M9a is a Python service layer plus a thin Typer command group. It introduces no
-second parser, retriever, vector store or database service. M9b adds Python's
-standard-library HTTP server and packaged HTML/CSS/JavaScript over those services.
-This keeps the local single-user workflow in one Python process without a frontend
-toolchain, external database or service deployment. The CLI remains available.
+second parser, retriever, vector store or database service. M9b originally added
+a standard-library HTTP server. The later, explicitly requested
+[HTTP migration](http-migration.md) replaces its manual dispatch with FastAPI
+`@app.get()` / `@app.post()` routes and Uvicorn. The same packaged HTML/CSS/JavaScript
+and service functions remain in use. The local single-user workflow stays in one
+Python process without a frontend toolchain or external database. The CLI remains
+available, with unchanged workspace, model-cache and port options.
 
 The HTTP listener binds only `127.0.0.1`. Strict Host/Origin checks, a per-process
 request token, local-only asset policy and text-based source rendering protect its
