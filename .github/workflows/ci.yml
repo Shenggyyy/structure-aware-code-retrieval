@@ -11,11 +11,17 @@ jobs:
   checks:
     name: Python 3.12 / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
+    # Windows filesystem-heavy QA/archive tests need more than 15 minutes.
+    timeout-minutes: ${{ matrix.timeout_minutes }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            timeout_minutes: 15
+          - os: windows-latest
+            timeout_minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
@@ -34,7 +40,11 @@ jobs:
           node --check src/structure_aware_retrieval/workbench/static/i18n.js
           node --check src/structure_aware_retrieval/workbench/static/app.js
       - name: Test
-        run: uv run --locked pytest --cov --cov-report=term-missing --cov-report=xml
+        # Report the first failure before a later timeout can hide its traceback.
+        run: >-
+          uv run --locked pytest -vv --maxfail=1 --tb=short --durations=20
+          -o faulthandler_timeout=120
+          --cov --cov-report=term-missing --cov-report=xml
       - name: Validate published retrieval overview
         run: uv run --locked python scripts/summarize_results.py --output reports/overview --check
       - name: Build distributions
